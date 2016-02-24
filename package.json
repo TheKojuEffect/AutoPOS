@@ -1,7 +1,7 @@
 {
-  "name": "autopos",
+  "name": "AutoPOS",
   "version": "0.0.0",
-  "description": "Description for AutoPOS",
+  "description": "Auto POint of Sale",
   "private": true,
   "cacheDirectories": [
     "node_modules",
@@ -49,7 +49,6 @@
     "karma": "0.13.19",
     "karma-coverage": "0.5.3",
     "karma-jenkins-reporter": "0.0.2",
-    "generator-jhipster": "2.27.1",
     "lodash": "3.10.1",
     "yo": ">=1.3.0",
     "requirejs": "2.1",
