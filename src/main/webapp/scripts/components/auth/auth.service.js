@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish) {
         return {
             login: function (credentials, callback) {

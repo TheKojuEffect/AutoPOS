@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('PaymentDialogController',
+angular.module('autopos').controller('PaymentDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Payment', 'Vendor',
         function($scope, $stateParams, $uibModalInstance, entity, Payment, Vendor) {
 
@@ -13,7 +13,7 @@ angular.module('autoposApp').controller('PaymentDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:paymentUpdate', result);
+            $scope.$emit('autopos:paymentUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

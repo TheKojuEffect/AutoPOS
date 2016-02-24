@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('NavbarController', function ($scope, $location, $state, Auth, Principal, ENV) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.$state = $state;

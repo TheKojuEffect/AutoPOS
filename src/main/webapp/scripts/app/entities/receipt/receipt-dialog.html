@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myReceiptLabel" translate="autoposApp.receipt.home.createOrEditLabel">Create or edit a Receipt</h4>
+        <h4 class="modal-title" id="myReceiptLabel" translate="autopos.receipt.home.createOrEditLabel">Create or edit a Receipt</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -14,7 +14,7 @@
                     ng-model="receipt.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.receipt.date" for="field_date">Date</label>
+            <label class="control-label" translate="autopos.receipt.date" for="field_date">Date</label>
                 <div class="input-group">
             <input id="field_date" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="receipt.date" is-open="datePickerForDate.status.opened"
             required/>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.receipt.amount" for="field_amount">Amount</label>
+            <label class="control-label" translate="autopos.receipt.amount" for="field_amount">Amount</label>
             <input type="number" class="form-control" name="amount" id="field_amount"
                     ng-model="receipt.amount"
                     required min="0" />
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.receipt.receivedBy" for="field_receivedBy">ReceivedBy</label>
+            <label class="control-label" translate="autopos.receipt.receivedBy" for="field_receivedBy">ReceivedBy</label>
             <input type="text" class="form-control" name="receivedBy" id="field_receivedBy"
                     ng-model="receipt.receivedBy"
                     required ng-minlength="2" ng-maxlength="100" />
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.receipt.remarks" for="field_remarks">Remarks</label>
+            <label class="control-label" translate="autopos.receipt.remarks" for="field_remarks">Remarks</label>
             <input type="text" class="form-control" name="remarks" id="field_remarks"
                     ng-model="receipt.remarks"
                     ng-maxlength="250" />
@@ -83,7 +83,7 @@
         </div>
 
         <div class="form-group">
-            <label translate="autoposApp.receipt.receivedFrom" for="field_receivedFrom">receivedFrom</label>
+            <label translate="autopos.receipt.receivedFrom" for="field_receivedFrom">receivedFrom</label>
             <select class="form-control" id="field_receivedFrom" name="receivedFrom" ng-model="receipt.receivedFrom" ng-options="customer as customer.name for customer in customers track by customer.id">
                 <option value=""></option>
             </select>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('VendorDetailController', function ($scope, $rootScope, $stateParams, entity, Vendor) {
         $scope.vendor = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('autoposApp')
                 $scope.vendor = result;
             });
         };
-        var unsubscribe = $rootScope.$on('autoposApp:vendorUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('autopos:vendorUpdate', function(event, result) {
             $scope.vendor = result;
         });
         $scope.$on('$destroy', unsubscribe);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
 	.controller('TagDeleteController', function($scope, $uibModalInstance, entity, Tag) {
 
         $scope.tag = entity;

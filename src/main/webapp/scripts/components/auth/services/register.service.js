@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .factory('Register', function ($resource) {
         return $resource('api/register', {}, {
         });

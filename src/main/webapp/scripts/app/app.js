@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
+angular.module('autopos', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
     'ui.bootstrap', 'ui.router',  'infinite-scroll', 'angular-loading-bar'])
 

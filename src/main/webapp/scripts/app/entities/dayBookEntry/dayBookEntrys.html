@@ -1,13 +1,13 @@
 <div>
-    <h2 translate="autoposApp.dayBookEntry.home.title">DayBookEntrys</h2>
+    <h2 translate="autopos.dayBookEntry.home.title">DayBookEntrys</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="dayBookEntry.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span 
-                        translate="autoposApp.dayBookEntry.home.createLabel">Create new DayBookEntry
+                    <span
+                        translate="autopos.dayBookEntry.home.createLabel">Create new DayBookEntry
                     </span>
                 </button>
             </div>
@@ -19,10 +19,10 @@
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="date"><span translate="autoposApp.dayBookEntry.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="incomingAmount"><span translate="autoposApp.dayBookEntry.incomingAmount">IncomingAmount</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="outgoingAmount"><span translate="autoposApp.dayBookEntry.outgoingAmount">OutgoingAmount</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="miscExpenses"><span translate="autoposApp.dayBookEntry.miscExpenses">MiscExpenses</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="date"><span translate="autopos.dayBookEntry.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="incomingAmount"><span translate="autopos.dayBookEntry.incomingAmount">IncomingAmount</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="outgoingAmount"><span translate="autopos.dayBookEntry.outgoingAmount">OutgoingAmount</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="miscExpenses"><span translate="autopos.dayBookEntry.miscExpenses">MiscExpenses</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -37,7 +37,7 @@
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="dayBookEntry.detail({id:dayBookEntry.id})"
-                                    class="btn btn-info btn-sm"> 
+                                    class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -49,7 +49,7 @@
                             </button>
                             <button type="submit"
                                     ui-sref="dayBookEntry.delete({id:dayBookEntry.id})"
-                                    class="btn btn-danger btn-sm">                                    
+                                    class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

@@ -227,7 +227,7 @@ gulp.task('usemin', ['images', 'styles'], function() {
 gulp.task('ngconstant:dev', function() {
     return ngConstant({
         dest: 'app.constants.js',
-        name: 'autoposApp',
+        name: 'autopos',
         deps:   false,
         noFile: true,
         interpolate: /\{%=(.+?)%\}/g,
@@ -243,7 +243,7 @@ gulp.task('ngconstant:dev', function() {
 gulp.task('ngconstant:prod', function() {
     return ngConstant({
         dest: 'app.constants.js',
-        name: 'autoposApp',
+        name: 'autopos',
         deps:   false,
         noFile: true,
         interpolate: /\{%=(.+?)%\}/g,

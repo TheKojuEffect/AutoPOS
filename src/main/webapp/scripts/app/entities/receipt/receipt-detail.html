@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span translate="autoposApp.receipt.detail.title">Receipt</span> {{receipt.id}}</h2>
+    <h2><span translate="autopos.receipt.detail.title">Receipt</span> {{receipt.id}}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -12,7 +12,7 @@
             <tbody>
             <tr>
                 <td>
-                    <span translate="autoposApp.receipt.date">Date</span>
+                    <span translate="autopos.receipt.date">Date</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{receipt.date | date:'mediumDate'}}</span>
@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.receipt.amount">Amount</span>
+                    <span translate="autopos.receipt.amount">Amount</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{receipt.amount}}</span>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.receipt.receivedBy">ReceivedBy</span>
+                    <span translate="autopos.receipt.receivedBy">ReceivedBy</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{receipt.receivedBy}}</span>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.receipt.remarks">Remarks</span>
+                    <span translate="autopos.receipt.remarks">Remarks</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{receipt.remarks}}</span>
@@ -44,7 +44,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.receipt.receivedFrom">receivedFrom</span>
+                    <span translate="autopos.receipt.receivedFrom">receivedFrom</span>
                 </td>
                 <td>
                     <a class="form-control-static" ui-sref="customer.detail({id:receipt.receivedFrom.id})">{{receipt.receivedFrom.name}}</a>

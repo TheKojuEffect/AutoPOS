@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('CategoryDialogController',
+angular.module('autopos').controller('CategoryDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Category',
         function($scope, $stateParams, $uibModalInstance, entity, Category) {
 
@@ -12,7 +12,7 @@ angular.module('autoposApp').controller('CategoryDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:categoryUpdate', result);
+            $scope.$emit('autopos:categoryUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
 	.controller('BillItemDeleteController', function($scope, $uibModalInstance, entity, BillItem) {
 
         $scope.billItem = entity;

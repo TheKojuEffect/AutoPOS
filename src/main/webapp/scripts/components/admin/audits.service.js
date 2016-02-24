@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .factory('AuditsService', function ($http) {
         return {
             findAll: function () {

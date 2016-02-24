@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .service('ParseLinks', function () {
         this.parse = function (header) {
             if (header.length == 0) {

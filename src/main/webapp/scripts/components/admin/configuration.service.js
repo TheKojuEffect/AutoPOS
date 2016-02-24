@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .factory('ConfigurationService', function ($rootScope, $filter, $http) {
         return {
             get: function() {

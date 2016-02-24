@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('ReceiptController', function ($scope, $state, Receipt, ParseLinks) {
 
         $scope.receipts = [];

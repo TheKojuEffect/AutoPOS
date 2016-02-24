@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('UserManagementDialogController',
+angular.module('autopos').controller('UserManagementDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'User', 'Language',
         function($scope, $stateParams, $uibModalInstance, entity, User, Language) {
 

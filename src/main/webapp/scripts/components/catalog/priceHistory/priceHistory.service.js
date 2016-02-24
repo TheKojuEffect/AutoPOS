@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .factory('PriceHistory', function ($resource, DateUtils) {
         return $resource('api/priceHistorys/:id', {}, {
             'query': { method: 'GET', isArray: true},

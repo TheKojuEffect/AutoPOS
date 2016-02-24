@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .factory('AuthServerProvider', function loginService($http, localStorageService, Base64) {
         return {
             login: function(credentials) {

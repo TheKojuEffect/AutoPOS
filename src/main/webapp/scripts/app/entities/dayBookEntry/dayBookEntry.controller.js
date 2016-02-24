@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('DayBookEntryController', function ($scope, $state, DayBookEntry, ParseLinks) {
 
         $scope.dayBookEntrys = [];

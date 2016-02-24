@@ -1,13 +1,13 @@
 <div>
-    <h2 translate="autoposApp.brand.home.title">Brands</h2>
+    <h2 translate="autopos.brand.home.title">Brands</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="brand.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span 
-                        translate="autoposApp.brand.home.createLabel">Create new Brand
+                    <span
+                        translate="autopos.brand.home.createLabel">Create new Brand
                     </span>
                 </button>
             </div>
@@ -19,7 +19,7 @@
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="name"><span translate="autoposApp.brand.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span translate="autopos.brand.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -31,7 +31,7 @@
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="brand.detail({id:brand.id})"
-                                    class="btn btn-info btn-sm"> 
+                                    class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -43,7 +43,7 @@
                             </button>
                             <button type="submit"
                                     ui-sref="brand.delete({id:brand.id})"
-                                    class="btn btn-danger btn-sm">                                    
+                                    class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

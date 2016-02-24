@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .directive('jhSort', function () {
         return {
             restrict: 'A',

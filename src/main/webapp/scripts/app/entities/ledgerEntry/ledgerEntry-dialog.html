@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myLedgerEntryLabel" translate="autoposApp.ledgerEntry.home.createOrEditLabel">Create or edit a LedgerEntry</h4>
+        <h4 class="modal-title" id="myLedgerEntryLabel" translate="autopos.ledgerEntry.home.createOrEditLabel">Create or edit a LedgerEntry</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -14,7 +14,7 @@
                     ng-model="ledgerEntry.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.ledgerEntry.date" for="field_date">Date</label>
+            <label class="control-label" translate="autopos.ledgerEntry.date" for="field_date">Date</label>
             <input type="datetime-local" class="form-control" name="date" id="field_date"
                     ng-model="ledgerEntry.date"
             required/>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.ledgerEntry.particular" for="field_particular">Particular</label>
+            <label class="control-label" translate="autopos.ledgerEntry.particular" for="field_particular">Particular</label>
             <input type="text" class="form-control" name="particular" id="field_particular"
                     ng-model="ledgerEntry.particular"
                     required ng-minlength="2" ng-maxlength="150" />
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.ledgerEntry.folio" for="field_folio">Folio</label>
+            <label class="control-label" translate="autopos.ledgerEntry.folio" for="field_folio">Folio</label>
             <input type="text" class="form-control" name="folio" id="field_folio"
                     ng-model="ledgerEntry.folio"
                     ng-minlength="1" ng-maxlength="20" />
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.ledgerEntry.debit" for="field_debit">Debit</label>
+            <label class="control-label" translate="autopos.ledgerEntry.debit" for="field_debit">Debit</label>
             <input type="number" class="form-control" name="debit" id="field_debit"
                     ng-model="ledgerEntry.debit"
                     required min="0" />
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.ledgerEntry.credit" for="field_credit">Credit</label>
+            <label class="control-label" translate="autopos.ledgerEntry.credit" for="field_credit">Credit</label>
             <input type="number" class="form-control" name="credit" id="field_credit"
                     ng-model="ledgerEntry.credit"
                     required min="0" />
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.ledgerEntry.balance" for="field_balance">Balance</label>
+            <label class="control-label" translate="autopos.ledgerEntry.balance" for="field_balance">Balance</label>
             <input type="number" class="form-control" name="balance" id="field_balance"
                     ng-model="ledgerEntry.balance"
                     required min="0" />
@@ -126,7 +126,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.ledgerEntry.remarks" for="field_remarks">Remarks</label>
+            <label class="control-label" translate="autopos.ledgerEntry.remarks" for="field_remarks">Remarks</label>
             <input type="text" class="form-control" name="remarks" id="field_remarks"
                     ng-model="ledgerEntry.remarks"
                     ng-maxlength="250" />
@@ -139,7 +139,7 @@
         </div>
 
         <div class="form-group">
-            <label translate="autoposApp.ledgerEntry.ledger" for="field_ledger">ledger</label>
+            <label translate="autopos.ledgerEntry.ledger" for="field_ledger">ledger</label>
             <select class="form-control" id="field_ledger" name="ledger" ng-model="ledgerEntry.ledger" ng-options="ledger as ledger.id for ledger in ledgers track by ledger.id">
                 <option value=""></option>
             </select>

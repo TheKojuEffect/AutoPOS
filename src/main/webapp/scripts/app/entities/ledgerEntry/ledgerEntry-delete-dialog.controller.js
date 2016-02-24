@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
 	.controller('LedgerEntryDeleteController', function($scope, $uibModalInstance, entity, LedgerEntry) {
 
         $scope.ledgerEntry = entity;

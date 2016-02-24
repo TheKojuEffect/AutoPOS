@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('PaymentDetailController', function ($scope, $rootScope, $stateParams, entity, Payment, Vendor) {
         $scope.payment = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('autoposApp')
                 $scope.payment = result;
             });
         };
-        var unsubscribe = $rootScope.$on('autoposApp:paymentUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('autopos:paymentUpdate', function(event, result) {
             $scope.payment = result;
         });
         $scope.$on('$destroy', unsubscribe);

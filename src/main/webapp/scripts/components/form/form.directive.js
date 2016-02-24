@@ -1,7 +1,7 @@
 /* globals $ */
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .directive('showValidation', function() {
         return {
             restrict: 'A',

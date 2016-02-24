@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('BrandDetailController', function ($scope, $rootScope, $stateParams, entity, Brand) {
         $scope.brand = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('autoposApp')
                 $scope.brand = result;
             });
         };
-        var unsubscribe = $rootScope.$on('autoposApp:brandUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('autopos:brandUpdate', function(event, result) {
             $scope.brand = result;
         });
         $scope.$on('$destroy', unsubscribe);

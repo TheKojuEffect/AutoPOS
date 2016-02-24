@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('StockDialogController',
+angular.module('autopos').controller('StockDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Stock', 'Item',
         function($scope, $stateParams, $uibModalInstance, $q, entity, Stock, Item) {
 
@@ -21,7 +21,7 @@ angular.module('autoposApp').controller('StockDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:stockUpdate', result);
+            $scope.$emit('autopos:stockUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

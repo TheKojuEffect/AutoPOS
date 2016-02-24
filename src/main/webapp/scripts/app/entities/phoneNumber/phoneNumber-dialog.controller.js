@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('PhoneNumberDialogController',
+angular.module('autopos').controller('PhoneNumberDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'PhoneNumber',
         function($scope, $stateParams, $uibModalInstance, entity, PhoneNumber) {
 
@@ -12,7 +12,7 @@ angular.module('autoposApp').controller('PhoneNumberDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:phoneNumberUpdate', result);
+            $scope.$emit('autopos:phoneNumberUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

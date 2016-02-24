@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
 	.controller('PaymentDeleteController', function($scope, $uibModalInstance, entity, Payment) {
 
         $scope.payment = entity;

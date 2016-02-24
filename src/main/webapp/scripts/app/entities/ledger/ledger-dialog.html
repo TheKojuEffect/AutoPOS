@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myLedgerLabel" translate="autoposApp.ledger.home.createOrEditLabel">Create or edit a Ledger</h4>
+        <h4 class="modal-title" id="myLedgerLabel" translate="autopos.ledger.home.createOrEditLabel">Create or edit a Ledger</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -14,7 +14,7 @@
                     ng-model="ledger.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.ledger.balance" for="field_balance">Balance</label>
+            <label class="control-label" translate="autopos.ledger.balance" for="field_balance">Balance</label>
             <input type="number" class="form-control" name="balance" id="field_balance"
                     ng-model="ledger.balance"
                     required min="0" />
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.ledger.remarks" for="field_remarks">Remarks</label>
+            <label class="control-label" translate="autopos.ledger.remarks" for="field_remarks">Remarks</label>
             <input type="text" class="form-control" name="remarks" id="field_remarks"
                     ng-model="ledger.remarks"
                     ng-maxlength="250" />
@@ -47,7 +47,7 @@
         </div>
 
         <div class="form-group">
-            <label translate="autoposApp.ledger.party" for="field_party">party</label>
+            <label translate="autopos.ledger.party" for="field_party">party</label>
             <select class="form-control" id="field_party" name="party" ng-model="ledger.party" ng-options="customer as customer.name for customer in partys | orderBy:'id' track by customer.id">
                 <option value=""></option>
             </select>

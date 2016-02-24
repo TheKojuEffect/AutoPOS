@@ -1,13 +1,13 @@
 <div>
-    <h2 translate="autoposApp.billItem.home.title">BillItems</h2>
+    <h2 translate="autopos.billItem.home.title">BillItems</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="billItem.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span 
-                        translate="autoposApp.billItem.home.createLabel">Create new BillItem
+                    <span
+                        translate="autopos.billItem.home.createLabel">Create new BillItem
                     </span>
                 </button>
             </div>
@@ -19,14 +19,14 @@
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="quantity"><span translate="autoposApp.billItem.quantity">Quantity</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="rate"><span translate="autoposApp.billItem.rate">Rate</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="amount"><span translate="autoposApp.billItem.amount">Amount</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="date"><span translate="autoposApp.billItem.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="remarks"><span translate="autoposApp.billItem.remarks">Remarks</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="issuedBy"><span translate="autoposApp.billItem.issuedBy">IssuedBy</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="particular.name"><span translate="autoposApp.billItem.particular">particular</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="bill.id"><span translate="autoposApp.billItem.bill">bill</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="quantity"><span translate="autopos.billItem.quantity">Quantity</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="rate"><span translate="autopos.billItem.rate">Rate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="amount"><span translate="autopos.billItem.amount">Amount</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="date"><span translate="autopos.billItem.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="remarks"><span translate="autopos.billItem.remarks">Remarks</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="issuedBy"><span translate="autopos.billItem.issuedBy">IssuedBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="particular.name"><span translate="autopos.billItem.particular">particular</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="bill.id"><span translate="autopos.billItem.bill">bill</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -49,7 +49,7 @@
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="billItem.detail({id:billItem.id})"
-                                    class="btn btn-info btn-sm"> 
+                                    class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -61,7 +61,7 @@
                             </button>
                             <button type="submit"
                                     ui-sref="billItem.delete({id:billItem.id})"
-                                    class="btn btn-danger btn-sm">                                    
+                                    class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

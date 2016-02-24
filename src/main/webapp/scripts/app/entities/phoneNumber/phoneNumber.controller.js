@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('PhoneNumberController', function ($scope, $state, PhoneNumber, ParseLinks) {
 
         $scope.phoneNumbers = [];

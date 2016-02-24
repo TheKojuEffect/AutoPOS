@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('ReceiptDialogController',
+angular.module('autopos').controller('ReceiptDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Receipt', 'Customer',
         function($scope, $stateParams, $uibModalInstance, entity, Receipt, Customer) {
 
@@ -13,7 +13,7 @@ angular.module('autoposApp').controller('ReceiptDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:receiptUpdate', result);
+            $scope.$emit('autopos:receiptUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

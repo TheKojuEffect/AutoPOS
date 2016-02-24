@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('BrandController', function ($scope, $state, Brand, ParseLinks) {
 
         $scope.brands = [];

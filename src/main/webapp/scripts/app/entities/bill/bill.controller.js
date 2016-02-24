@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('BillController', function ($scope, $state, Bill, ParseLinks) {
 
         $scope.bills = [];

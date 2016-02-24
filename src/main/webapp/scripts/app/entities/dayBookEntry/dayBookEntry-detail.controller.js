@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('DayBookEntryDetailController', function ($scope, $rootScope, $stateParams, entity, DayBookEntry) {
         $scope.dayBookEntry = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('autoposApp')
                 $scope.dayBookEntry = result;
             });
         };
-        var unsubscribe = $rootScope.$on('autoposApp:dayBookEntryUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('autopos:dayBookEntryUpdate', function(event, result) {
             $scope.dayBookEntry = result;
         });
         $scope.$on('$destroy', unsubscribe);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('LedgerDetailController', function ($scope, $rootScope, $stateParams, entity, Ledger, Customer) {
         $scope.ledger = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('autoposApp')
                 $scope.ledger = result;
             });
         };
-        var unsubscribe = $rootScope.$on('autoposApp:ledgerUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('autopos:ledgerUpdate', function(event, result) {
             $scope.ledger = result;
         });
         $scope.$on('$destroy', unsubscribe);

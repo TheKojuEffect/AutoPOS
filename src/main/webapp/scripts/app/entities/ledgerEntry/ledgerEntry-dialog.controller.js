@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('LedgerEntryDialogController',
+angular.module('autopos').controller('LedgerEntryDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'LedgerEntry', 'Ledger',
         function($scope, $stateParams, $uibModalInstance, entity, LedgerEntry, Ledger) {
 
@@ -13,7 +13,7 @@ angular.module('autoposApp').controller('LedgerEntryDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:ledgerEntryUpdate', result);
+            $scope.$emit('autopos:ledgerEntryUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

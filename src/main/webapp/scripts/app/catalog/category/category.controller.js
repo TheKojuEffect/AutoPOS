@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('CategoryController', function ($scope, $state, Category, ParseLinks) {
 
         $scope.categorys = [];

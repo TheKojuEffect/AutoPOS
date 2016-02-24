@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('PhoneNumberDetailController', function ($scope, $rootScope, $stateParams, entity, PhoneNumber) {
         $scope.phoneNumber = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('autoposApp')
                 $scope.phoneNumber = result;
             });
         };
-        var unsubscribe = $rootScope.$on('autoposApp:phoneNumberUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('autopos:phoneNumberUpdate', function(event, result) {
             $scope.phoneNumber = result;
         });
         $scope.$on('$destroy', unsubscribe);

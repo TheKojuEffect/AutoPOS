@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .service('DateUtils', function ($filter) {
 
     this.convertLocaleDateToServer = function(date) {

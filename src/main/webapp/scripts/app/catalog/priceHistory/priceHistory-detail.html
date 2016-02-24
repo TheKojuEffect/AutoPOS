@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span translate="autoposApp.priceHistory.detail.title">PriceHistory</span> {{priceHistory.id}}</h2>
+    <h2><span translate="autopos.priceHistory.detail.title">PriceHistory</span> {{priceHistory.id}}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -12,7 +12,7 @@
             <tbody>
             <tr>
                 <td>
-                    <span translate="autoposApp.priceHistory.date">Date</span>
+                    <span translate="autopos.priceHistory.date">Date</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{priceHistory.date | date:'medium'}}</span>
@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.priceHistory.markedPrice">MarkedPrice</span>
+                    <span translate="autopos.priceHistory.markedPrice">MarkedPrice</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{priceHistory.markedPrice}}</span>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.priceHistory.remarks">Remarks</span>
+                    <span translate="autopos.priceHistory.remarks">Remarks</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{priceHistory.remarks}}</span>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.priceHistory.item">item</span>
+                    <span translate="autopos.priceHistory.item">item</span>
                 </td>
                 <td>
                     <a class="form-control-static" ui-sref="item.detail({id:priceHistory.item.id})">{{priceHistory.item.name}}</a>

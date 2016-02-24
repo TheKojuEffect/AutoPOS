@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
 	.controller('BrandDeleteController', function($scope, $uibModalInstance, entity, Brand) {
 
         $scope.brand = entity;

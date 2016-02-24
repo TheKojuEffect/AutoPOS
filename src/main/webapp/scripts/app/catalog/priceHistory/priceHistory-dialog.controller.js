@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('PriceHistoryDialogController',
+angular.module('autopos').controller('PriceHistoryDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'PriceHistory', 'Item',
         function($scope, $stateParams, $uibModalInstance, entity, PriceHistory, Item) {
 
@@ -13,7 +13,7 @@ angular.module('autoposApp').controller('PriceHistoryDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:priceHistoryUpdate', result);
+            $scope.$emit('autopos:priceHistoryUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('BrandDialogController',
+angular.module('autopos').controller('BrandDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Brand',
         function($scope, $stateParams, $uibModalInstance, entity, Brand) {
 
@@ -12,7 +12,7 @@ angular.module('autoposApp').controller('BrandDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:brandUpdate', result);
+            $scope.$emit('autopos:brandUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

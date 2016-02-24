@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('VehicleDialogController',
+angular.module('autopos').controller('VehicleDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Vehicle', 'Customer',
         function($scope, $stateParams, $uibModalInstance, entity, Vehicle, Customer) {
 
@@ -13,7 +13,7 @@ angular.module('autoposApp').controller('VehicleDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:vehicleUpdate', result);
+            $scope.$emit('autopos:vehicleUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

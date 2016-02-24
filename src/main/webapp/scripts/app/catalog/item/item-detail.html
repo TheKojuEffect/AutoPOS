@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span translate="autoposApp.item.detail.title">Item</span> {{item.id}}</h2>
+    <h2><span translate="autopos.item.detail.title">Item</span> {{item.id}}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -12,7 +12,7 @@
             <tbody>
             <tr>
                 <td>
-                    <span translate="autoposApp.item.code">Code</span>
+                    <span translate="autopos.item.code">Code</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{item.code}}</span>
@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.item.name">Name</span>
+                    <span translate="autopos.item.name">Name</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{item.name}}</span>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.item.description">Description</span>
+                    <span translate="autopos.item.description">Description</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{item.description}}</span>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.item.remarks">Remarks</span>
+                    <span translate="autopos.item.remarks">Remarks</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{item.remarks}}</span>
@@ -44,7 +44,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.item.markedPrice">MarkedPrice</span>
+                    <span translate="autopos.item.markedPrice">MarkedPrice</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{item.markedPrice}}</span>
@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.item.category">category</span>
+                    <span translate="autopos.item.category">category</span>
                 </td>
                 <td>
                     <a class="form-control-static" ui-sref="category.detail({id:item.category.id})">{{item.category.shortName}}</a>
@@ -60,7 +60,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.item.brand">brand</span>
+                    <span translate="autopos.item.brand">brand</span>
                 </td>
                 <td>
                     <a class="form-control-static" ui-sref="brand.detail({id:item.brand.id})">{{item.brand.name}}</a>
@@ -68,7 +68,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.item.tag">tag</span>
+                    <span translate="autopos.item.tag">tag</span>
                 </td>
                 <td>
                     <span ng-repeat="tag in item.tags">

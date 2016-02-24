@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .directive('hasAnyAuthority', ['Principal', function (Principal) {
         return {
             restrict: 'A',
@@ -28,7 +28,7 @@ angular.module('autoposApp')
 
                 if (authorities.length > 0) {
                     defineVisibility(true);
-                    
+
                     scope.$watch(function(scope) {
                         return Principal.isAuthenticated();
                     }, function(newValue) {

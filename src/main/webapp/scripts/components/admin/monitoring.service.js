@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .factory('MonitoringService', function ($rootScope, $http) {
         return {
             getMetrics: function () {

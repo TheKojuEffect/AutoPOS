@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .factory('Bill', function ($resource, DateUtils) {
         return $resource('api/bills/:id', {}, {
             'query': { method: 'GET', isArray: true},

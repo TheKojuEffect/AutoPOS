@@ -10,27 +10,27 @@ public class HeaderUtil {
 
     public static HttpHeaders createAlert(String message, String param) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-autoposApp-alert", message);
-        headers.add("X-autoposApp-params", param);
+        headers.add("X-autopos-alert", message);
+        headers.add("X-autopos-params", param);
         return headers;
     }
 
     public static HttpHeaders createEntityCreationAlert(String entityName, String param) {
-        return createAlert("autoposApp." + entityName + ".created", param);
+        return createAlert("autopos." + entityName + ".created", param);
     }
 
     public static HttpHeaders createEntityUpdateAlert(String entityName, String param) {
-        return createAlert("autoposApp." + entityName + ".updated", param);
+        return createAlert("autopos." + entityName + ".updated", param);
     }
 
     public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
-        return createAlert("autoposApp." + entityName + ".deleted", param);
+        return createAlert("autopos." + entityName + ".deleted", param);
     }
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-autoposApp-error", "error." + errorKey);
-        headers.add("X-autoposApp-params", entityName);
+        headers.add("X-autopos-error", "error." + errorKey);
+        headers.add("X-autopos-params", entityName);
         return headers;
     }
 }

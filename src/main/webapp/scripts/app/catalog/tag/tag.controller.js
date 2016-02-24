@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('TagController', function ($scope, $state, Tag, ParseLinks) {
 
         $scope.tags = [];

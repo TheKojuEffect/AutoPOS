@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('DayBookEntryDialogController',
+angular.module('autopos').controller('DayBookEntryDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'DayBookEntry',
         function($scope, $stateParams, $uibModalInstance, entity, DayBookEntry) {
 
@@ -12,7 +12,7 @@ angular.module('autoposApp').controller('DayBookEntryDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:dayBookEntryUpdate', result);
+            $scope.$emit('autopos:dayBookEntryUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

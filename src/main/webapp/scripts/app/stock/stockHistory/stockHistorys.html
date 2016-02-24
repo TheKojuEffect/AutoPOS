@@ -1,13 +1,13 @@
 <div>
-    <h2 translate="autoposApp.stockHistory.home.title">StockHistorys</h2>
+    <h2 translate="autopos.stockHistory.home.title">StockHistorys</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="stockHistory.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span 
-                        translate="autoposApp.stockHistory.home.createLabel">Create new StockHistory
+                    <span
+                        translate="autopos.stockHistory.home.createLabel">Create new StockHistory
                     </span>
                 </button>
             </div>
@@ -19,10 +19,10 @@
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="reset()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="date"><span translate="autoposApp.stockHistory.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="quantity"><span translate="autoposApp.stockHistory.quantity">Quantity</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="remarks"><span translate="autoposApp.stockHistory.remarks">Remarks</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="item.name"><span translate="autoposApp.stockHistory.item">item</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="date"><span translate="autopos.stockHistory.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="quantity"><span translate="autopos.stockHistory.quantity">Quantity</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="remarks"><span translate="autopos.stockHistory.remarks">Remarks</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="item.name"><span translate="autopos.stockHistory.item">item</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -39,7 +39,7 @@
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="stockHistory.detail({id:stockHistory.id})"
-                                    class="btn btn-info btn-sm"> 
+                                    class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -51,7 +51,7 @@
                             </button>
                             <button type="submit"
                                     ui-sref="stockHistory.delete({id:stockHistory.id})"
-                                    class="btn btn-danger btn-sm">                                    
+                                    class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

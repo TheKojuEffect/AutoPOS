@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('LedgerEntryController', function ($scope, $state, LedgerEntry, ParseLinks) {
 
         $scope.ledgerEntrys = [];

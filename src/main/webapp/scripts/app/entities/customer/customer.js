@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .config(function ($stateProvider) {
         $stateProvider
             .state('customer', {
@@ -8,7 +8,7 @@ angular.module('autoposApp')
                 url: '/customers',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'autoposApp.customer.home.title'
+                    pageTitle: 'autopos.customer.home.title'
                 },
                 views: {
                     'content@': {
@@ -29,7 +29,7 @@ angular.module('autoposApp')
                 url: '/customer/{id}',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'autoposApp.customer.detail.title'
+                    pageTitle: 'autopos.customer.detail.title'
                 },
                 views: {
                     'content@': {

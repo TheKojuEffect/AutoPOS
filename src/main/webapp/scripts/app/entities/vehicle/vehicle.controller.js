@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('VehicleController', function ($scope, $state, Vehicle, ParseLinks) {
 
         $scope.vehicles = [];

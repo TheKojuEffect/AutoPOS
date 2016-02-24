@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('StockHistoryDetailController', function ($scope, $rootScope, $stateParams, entity, StockHistory, Item) {
         $scope.stockHistory = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('autoposApp')
                 $scope.stockHistory = result;
             });
         };
-        var unsubscribe = $rootScope.$on('autoposApp:stockHistoryUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('autopos:stockHistoryUpdate', function(event, result) {
             $scope.stockHistory = result;
         });
         $scope.$on('$destroy', unsubscribe);

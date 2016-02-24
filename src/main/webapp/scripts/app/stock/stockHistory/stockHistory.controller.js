@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('StockHistoryController', function ($scope, $state, StockHistory, ParseLinks) {
 
         $scope.stockHistorys = [];

@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span translate="autoposApp.payment.detail.title">Payment</span> {{payment.id}}</h2>
+    <h2><span translate="autopos.payment.detail.title">Payment</span> {{payment.id}}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -12,7 +12,7 @@
             <tbody>
             <tr>
                 <td>
-                    <span translate="autoposApp.payment.date">Date</span>
+                    <span translate="autopos.payment.date">Date</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{payment.date | date:'mediumDate'}}</span>
@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.payment.amount">Amount</span>
+                    <span translate="autopos.payment.amount">Amount</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{payment.amount}}</span>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.payment.receiptNumber">ReceiptNumber</span>
+                    <span translate="autopos.payment.receiptNumber">ReceiptNumber</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{payment.receiptNumber}}</span>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.payment.paidBy">PaidBy</span>
+                    <span translate="autopos.payment.paidBy">PaidBy</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{payment.paidBy}}</span>
@@ -44,7 +44,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.payment.remarks">Remarks</span>
+                    <span translate="autopos.payment.remarks">Remarks</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{payment.remarks}}</span>
@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.payment.paidTo">paidTo</span>
+                    <span translate="autopos.payment.paidTo">paidTo</span>
                 </td>
                 <td>
                     <a class="form-control-static" ui-sref="vendor.detail({id:payment.paidTo.id})">{{payment.paidTo.name}}</a>

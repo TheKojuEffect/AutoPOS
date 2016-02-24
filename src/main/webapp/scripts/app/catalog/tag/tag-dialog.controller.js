@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp').controller('TagDialogController',
+angular.module('autopos').controller('TagDialogController',
     ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Tag',
         function($scope, $stateParams, $uibModalInstance, entity, Tag) {
 
@@ -12,7 +12,7 @@ angular.module('autoposApp').controller('TagDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('autoposApp:tagUpdate', result);
+            $scope.$emit('autopos:tagUpdate', result);
             $uibModalInstance.close(result);
             $scope.isSaving = false;
         };

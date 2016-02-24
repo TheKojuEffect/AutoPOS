@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
 	.controller('PhoneNumberDeleteController', function($scope, $uibModalInstance, entity, PhoneNumber) {
 
         $scope.phoneNumber = entity;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
 	.controller('DayBookEntryDeleteController', function($scope, $uibModalInstance, entity, DayBookEntry) {
 
         $scope.dayBookEntry = entity;

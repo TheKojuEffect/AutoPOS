@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myVendorLabel" translate="autoposApp.vendor.home.createOrEditLabel">Create or edit a Vendor</h4>
+        <h4 class="modal-title" id="myVendorLabel" translate="autopos.vendor.home.createOrEditLabel">Create or edit a Vendor</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -14,7 +14,7 @@
                     ng-model="vendor.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.vendor.name" for="field_name">Name</label>
+            <label class="control-label" translate="autopos.vendor.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
                     ng-model="vendor.name"
                     required ng-minlength="2" ng-maxlength="100" />
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.vendor.remarks" for="field_remarks">Remarks</label>
+            <label class="control-label" translate="autopos.vendor.remarks" for="field_remarks">Remarks</label>
             <input type="text" class="form-control" name="remarks" id="field_remarks"
                     ng-model="vendor.remarks"
                     ng-maxlength="250" />
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.vendor.phoneNumbers" for="field_phoneNumbers">PhoneNumbers</label>
+            <label class="control-label" translate="autopos.vendor.phoneNumbers" for="field_phoneNumbers">PhoneNumbers</label>
             <input type="text" class="form-control" name="phoneNumbers" id="field_phoneNumbers"
                     ng-model="vendor.phoneNumbers"
                     required ng-maxlength="250" />

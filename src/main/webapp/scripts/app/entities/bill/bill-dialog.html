@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myBillLabel" translate="autoposApp.bill.home.createOrEditLabel">Create or edit a Bill</h4>
+        <h4 class="modal-title" id="myBillLabel" translate="autopos.bill.home.createOrEditLabel">Create or edit a Bill</h4>
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
@@ -14,7 +14,7 @@
                     ng-model="bill.id" readonly />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.bill.date" for="field_date">Date</label>
+            <label class="control-label" translate="autopos.bill.date" for="field_date">Date</label>
             <input type="datetime-local" class="form-control" name="date" id="field_date"
                     ng-model="bill.date"
             required/>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.bill.subTotal" for="field_subTotal">SubTotal</label>
+            <label class="control-label" translate="autopos.bill.subTotal" for="field_subTotal">SubTotal</label>
             <input type="number" class="form-control" name="subTotal" id="field_subTotal"
                     ng-model="bill.subTotal"
                     required min="0" />
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.bill.discount" for="field_discount">Discount</label>
+            <label class="control-label" translate="autopos.bill.discount" for="field_discount">Discount</label>
             <input type="number" class="form-control" name="discount" id="field_discount"
                     ng-model="bill.discount"
                     required min="0" />
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.bill.taxableAmount" for="field_taxableAmount">TaxableAmount</label>
+            <label class="control-label" translate="autopos.bill.taxableAmount" for="field_taxableAmount">TaxableAmount</label>
             <input type="number" class="form-control" name="taxableAmount" id="field_taxableAmount"
                     ng-model="bill.taxableAmount"
                     required min="0" />
@@ -90,7 +90,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.bill.tax" for="field_tax">Tax</label>
+            <label class="control-label" translate="autopos.bill.tax" for="field_tax">Tax</label>
             <input type="number" class="form-control" name="tax" id="field_tax"
                     ng-model="bill.tax"
                     required min="0" />
@@ -110,7 +110,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.bill.grandTotal" for="field_grandTotal">GrandTotal</label>
+            <label class="control-label" translate="autopos.bill.grandTotal" for="field_grandTotal">GrandTotal</label>
             <input type="number" class="form-control" name="grandTotal" id="field_grandTotal"
                     ng-model="bill.grandTotal"
                     required min="0" />
@@ -130,7 +130,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.bill.client" for="field_client">Client</label>
+            <label class="control-label" translate="autopos.bill.client" for="field_client">Client</label>
             <input type="text" class="form-control" name="client" id="field_client"
                     ng-model="bill.client"
                     required ng-minlength="2" ng-maxlength="100" />
@@ -150,7 +150,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.bill.remarks" for="field_remarks">Remarks</label>
+            <label class="control-label" translate="autopos.bill.remarks" for="field_remarks">Remarks</label>
             <input type="text" class="form-control" name="remarks" id="field_remarks"
                     ng-model="bill.remarks"
                     ng-maxlength="250" />
@@ -162,7 +162,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autoposApp.bill.issuedBy" for="field_issuedBy">IssuedBy</label>
+            <label class="control-label" translate="autopos.bill.issuedBy" for="field_issuedBy">IssuedBy</label>
             <input type="text" class="form-control" name="issuedBy" id="field_issuedBy"
                     ng-model="bill.issuedBy"
                     required ng-minlength="2" ng-maxlength="100" />
@@ -183,7 +183,7 @@
         </div>
 
         <div class="form-group">
-            <label translate="autoposApp.bill.vehicle" for="field_vehicle">vehicle</label>
+            <label translate="autopos.bill.vehicle" for="field_vehicle">vehicle</label>
             <select class="form-control" id="field_vehicle" name="vehicle" ng-model="bill.vehicle" ng-options="vehicle as vehicle.number for vehicle in vehicles track by vehicle.id">
                 <option value=""></option>
             </select>

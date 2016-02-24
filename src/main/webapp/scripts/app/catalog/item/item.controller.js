@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('ItemController', function ($scope, $state, Item, ParseLinks) {
 
         $scope.items = [];

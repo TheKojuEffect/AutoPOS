@@ -1,13 +1,13 @@
 <div>
-    <h2 translate="autoposApp.customer.home.title">Customers</h2>
+    <h2 translate="autopos.customer.home.title">Customers</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="customer.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span 
-                        translate="autoposApp.customer.home.createLabel">Create new Customer
+                    <span
+                        translate="autopos.customer.home.createLabel">Create new Customer
                     </span>
                 </button>
             </div>
@@ -19,9 +19,9 @@
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="name"><span translate="autoposApp.customer.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="remarks"><span translate="autoposApp.customer.remarks">Remarks</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="phoneNumbers"><span translate="autoposApp.customer.phoneNumbers">PhoneNumbers</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span translate="autopos.customer.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="remarks"><span translate="autopos.customer.remarks">Remarks</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="phoneNumbers"><span translate="autopos.customer.phoneNumbers">PhoneNumbers</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -35,7 +35,7 @@
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
                                     ui-sref="customer.detail({id:customer.id})"
-                                    class="btn btn-info btn-sm"> 
+                                    class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
@@ -47,7 +47,7 @@
                             </button>
                             <button type="submit"
                                     ui-sref="customer.delete({id:customer.id})"
-                                    class="btn btn-danger btn-sm">                                    
+                                    class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
                             </button>

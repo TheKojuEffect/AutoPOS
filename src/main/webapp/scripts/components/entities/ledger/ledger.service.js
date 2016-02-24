@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .factory('Ledger', function ($resource, DateUtils) {
         return $resource('api/ledgers/:id', {}, {
             'query': { method: 'GET', isArray: true},

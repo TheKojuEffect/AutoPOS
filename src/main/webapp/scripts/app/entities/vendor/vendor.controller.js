@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('VendorController', function ($scope, $state, Vendor, ParseLinks) {
 
         $scope.vendors = [];

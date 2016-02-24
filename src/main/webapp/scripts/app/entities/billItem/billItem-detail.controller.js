@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('BillItemDetailController', function ($scope, $rootScope, $stateParams, entity, BillItem, Item, Bill) {
         $scope.billItem = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('autoposApp')
                 $scope.billItem = result;
             });
         };
-        var unsubscribe = $rootScope.$on('autoposApp:billItemUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('autopos:billItemUpdate', function(event, result) {
             $scope.billItem = result;
         });
         $scope.$on('$destroy', unsubscribe);

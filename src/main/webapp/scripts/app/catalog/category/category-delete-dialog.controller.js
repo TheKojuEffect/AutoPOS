@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
 	.controller('CategoryDeleteController', function($scope, $uibModalInstance, entity, Category) {
 
         $scope.category = entity;

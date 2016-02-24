@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .controller('PaymentController', function ($scope, $state, Payment, ParseLinks) {
 
         $scope.payments = [];

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .filter('capitalize', function () {
         return function (input, scope) {
             if (input != null)

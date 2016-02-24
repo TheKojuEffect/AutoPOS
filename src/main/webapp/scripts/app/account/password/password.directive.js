@@ -1,7 +1,7 @@
 /* globals $ */
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
     .directive('passwordStrengthBar', function () {
         return {
             replace: true,

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('autoposApp')
+angular.module('autopos')
 	.controller('PriceHistoryDeleteController', function($scope, $uibModalInstance, entity, PriceHistory) {
 
         $scope.priceHistory = entity;

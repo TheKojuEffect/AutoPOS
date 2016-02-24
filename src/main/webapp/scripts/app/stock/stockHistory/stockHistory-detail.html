@@ -1,6 +1,6 @@
 
 <div>
-    <h2><span translate="autoposApp.stockHistory.detail.title">StockHistory</span> {{stockHistory.id}}</h2>
+    <h2><span translate="autopos.stockHistory.detail.title">StockHistory</span> {{stockHistory.id}}</h2>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -12,7 +12,7 @@
             <tbody>
             <tr>
                 <td>
-                    <span translate="autoposApp.stockHistory.date">Date</span>
+                    <span translate="autopos.stockHistory.date">Date</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{stockHistory.date | date:'medium'}}</span>
@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.stockHistory.quantity">Quantity</span>
+                    <span translate="autopos.stockHistory.quantity">Quantity</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{stockHistory.quantity}}</span>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.stockHistory.remarks">Remarks</span>
+                    <span translate="autopos.stockHistory.remarks">Remarks</span>
                 </td>
                 <td>
                     <span class="form-control-static">{{stockHistory.remarks}}</span>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="autoposApp.stockHistory.item">item</span>
+                    <span translate="autopos.stockHistory.item">item</span>
                 </td>
                 <td>
                     <a class="form-control-static" ui-sref="item.detail({id:stockHistory.item.id})">{{stockHistory.item.name}}</a>
