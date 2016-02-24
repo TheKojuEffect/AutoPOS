@@ -1,0 +1,30 @@
+{
+    "autoposApp": {
+        "billItem" : {
+            "home": {
+                "title": "BillItems",
+                "createLabel": "Créer un nouveau BillItem",
+                "createOrEditLabel": "Créer ou éditer un BillItem",
+                "search": "Search for BillItem"
+            },
+            "created": "Un nouveau BillItem a été créé avec l'identifiant {{ param }}",
+            "updated": "Le BillItem avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le BillItem avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le BillItem {{ id }} ?"
+            },
+            "detail": {
+                "title": "BillItem"
+            },
+            "quantity": "Quantity",
+            "rate": "Rate",
+            "amount": "Amount",
+            "date": "Date",
+            "remarks": "Remarks",
+            "issuedBy": "IssuedBy",
+            "particular": "Particular",
+            "bill": "Bill"
+        }
+    }
+}
+

@@ -1,0 +1,25 @@
+{
+    "autoposApp": {
+        "ledger" : {
+            "home": {
+                "title": "Ledgers",
+                "createLabel": "Créer un nouveau Ledger",
+                "createOrEditLabel": "Créer ou éditer un Ledger",
+                "search": "Search for Ledger"
+            },
+            "created": "Un nouveau Ledger a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Ledger avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Ledger avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Ledger {{ id }} ?"
+            },
+            "detail": {
+                "title": "Ledger"
+            },
+            "balance": "Balance",
+            "remarks": "Remarks",
+            "party": "Party"
+        }
+    }
+}
+

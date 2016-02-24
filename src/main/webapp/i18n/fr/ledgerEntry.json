@@ -1,0 +1,30 @@
+{
+    "autoposApp": {
+        "ledgerEntry" : {
+            "home": {
+                "title": "LedgerEntrys",
+                "createLabel": "Créer un nouveau LedgerEntry",
+                "createOrEditLabel": "Créer ou éditer un LedgerEntry",
+                "search": "Search for LedgerEntry"
+            },
+            "created": "Un nouveau LedgerEntry a été créé avec l'identifiant {{ param }}",
+            "updated": "Le LedgerEntry avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le LedgerEntry avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le LedgerEntry {{ id }} ?"
+            },
+            "detail": {
+                "title": "LedgerEntry"
+            },
+            "date": "Date",
+            "particular": "Particular",
+            "folio": "Folio",
+            "debit": "Debit",
+            "credit": "Credit",
+            "balance": "Balance",
+            "remarks": "Remarks",
+            "ledger": "Ledger"
+        }
+    }
+}
+

@@ -1,0 +1,10 @@
+autopos-postgresql:
+  container_name: autopos-postgresql
+  image: postgres:9.4.5
+  # volumes:
+  #   - ~/volumes/jhipster/AutoPOS/postgresql/:/var/lib/postgresql/
+  environment:
+    - POSTGRES_USER=AutoPOS
+    - POSTGRES_PASSWORD=
+  ports:
+    - "5432:5432"

@@ -1,0 +1,27 @@
+{
+    "autoposApp": {
+        "receipt" : {
+            "home": {
+                "title": "Receipts",
+                "createLabel": "Créer un nouveau Receipt",
+                "createOrEditLabel": "Créer ou éditer un Receipt",
+                "search": "Search for Receipt"
+            },
+            "created": "Un nouveau Receipt a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Receipt avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Receipt avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Receipt {{ id }} ?"
+            },
+            "detail": {
+                "title": "Receipt"
+            },
+            "date": "Date",
+            "amount": "Amount",
+            "receivedBy": "ReceivedBy",
+            "remarks": "Remarks",
+            "receivedFrom": "ReceivedFrom"
+        }
+    }
+}
+

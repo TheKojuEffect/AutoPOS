@@ -1,0 +1,25 @@
+{
+    "autoposApp": {
+        "priceHistory" : {
+            "home": {
+                "title": "PriceHistorys",
+                "createLabel": "Create a new PriceHistory",
+                "createOrEditLabel": "Create or edit a PriceHistory",
+                "search": "Search for PriceHistory"
+            },
+            "created": "A new PriceHistory is created with identifier {{ param }}",
+            "updated": "A PriceHistory is updated with identifier {{ param }}",
+            "deleted": "A PriceHistory is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete PriceHistory {{ id }}?"
+            },
+            "detail": {
+                "title": "PriceHistory"
+            },
+            "date": "Date",
+            "markedPrice": "MarkedPrice",
+            "remarks": "Remarks",
+            "item": "Item"
+        }
+    }
+}

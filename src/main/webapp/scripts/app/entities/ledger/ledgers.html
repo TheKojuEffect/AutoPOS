@@ -1,0 +1,65 @@
+<div>
+    <h2 translate="autoposApp.ledger.home.title">Ledgers</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="ledger.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+                        translate="autoposApp.ledger.home.createLabel">Create new Ledger
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="balance"><span translate="autoposApp.ledger.balance">Balance</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="remarks"><span translate="autoposApp.ledger.remarks">Remarks</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="party.name"><span translate="autoposApp.ledger.party">party</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="ledger in ledgers track by ledger.id">
+                    <td><a ui-sref="ledger.detail({id:ledger.id})">{{ledger.id}}</a></td>
+                    <td>{{ledger.balance}}</td>
+                    <td>{{ledger.remarks}}</td>
+                    <td>
+                        <a ui-sref="customer.detail({id:ledger.party.id})">{{ledger.party.name}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="ledger.detail({id:ledger.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="ledger.edit({id:ledger.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="ledger.delete({id:ledger.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>
