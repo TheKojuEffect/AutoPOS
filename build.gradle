@@ -7,7 +7,6 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath group: 'org.sonarqube.gradle', name: 'gradle-sonarqube-plugin', version: '1.0'
         classpath group: 'net.ltgt.gradle', name: 'gradle-apt-plugin', version: '0.4'
         classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: spring_boot_version
         classpath group: 'org.springframework.build.gradle', name: 'propdeps-plugin', version: '0.0.7'
@@ -56,12 +55,8 @@ task cucumberTest(type: Test) {
 test.finalizedBy(cucumberTest)
 
 apply from: 'yeoman.gradle'
-apply from: 'sonar.gradle'
 
 apply from: 'liquibase.gradle'
-
-apply from: 'mapstruct.gradle'
-//jhipster-needle-gradle-apply-from - JHipster will add additional gradle scripts to be applied here
 
 if (project.hasProperty('prod')) {
     apply from: 'profile_prod.gradle'
@@ -150,13 +145,10 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-config', version: spring_security_version
     compile group: 'org.springframework.security', name: 'spring-security-data', version: spring_security_version
     compile group: 'org.springframework.security', name: 'spring-security-web', version: spring_security_version
-    compile(group: 'io.springfox', name: 'springfox-swagger2', version: springfox_version){
-        exclude module: 'mapstruct'
-    }
+    compile(group: 'io.springfox', name: 'springfox-swagger2', version: springfox_version)
 
     compile group: 'org.postgresql', name: 'postgresql', version: postgresql_version
     compile group: 'fr.ippon.spark.metrics', name: 'metrics-spark-reporter', version: metrics_spark_reporter_version
-    compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: mapstruct_version
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: awaility_version
     testCompile group: 'com.jayway.jsonpath', name: 'json-path'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
