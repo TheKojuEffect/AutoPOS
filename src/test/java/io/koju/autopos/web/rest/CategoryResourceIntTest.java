@@ -1,8 +1,9 @@
 package io.koju.autopos.web.rest;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.Category;
-import io.koju.autopos.repository.CategoryRepository;
+import io.koju.autopos.catalog.domain.Category;
+import io.koju.autopos.catalog.web.CategoryResource;
+import io.koju.autopos.catalog.service.CategoryRepository;
 
 import org.junit.Before;
 import org.junit.Test;

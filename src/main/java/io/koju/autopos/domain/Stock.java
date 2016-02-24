@@ -1,13 +1,12 @@
 package io.koju.autopos.domain;
 
+import io.koju.autopos.catalog.domain.Item;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -26,15 +25,15 @@ public class Stock implements Serializable {
     @Min(value = 0)
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
-    
+
     @Size(max = 250)
     @Column(name = "location", length = 250)
     private String location;
-    
+
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
-    
+
     @OneToOne
     private Item item;
 
@@ -49,7 +48,7 @@ public class Stock implements Serializable {
     public Integer getQuantity() {
         return quantity;
     }
-    
+
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
@@ -57,7 +56,7 @@ public class Stock implements Serializable {
     public String getLocation() {
         return location;
     }
-    
+
     public void setLocation(String location) {
         this.location = location;
     }
@@ -65,7 +64,7 @@ public class Stock implements Serializable {
     public String getRemarks() {
         return remarks;
     }
-    
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }

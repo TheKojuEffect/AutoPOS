@@ -1,9 +1,10 @@
 package io.koju.autopos.web.rest;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.Item;
-import io.koju.autopos.repository.ItemRepository;
-import io.koju.autopos.service.ItemService;
+import io.koju.autopos.catalog.domain.Item;
+import io.koju.autopos.catalog.web.ItemResource;
+import io.koju.autopos.catalog.service.ItemRepository;
+import io.koju.autopos.catalog.service.ItemService;
 
 import org.junit.Before;
 import org.junit.Test;

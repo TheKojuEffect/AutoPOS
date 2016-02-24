@@ -1,8 +1,9 @@
 package io.koju.autopos.web.rest;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.PriceHistory;
-import io.koju.autopos.repository.PriceHistoryRepository;
+import io.koju.autopos.catalog.domain.PriceHistory;
+import io.koju.autopos.catalog.web.PriceHistoryResource;
+import io.koju.autopos.catalog.service.PriceHistoryRepository;
 
 import org.junit.Before;
 import org.junit.Test;

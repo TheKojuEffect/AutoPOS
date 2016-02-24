@@ -1,8 +1,9 @@
 package io.koju.autopos.web.rest;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.Brand;
-import io.koju.autopos.repository.BrandRepository;
+import io.koju.autopos.catalog.domain.Brand;
+import io.koju.autopos.catalog.web.BrandResource;
+import io.koju.autopos.catalog.service.BrandRepository;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('autoposApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate', 
+angular.module('autoposApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate',
     'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
-    // jhipster-needle-angularjs-add-module JHipster will add new module here
     'ui.bootstrap', 'ui.router',  'infinite-scroll', 'angular-loading-bar'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, ENV, VERSION) {
@@ -19,7 +18,7 @@ angular.module('autoposApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascal
                 $window.document.title = title;
             });
         };
-        
+
         $rootScope.ENV = ENV;
         $rootScope.VERSION = VERSION;
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
@@ -29,13 +28,13 @@ angular.module('autoposApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascal
             if (Principal.isIdentityResolved()) {
                 Auth.authorize();
             }
-			
-            
+
+
             // Update the language
             Language.getCurrent().then(function (language) {
                 $translate.use(language);
             });
-            
+
         });
 
         $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
@@ -56,11 +55,11 @@ angular.module('autoposApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascal
             }
             updateTitle(titleKey);
         });
-        
+
         // if the current translation changes, update the window title
         $rootScope.$on('$translateChangeSuccess', function() { updateTitle(); });
 
-        
+
         $rootScope.back = function() {
             // If previous state is 'activate' or do not exist go to 'home'
             if ($rootScope.previousStateName === 'activate' || $state.get($rootScope.previousStateName) === null) {
@@ -79,7 +78,7 @@ angular.module('autoposApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascal
 
         $urlRouterProvider.otherwise('/');
         $stateProvider.state('site', {
-            'abstract': true,
+            abstract: true,
             views: {
                 'navbar@': {
                     templateUrl: 'scripts/components/navbar/navbar.html',
@@ -102,8 +101,7 @@ angular.module('autoposApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascal
         $httpProvider.interceptors.push('authExpiredInterceptor');
         $httpProvider.interceptors.push('authInterceptor');
         $httpProvider.interceptors.push('notificationInterceptor');
-        // jhipster-needle-angularjs-add-interceptor JHipster will add new application interceptor here
-        
+
         // Initialize angular-translate
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: 'i18n/{lang}/{part}.json'
@@ -117,9 +115,8 @@ angular.module('autoposApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascal
         tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
-        
+
     })
-    // jhipster-needle-angularjs-add-config JHipster will add new application configuration here
     .config(['$urlMatcherFactoryProvider', function($urlMatcherFactory) {
         $urlMatcherFactory.type('boolean', {
             name : 'boolean',

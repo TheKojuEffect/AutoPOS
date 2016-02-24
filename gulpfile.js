@@ -53,18 +53,18 @@ gulp.task('test', ['wiredep:test', 'ngconstant:dev'], function(done) {
 gulp.task('copy', function() {
     return es.merge(  // copy i18n folders only if translation is enabled
         gulp.src(config.app + 'i18n/**')
-        .pipe(plumber({errorHandler: handleErrors}))
-        .pipe(changed(config.dist + 'i18n/'))
-        .pipe(gulp.dest(config.dist + 'i18n/')), 
+            .pipe(plumber({errorHandler: handleErrors}))
+            .pipe(changed(config.dist + 'i18n/'))
+            .pipe(gulp.dest(config.dist + 'i18n/')),
         gulp.src(config.app + 'bower_components/bootstrap/fonts/*.*')
-        .pipe(plumber({errorHandler: handleErrors}))
-        .pipe(changed(config.dist + 'assets/fonts/'))
-        .pipe(gulp.dest(config.dist + 'assets/fonts/')),
+            .pipe(plumber({errorHandler: handleErrors}))
+            .pipe(changed(config.dist + 'assets/fonts/'))
+            .pipe(gulp.dest(config.dist + 'assets/fonts/')),
         gulp.src(config.app + 'assets/**/*.{woff,svg,ttf,eot}')
-        .pipe(plumber({errorHandler: handleErrors}))
-        .pipe(changed(config.dist + 'assets/fonts/'))
-        .pipe(flatten())
-        .pipe(gulp.dest(config.dist + 'assets/fonts/')));
+            .pipe(plumber({errorHandler: handleErrors}))
+            .pipe(changed(config.dist + 'assets/fonts/'))
+            .pipe(flatten())
+            .pipe(gulp.dest(config.dist + 'assets/fonts/')));
 });
 
 gulp.task('images', function() {
@@ -129,14 +129,14 @@ gulp.task('serve', function() {
                 next();
             }
         ]
-        .concat(
-            // Build a list of proxies for routes: [route1_proxy, route2_proxy, ...]
-            proxyRoutes.map(function (r) {
-                var options = url.parse(baseUri + r);
-                options.route = r;
-                options.preserveHost = true;
-                return proxy(options);
-            }));
+            .concat(
+                // Build a list of proxies for routes: [route1_proxy, route2_proxy, ...]
+                proxyRoutes.map(function (r) {
+                    var options = url.parse(baseUri + r);
+                    options.route = r;
+                    options.preserveHost = true;
+                    return proxy(options);
+                }));
 
         browserSync({
             open: true,
@@ -237,7 +237,7 @@ gulp.task('ngconstant:dev', function() {
             VERSION: util.parseVersion()
         }
     })
-    .pipe(gulp.dest(config.app + 'scripts/app/'));
+        .pipe(gulp.dest(config.app + 'scripts/app/'));
 });
 
 gulp.task('ngconstant:prod', function() {
@@ -253,7 +253,7 @@ gulp.task('ngconstant:prod', function() {
             VERSION: util.parseVersion()
         }
     })
-    .pipe(gulp.dest(config.app + 'scripts/app/'));
+        .pipe(gulp.dest(config.app + 'scripts/app/'));
 });
 
 gulp.task('jshint', function() {

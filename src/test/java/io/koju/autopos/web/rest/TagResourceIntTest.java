@@ -1,8 +1,9 @@
 package io.koju.autopos.web.rest;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.Tag;
-import io.koju.autopos.repository.TagRepository;
+import io.koju.autopos.catalog.domain.Tag;
+import io.koju.autopos.catalog.web.TagResource;
+import io.koju.autopos.catalog.service.TagRepository;
 
 import org.junit.Before;
 import org.junit.Test;

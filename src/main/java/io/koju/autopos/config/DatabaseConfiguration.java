@@ -6,6 +6,11 @@ import com.codahale.metrics.MetricRegistry;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import io.koju.autopos.catalog.domain.Item;
+import io.koju.autopos.catalog.service.CatalogRepositoryPackage;
+import io.koju.autopos.domain.DomainPackage;
+import io.koju.autopos.repository.RepositoryPackage;
+import io.koju.autopos.shared.BaseEntity;
 import liquibase.integration.spring.SpringLiquibase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -27,9 +33,16 @@ import javax.sql.DataSource;
 import java.util.Arrays;
 
 @Configuration
-@EnableJpaRepositories("io.koju.autopos.repository")
+@EnableJpaRepositories(basePackageClasses = {
+    RepositoryPackage.class,
+    CatalogRepositoryPackage.class})
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
+@EntityScan(basePackageClasses = {
+    BaseEntity.class,
+    DomainPackage.class,
+    Jsr310JpaConverters.class,
+    Item.class})
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
@@ -70,9 +83,10 @@ public class DatabaseConfiguration {
         }
         return new HikariDataSource(config);
     }
+
     @Bean
     public SpringLiquibase liquibase(DataSource dataSource, DataSourceProperties dataSourceProperties,
-        LiquibaseProperties liquibaseProperties) {
+                                     LiquibaseProperties liquibaseProperties) {
 
         // Use liquibase.integration.spring.SpringLiquibase if you don't want Liquibase to start asynchronously
         SpringLiquibase liquibase = new AsyncSpringLiquibase();

@@ -1,5 +1,6 @@
 package io.koju.autopos.domain;
 
+import io.koju.autopos.catalog.domain.Item;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import java.time.ZonedDateTime;
@@ -8,8 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -28,29 +27,29 @@ public class BillItem implements Serializable {
     @Min(value = 1)
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
-    
+
     @NotNull
     @Min(value = 0)
     @Column(name = "rate", precision=10, scale=2, nullable = false)
     private BigDecimal rate;
-    
+
     @NotNull
     @Min(value = 0)
     @Column(name = "amount", precision=10, scale=2, nullable = false)
     private BigDecimal amount;
-    
+
     @NotNull
     @Column(name = "date", nullable = false)
     private ZonedDateTime date;
-    
+
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
-    
+
     @Size(min = 2, max = 100)
     @Column(name = "issued_by", length = 100)
     private String issuedBy;
-    
+
     @ManyToOne
     @JoinColumn(name = "particular_id")
     private Item particular;
@@ -70,7 +69,7 @@ public class BillItem implements Serializable {
     public Integer getQuantity() {
         return quantity;
     }
-    
+
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
@@ -78,7 +77,7 @@ public class BillItem implements Serializable {
     public BigDecimal getRate() {
         return rate;
     }
-    
+
     public void setRate(BigDecimal rate) {
         this.rate = rate;
     }
@@ -86,7 +85,7 @@ public class BillItem implements Serializable {
     public BigDecimal getAmount() {
         return amount;
     }
-    
+
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
@@ -94,7 +93,7 @@ public class BillItem implements Serializable {
     public ZonedDateTime getDate() {
         return date;
     }
-    
+
     public void setDate(ZonedDateTime date) {
         this.date = date;
     }
@@ -102,7 +101,7 @@ public class BillItem implements Serializable {
     public String getRemarks() {
         return remarks;
     }
-    
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
@@ -110,7 +109,7 @@ public class BillItem implements Serializable {
     public String getIssuedBy() {
         return issuedBy;
     }
-    
+
     public void setIssuedBy(String issuedBy) {
         this.issuedBy = issuedBy;
     }

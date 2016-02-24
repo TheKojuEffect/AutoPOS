@@ -7,25 +7,28 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
-                "bill": "Bill",
-                "billItem": "BillItem",
-                "brand": "Brand",
-                "category": "Category",
-                "customer": "Customer",
-                "dayBookEntry": "DayBookEntry",
-                "item": "Item",
-                "ledger": "Ledger",
-                "ledgerEntry": "LedgerEntry",
-                "payment": "Payment",
-                "phoneNumber": "PhoneNumber",
-                "priceHistory": "PriceHistory",
-                "receipt": "Receipt",
                 "stock": "Stock",
                 "stockHistory": "StockHistory",
-                "tag": "Tag",
-                "vehicle": "Vehicle",
+                "phoneNumber": "PhoneNumber",
+                "customer": "Customer",
                 "vendor": "Vendor",
+                "vehicle": "Vehicle",
+                "dayBookEntry": "DayBookEntry",
+                "receipt": "Receipt",
+                "payment": "Payment",
+                "billItem": "BillItem",
+                "bill": "Bill",
+                "ledgerEntry": "LedgerEntry",
+                "ledger": "Ledger",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+            },
+            "catalog": {
+                "main": "Catalog",
+                "category": "Category",
+                "brand": "Brand",
+                "tag": "Tag",
+                "item": "Item",
+                "priceHistory": "PriceHistory"
             },
             "account": {
                 "main": "Account",
@@ -132,5 +135,5 @@
         "emailexists": "E-mail is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID"
     },
-    "footer": "This is your footer"
+    "footer": "Laxmi Auto Center"
 }

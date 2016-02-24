@@ -1,5 +1,6 @@
 package io.koju.autopos.domain;
 
+import io.koju.autopos.catalog.domain.Item;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import java.time.ZonedDateTime;
@@ -7,8 +8,6 @@ import java.time.ZonedDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -26,16 +25,16 @@ public class StockHistory implements Serializable {
     @NotNull
     @Column(name = "date", nullable = false)
     private ZonedDateTime date;
-    
+
     @NotNull
     @Min(value = 0)
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
-    
+
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
-    
+
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
@@ -51,7 +50,7 @@ public class StockHistory implements Serializable {
     public ZonedDateTime getDate() {
         return date;
     }
-    
+
     public void setDate(ZonedDateTime date) {
         this.date = date;
     }
@@ -59,7 +58,7 @@ public class StockHistory implements Serializable {
     public Integer getQuantity() {
         return quantity;
     }
-    
+
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
@@ -67,7 +66,7 @@ public class StockHistory implements Serializable {
     public String getRemarks() {
         return remarks;
     }
-    
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
