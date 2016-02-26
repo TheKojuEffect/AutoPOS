@@ -2,7 +2,7 @@ package io.koju.autopos.catalog.service;
 
 public class ItemCode {
 
-    private final static String alphabetString = "3KMEQPINHABTOGCWUVRYZFSXJDL";
+    private final static String alphabetString = "3KMEQPNHABTGCWUVRYZFSXJD";
     private final static char[] alphabet = alphabetString.toCharArray();
     private final static int base = alphabet.length;
 
