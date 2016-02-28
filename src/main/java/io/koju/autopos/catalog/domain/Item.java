@@ -15,7 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "item")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Item extends BaseEntity<Long> {
+public class Item extends BaseEntity {
 
     @NotNull
     @Size(min = 1, max = 7)

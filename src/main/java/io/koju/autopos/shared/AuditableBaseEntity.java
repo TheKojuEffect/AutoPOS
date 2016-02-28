@@ -8,14 +8,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
 
 @MappedSuperclass
-public abstract class AuditableBaseEntity<U, PK extends Serializable>
-    extends BaseEntity<PK>
+public abstract class AuditableBaseEntity<U>
+    extends BaseEntity
     implements AuditableEntity<U> {
 
     @CreatedBy
