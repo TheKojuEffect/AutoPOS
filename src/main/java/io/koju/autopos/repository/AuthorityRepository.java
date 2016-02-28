@@ -1,6 +1,6 @@
 package io.koju.autopos.repository;
 
-import io.koju.autopos.domain.Authority;
+import io.koju.autopos.user.domain.Authority;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

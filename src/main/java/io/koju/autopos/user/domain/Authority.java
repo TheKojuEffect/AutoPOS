@@ -1,4 +1,4 @@
-package io.koju.autopos.domain;
+package io.koju.autopos.user.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

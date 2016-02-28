@@ -17,15 +17,15 @@
             overflowToDisk="false"
             />
 
-    <cache name="io.koju.autopos.domain.User"
+    <cache name="io.koju.autopos.user.domain.User"
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="io.koju.autopos.domain.Authority"
+    <cache name="io.koju.autopos.user.domain.Authority"
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="io.koju.autopos.domain.User.authorities"
+    <cache name="io.koju.autopos.user.domain.User.authorities"
            timeToLiveSeconds="3600">
     </cache>
 
@@ -33,7 +33,7 @@
            timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="io.koju.autopos.domain.User.persistentTokens"
+    <cache name="io.koju.autopos.user.domain.User.persistentTokens"
            timeToLiveSeconds="3600">
     </cache>
     </ehcache>

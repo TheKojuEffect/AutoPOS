@@ -1,15 +1,14 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.user.web;
 
 import com.codahale.metrics.annotation.Timed;
-import io.koju.autopos.domain.Authority;
-import io.koju.autopos.domain.User;
 import io.koju.autopos.repository.AuthorityRepository;
-import io.koju.autopos.repository.UserRepository;
 import io.koju.autopos.security.AuthoritiesConstants;
 import io.koju.autopos.service.MailService;
-import io.koju.autopos.service.UserService;
+import io.koju.autopos.user.domain.Authority;
+import io.koju.autopos.user.domain.User;
+import io.koju.autopos.user.service.UserRepository;
+import io.koju.autopos.user.service.UserService;
 import io.koju.autopos.web.rest.dto.ManagedUserDTO;
-import io.koju.autopos.web.rest.dto.UserDTO;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -25,10 +24,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.net.URISyntaxException;
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

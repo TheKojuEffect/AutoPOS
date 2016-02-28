@@ -1,14 +1,11 @@
-package io.koju.autopos.service;
+package io.koju.autopos.user.service;
 
-import io.koju.autopos.domain.Authority;
-import io.koju.autopos.domain.User;
 import io.koju.autopos.repository.AuthorityRepository;
-import io.koju.autopos.repository.UserRepository;
 import io.koju.autopos.security.SecurityUtils;
 import io.koju.autopos.service.util.RandomUtil;
+import io.koju.autopos.user.domain.Authority;
+import io.koju.autopos.user.domain.User;
 import io.koju.autopos.web.rest.dto.ManagedUserDTO;
-import java.time.ZonedDateTime;
-import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,9 +13,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZonedDateTime;
 import javax.inject.Inject;
-import java.util.*;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service class for managing users.

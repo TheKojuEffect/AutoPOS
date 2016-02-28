@@ -1,16 +1,17 @@
 package io.koju.autopos.config;
 
-import io.koju.autopos.config.liquibase.AsyncSpringLiquibase;
-
 import com.codahale.metrics.MetricRegistry;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.koju.autopos.catalog.domain.Item;
-import io.koju.autopos.catalog.service.CatalogRepositoryPackage;
+import io.koju.autopos.catalog.service.CatalogServicePackage;
+import io.koju.autopos.config.liquibase.AsyncSpringLiquibase;
 import io.koju.autopos.domain.DomainPackage;
 import io.koju.autopos.repository.RepositoryPackage;
 import io.koju.autopos.shared.BaseEntity;
+import io.koju.autopos.user.domain.User;
+import io.koju.autopos.user.service.UserServicePackage;
 import liquibase.integration.spring.SpringLiquibase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +36,16 @@ import java.util.Arrays;
 @Configuration
 @EnableJpaRepositories(basePackageClasses = {
     RepositoryPackage.class,
-    CatalogRepositoryPackage.class})
+    CatalogServicePackage.class,
+    UserServicePackage.class})
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = {
     BaseEntity.class,
     DomainPackage.class,
     Jsr310JpaConverters.class,
-    Item.class})
+    Item.class,
+    User.class})
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);

@@ -1,12 +1,11 @@
 package io.koju.autopos.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import io.koju.autopos.domain.Authority;
-import io.koju.autopos.domain.User;
-import io.koju.autopos.repository.UserRepository;
+import io.koju.autopos.user.domain.User;
+import io.koju.autopos.user.service.UserRepository;
 import io.koju.autopos.security.SecurityUtils;
 import io.koju.autopos.service.MailService;
-import io.koju.autopos.service.UserService;
+import io.koju.autopos.user.service.UserService;
 import io.koju.autopos.web.rest.dto.KeyAndPasswordDTO;
 import io.koju.autopos.web.rest.dto.UserDTO;
 import io.koju.autopos.web.rest.util.HeaderUtil;
@@ -22,8 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.*;
 
 /**

@@ -1,8 +1,9 @@
 package io.koju.autopos.web.rest;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.repository.UserRepository;
-import io.koju.autopos.service.UserService;
+import io.koju.autopos.user.service.UserRepository;
+import io.koju.autopos.user.service.UserService;
+import io.koju.autopos.user.web.UserResource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

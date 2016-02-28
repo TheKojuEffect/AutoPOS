@@ -1,6 +1,7 @@
-package io.koju.autopos.domain;
+package io.koju.autopos.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.koju.autopos.domain.AbstractAuditingEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
@@ -34,7 +35,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     @NotNull
-    @Size(min = 60, max = 60) 
+    @Size(min = 60, max = 60)
     @Column(name = "password_hash",length = 60)
     private String password;
 

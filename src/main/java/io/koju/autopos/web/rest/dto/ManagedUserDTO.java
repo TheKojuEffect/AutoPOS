@@ -2,7 +2,7 @@ package io.koju.autopos.web.rest.dto;
 
 import java.time.ZonedDateTime;
 
-import io.koju.autopos.domain.User;
+import io.koju.autopos.user.domain.User;
 
 /**
  * A DTO extending the UserDTO, which is meant to be used in the user management UI.

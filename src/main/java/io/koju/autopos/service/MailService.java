@@ -1,7 +1,7 @@
 package io.koju.autopos.service;
 
 import io.koju.autopos.config.JHipsterProperties;
-import io.koju.autopos.domain.User;
+import io.koju.autopos.user.domain.User;
 
 import org.apache.commons.lang.CharEncoding;
 import org.slf4j.Logger;
@@ -104,5 +104,5 @@ public class MailService {
         String subject = messageSource.getMessage("email.reset.title", null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
     }
-    
+
 }

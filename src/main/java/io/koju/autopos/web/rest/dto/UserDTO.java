@@ -1,7 +1,7 @@
 package io.koju.autopos.web.rest.dto;
 
-import io.koju.autopos.domain.Authority;
-import io.koju.autopos.domain.User;
+import io.koju.autopos.user.domain.Authority;
+import io.koju.autopos.user.domain.User;
 
 import org.hibernate.validator.constraints.Email;
 

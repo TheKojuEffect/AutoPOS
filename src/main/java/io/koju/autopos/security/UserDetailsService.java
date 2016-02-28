@@ -1,8 +1,7 @@
 package io.koju.autopos.security;
 
-import io.koju.autopos.domain.Authority;
-import io.koju.autopos.domain.User;
-import io.koju.autopos.repository.UserRepository;
+import io.koju.autopos.user.domain.User;
+import io.koju.autopos.user.service.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
