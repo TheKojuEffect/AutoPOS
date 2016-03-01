@@ -7,32 +7,32 @@ public class ItemCode {
     private final static int base = alphabet.length;
 
     public static String encode(long id) {
-        String result = "";
-        long div;
+        String code = "";
+        long divisor;
         int mod;
 
         while (id >= base) {
-            div = id / base;
-            mod = (int) (id - (base * div));
-            result = alphabet[mod] + result;
-            id = div;
+            divisor = id / base;
+            mod = (int) (id - (base * divisor));
+            code = alphabet[mod] + code;
+            id = divisor;
         }
         if (id > 0) {
-            result = alphabet[(int) id] + result;
+            code = alphabet[(int) id] + code;
         }
-        return result;
+        return code;
     }
 
     public static long decode(String code) {
-        long result = 0;
-        long multi = 1;
+        long id = 0;
+        long multiplier = 1;
         while (code.length() > 0) {
             String digit = code.substring(code.length() - 1);
-            result = result + multi * alphabetString.lastIndexOf(digit);
-            multi = multi * base;
+            id = id + multiplier * alphabetString.lastIndexOf(digit);
+            multiplier = multiplier * base;
             code = code.substring(0, code.length() - 1);
         }
-        return result;
+        return id;
     }
 
 }
