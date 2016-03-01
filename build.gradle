@@ -16,6 +16,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'groovy'
 sourceCompatibility=1.8
 targetCompatibility=1.8
 apply plugin: 'maven'
@@ -160,6 +161,9 @@ dependencies {
 
 
     testCompile group: 'com.h2database', name: 'h2'
+
+    testCompile 'org.spockframework:spock-core'
+
     optional group: 'org.springframework.boot', name:'spring-boot-configuration-processor', version: spring_boot_version
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
