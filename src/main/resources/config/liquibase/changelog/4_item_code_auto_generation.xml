@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="POS-4" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sql>
+            <![CDATA[
+                CREATE FUNCTION item_code(id BIGINT)
+                  RETURNS VARCHAR(14) AS $code$
+
+                DECLARE
+                  alphabet VARCHAR(24);
+                  base     INTEGER DEFAULT 0;
+                  code     VARCHAR(14);
+                  divisor  BIGINT;
+                  mod      INTEGER DEFAULT 0;
+
+                BEGIN
+                  alphabet := '3KMEQPNHABTGCWUVRYZFSXJD';
+                  base := char_length(alphabet);
+                  code := '';
+
+                  WHILE id >= base LOOP
+                    divisor := (id / base) :: BIGINT;
+                    mod := (id - (base * divisor)) :: INTEGER;
+                    code := concat(substring(alphabet FROM mod + 1 FOR 1), code);
+                    id := divisor;
+                  END LOOP;
+
+                  IF id > 0
+                  THEN
+                    code = concat(substring(alphabet FROM (id :: INTEGER) + 1 FOR 1), code);
+                  END IF;
+
+                  RETURN (code);
+
+                END; $code$
+                LANGUAGE PLPGSQL;
+            ]]>
+        </sql>
+
+        <sql>
+            <![CDATA[
+                CREATE FUNCTION set_item_code()
+                  RETURNS TRIGGER AS
+                $BODY$
+                BEGIN
+                  NEW.code := item_code(NEW.id);
+                  RETURN NEW;
+                END;
+                $BODY$
+                LANGUAGE PLPGSQL;
+
+
+                CREATE TRIGGER set_item_code_trigger
+                BEFORE INSERT
+                ON item
+                FOR EACH ROW
+                EXECUTE PROCEDURE set_item_code();
+            ]]>
+        </sql>
+
+    </changeSet>
+</databaseChangeLog>

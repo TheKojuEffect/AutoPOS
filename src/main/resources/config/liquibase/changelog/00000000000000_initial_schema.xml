@@ -10,11 +10,11 @@
 
     <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
 
-    <changeSet id="00000000000000" author="Kapil Koju" dbms="postgresql,oracle">
+    <changeSet id="00000000000000" author="kplx2.0@gmail.com" dbms="postgresql,oracle">
         <createSequence sequenceName="hibernate_sequence" startValue="1000" incrementBy="1"/>
     </changeSet>
 
-    <changeSet id="00000000000001" author="Kapil Koju">
+    <changeSet id="00000000000001" author="kplx2.0@gmail.com">
         <createTable tableName="users">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
