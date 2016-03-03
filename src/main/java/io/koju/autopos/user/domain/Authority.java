@@ -1,14 +1,16 @@
 package io.koju.autopos.user.domain;
 
+import io.koju.autopos.shared.BaseEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
+
+import static javax.persistence.EnumType.STRING;
 
 /**
  * An authority (a security role) used by Spring Security.
@@ -16,49 +18,23 @@ import java.io.Serializable;
 @Entity
 @Table(name = "authority")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Authority implements Serializable {
+public class Authority extends BaseEntity {
 
     @NotNull
-    @Size(min = 0, max = 50)
-    @Id
-    @Column(length = 50)
-    private String name;
+    @Column(name = "role_name", length = 40, unique = true, nullable = false) // role is reserved DB keyword
+    @Enumerated(STRING)
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public String getName() {
-        return name;
+        return role.getName();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Authority authority = (Authority) o;
-
-        if (name != null ? !name.equals(authority.name) : authority.name != null) {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return name != null ? name.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return "Authority{" +
-            "name='" + name + '\'' +
-            "}";
-    }
 }

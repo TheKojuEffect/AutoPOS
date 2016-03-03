@@ -4,6 +4,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
+
+    <changeSet id="POS-9" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sqlFile path="sql/authority_table.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="sql/users_table.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="sql/initial_users_data.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209135932_added_entity_Category.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209140035_added_entity_Brand.xml" relativeToChangelogFile="false"/>

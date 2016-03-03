@@ -5,6 +5,7 @@ import io.koju.autopos.repository.AuthorityRepository;
 import io.koju.autopos.security.AuthoritiesConstants;
 import io.koju.autopos.service.MailService;
 import io.koju.autopos.user.domain.Authority;
+import io.koju.autopos.user.domain.Role;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.user.service.UserRepository;
 import io.koju.autopos.user.service.UserService;
@@ -141,10 +142,10 @@ public class UserResource {
                 user.setEmail(managedUserDTO.getEmail());
                 user.setActivated(managedUserDTO.isActivated());
                 user.setLangKey(managedUserDTO.getLangKey());
-                Set<Authority> authorities = user.getAuthorities();
+                Set<Authority> authorities = user.getUserAuthorities();
                 authorities.clear();
                 managedUserDTO.getAuthorities().stream().forEach(
-                    authority -> authorities.add(authorityRepository.findOne(authority))
+                    authority -> authorities.add(authorityRepository.findByRole(Role.valueOf(authority)))
                 );
                 return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert("user-management.updated", managedUserDTO.getLogin()))
