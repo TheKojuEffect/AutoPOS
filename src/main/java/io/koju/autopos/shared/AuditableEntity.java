@@ -1,6 +1,7 @@
 package io.koju.autopos.shared;
 
 
+import io.koju.autopos.user.domain.User;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -18,9 +19,9 @@ import static javax.persistence.FetchType.LAZY;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AuditableBaseEntity<U>
-    extends BaseEntity
-    implements AuditedEntity<U> {
+public abstract class AuditableEntity
+    extends AbstractEntity
+    implements AuditedEntity {
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
@@ -33,12 +34,12 @@ public abstract class AuditableBaseEntity<U>
     @CreatedBy
     @ManyToOne(fetch = LAZY, optional = false)
     @JoinColumn(name = "created_by", nullable = false, updatable = false)
-    private U createdBy;
+    private User createdBy;
 
     @LastModifiedBy
     @ManyToOne(fetch = LAZY, optional = false)
     @JoinColumn(name = "last_modified_by", nullable = false)
-    private U lastModifiedBy;
+    private User lastModifiedBy;
 
 
     @Override
@@ -60,20 +61,20 @@ public abstract class AuditableBaseEntity<U>
     }
 
     @Override
-    public U getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    protected void setCreatedBy(U createdBy) {
+    protected void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
 
     @Override
-    public U getLastModifiedBy() {
+    public User getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    protected void setLastModifiedBy(U lastModifiedBy) {
+    protected void setLastModifiedBy(User lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

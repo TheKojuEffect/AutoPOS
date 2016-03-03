@@ -1,7 +1,7 @@
 package io.koju.autopos.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.koju.autopos.shared.AuditableBaseEntity;
+import io.koju.autopos.shared.AuditableEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
@@ -12,9 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -25,13 +28,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "users")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User
-    extends AuditableBaseEntity<User>
+    extends AuditableEntity
     implements UserDetails {
+
+    @Id
+    @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "users_id_seq")
+    private Long id;
 
     @NotNull
     @Pattern(regexp = "^[a-z0-9]*$|(anonymousUser)")
@@ -93,6 +102,15 @@ public class User
             .collect(toList());
     }
 
+    @Override
+    protected void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public String getUsername() {

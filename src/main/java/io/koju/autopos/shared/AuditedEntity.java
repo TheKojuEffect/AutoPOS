@@ -1,14 +1,16 @@
 package io.koju.autopos.shared;
 
+import io.koju.autopos.user.domain.User;
+
 import java.time.LocalDateTime;
 
-public interface AuditedEntity<U> {
+public interface AuditedEntity {
 
-    U getCreatedBy();
+    User getCreatedBy();
 
     LocalDateTime getCreatedDate();
 
-    U getLastModifiedBy();
+    User getLastModifiedBy();
 
     LocalDateTime getLastModifiedDate();
 

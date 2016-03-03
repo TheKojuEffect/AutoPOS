@@ -1,9 +1,23 @@
 package io.koju.autopos.shared;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class BaseEntity extends AbstractPersistable<Long> {
+public abstract class BaseEntity extends AbstractEntity {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

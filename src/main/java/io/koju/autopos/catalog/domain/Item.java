@@ -1,11 +1,19 @@
 package io.koju.autopos.catalog.domain;
 
-import io.koju.autopos.shared.AuditableBaseEntity;
-import io.koju.autopos.user.domain.User;
+import io.koju.autopos.shared.AuditableEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -14,10 +22,17 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static javax.persistence.GenerationType.SEQUENCE;
+
 @Entity
 @Table(name = "item")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Item extends AuditableBaseEntity<User> {
+public class Item extends AuditableEntity {
+
+    @Id
+    @SequenceGenerator(name = "item_id_seq", sequenceName = "item_id_seq", initialValue = 789, allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "item_id_seq")
+    private Long id;
 
     @Size(min = 3, max = 14)
     @Column(name = "code", length = 14, nullable = false, insertable = false, updatable = false)
@@ -55,6 +70,16 @@ public class Item extends AuditableBaseEntity<User> {
         joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
     private Set<Tag> tags = new HashSet<>();
+
+    @Override
+    protected void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
 
     public String getCode() {
         return code;
@@ -119,5 +144,6 @@ public class Item extends AuditableBaseEntity<User> {
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
+
 
 }
