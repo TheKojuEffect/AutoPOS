@@ -38,7 +38,6 @@ import java.util.Arrays;
     RepositoryPackage.class,
     CatalogServicePackage.class,
     UserServicePackage.class})
-@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = {
     BaseEntity.class,

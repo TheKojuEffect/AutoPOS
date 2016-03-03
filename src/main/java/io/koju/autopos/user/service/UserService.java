@@ -4,6 +4,7 @@ import io.koju.autopos.repository.AuthorityRepository;
 import io.koju.autopos.security.SecurityUtils;
 import io.koju.autopos.service.util.RandomUtil;
 import io.koju.autopos.user.domain.Authority;
+import io.koju.autopos.user.domain.Role;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.web.rest.dto.ManagedUserDTO;
 import org.slf4j.Logger;
@@ -19,6 +20,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import static io.koju.autopos.user.domain.Role.ROLE_USER;
 
 /**
  * Service class for managing users.
@@ -84,7 +87,7 @@ public class UserService {
         String langKey) {
 
         User newUser = new User();
-        Authority authority = authorityRepository.findOne("ROLE_USER");
+        Authority authority = authorityRepository.findByRole(ROLE_USER);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
@@ -119,7 +122,7 @@ public class UserService {
         if (managedUserDTO.getAuthorities() != null) {
             Set<Authority> authorities = new HashSet<>();
             managedUserDTO.getAuthorities().stream().forEach(
-                authority -> authorities.add(authorityRepository.findOne(authority))
+                authority -> authorities.add(authorityRepository.findByRole(Role.valueOf(authority)))
             );
             user.setAuthorities(authorities);
         }
@@ -163,7 +166,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
         return userRepository.findOneByLogin(login).map(u -> {
-            u.getAuthorities().size();
+            u.getUserAuthorities().size();
             return u;
         });
     }
@@ -171,14 +174,14 @@ public class UserService {
     @Transactional(readOnly = true)
     public User getUserWithAuthorities(Long id) {
         User user = userRepository.findOne(id);
-        user.getAuthorities().size(); // eagerly load the association
+        user.getUserAuthorities().size(); // eagerly load the association
         return user;
     }
 
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).get();
-        user.getAuthorities().size(); // eagerly load the association
+        user.getUserAuthorities().size(); // eagerly load the association
         return user;
     }
 

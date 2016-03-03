@@ -2,6 +2,7 @@ package io.koju.autopos.web.rest;
 
 import io.koju.autopos.Application;
 import io.koju.autopos.user.domain.Authority;
+import io.koju.autopos.user.domain.Role;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.repository.AuthorityRepository;
 import io.koju.autopos.user.service.UserRepository;
@@ -27,6 +28,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.*;
 
+import static io.koju.autopos.user.domain.Role.ROLE_USER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
@@ -109,7 +111,7 @@ public class AccountResourceIntTest {
     public void testGetExistingAccount() throws Exception {
         Set<Authority> authorities = new HashSet<>();
         Authority authority = new Authority();
-        authority.setName(AuthoritiesConstants.ADMIN);
+        authority.setRole(Role.ROLE_ADMIN);
         authorities.add(authority);
 
         User user = new User();
@@ -308,7 +310,7 @@ public class AccountResourceIntTest {
 
         Optional<User> userDup = userRepository.findOneByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
-        assertThat(userDup.get().getAuthorities()).hasSize(1)
-            .containsExactly(authorityRepository.findOne(AuthoritiesConstants.USER));
+        assertThat(userDup.get().getUserAuthorities()).hasSize(1)
+            .containsExactly(authorityRepository.findByRole(ROLE_USER));
     }
 }
