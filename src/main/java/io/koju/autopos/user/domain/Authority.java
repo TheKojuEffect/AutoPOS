@@ -1,6 +1,6 @@
 package io.koju.autopos.user.domain;
 
-import io.koju.autopos.shared.AbstractEntity;
+import io.koju.autopos.shared.domain.AbstractEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 

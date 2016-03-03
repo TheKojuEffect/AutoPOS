@@ -9,7 +9,7 @@ import io.koju.autopos.catalog.service.CatalogServicePackage;
 import io.koju.autopos.config.liquibase.AsyncSpringLiquibase;
 import io.koju.autopos.domain.DomainPackage;
 import io.koju.autopos.repository.RepositoryPackage;
-import io.koju.autopos.shared.BaseEntity;
+import io.koju.autopos.shared.domain.AbstractEntity;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.user.service.UserServicePackage;
 import liquibase.integration.spring.SpringLiquibase;
@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -40,7 +39,7 @@ import java.util.Arrays;
     UserServicePackage.class})
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = {
-    BaseEntity.class,
+    AbstractEntity.class,
     DomainPackage.class,
     Jsr310JpaConverters.class,
     Item.class,

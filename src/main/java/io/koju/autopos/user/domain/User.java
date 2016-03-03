@@ -1,7 +1,7 @@
 package io.koju.autopos.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.koju.autopos.shared.AuditableEntity;
+import io.koju.autopos.shared.domain.AuditableEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;

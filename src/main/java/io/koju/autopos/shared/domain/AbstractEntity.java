@@ -1,4 +1,4 @@
-package io.koju.autopos.shared;
+package io.koju.autopos.shared.domain;
 
 import org.springframework.util.ClassUtils;
 
