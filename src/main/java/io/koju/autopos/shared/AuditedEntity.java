@@ -2,7 +2,7 @@ package io.koju.autopos.shared;
 
 import java.time.LocalDateTime;
 
-public interface AuditableEntity<U> {
+public interface AuditedEntity<U> {
 
     U getCreatedBy();
 

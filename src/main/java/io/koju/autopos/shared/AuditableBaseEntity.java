@@ -20,7 +20,7 @@ import static javax.persistence.FetchType.LAZY;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditableBaseEntity<U>
     extends BaseEntity
-    implements AuditableEntity<U> {
+    implements AuditedEntity<U> {
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)

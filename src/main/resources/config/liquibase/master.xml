@@ -15,7 +15,11 @@
     <include file="classpath:config/liquibase/changelog/20160209135932_added_entity_Category.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209140035_added_entity_Brand.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209140142_added_entity_Tag.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160209141439_added_entity_Item.xml" relativeToChangelogFile="false"/>
+
+    <changeSet id="POS-7" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sqlFile path="sql/item_table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <include file="classpath:config/liquibase/changelog/20160209141843_added_entity_PriceHistory.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209145726_added_entity_Stock.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209150025_added_entity_StockHistory.xml" relativeToChangelogFile="false"/>
