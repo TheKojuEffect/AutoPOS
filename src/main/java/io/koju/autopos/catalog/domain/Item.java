@@ -18,8 +18,8 @@ import java.util.Set;
 public class Item extends BaseEntity {
 
     @NotNull
-    @Size(min = 1, max = 7)
-    @Column(name = "code", length = 7, nullable = false)
+    @Size(min = 1, max = 14)
+    @Column(name = "code", length = 14, nullable = false, insertable = false, updatable = false)
     private String code;
 
     @NotNull

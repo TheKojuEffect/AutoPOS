@@ -23,4 +23,9 @@
     <include file="classpath:config/liquibase/changelog/20160209155139_added_entity_BillItem.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209160545_added_entity_Ledger.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209170435_added_entity_LedgerEntry.xml" relativeToChangelogFile="false"/>
+
+    <changeSet id="POS-4" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sqlFile path="sql/item_code_func.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
+        <sqlFile path="sql/set_item_code_trigger.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
+    </changeSet>
 </databaseChangeLog>
