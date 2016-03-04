@@ -57,7 +57,7 @@ public class ItemResource {
         }
         Item result = itemService.save(item);
         return ResponseEntity.created(new URI("/api/items/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("item", ItemCode.getCode(result.getId()).toString()))
+            .headers(HeaderUtil.createEntityCreationAlert("item", result.getCode().toString()))
             .body(result);
     }
 

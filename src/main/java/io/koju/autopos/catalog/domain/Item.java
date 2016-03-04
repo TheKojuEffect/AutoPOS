@@ -1,5 +1,6 @@
 package io.koju.autopos.catalog.domain;
 
+import io.koju.autopos.catalog.service.ItemCode;
 import io.koju.autopos.shared.domain.AuditableEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostPersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -70,6 +72,11 @@ public class Item extends AuditableEntity {
         joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
     private Set<Tag> tags = new HashSet<>();
+
+    @PostPersist
+    public void populateItemCode(){
+        setCode(ItemCode.getCode(id));
+    }
 
     @Override
     protected void setId(Long id) {
