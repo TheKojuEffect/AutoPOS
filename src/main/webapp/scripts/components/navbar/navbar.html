@@ -89,48 +89,13 @@
                     <!--&#xA0;<span translate="global.menu.entities.stockHistory">Stock history</span></a></li>-->
                 <!--</li>-->
 
-                <li ng-class="{active: $state.includes('catalog')}" ng-switch-when="true" class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                        <span>
-                            <span class="glyphicon glyphicon-list"></span>
-                            <span class="hidden-sm" translate="global.menu.catalog.main">
-                                Catalog
-                            </span>
-                            <b class="caret"></b>
-                        </span>
+                <li ng-class="{active: $state.includes('catalog')}" ng-switch-when="true">
+                    <a ui-sref="item" data-toggle="collapse" data-target=".navbar-collapse.in">
+                        <span class="glyphicon glyphicon-list"></span>
+                        <span class="hidden-sm" translate="global.menu.catalog.main">Catalog</span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li ui-sref-active="active">
-                            <a ui-sref="item" data-toggle="collapse" data-target=".navbar-collapse.in">
-                                <span translate="global.menu.catalog.item">Item</span>
-                            </a>
-                        </li>
-
-                        <li ui-sref-active="active">
-                            <a ui-sref="priceHistory" data-toggle="collapse" data-target=".navbar-collapse.in">
-                                <span translate="global.menu.catalog.priceHistory">Price history</span>
-                            </a>
-                        </li>
-
-                        <li ui-sref-active="active">
-                            <a ui-sref="category" data-toggle="collapse" data-target=".navbar-collapse.in">
-                                <span translate="global.menu.catalog.category">Category</span>
-                            </a>
-                        </li>
-
-                        <li ui-sref-active="active">
-                            <a ui-sref="brand" data-toggle="collapse" data-target=".navbar-collapse.in">
-                                <span translate="global.menu.catalog.brand">Brand</span>
-                            </a>
-                        </li>
-
-                        <li ui-sref-active="active">
-                            <a ui-sref="tag" data-toggle="collapse" data-target=".navbar-collapse.in">
-                                <span translate="global.menu.catalog.tag">Tag</span>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
+
 
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="" id="account-menu">

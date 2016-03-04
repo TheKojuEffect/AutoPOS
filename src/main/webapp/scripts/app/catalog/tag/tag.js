@@ -11,7 +11,7 @@ angular.module('autopos')
                     pageTitle: 'autopos.tag.home.title'
                 },
                 views: {
-                    'content@': {
+                    'content-tab': {
                         templateUrl: 'scripts/app/catalog/tag/tags.html',
                         controller: 'TagController'
                     }
@@ -32,7 +32,7 @@ angular.module('autopos')
                     pageTitle: 'autopos.tag.detail.title'
                 },
                 views: {
-                    'content@': {
+                    'content-tab': {
                         templateUrl: 'scripts/app/catalog/tag/tag-detail.html',
                         controller: 'TagDetailController'
                     }

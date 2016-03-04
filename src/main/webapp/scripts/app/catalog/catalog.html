@@ -1,0 +1,32 @@
+<ul class="nav nav-tabs">
+    <li ng-class="{active: $state.includes('item')}">
+        <a ui-sref="item" data-toggle="collapse" data-target=".navbar-collapse.in">
+            <span translate="global.menu.catalog.item">Items</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('priceHistory')}">
+        <a ui-sref="priceHistory" data-toggle="collapse" data-target=".navbar-collapse.in">
+            <span translate="global.menu.catalog.priceHistory">Price history</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('category')}">
+        <a ui-sref="category" data-toggle="collapse" data-target=".navbar-collapse.in">
+            <span translate="global.menu.catalog.category">Categories</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('brand')}">
+        <a ui-sref="brand" data-toggle="collapse" data-target=".navbar-collapse.in">
+            <span translate="global.menu.catalog.brand">Brands/span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('tag')}">
+        <a ui-sref="tag" data-toggle="collapse" data-target=".navbar-collapse.in">
+            <span translate="global.menu.catalog.tag">Tags</span>
+        </a>
+    </li>
+</ul>
+<div ui-view="content-tab"></div>

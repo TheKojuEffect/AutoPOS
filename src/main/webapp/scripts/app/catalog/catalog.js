@@ -5,6 +5,12 @@ angular.module('autopos')
         $stateProvider
             .state('catalog', {
                 abstract: true,
-                parent: 'site'
+                parent: 'site',
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/catalog/catalog.html',
+                        controller: 'CatalogController'
+                    }
+                }
             });
     });
