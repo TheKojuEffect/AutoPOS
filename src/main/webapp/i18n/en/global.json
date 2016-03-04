@@ -25,9 +25,13 @@
             "catalog": {
                 "main": "Catalog",
                 "category": "Category",
+                "categories": "Categories",
                 "brand": "Brand",
+                "brands": "Brands",
                 "tag": "Tag",
+                "tags": "Tags",
                 "item": "Item",
+                "items": "Items",
                 "priceHistory": "PriceHistory"
             },
             "account": {
