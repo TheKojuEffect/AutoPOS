@@ -49,12 +49,6 @@ test {
     include '**/*IntTest*'
 }
 
-task cucumberTest(type: Test) {
-    include '**/CucumberTest*'
-}
-
-test.finalizedBy(cucumberTest)
-
 apply from: 'yeoman.gradle'
 
 apply from: 'liquibase.gradle'
