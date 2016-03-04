@@ -6,7 +6,7 @@ public class ItemCode {
     private final static char[] alphabet = alphabetString.toCharArray();
     private final static int base = alphabet.length;
 
-    public static String encode(long id) {
+    public static String getCode(long id) {
         String code = "";
         long divisor;
         int mod;
@@ -23,7 +23,7 @@ public class ItemCode {
         return code;
     }
 
-    public static long decode(String code) {
+    public static long getId(String code) {
         long id = 0;
         long multiplier = 1;
         while (code.length() > 0) {

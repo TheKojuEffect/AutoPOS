@@ -4,13 +4,13 @@ import spock.lang.Specification
 
 class ItemCodeTest extends Specification {
 
-    def "encode and decode process is working and symmetric"() {
+    def "ItemCode getId and getCode process is working and symmetric"() {
 
         expect:
-        ItemCode.encode(id) == code
+        ItemCode.getCode(id) == code
 
         and:
-        ItemCode.decode(code) == id
+        ItemCode.getId(code) == id
 
         where:
         id                   || code

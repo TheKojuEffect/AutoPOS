@@ -49,7 +49,7 @@ public class ItemResource {
         }
         Item result = itemService.save(item);
         return ResponseEntity.created(new URI("/api/items/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("item", ItemCode.encode(result.getId()).toString()))
+            .headers(HeaderUtil.createEntityCreationAlert("item", ItemCode.getCode(result.getId()).toString()))
             .body(result);
     }
 
@@ -113,6 +113,6 @@ public class ItemResource {
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         log.debug("REST request to delete Item : {}", id);
         itemService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("item", ItemCode.encode(id).toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("item", ItemCode.getCode(id).toString())).build();
     }
 }
