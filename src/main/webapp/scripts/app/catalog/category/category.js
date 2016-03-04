@@ -11,7 +11,7 @@ angular.module('autopos')
                     pageTitle: 'autopos.category.home.title'
                 },
                 views: {
-                    'content@': {
+                    'content-tab': {
                         templateUrl: 'scripts/app/catalog/category/categorys.html',
                         controller: 'CategoryController'
                     }
@@ -32,7 +32,7 @@ angular.module('autopos')
                     pageTitle: 'autopos.category.detail.title'
                 },
                 views: {
-                    'content@': {
+                    'content-tab': {
                         templateUrl: 'scripts/app/catalog/category/category-detail.html',
                         controller: 'CategoryDetailController'
                     }

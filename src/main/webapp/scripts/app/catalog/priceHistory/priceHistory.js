@@ -11,7 +11,7 @@ angular.module('autopos')
                     pageTitle: 'autopos.priceHistory.home.title'
                 },
                 views: {
-                    'content@': {
+                    'content-tab': {
                         templateUrl: 'scripts/app/catalog/priceHistory/priceHistorys.html',
                         controller: 'PriceHistoryController'
                     }
@@ -32,7 +32,7 @@ angular.module('autopos')
                     pageTitle: 'autopos.priceHistory.detail.title'
                 },
                 views: {
-                    'content@': {
+                    'content-tab': {
                         templateUrl: 'scripts/app/catalog/priceHistory/priceHistory-detail.html',
                         controller: 'PriceHistoryDetailController'
                     }
