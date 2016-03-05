@@ -1,5 +1,6 @@
 package io.koju.autopos.security;
 
+import io.koju.autopos.user.domain.Role;
 import io.koju.autopos.user.domain.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -46,7 +47,7 @@ public final class SecurityUtils {
         Collection<? extends GrantedAuthority> authorities = securityContext.getAuthentication().getAuthorities();
         if (authorities != null) {
             for (GrantedAuthority authority : authorities) {
-                if (authority.getAuthority().equals(AuthoritiesConstants.ANONYMOUS)) {
+                if (AuthoritiesConstants.ANONYMOUS.equals(authority.getAuthority())) {
                     return false;
                 }
             }

@@ -1,11 +1,14 @@
 package io.koju.autopos.web.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.koju.autopos.Application;
 import io.koju.autopos.catalog.domain.Item;
+import io.koju.autopos.catalog.service.ItemCodeUtil;
 import io.koju.autopos.catalog.web.ItemResource;
 import io.koju.autopos.catalog.service.ItemRepository;
 import io.koju.autopos.catalog.service.ItemService;
 
+import io.koju.autopos.security.SecurityTestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,8 +47,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class ItemResourceIntTest {
 
-    private static final String DEFAULT_CODE = "A";
-    private static final String UPDATED_CODE = "B";
     private static final String DEFAULT_NAME = "AA";
     private static final String UPDATED_NAME = "BB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
@@ -53,7 +54,7 @@ public class ItemResourceIntTest {
     private static final String DEFAULT_REMARKS = "AAAAA";
     private static final String UPDATED_REMARKS = "BBBBB";
 
-    private static final BigDecimal DEFAULT_MARKED_PRICE = new BigDecimal(0);
+    private static final BigDecimal DEFAULT_MARKED_PRICE = new BigDecimal(20);
     private static final BigDecimal UPDATED_MARKED_PRICE = new BigDecimal(1);
 
     @Inject
@@ -67,6 +68,9 @@ public class ItemResourceIntTest {
 
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+
+    @Inject
+    private ObjectMapper objectMapper;
 
     private MockMvc restItemMockMvc;
 
@@ -85,7 +89,6 @@ public class ItemResourceIntTest {
     @Before
     public void initTest() {
         item = new Item();
-        item.setCode(DEFAULT_CODE);
         item.setName(DEFAULT_NAME);
         item.setDescription(DEFAULT_DESCRIPTION);
         item.setRemarks(DEFAULT_REMARKS);
@@ -95,23 +98,24 @@ public class ItemResourceIntTest {
     @Test
     @Transactional
     public void createItem() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
         int databaseSizeBeforeCreate = itemRepository.findAll().size();
 
         // Create the Item
 
         restItemMockMvc.perform(post("/api/items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(item)))
+                .content(objectMapper.writeValueAsBytes(item)))
                 .andExpect(status().isCreated());
 
         // Validate the Item in the database
         List<Item> items = itemRepository.findAll();
         assertThat(items).hasSize(databaseSizeBeforeCreate + 1);
         Item testItem = items.get(items.size() - 1);
-        assertThat(testItem.getCode()).isEqualTo(DEFAULT_CODE);
+        assertThat(testItem.getCode()).isEqualTo(ItemCodeUtil.getCode(testItem.getId()));
         assertThat(testItem.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testItem.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testItem.getRemarks()).isEqualTo(DEFAULT_REMARKS);
+        assertThat(testItem.getDescription().get()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testItem.getRemarks().get()).isEqualTo(DEFAULT_REMARKS);
         assertThat(testItem.getMarkedPrice()).isEqualTo(DEFAULT_MARKED_PRICE);
     }
 
@@ -172,6 +176,7 @@ public class ItemResourceIntTest {
     @Test
     @Transactional
     public void getAllItems() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
         // Initialize the database
         itemRepository.saveAndFlush(item);
 
@@ -180,7 +185,7 @@ public class ItemResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(item.getId().intValue())))
-                .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
+                .andExpect(jsonPath("$.[*].code").value(hasItem(ItemCodeUtil.getCode(item.getId()).toString())))
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS.toString())))
@@ -190,6 +195,10 @@ public class ItemResourceIntTest {
     @Test
     @Transactional
     public void getItem() throws Exception {
+
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
+
         // Initialize the database
         itemRepository.saveAndFlush(item);
 
@@ -198,7 +207,7 @@ public class ItemResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(item.getId().intValue()))
-            .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()))
+            .andExpect(jsonPath("$.code").value(ItemCodeUtil.getCode(item.getId()).toString()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS.toString()))
@@ -216,13 +225,13 @@ public class ItemResourceIntTest {
     @Test
     @Transactional
     public void updateItem() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
         // Initialize the database
         itemRepository.saveAndFlush(item);
 
 		int databaseSizeBeforeUpdate = itemRepository.findAll().size();
 
         // Update the item
-        item.setCode(UPDATED_CODE);
         item.setName(UPDATED_NAME);
         item.setDescription(UPDATED_DESCRIPTION);
         item.setRemarks(UPDATED_REMARKS);
@@ -230,17 +239,17 @@ public class ItemResourceIntTest {
 
         restItemMockMvc.perform(put("/api/items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(item)))
+                .content(objectMapper.writeValueAsBytes(item)))
                 .andExpect(status().isOk());
 
         // Validate the Item in the database
         List<Item> items = itemRepository.findAll();
         assertThat(items).hasSize(databaseSizeBeforeUpdate);
         Item testItem = items.get(items.size() - 1);
-        assertThat(testItem.getCode()).isEqualTo(UPDATED_CODE);
+        assertThat(testItem.getCode()).isEqualTo(ItemCodeUtil.getCode(testItem.getId()));
         assertThat(testItem.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testItem.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testItem.getRemarks()).isEqualTo(UPDATED_REMARKS);
+        assertThat(testItem.getDescription().get()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testItem.getRemarks().get()).isEqualTo(UPDATED_REMARKS);
         assertThat(testItem.getMarkedPrice()).isEqualTo(UPDATED_MARKED_PRICE);
     }
 

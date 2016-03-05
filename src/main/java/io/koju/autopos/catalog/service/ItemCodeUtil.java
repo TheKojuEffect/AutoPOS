@@ -1,6 +1,6 @@
 package io.koju.autopos.catalog.service;
 
-public class ItemCode {
+public class ItemCodeUtil {
 
     private final static String alphabetString = "3KMEQPNHABTGCWUVRYZFSXJD";
     private final static char[] alphabet = alphabetString.toCharArray();

@@ -15,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 
@@ -49,6 +50,7 @@ public class UserResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void testGetExistingUser() throws Exception {
         restUserMockMvc.perform(get("/api/users/admin")
                 .accept(MediaType.APPLICATION_JSON))

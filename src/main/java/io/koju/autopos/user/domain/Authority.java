@@ -1,19 +1,19 @@
 package io.koju.autopos.user.domain;
 
 import io.koju.autopos.shared.domain.AbstractEntity;
+import io.koju.autopos.user.domain.Role.RoleConverter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
@@ -31,7 +31,7 @@ public class Authority extends AbstractEntity {
 
     @NotNull
     @Column(name = "role_name", length = 40, unique = true, nullable = false) // role is reserved DB keyword
-    @Enumerated(STRING)
+    @Convert(converter = RoleConverter.class)
     private Role role;
 
     @Override

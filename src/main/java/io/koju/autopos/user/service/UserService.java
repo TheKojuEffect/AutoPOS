@@ -15,13 +15,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.koju.autopos.user.domain.Role.ROLE_USER;
+import static io.koju.autopos.user.domain.Role.USER;
 
 /**
  * Service class for managing users.
@@ -87,7 +88,7 @@ public class UserService {
         String langKey) {
 
         User newUser = new User();
-        Authority authority = authorityRepository.findByRole(ROLE_USER);
+        Authority authority = authorityRepository.findByRole(USER);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
@@ -185,6 +186,10 @@ public class UserService {
         return user;
     }
 
+    public User getSystemUser() {
+        return userRepository.findOne(1L);
+    }
+
     /**
      * Not activated users should be automatically deleted after 3 days.
      * <p/>
@@ -194,7 +199,7 @@ public class UserService {
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
-        ZonedDateTime now = ZonedDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());

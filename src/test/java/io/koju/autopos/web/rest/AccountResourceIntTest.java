@@ -6,7 +6,6 @@ import io.koju.autopos.user.domain.Role;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.repository.AuthorityRepository;
 import io.koju.autopos.user.service.UserRepository;
-import io.koju.autopos.security.AuthoritiesConstants;
 import io.koju.autopos.service.MailService;
 import io.koju.autopos.user.service.UserService;
 import io.koju.autopos.web.rest.dto.UserDTO;
@@ -28,7 +27,6 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.*;
 
-import static io.koju.autopos.user.domain.Role.ROLE_USER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
@@ -111,7 +109,7 @@ public class AccountResourceIntTest {
     public void testGetExistingAccount() throws Exception {
         Set<Authority> authorities = new HashSet<>();
         Authority authority = new Authority();
-        authority.setRole(Role.ROLE_ADMIN);
+        authority.setRole(Role.ADMIN);
         authorities.add(authority);
 
         User user = new User();
@@ -130,7 +128,7 @@ public class AccountResourceIntTest {
                 .andExpect(jsonPath("$.firstName").value("john"))
                 .andExpect(jsonPath("$.lastName").value("doe"))
                 .andExpect(jsonPath("$.email").value("john.doe@jhipter.com"))
-                .andExpect(jsonPath("$.authorities").value(AuthoritiesConstants.ADMIN));
+                .andExpect(jsonPath("$.authorities").value(Role.ADMIN.getName()));
     }
 
     @Test
@@ -153,7 +151,7 @@ public class AccountResourceIntTest {
             "joe@example.com",      // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(Role.USER.getName()))
         );
 
         restMvc.perform(
@@ -177,7 +175,7 @@ public class AccountResourceIntTest {
             "funky@example.com",    // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(Role.USER.getName()))
         );
 
         restUserMockMvc.perform(
@@ -201,7 +199,7 @@ public class AccountResourceIntTest {
             "invalid",          // e-mail <-- invalid
             true,               // activated
             "en",               // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(Role.USER.getName()))
         );
 
         restUserMockMvc.perform(
@@ -226,7 +224,7 @@ public class AccountResourceIntTest {
             "alice@example.com",    // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(Role.USER.getName()))
         );
 
         // Duplicate login, different e-mail
@@ -263,7 +261,7 @@ public class AccountResourceIntTest {
             "john@example.com",     // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.USER))
+            new HashSet<>(Arrays.asList(Role.USER.getName()))
         );
 
         // Duplicate e-mail, different login
@@ -299,7 +297,7 @@ public class AccountResourceIntTest {
             "badguy@example.com",   // e-mail
             true,                   // activated
             "en",                   // langKey
-            new HashSet<>(Arrays.asList(AuthoritiesConstants.ADMIN)) // <-- only admin should be able to do that
+            new HashSet<>(Arrays.asList(Role.ADMIN.getName())) // <-- only admin should be able to do that
         );
 
         restMvc.perform(
@@ -311,6 +309,6 @@ public class AccountResourceIntTest {
         Optional<User> userDup = userRepository.findOneByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
         assertThat(userDup.get().getUserAuthorities()).hasSize(1)
-            .containsExactly(authorityRepository.findByRole(ROLE_USER));
+            .containsExactly(authorityRepository.findByRole(Role.USER));
     }
 }

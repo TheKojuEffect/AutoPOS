@@ -2,15 +2,15 @@ package io.koju.autopos.catalog.service
 
 import spock.lang.Specification
 
-class ItemCodeTest extends Specification {
+class ItemCodeUtilTest extends Specification {
 
     def "ItemCode getId and getCode process is working and symmetric"() {
 
         expect:
-        ItemCode.getCode(id) == code
+        ItemCodeUtil.getCode(id) == code
 
         and:
-        ItemCode.getId(code) == id
+        ItemCodeUtil.getId(code) == id
 
         where:
         id                   || code

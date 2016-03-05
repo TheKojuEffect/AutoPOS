@@ -1,6 +1,7 @@
 package io.koju.autopos.service;
 
 import io.koju.autopos.Application;
+import io.koju.autopos.security.SecurityTestUtil;
 import io.koju.autopos.service.util.RandomUtil;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.user.service.UserRepository;
@@ -14,6 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +55,7 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatOnlyActivatedUserCanRequestPasswordReset() {
+        SecurityTestUtil.makeSystemUserCurrentUser();
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
         Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
         assertThat(maybeUser.isPresent()).isFalse();
@@ -61,6 +64,8 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatResetKeyMustNotBeOlderThan24Hours() {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
@@ -80,6 +85,8 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatResetKeyMustBeValid() {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
@@ -94,6 +101,8 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatUserCanResetPassword() {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
         String oldPassword = user.getPassword();
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(2);
@@ -113,8 +122,10 @@ public class UserServiceIntTest {
 
     @Test
     public void testFindNotActivatedUsersByCreationDateBefore() {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         userService.removeNotActivatedUsers();
-        ZonedDateTime now = ZonedDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         assertThat(users).isEmpty();
     }

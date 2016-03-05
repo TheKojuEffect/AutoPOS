@@ -17,7 +17,7 @@ spring:
         restart:
             enabled: true
         livereload:
-            enabled: false # we use Grunt + BrowserSync for livereload
+            enabled: false # we use Gulp + BrowserSync for livereload
     datasource:
         driver-class-name: org.postgresql.ds.PGSimpleDataSource
         url: jdbc:postgresql://localhost:5432/AutoPOS

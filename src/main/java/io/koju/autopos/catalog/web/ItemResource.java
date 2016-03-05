@@ -2,7 +2,7 @@ package io.koju.autopos.catalog.web;
 
 import com.codahale.metrics.annotation.Timed;
 import io.koju.autopos.catalog.domain.Item;
-import io.koju.autopos.catalog.service.ItemCode;
+import io.koju.autopos.catalog.service.ItemCodeUtil;
 import io.koju.autopos.catalog.service.ItemService;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
@@ -117,6 +117,6 @@ public class ItemResource {
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         log.debug("REST request to delete Item : {}", id);
         itemService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("item", ItemCode.getCode(id).toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("item", ItemCodeUtil.getCode(id).toString())).build();
     }
 }

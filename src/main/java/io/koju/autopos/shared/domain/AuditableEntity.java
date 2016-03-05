@@ -1,6 +1,7 @@
 package io.koju.autopos.shared.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.koju.autopos.user.domain.User;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -25,22 +26,25 @@ public abstract class AuditableEntity
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
+    @JsonIgnore
     private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(name = "last_modified_date", nullable = false)
+    @JsonIgnore
     private LocalDateTime lastModifiedDate;
 
     @CreatedBy
     @ManyToOne(fetch = LAZY, optional = false)
     @JoinColumn(name = "created_by", nullable = false, updatable = false)
+    @JsonIgnore
     private User createdBy;
 
     @LastModifiedBy
     @ManyToOne(fetch = LAZY, optional = false)
     @JoinColumn(name = "last_modified_by", nullable = false)
+    @JsonIgnore
     private User lastModifiedBy;
-
 
     @Override
     public LocalDateTime getCreatedDate() {
