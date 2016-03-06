@@ -88,9 +88,6 @@ public class Item extends AuditableEntity {
     }
 
     public String getCode() {
-        if (code == null && id != null) {
-            code = ItemCodeUtil.getCode(id);
-        }
         return code;
     }
 

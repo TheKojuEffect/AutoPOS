@@ -104,7 +104,7 @@ public class ItemResourceIntTest {
         // Create the Item
 
         restItemMockMvc.perform(post("/api/items")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(item)))
                 .andExpect(status().isCreated());
 
@@ -116,25 +116,7 @@ public class ItemResourceIntTest {
         assertThat(testItem.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testItem.getDescription().get()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testItem.getRemarks().get()).isEqualTo(DEFAULT_REMARKS);
-        assertThat(testItem.getMarkedPrice()).isEqualTo(DEFAULT_MARKED_PRICE);
-    }
-
-    @Test
-    @Transactional
-    public void checkCodeIsRequired() throws Exception {
-        int databaseSizeBeforeTest = itemRepository.findAll().size();
-        // set the field null
-        item.setCode(null);
-
-        // Create the Item, which fails.
-
-        restItemMockMvc.perform(post("/api/items")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(item)))
-                .andExpect(status().isBadRequest());
-
-        List<Item> items = itemRepository.findAll();
-        assertThat(items).hasSize(databaseSizeBeforeTest);
+        assertThat(testItem.getMarkedPrice()).isEqualByComparingTo(DEFAULT_MARKED_PRICE);
     }
 
     @Test
@@ -148,7 +130,7 @@ public class ItemResourceIntTest {
 
         restItemMockMvc.perform(post("/api/items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(item)))
+                .content(objectMapper.writeValueAsBytes(item)))
                 .andExpect(status().isBadRequest());
 
         List<Item> items = itemRepository.findAll();
