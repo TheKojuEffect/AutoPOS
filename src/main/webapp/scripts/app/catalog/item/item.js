@@ -78,7 +78,7 @@ angular.module('autopos')
                 }]
             })
             .state('item.edit', {
-                parent: 'item',
+                parent: 'item.detail',
                 url: '/{id}/edit',
                 data: {
                     authorities: ['ROLE_USER'],
@@ -101,7 +101,7 @@ angular.module('autopos')
                 }]
             })
             .state('item.delete', {
-                parent: 'item',
+                parent: 'item.detail',
                 url: '/{id}/delete',
                 data: {
                     authorities: ['ROLE_USER'],
