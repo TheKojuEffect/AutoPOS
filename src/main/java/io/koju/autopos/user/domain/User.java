@@ -22,7 +22,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -84,7 +84,7 @@ public class User
     private String resetKey;
 
     @Column(name = "reset_date", nullable = true)
-    private ZonedDateTime resetDate = null;
+    private LocalDateTime resetDate;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
@@ -202,11 +202,11 @@ public class User
         this.resetKey = resetKey;
     }
 
-    public ZonedDateTime getResetDate() {
+    public LocalDateTime getResetDate() {
         return resetDate;
     }
 
-    public void setResetDate(ZonedDateTime resetDate) {
+    public void setResetDate(LocalDateTime resetDate) {
         this.resetDate = resetDate;
     }
 

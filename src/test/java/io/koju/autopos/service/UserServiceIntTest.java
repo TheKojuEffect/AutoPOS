@@ -68,7 +68,7 @@ public class UserServiceIntTest {
 
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
 
-        ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
+        LocalDateTime daysAgo = LocalDateTime.now().minusHours(25);
         String resetKey = RandomUtil.generateResetKey();
         user.setActivated(true);
         user.setResetDate(daysAgo);
@@ -89,7 +89,7 @@ public class UserServiceIntTest {
 
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
 
-        ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
+        LocalDateTime daysAgo = LocalDateTime.now().minusHours(25);
         user.setActivated(true);
         user.setResetDate(daysAgo);
         user.setResetKey("1234");
@@ -105,7 +105,7 @@ public class UserServiceIntTest {
 
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
         String oldPassword = user.getPassword();
-        ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(2);
+        LocalDateTime daysAgo = LocalDateTime.now().minusHours(2);
         String resetKey = RandomUtil.generateResetKey();
         user.setActivated(true);
         user.setResetDate(daysAgo);

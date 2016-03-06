@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -61,7 +60,7 @@ public class UserService {
 
        return userRepository.findOneByResetKey(key)
             .filter(user -> {
-                ZonedDateTime oneDayAgo = ZonedDateTime.now().minusHours(24);
+                LocalDateTime oneDayAgo = LocalDateTime.now().minusHours(24);
                 return user.getResetDate().isAfter(oneDayAgo);
            })
            .map(user -> {
@@ -78,7 +77,7 @@ public class UserService {
             .filter(User::getActivated)
             .map(user -> {
                 user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(ZonedDateTime.now());
+                user.setResetDate(LocalDateTime.now());
                 userRepository.save(user);
                 return user;
             });
@@ -130,7 +129,7 @@ public class UserService {
         String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
-        user.setResetDate(ZonedDateTime.now());
+        user.setResetDate(LocalDateTime.now());
         user.setActivated(true);
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
