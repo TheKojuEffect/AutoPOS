@@ -1,10 +1,12 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.catalog.web;
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.koju.autopos.Application;
 import io.koju.autopos.catalog.domain.Brand;
-import io.koju.autopos.catalog.web.BrandResource;
 import io.koju.autopos.catalog.service.BrandRepository;
 
+import io.koju.autopos.security.SecurityTestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,6 +56,9 @@ public class BrandResourceIntTest {
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
+    @Inject
+    private ObjectMapper objectMapper;
+
     private MockMvc restBrandMockMvc;
 
     private Brand brand;
@@ -77,13 +82,16 @@ public class BrandResourceIntTest {
     @Test
     @Transactional
     public void createBrand() throws Exception {
+
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         int databaseSizeBeforeCreate = brandRepository.findAll().size();
 
         // Create the Brand
 
         restBrandMockMvc.perform(post("/api/brands")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(brand)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(brand)))
                 .andExpect(status().isCreated());
 
         // Validate the Brand in the database
@@ -103,8 +111,8 @@ public class BrandResourceIntTest {
         // Create the Brand, which fails.
 
         restBrandMockMvc.perform(post("/api/brands")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(brand)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(brand)))
                 .andExpect(status().isBadRequest());
 
         List<Brand> brands = brandRepository.findAll();
@@ -114,6 +122,8 @@ public class BrandResourceIntTest {
     @Test
     @Transactional
     public void getAllBrands() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         brandRepository.saveAndFlush(brand);
 
@@ -150,6 +160,8 @@ public class BrandResourceIntTest {
     @Test
     @Transactional
     public void updateBrand() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         brandRepository.saveAndFlush(brand);
 
@@ -159,8 +171,8 @@ public class BrandResourceIntTest {
         brand.setName(UPDATED_NAME);
 
         restBrandMockMvc.perform(put("/api/brands")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(brand)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(brand)))
                 .andExpect(status().isOk());
 
         // Validate the Brand in the database
@@ -173,6 +185,7 @@ public class BrandResourceIntTest {
     @Test
     @Transactional
     public void deleteBrand() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
         // Initialize the database
         brandRepository.saveAndFlush(brand);
 
@@ -180,7 +193,7 @@ public class BrandResourceIntTest {
 
         // Get the brand
         restBrandMockMvc.perform(delete("/api/brands/{id}", brand.getId())
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         // Validate the database is empty

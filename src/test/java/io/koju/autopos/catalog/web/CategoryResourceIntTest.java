@@ -1,10 +1,12 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.catalog.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.koju.autopos.Application;
 import io.koju.autopos.catalog.domain.Category;
 import io.koju.autopos.catalog.web.CategoryResource;
 import io.koju.autopos.catalog.service.CategoryRepository;
 
+import io.koju.autopos.security.SecurityTestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,6 +58,9 @@ public class CategoryResourceIntTest {
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
+    @Inject
+    private ObjectMapper objectMapper;
+
     private MockMvc restCategoryMockMvc;
 
     private Category category;
@@ -80,13 +85,15 @@ public class CategoryResourceIntTest {
     @Test
     @Transactional
     public void createCategory() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         int databaseSizeBeforeCreate = categoryRepository.findAll().size();
 
         // Create the Category
 
         restCategoryMockMvc.perform(post("/api/categories")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(category)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(category)))
                 .andExpect(status().isCreated());
 
         // Validate the Category in the database
@@ -107,8 +114,8 @@ public class CategoryResourceIntTest {
         // Create the Category, which fails.
 
         restCategoryMockMvc.perform(post("/api/categories")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(category)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(category)))
                 .andExpect(status().isBadRequest());
 
         List<Category> categories = categoryRepository.findAll();
@@ -125,8 +132,8 @@ public class CategoryResourceIntTest {
         // Create the Category, which fails.
 
         restCategoryMockMvc.perform(post("/api/categories")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(category)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(category)))
                 .andExpect(status().isBadRequest());
 
         List<Category> categories = categoryRepository.findAll();
@@ -136,6 +143,8 @@ public class CategoryResourceIntTest {
     @Test
     @Transactional
     public void getAllCategories() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         categoryRepository.saveAndFlush(category);
 
@@ -151,6 +160,8 @@ public class CategoryResourceIntTest {
     @Test
     @Transactional
     public void getCategory() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         categoryRepository.saveAndFlush(category);
 
@@ -174,6 +185,8 @@ public class CategoryResourceIntTest {
     @Test
     @Transactional
     public void updateCategory() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         categoryRepository.saveAndFlush(category);
 
@@ -184,8 +197,8 @@ public class CategoryResourceIntTest {
         category.setName(UPDATED_NAME);
 
         restCategoryMockMvc.perform(put("/api/categories")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(category)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(category)))
                 .andExpect(status().isOk());
 
         // Validate the Category in the database
@@ -199,6 +212,8 @@ public class CategoryResourceIntTest {
     @Test
     @Transactional
     public void deleteCategory() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         categoryRepository.saveAndFlush(category);
 
@@ -206,7 +221,7 @@ public class CategoryResourceIntTest {
 
         // Get the category
         restCategoryMockMvc.perform(delete("/api/categories/{id}", category.getId())
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         // Validate the database is empty

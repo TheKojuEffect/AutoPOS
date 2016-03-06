@@ -1,8 +1,9 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.catalog.web;
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.koju.autopos.Application;
 import io.koju.autopos.catalog.domain.PriceHistory;
-import io.koju.autopos.catalog.web.PriceHistoryResource;
 import io.koju.autopos.catalog.service.PriceHistoryRepository;
 
 import org.junit.Before;
@@ -68,6 +69,9 @@ public class PriceHistoryResourceIntTest {
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
+    @Inject
+    private ObjectMapper objectMapper;
+
     private MockMvc restPriceHistoryMockMvc;
 
     private PriceHistory priceHistory;
@@ -98,8 +102,8 @@ public class PriceHistoryResourceIntTest {
         // Create the PriceHistory
 
         restPriceHistoryMockMvc.perform(post("/api/priceHistorys")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(priceHistory)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(priceHistory)))
                 .andExpect(status().isCreated());
 
         // Validate the PriceHistory in the database
@@ -121,8 +125,8 @@ public class PriceHistoryResourceIntTest {
         // Create the PriceHistory, which fails.
 
         restPriceHistoryMockMvc.perform(post("/api/priceHistorys")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(priceHistory)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(priceHistory)))
                 .andExpect(status().isBadRequest());
 
         List<PriceHistory> priceHistorys = priceHistoryRepository.findAll();
@@ -139,8 +143,8 @@ public class PriceHistoryResourceIntTest {
         // Create the PriceHistory, which fails.
 
         restPriceHistoryMockMvc.perform(post("/api/priceHistorys")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(priceHistory)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(priceHistory)))
                 .andExpect(status().isBadRequest());
 
         List<PriceHistory> priceHistorys = priceHistoryRepository.findAll();
@@ -201,8 +205,8 @@ public class PriceHistoryResourceIntTest {
         priceHistory.setRemarks(UPDATED_REMARKS);
 
         restPriceHistoryMockMvc.perform(put("/api/priceHistorys")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(priceHistory)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(priceHistory)))
                 .andExpect(status().isOk());
 
         // Validate the PriceHistory in the database
@@ -224,7 +228,7 @@ public class PriceHistoryResourceIntTest {
 
         // Get the priceHistory
         restPriceHistoryMockMvc.perform(delete("/api/priceHistorys/{id}", priceHistory.getId())
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         // Validate the database is empty

@@ -1,10 +1,11 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.catalog.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.koju.autopos.Application;
 import io.koju.autopos.catalog.domain.Tag;
-import io.koju.autopos.catalog.web.TagResource;
 import io.koju.autopos.catalog.service.TagRepository;
 
+import io.koju.autopos.security.SecurityTestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,6 +55,9 @@ public class TagResourceIntTest {
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
+    @Inject
+    private ObjectMapper objectMapper;
+
     private MockMvc restTagMockMvc;
 
     private Tag tag;
@@ -77,13 +81,15 @@ public class TagResourceIntTest {
     @Test
     @Transactional
     public void createTag() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         int databaseSizeBeforeCreate = tagRepository.findAll().size();
 
         // Create the Tag
 
         restTagMockMvc.perform(post("/api/tags")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tag)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(tag)))
                 .andExpect(status().isCreated());
 
         // Validate the Tag in the database
@@ -103,8 +109,8 @@ public class TagResourceIntTest {
         // Create the Tag, which fails.
 
         restTagMockMvc.perform(post("/api/tags")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tag)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(tag)))
                 .andExpect(status().isBadRequest());
 
         List<Tag> tags = tagRepository.findAll();
@@ -114,6 +120,8 @@ public class TagResourceIntTest {
     @Test
     @Transactional
     public void getAllTags() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         tagRepository.saveAndFlush(tag);
 
@@ -128,6 +136,8 @@ public class TagResourceIntTest {
     @Test
     @Transactional
     public void getTag() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         tagRepository.saveAndFlush(tag);
 
@@ -150,6 +160,7 @@ public class TagResourceIntTest {
     @Test
     @Transactional
     public void updateTag() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
         // Initialize the database
         tagRepository.saveAndFlush(tag);
 
@@ -159,8 +170,8 @@ public class TagResourceIntTest {
         tag.setName(UPDATED_NAME);
 
         restTagMockMvc.perform(put("/api/tags")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(tag)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(tag)))
                 .andExpect(status().isOk());
 
         // Validate the Tag in the database
@@ -173,6 +184,8 @@ public class TagResourceIntTest {
     @Test
     @Transactional
     public void deleteTag() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         tagRepository.saveAndFlush(tag);
 
@@ -180,7 +193,7 @@ public class TagResourceIntTest {
 
         // Get the tag
         restTagMockMvc.perform(delete("/api/tags/{id}", tag.getId())
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         // Validate the database is empty
