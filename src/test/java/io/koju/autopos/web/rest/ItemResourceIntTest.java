@@ -129,7 +129,7 @@ public class ItemResourceIntTest {
         // Create the Item, which fails.
 
         restItemMockMvc.perform(post("/api/items")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(item)))
                 .andExpect(status().isBadRequest());
 
@@ -147,8 +147,8 @@ public class ItemResourceIntTest {
         // Create the Item, which fails.
 
         restItemMockMvc.perform(post("/api/items")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(item)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(item)))
                 .andExpect(status().isBadRequest());
 
         List<Item> items = itemRepository.findAll();
@@ -220,7 +220,7 @@ public class ItemResourceIntTest {
         item.setMarkedPrice(UPDATED_MARKED_PRICE);
 
         restItemMockMvc.perform(put("/api/items")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(item)))
                 .andExpect(status().isOk());
 
@@ -245,7 +245,7 @@ public class ItemResourceIntTest {
 
         // Get the item
         restItemMockMvc.perform(delete("/api/items/{id}", item.getId())
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         // Validate the database is empty
