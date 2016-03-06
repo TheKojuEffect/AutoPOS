@@ -1,5 +1,5 @@
 <div>
-    <h2 translate="autopos.category.home.title">Categorys</h2>
+    <h2 translate="autopos.category.home.title">Categories</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
         <div class="row">
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="category in categorys track by category.id">
+                <tr ng-repeat="category in categories track by category.id">
                     <td><a ui-sref="category.detail({id:category.id})">{{category.shortName}}</a></td>
                     <td>{{category.name}}</td>
                     <td class="text-right">

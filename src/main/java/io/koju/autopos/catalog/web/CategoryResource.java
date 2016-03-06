@@ -35,9 +35,9 @@ public class CategoryResource {
     private CategoryRepository categoryRepository;
 
     /**
-     * POST  /categorys -> Create a new category.
+     * POST  /categories -> Create a new category.
      */
-    @RequestMapping(value = "/categorys",
+    @RequestMapping(value = "/categories",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -47,15 +47,15 @@ public class CategoryResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("category", "idexists", "A new category cannot already have an ID")).body(null);
         }
         Category result = categoryRepository.save(category);
-        return ResponseEntity.created(new URI("/api/categorys/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/categories/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("category", result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /categorys -> Updates an existing category.
+     * PUT  /categories -> Updates an existing category.
      */
-    @RequestMapping(value = "/categorys",
+    @RequestMapping(value = "/categories",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -71,24 +71,24 @@ public class CategoryResource {
     }
 
     /**
-     * GET  /categorys -> get all the categorys.
+     * GET  /categories -> get all the categories.
      */
-    @RequestMapping(value = "/categorys",
+    @RequestMapping(value = "/categories",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Category>> getAllCategorys(Pageable pageable)
+    public ResponseEntity<List<Category>> getAllCategories(Pageable pageable)
         throws URISyntaxException {
-        log.debug("REST request to get a page of Categorys");
+        log.debug("REST request to get a page of Categories");
         Page<Category> page = categoryRepository.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/categorys");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/categories");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /categorys/:id -> get the "id" category.
+     * GET  /categories/:id -> get the "id" category.
      */
-    @RequestMapping(value = "/categorys/{id}",
+    @RequestMapping(value = "/categories/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -103,9 +103,9 @@ public class CategoryResource {
     }
 
     /**
-     * DELETE  /categorys/:id -> delete the "id" category.
+     * DELETE  /categories/:id -> delete the "id" category.
      */
-    @RequestMapping(value = "/categorys/{id}",
+    @RequestMapping(value = "/categories/{id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed

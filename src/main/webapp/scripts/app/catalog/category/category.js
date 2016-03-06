@@ -5,14 +5,14 @@ angular.module('autopos')
         $stateProvider
             .state('category', {
                 parent: 'catalog',
-                url: '/categorys',
+                url: '/categories',
                 data: {
                     authorities: ['ROLE_USER'],
                     pageTitle: 'autopos.category.home.title'
                 },
                 views: {
                     'content-tab': {
-                        templateUrl: 'scripts/app/catalog/category/categorys.html',
+                        templateUrl: 'scripts/app/catalog/category/categories.html',
                         controller: 'CategoryController'
                     }
                 },

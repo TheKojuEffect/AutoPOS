@@ -3,7 +3,7 @@
 angular.module('autopos')
     .controller('CategoryController', function ($scope, $state, Category, ParseLinks) {
 
-        $scope.categorys = [];
+        $scope.categories = [];
         $scope.predicate = 'id';
         $scope.reverse = true;
         $scope.page = 1;
@@ -11,7 +11,7 @@ angular.module('autopos')
             Category.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
-                $scope.categorys = result;
+                $scope.categories = result;
             });
         };
         $scope.loadPage = function(page) {

@@ -5,7 +5,7 @@ angular.module('autopos').controller('ItemDialogController',
         function($scope, $stateParams, $uibModalInstance, entity, Item, Category, Brand, Tag) {
 
         $scope.item = entity;
-        $scope.categorys = Category.query();
+        $scope.categories = Category.query();
         $scope.brands = Brand.query();
         $scope.tags = Tag.query();
         $scope.load = function(id) {
