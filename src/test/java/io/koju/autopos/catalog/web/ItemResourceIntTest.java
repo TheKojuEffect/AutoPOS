@@ -1,10 +1,9 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.catalog.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.koju.autopos.Application;
 import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.service.ItemCodeUtil;
-import io.koju.autopos.catalog.web.ItemResource;
 import io.koju.autopos.catalog.service.ItemRepository;
 import io.koju.autopos.catalog.service.ItemService;
 
