@@ -51,12 +51,6 @@ bootRun {
 }
 
 
-test {
-    println 'Starting the Unit and Integration test'
-    include '**/*UnitTest*'
-    include '**/*IntTest*'
-}
-
 querydsl {
     library = "com.mysema.querydsl:querydsl-apt:$queryDslVersion"
     querydslSourcesDir = "src/querydsl/java"
@@ -180,9 +174,9 @@ dependencies {
     testCompile group: 'org.hamcrest', name: 'hamcrest-library'
 
 
-    testCompile('org.spockframework:spock-core') {
-        exclude module: 'junit'
-    }
+    testCompile 'org.spockframework:spock-core'
+
+    testCompile 'org.spockframework:spock-spring'
 
     optional group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
 }
