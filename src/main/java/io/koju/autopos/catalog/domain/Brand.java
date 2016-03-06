@@ -1,6 +1,6 @@
 package io.koju.autopos.catalog.domain;
 
-import io.koju.autopos.shared.domain.AbstractEntity;
+import io.koju.autopos.shared.domain.AuditableEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -12,18 +12,17 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "brand")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Brand extends AbstractEntity {
+public class Brand extends AuditableEntity {
 
     @Id
-    @SequenceGenerator(name = "brand_id_seq", sequenceName = "brand_id_seq", initialValue = 1)
-    @GeneratedValue(strategy = SEQUENCE , generator = "brand_id_seq")
+    @SequenceGenerator(name = "brand_id_seq", sequenceName = "brand_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "brand_id_seq")
     private Long id;
 
     @NotNull
@@ -47,31 +46,4 @@ public class Brand extends AbstractEntity {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Brand brand = (Brand) o;
-        if(brand.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, brand.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Brand{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            '}';
-    }
 }

@@ -1,23 +1,29 @@
 package io.koju.autopos.catalog.domain;
 
+import io.koju.autopos.shared.domain.AuditableEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.io.Serializable;
-import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-/**
- * A Tag.
- */
+import static javax.persistence.GenerationType.SEQUENCE;
+
+
 @Entity
 @Table(name = "tag")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Tag implements Serializable {
+public class Tag extends AuditableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "tag_id_seq", sequenceName = "tag_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "tag_id_seq")
     private Long id;
 
     @NotNull
@@ -41,31 +47,4 @@ public class Tag implements Serializable {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Tag tag = (Tag) o;
-        if(tag.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, tag.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Tag{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            '}';
-    }
 }
