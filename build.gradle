@@ -180,9 +180,9 @@ dependencies {
     testCompile group: 'org.hamcrest', name: 'hamcrest-library'
 
 
-    testCompile group: 'com.h2database', name: 'h2'
-
-    testCompile 'org.spockframework:spock-core'
+    testCompile('org.spockframework:spock-core') {
+        exclude module: 'junit'
+    }
 
     optional group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
 }
