@@ -15,8 +15,8 @@ spring:
         driver-class-name: org.postgresql.ds.PGSimpleDataSource
         url: jdbc:postgresql://localhost:5432/TestAutoPOS
         name:
-        username: postgres
-        password: test12
+        username: test_autopos
+        password: test_autopos
     jpa:
         database-platform: io.koju.autopos.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
