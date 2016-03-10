@@ -3,52 +3,52 @@
 angular.module('autopos')
     .controller('ItemController', function ($state, Item) {
 
-        var vm = this;
+        var ctrl = this;
 
-        vm.items = [];
-        vm.predicate = 'id';
-        vm.reverse = true;
-        vm.page = 1;
-        vm.itemsPerPage = 20;
-        vm.itemNameFilter = '';
+        ctrl.items = [];
+        ctrl.predicate = 'id';
+        ctrl.reverse = true;
+        ctrl.page = 1;
+        ctrl.itemsPerPage = 20;
+        ctrl.itemNameFilter = '';
 
 
-        vm.loadAll = loadAll;
-        vm.loadPage = loadPage;
-        vm.refresh = refresh;
-        vm.clear = clear;
+        ctrl.loadAll = loadAll;
+        ctrl.loadPage = loadPage;
+        ctrl.refresh = refresh;
+        ctrl.clear = clear;
 
-        vm.loadAll();
+        ctrl.loadAll();
 
         function loadAll() {
             var requestParams = {
-                page: vm.page - 1,
-                size: vm.itemsPerPage,
-                sort: [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'), 'id']
+                page: ctrl.page - 1,
+                size: ctrl.itemsPerPage,
+                sort: [ctrl.predicate + ',' + (ctrl.reverse ? 'asc' : 'desc'), 'id']
             };
 
-            if (vm.itemNameFilter) {
-                requestParams.name = '*' + vm.itemNameFilter + '*';
+            if (ctrl.itemNameFilter) {
+                requestParams.name = '*' + ctrl.itemNameFilter + '*';
             }
 
             Item.query(requestParams, function (result, headers) {
-                vm.totalItems = headers('X-Total-Count');
-                vm.items = result;
+                ctrl.totalItems = headers('X-Total-Count');
+                ctrl.items = result;
             });
         }
 
         function loadPage(page) {
-            vm.page = page;
-            vm.loadAll();
+            ctrl.page = page;
+            ctrl.loadAll();
         }
 
         function refresh() {
-            vm.loadAll();
-            vm.clear();
+            ctrl.loadAll();
+            ctrl.clear();
         }
 
         function clear() {
-            vm.item = {
+            ctrl.item = {
                 code: null,
                 name: null,
                 description: null,
