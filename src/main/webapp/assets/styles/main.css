@@ -210,3 +210,6 @@ ul#strengthBar {
 }
 /* end of entity tables helpers */
 
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
