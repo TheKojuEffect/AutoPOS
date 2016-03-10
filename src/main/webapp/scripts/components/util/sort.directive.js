@@ -19,15 +19,15 @@ angular.module('autopos')
                     $scope.predicate = field;
                     $scope.$apply();
                     $scope.callback();
-                }
+                };
                 this.applyClass = function (element) {
                     var allThIcons = element.parent().find('span.glyphicon'),
-                    sortIcon = 'glyphicon-sort',
-                    sortAsc = 'glyphicon-sort-by-attributes',
-                    sortDesc = 'glyphicon-sort-by-attributes-alt',
-                    remove = sortIcon + ' ' + sortDesc,
-                    add = sortAsc,
-                    thisIcon = element.find('span.glyphicon');
+                        sortIcon = 'glyphicon-sort',
+                        sortAsc = 'glyphicon-sort-by-attributes',
+                        sortDesc = 'glyphicon-sort-by-attributes-alt',
+                        remove = sortIcon + ' ' + sortDesc,
+                        add = sortAsc,
+                        thisIcon = element.find('span.glyphicon');
                     if (!$scope.ascending) {
                         remove = sortIcon + ' ' + sortAsc;
                         add = sortDesc;
@@ -36,7 +36,7 @@ angular.module('autopos')
                     allThIcons.addClass(sortIcon);
                     thisIcon.removeClass(remove);
                     thisIcon.addClass(add);
-                }
+                };
             }]
         }
     }).directive('jhSortBy', function () {

@@ -13,7 +13,8 @@ angular.module('autopos')
                 views: {
                     'content-tab': {
                         templateUrl: 'scripts/app/catalog/item/items.html',
-                        controller: 'ItemController'
+                        controller: 'ItemController',
+                        controllerAs: 'vm'
                     }
                 },
                 resolve: {

@@ -1,33 +1,54 @@
 'use strict';
 
 angular.module('autopos')
-    .controller('ItemController', function ($scope, $state, Item, ParseLinks) {
+    .controller('ItemController', function ($state, Item) {
 
-        $scope.items = [];
-        $scope.predicate = 'id';
-        $scope.reverse = true;
-        $scope.page = 1;
-        $scope.loadAll = function() {
-            Item.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
-                $scope.links = ParseLinks.parse(headers('link'));
-                $scope.totalItems = headers('X-Total-Count');
-                $scope.items = result;
+        var vm = this;
+
+        vm.items = [];
+        vm.predicate = 'id';
+        vm.reverse = true;
+        vm.page = 1;
+        vm.itemsPerPage = 20;
+        vm.itemNameFilter = '';
+
+
+        vm.loadAll = loadAll;
+        vm.loadPage = loadPage;
+        vm.refresh = refresh;
+        vm.clear = clear;
+
+        vm.loadAll();
+
+        function loadAll() {
+            var requestParams = {
+                page: vm.page - 1,
+                size: vm.itemsPerPage,
+                sort: [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'), 'id']
+            };
+
+            if (vm.itemNameFilter) {
+                requestParams.name = '*' + vm.itemNameFilter + '*';
+            }
+
+            Item.query(requestParams, function (result, headers) {
+                vm.totalItems = headers('X-Total-Count');
+                vm.items = result;
             });
-        };
-        $scope.loadPage = function(page) {
-            $scope.page = page;
-            $scope.loadAll();
-        };
-        $scope.loadAll();
+        }
 
+        function loadPage(page) {
+            vm.page = page;
+            vm.loadAll();
+        }
 
-        $scope.refresh = function () {
-            $scope.loadAll();
-            $scope.clear();
-        };
+        function refresh() {
+            vm.loadAll();
+            vm.clear();
+        }
 
-        $scope.clear = function () {
-            $scope.item = {
+        function clear() {
+            vm.item = {
                 code: null,
                 name: null,
                 description: null,
@@ -35,5 +56,6 @@ angular.module('autopos')
                 markedPrice: null,
                 id: null
             };
-        };
+        }
+
     });
