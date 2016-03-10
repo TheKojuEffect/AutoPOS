@@ -3,6 +3,7 @@ package io.koju.autopos.config;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
 import com.codahale.metrics.servlets.MetricsServlet;
+import io.koju.autopos.shared.web.RequestFilterParamsHandlerMethodArgumentResolver;
 import io.koju.autopos.web.filter.CachingHttpHeadersFilter;
 import io.koju.autopos.web.filter.StaticResourcesProductionFilter;
 import org.slf4j.Logger;
@@ -18,16 +19,24 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import java.util.*;
 import javax.inject.Inject;
-import javax.servlet.*;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
-public class WebConfigurer implements ServletContextInitializer, EmbeddedServletContainerCustomizer {
+public class WebConfigurer extends WebMvcConfigurerAdapter implements ServletContextInitializer, EmbeddedServletContainerCustomizer {
 
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);
 
@@ -124,6 +133,11 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         metricsAdminServlet.addMapping("/metrics/metrics/*");
         metricsAdminServlet.setAsyncSupported(true);
         metricsAdminServlet.setLoadOnStartup(2);
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new RequestFilterParamsHandlerMethodArgumentResolver());
     }
 
     @Bean

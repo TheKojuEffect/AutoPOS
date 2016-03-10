@@ -2,6 +2,7 @@ package io.koju.autopos.catalog.web;
 
 import com.codahale.metrics.annotation.Timed;
 import io.koju.autopos.catalog.domain.Item;
+import io.koju.autopos.catalog.schema.ItemFilter;
 import io.koju.autopos.catalog.service.ItemCodeUtil;
 import io.koju.autopos.catalog.service.ItemService;
 import io.koju.autopos.web.rest.util.HeaderUtil;
@@ -84,10 +85,10 @@ public class ItemResource {
     @RequestMapping(value = "/items",
         method = GET)
     @Timed
-    public ResponseEntity<List<Item>> getAllItems(Pageable pageable)
+    public ResponseEntity<List<Item>> getAllItems(Pageable pageable, ItemFilter itemFilter)
         throws URISyntaxException {
         log.debug("REST request to get a page of Items");
-        Page<Item> page = itemService.findAll(pageable);
+        Page<Item> page = itemService.findAll(itemFilter, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");
         return new ResponseEntity<>(page.getContent(), headers, OK);
     }
