@@ -1,8 +1,8 @@
 package io.koju.autopos.shared.web;
 
-import io.koju.autopos.catalog.schema.ItemFilter;
-import io.koju.autopos.shared.struct.filter.FilterParamType;
-import io.koju.autopos.shared.struct.filter.RequestFilterParams;
+import io.koju.autopos.catalog.struct.filter.ItemFilter;
+import io.koju.autopos.shared.struct.filter.FilterParam;
+import io.koju.autopos.shared.struct.filter.FilterRequest;
 import io.koju.autopos.shared.util.ClassUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -13,11 +13,11 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import java.lang.reflect.Field;
 import java.util.List;
 
-public class RequestFilterParamsHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+public class FilterRequestHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return RequestFilterParams.class.isAssignableFrom(parameter.getParameterType());
+        return FilterRequest.class.isAssignableFrom(parameter.getParameterType());
     }
 
     @Override
@@ -27,9 +27,9 @@ public class RequestFilterParamsHandlerMethodArgumentResolver implements Handler
                                   WebDataBinderFactory binderFactory)
         throws Exception {
 
-        List<Field> fields = ClassUtil.getAllFields(ItemFilter.class, FilterParamType.class);
+        List<Field> fields = ClassUtil.getAllFields(ItemFilter.class, FilterParam.class);
 
-        RequestFilterParams filterRequest = (RequestFilterParams) parameter.getParameterType().newInstance();
+        FilterRequest filterRequest = (FilterRequest) parameter.getParameterType().newInstance();
 
         for (Field field : fields) {
             String fieldValue = webRequest.getParameter(field.getName());
@@ -37,9 +37,10 @@ public class RequestFilterParamsHandlerMethodArgumentResolver implements Handler
                 continue;
             }
             field.setAccessible(true);
-            FilterParamType param = (FilterParamType) field.getType().newInstance();
-            param.setFieldsFromString(fieldValue);
-            field.set(filterRequest, param);
+            Class<FilterParam> filterParamType = (Class<FilterParam>) field.getType();
+            FilterParam filterParam = filterParamType.getDeclaredConstructor(String.class).newInstance(fieldValue);
+            filterParam.populateWithRequestParam(fieldValue);
+            field.set(filterRequest, filterParam);
             field.setAccessible(false);
         }
 

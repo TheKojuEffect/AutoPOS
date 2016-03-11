@@ -1,55 +1,69 @@
 package io.koju.autopos.shared.struct.filter;
 
-public class TextFilter implements FilterParamType<TextFilter> {
+import com.mysema.query.types.Predicate;
+import com.mysema.query.types.path.StringPath;
 
-    public enum MatchType {
-        EXACT,
-        START,
-        END,
-        ANYWHERE
-    }
-
-    private String filterTerm;
+public class TextFilter extends FilterParam<String, StringPath> {
 
     private MatchType matchType;
 
+    public TextFilter(String requestParam) {
+        super(requestParam);
+    }
+
+    public enum MatchType {
+        EXACT {
+            @Override
+            Predicate toQueryDslPredicate(StringPath path, String value) {
+                return path.equalsIgnoreCase(value);
+            }
+        },
+        START {
+            @Override
+            Predicate toQueryDslPredicate(StringPath path, String value) {
+                return path.startsWithIgnoreCase(value);
+            }
+        },
+        END {
+            @Override
+            Predicate toQueryDslPredicate(StringPath path, String value) {
+                return path.endsWithIgnoreCase(value);
+            }
+        },
+        ANYWHERE {
+            @Override
+            Predicate toQueryDslPredicate(StringPath path, String value) {
+                return path.containsIgnoreCase(value);
+            }
+        };
+
+        static MatchType getByWildcardPosition(boolean wildcardInStart, boolean wildcardInEnd) {
+            if (wildcardInStart && wildcardInEnd) {
+                return MatchType.ANYWHERE;
+            } else if (wildcardInStart) {
+                return MatchType.END;
+            } else if (wildcardInEnd) {
+                return MatchType.START;
+            } else {
+                return MatchType.EXACT;
+            }
+        }
+
+        abstract Predicate toQueryDslPredicate(StringPath path, String value);
+    }
+
     private final static String WILD_CARD = "*";
 
-    @Override
-    public TextFilter setFieldsFromString(final String term) {
-        final boolean wildcardInStart = term.startsWith(WILD_CARD);
-        final boolean wildcardInEnd = term.endsWith(WILD_CARD);
+    public void populateWithRequestParam(String requestParam) {
+        final boolean wildcardInStart = requestParam.startsWith(WILD_CARD);
+        final boolean wildcardInEnd = requestParam.endsWith(WILD_CARD);
 
-        matchType = getMatchType(wildcardInStart, wildcardInEnd);
-        filterTerm = term.replace(WILD_CARD, "");
-        return this;
+        matchType = MatchType.getByWildcardPosition(wildcardInStart, wildcardInEnd);
+        setFilter(requestParam.replace(WILD_CARD, ""));
     }
 
-    public String getFilterTerm() {
-        return filterTerm;
+    public Predicate toQueryDslPredicate(StringPath path) {
+        return matchType.toQueryDslPredicate(path, filter);
     }
 
-    public void setFilterTerm(String filterTerm) {
-        this.filterTerm = filterTerm;
-    }
-
-    public MatchType getMatchType() {
-        return matchType;
-    }
-
-    public void setMatchType(MatchType matchType) {
-        this.matchType = matchType;
-    }
-
-    private MatchType getMatchType(boolean wildcardInStart, boolean wildcardInEndd) {
-        if (wildcardInStart && wildcardInEndd) {
-            return MatchType.ANYWHERE;
-        } else if (wildcardInStart) {
-            return MatchType.END;
-        } else if (wildcardInEndd) {
-            return MatchType.START;
-        } else {
-            return MatchType.EXACT;
-        }
-    }
 }

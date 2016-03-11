@@ -1,7 +1,7 @@
 package io.koju.autopos.catalog.service;
 
 import io.koju.autopos.catalog.domain.Item;
-import io.koju.autopos.catalog.schema.ItemFilter;
+import io.koju.autopos.catalog.struct.filter.ItemFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

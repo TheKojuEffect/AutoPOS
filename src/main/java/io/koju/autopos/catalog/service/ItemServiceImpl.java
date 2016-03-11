@@ -3,7 +3,7 @@ package io.koju.autopos.catalog.service;
 import com.mysema.query.types.Predicate;
 import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.domain.QItem;
-import io.koju.autopos.catalog.schema.ItemFilter;
+import io.koju.autopos.catalog.struct.filter.ItemFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,24 +34,8 @@ class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = true)
     public Page<Item> findAll(ItemFilter itemFilter, Pageable pageable) {
         log.debug("Request to get all Items");
-
-        Predicate itemFilterPredicate = itemFilter.getNameFilter().map(nameFilter -> {
-            QItem item = QItem.item;
-            String filterTerm = nameFilter.getFilterTerm();
-            switch (nameFilter.getMatchType()) {
-                case EXACT:
-                    return item.name.equalsIgnoreCase(filterTerm);
-                case START:
-                    return item.name.startsWithIgnoreCase(filterTerm);
-                case END:
-                    return item.name.endsWithIgnoreCase(filterTerm);
-                case ANYWHERE:
-                    return item.name.containsIgnoreCase(filterTerm);
-            }
-            return null;
-        }).orElse(null);
-
-        return itemRepository.findAll(itemFilterPredicate, pageable);
+        final Predicate filterPredicate = itemFilter.toQueryDslPredicate(QItem.item);
+        return itemRepository.findAll(filterPredicate, pageable);
     }
 
     @Transactional(readOnly = true)
