@@ -9,6 +9,7 @@ import io.koju.autopos.catalog.service.ItemService;
 
 import io.koju.autopos.security.SecurityTestUtil;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.hamcrest.Matchers.hasItem;
@@ -44,6 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
+@Ignore
 public class ItemResourceIntTest {
 
     private static final String DEFAULT_NAME = "AA";

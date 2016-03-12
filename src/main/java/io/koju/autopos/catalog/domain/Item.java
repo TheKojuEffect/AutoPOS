@@ -70,11 +70,10 @@ public class Item extends AuditableBaseEntity {
     @Column(name = "marked_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal markedPrice;
 
-    @NotNull
     @OneToOne(optional = false, cascade = REMOVE, orphanRemoval = true)
     @JoinColumn(name = "quantity_info_id", updatable = false, nullable = false)
     @JsonIgnore
-    private QuantityInfo quantityInfo = new QuantityInfo();
+    private QuantityInfo quantityInfo;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -100,6 +99,7 @@ public class Item extends AuditableBaseEntity {
         return quantityInfo.getQuantity();
     }
 
+    @JsonIgnore
     public void setQuantity(Integer quantity) {
         quantityInfo.setQuantity(quantity);
     }
