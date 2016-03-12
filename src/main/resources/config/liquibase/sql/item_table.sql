@@ -6,7 +6,7 @@ CREATE TABLE item (
     location           VARCHAR(250),
     remarks            VARCHAR(250),
     marked_price       DECIMAL(10, 2)               NOT NULL CHECK (marked_price > 0),
-    quantity           INTEGER                      NOT NULL DEFAULT 0 CHECK (quantity >= 0),
+    quantity_info_id   BIGINT                       NOT NULL REFERENCES quantity_info (id),
     category_id        BIGINT REFERENCES category (id),
     brand_id           BIGINT REFERENCES brand (id),
 

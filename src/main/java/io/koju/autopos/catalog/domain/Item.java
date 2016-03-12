@@ -1,5 +1,6 @@
 package io.koju.autopos.catalog.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.koju.autopos.catalog.service.ItemCodeUtil;
 import io.koju.autopos.shared.domain.AuditableBaseEntity;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PostPersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -26,6 +28,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -68,9 +71,10 @@ public class Item extends AuditableBaseEntity {
     private BigDecimal markedPrice;
 
     @NotNull
-    @Min(0)
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity = 0;
+    @OneToOne(optional = false, cascade = REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "quantity_info_id", updatable = false, nullable = false)
+    @JsonIgnore
+    private QuantityInfo quantityInfo = new QuantityInfo();
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -92,12 +96,24 @@ public class Item extends AuditableBaseEntity {
         setCode(ItemCodeUtil.getCode(id));
     }
 
+    public Integer getQuantity() {
+        return quantityInfo.getQuantity();
+    }
+
+    public void setQuantity(Integer quantity) {
+        quantityInfo.setQuantity(quantity);
+    }
+
     public Optional<String> getDescription() {
         return Optional.ofNullable(description);
     }
 
     public Optional<String> getRemarks() {
         return Optional.ofNullable(remarks);
+    }
+
+    public Optional<String> getLocation() {
+        return Optional.ofNullable(location);
     }
 
     public Optional<Category> getCategory() {

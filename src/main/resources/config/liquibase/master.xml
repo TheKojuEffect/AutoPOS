@@ -18,6 +18,10 @@
         <sqlFile path="sql/tag_table.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
+    <changeSet id="POS-39" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sqlFile path="sql/quantity_info_table.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
     <changeSet id="POS-7" author="kplx2.0@gmail.com" dbms="postgresql">
         <sqlFile path="sql/item_table.sql" relativeToChangelogFile="true"/>
     </changeSet>

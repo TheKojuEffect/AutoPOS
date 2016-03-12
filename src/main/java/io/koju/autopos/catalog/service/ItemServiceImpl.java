@@ -20,13 +20,17 @@ class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
 
+    private final QuantityInfoRepository quantityInfoRepository;
+
     @Autowired
-    ItemServiceImpl(ItemRepository itemRepository) {
+    ItemServiceImpl(ItemRepository itemRepository, QuantityInfoRepository quantityInfoRepository) {
         this.itemRepository = itemRepository;
+        this.quantityInfoRepository = quantityInfoRepository;
     }
 
     public Item save(Item item) {
         log.debug("Request to save Item : {}", item);
+        quantityInfoRepository.save(item.getQuantityInfo());
         Item result = itemRepository.save(item);
         return result;
     }
