@@ -1,6 +1,7 @@
 package io.koju.autopos.catalog.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.koju.autopos.catalog.service.ItemCodeUtil;
 import io.koju.autopos.shared.domain.AuditableBaseEntity;
 import lombok.Getter;
@@ -94,6 +95,7 @@ public class Item extends AuditableBaseEntity {
         setCode(ItemCodeUtil.getCode(id));
     }
 
+    @JsonProperty
     public Integer getQuantity() {
         return quantityInfo.getQuantity();
     }

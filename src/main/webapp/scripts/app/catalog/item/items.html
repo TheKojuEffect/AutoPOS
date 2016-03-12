@@ -28,17 +28,35 @@
         <table class="jh-table table table-striped">
             <thead>
             <tr jh-sort="ctrl.predicate" ascending="ctrl.reverse" callback="ctrl.loadAll()">
-                <th jh-sort-by="code"><span translate="autopos.item.code">Code</span> <span
-                    class="glyphicon glyphicon-sort"></span></th>
-                <th jh-sort-by="name"><span translate="autopos.item.name">Name</span> <span
-                    class="glyphicon glyphicon-sort"></span></th>
-                <th jh-sort-by="markedPrice"><span translate="autopos.item.markedPrice">MarkedPrice</span> <span
-                    class="glyphicon glyphicon-sort"></span></th>
-                <th jh-sort-by="category.shortName"><span translate="autopos.item.category">category</span> <span
-                    class="glyphicon glyphicon-sort"></span></th>
-                <th jh-sort-by="brand.name"><span translate="autopos.item.brand">brand</span> <span
-                    class="glyphicon glyphicon-sort"></span></th>
-                <th></th>
+                <th jh-sort-by="code">
+                    <span translate="autopos.item.code">Code</span>
+                    <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="name">
+                    <span translate="autopos.item.name">Name</span>
+                    <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="markedPrice">
+                    <span translate="autopos.item.markedPrice">MarkedPrice</span>
+                    <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="category.shortName">
+                    <span translate="autopos.item.category">category</span>
+                    <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="brand.name">
+                    <span translate="autopos.item.brand">brand</span>
+                    <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="quantityInfo.quantity">
+                    <span>Quantity</span>
+                    <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th>
+                    <span>Location</span>
+                </th>
+                <th>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -52,6 +70,9 @@
                 <td>
                     <a ui-sref="brand.detail({id:item.brand.id})">{{item.brand.name}}</a>
                 </td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.location}}</td>
+
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

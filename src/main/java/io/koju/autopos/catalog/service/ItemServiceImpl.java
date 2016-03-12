@@ -29,6 +29,7 @@ class ItemServiceImpl implements ItemService {
         this.quantityInfoRepository = quantityInfoRepository;
     }
 
+    @Override
     public Item save(Item item) {
         log.debug("Request to save Item : {}", item);
         QuantityInfo quantityInfo = new QuantityInfo();
@@ -38,6 +39,7 @@ class ItemServiceImpl implements ItemService {
         return result;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Page<Item> findAll(ItemFilter itemFilter, Pageable pageable) {
         log.debug("Request to get all Items");
@@ -45,6 +47,7 @@ class ItemServiceImpl implements ItemService {
         return itemRepository.findAll(filterPredicate, pageable);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public Item findOne(Long id) {
         log.debug("Request to get Item : {}", id);
@@ -52,6 +55,7 @@ class ItemServiceImpl implements ItemService {
         return item;
     }
 
+    @Override
     public void delete(Long id) {
         log.debug("Request to delete Item : {}", id);
         itemRepository.delete(id);
