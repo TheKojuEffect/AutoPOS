@@ -21,7 +21,7 @@ import static javax.persistence.FetchType.LAZY;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditableEntity
-    extends AbstractEntity
+    extends VersionedEntity
     implements AuditedEntity {
 
     @CreatedDate

@@ -11,6 +11,7 @@ CREATE TABLE users (
     reset_key          VARCHAR(20),
     reset_date         TIMESTAMP,
 
+    opt_lock           BIGINT                               NOT NULL,
     created_date       TIMESTAMP                            NOT NULL,
     last_modified_date TIMESTAMP                            NOT NULL,
     created_by         BIGINT REFERENCES users (id)         NOT NULL,
