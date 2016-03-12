@@ -15,6 +15,7 @@ buildscript {
     }
     ext {
         queryDslVersion = '3.7.2'
+        lombokVersion = '1.16.8'
     }
 }
 
@@ -94,6 +95,9 @@ repositories {
 }
 
 dependencies {
+
+    provided "org.projectlombok:lombok:$lombokVersion"
+
     compile group: 'io.dropwizard.metrics', name: 'metrics-core'
     compile group: 'io.dropwizard.metrics', name: 'metrics-annotation', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-ehcache', version: dropwizard_metrics_version
