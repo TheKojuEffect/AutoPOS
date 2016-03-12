@@ -1,7 +1,7 @@
 package io.koju.autopos.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.koju.autopos.shared.domain.AuditableEntity;
+import io.koju.autopos.shared.domain.AuditableBaseEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.Email;
@@ -34,7 +34,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Table(name = "users")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User
-    extends AuditableEntity
+    extends AuditableBaseEntity
     implements UserDetails {
 
     @Id
@@ -100,11 +100,6 @@ public class User
         return authorities.stream()
             .map(authority -> new SimpleGrantedAuthority(authority.getRole().getName()))
             .collect(toList());
-    }
-
-    @Override
-    protected void setId(Long id) {
-        this.id = id;
     }
 
     @Override

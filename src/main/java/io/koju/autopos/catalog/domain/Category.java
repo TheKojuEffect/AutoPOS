@@ -1,6 +1,6 @@
 package io.koju.autopos.catalog.domain;
 
-import io.koju.autopos.shared.domain.AuditableEntity;
+import io.koju.autopos.shared.domain.AuditableBaseEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -12,7 +12,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -22,7 +21,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Entity
 @Table(name = "category")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Category extends AuditableEntity {
+public class Category extends AuditableBaseEntity {
 
     @Id
     @SequenceGenerator(name = "category_id_seq", sequenceName = "category_id_seq", allocationSize = 1)
@@ -39,12 +38,9 @@ public class Category extends AuditableEntity {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
+    @Override
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getShortName() {

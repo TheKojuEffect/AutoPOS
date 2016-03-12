@@ -3,8 +3,10 @@ CREATE TABLE item (
     code               VARCHAR(14) UNIQUE           NOT NULL CHECK (length(code) >= 3),
     name               VARCHAR(50)                  NOT NULL CHECK (length(name) >= 2),
     description        VARCHAR(250),
+    location           VARCHAR(250),
     remarks            VARCHAR(250),
     marked_price       DECIMAL(10, 2)               NOT NULL CHECK (marked_price > 0),
+    quantity           INTEGER                      NOT NULL DEFAULT 0 CHECK (quantity >= 0),
     category_id        BIGINT REFERENCES category (id),
     brand_id           BIGINT REFERENCES brand (id),
 

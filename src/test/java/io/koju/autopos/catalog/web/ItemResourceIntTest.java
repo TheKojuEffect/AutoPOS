@@ -237,6 +237,8 @@ public class ItemResourceIntTest {
     @Test
     @Transactional
     public void deleteItem() throws Exception {
+        SecurityTestUtil.makeSystemUserCurrentUser();
+
         // Initialize the database
         itemRepository.saveAndFlush(item);
 

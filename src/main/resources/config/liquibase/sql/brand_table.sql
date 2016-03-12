@@ -1,6 +1,6 @@
 CREATE TABLE brand
 (
-    id                 BIGSERIAL PRIMARY KEY        NOT NULL,
+    id                 BIGSERIAL PRIMARY KEY,
     name               CHARACTER VARYING(50)        NOT NULL CHECK (length(name) >= 2),
 
     opt_lock           BIGINT                       NOT NULL,

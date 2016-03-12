@@ -1,6 +1,6 @@
 package io.koju.autopos.catalog.domain;
 
-import io.koju.autopos.shared.domain.AuditableEntity;
+import io.koju.autopos.shared.domain.AuditableBaseEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -19,7 +19,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Entity
 @Table(name = "tag")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Tag extends AuditableEntity {
+public class Tag extends AuditableBaseEntity {
 
     @Id
     @SequenceGenerator(name = "tag_id_seq", sequenceName = "tag_id_seq", allocationSize = 1)
@@ -33,10 +33,6 @@ public class Tag extends AuditableEntity {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -1,23 +1,7 @@
 package io.koju.autopos.shared.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+public interface BaseEntity {
 
-@MappedSuperclass
-public abstract class BaseEntity extends AbstractEntity {
+    Long getId();
 
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

@@ -1,10 +1,13 @@
 package io.koju.autopos.shared.domain;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
+import java.io.Serializable;
 
-public abstract class VersionedEntity
-    extends AbstractEntity
+@MappedSuperclass
+public abstract class VersionedEntity<ID extends Serializable>
+    extends AbstractEntity<ID>
     implements Versioned {
 
     @Version

@@ -14,14 +14,15 @@ import javax.persistence.EntityListeners;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AuditableEntity
-    extends VersionedEntity
+public abstract class AuditableEntity<ID extends Serializable>
+    extends VersionedEntity<ID>
     implements AuditedEntity {
 
     @CreatedDate

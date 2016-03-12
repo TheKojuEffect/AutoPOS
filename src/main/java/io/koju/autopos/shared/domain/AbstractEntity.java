@@ -4,23 +4,23 @@ import org.springframework.util.ClassUtils;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class AbstractEntity implements Persistable<Long> {
+public abstract class AbstractEntity<ID extends Serializable>
+    implements IdentifiablePersistable<ID> {
 
     private static final long serialVersionUID = -5554308939380869754L;
 
-    protected abstract void setId(final Long id);
-
     @Transient
     public boolean isNew() {
-        return null == getId();
+        return null == getIdentity();
     }
 
 
     @Override
     public String toString() {
-        return String.format("Entity of type %s with id: %s", this.getClass().getName(), getId());
+        return String.format("Entity of type %s with identity: %s", this.getClass().getName(), getIdentity());
     }
 
 
@@ -41,7 +41,7 @@ public abstract class AbstractEntity implements Persistable<Long> {
 
         AbstractEntity that = (AbstractEntity) obj;
 
-        return null == this.getId() ? false : this.getId().equals(that.getId());
+        return null == this.getIdentity() ? false : this.getIdentity().equals(that.getIdentity());
     }
 
 
@@ -50,7 +50,7 @@ public abstract class AbstractEntity implements Persistable<Long> {
 
         int hashCode = 17;
 
-        hashCode += null == getId() ? 0 : getId().hashCode() * 31;
+        hashCode += null == getIdentity() ? 0 : getIdentity().hashCode() * 31;
 
         return hashCode;
     }

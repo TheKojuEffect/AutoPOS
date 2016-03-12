@@ -1,7 +1,7 @@
 package io.koju.autopos.catalog.domain;
 
 import io.koju.autopos.catalog.service.ItemCodeUtil;
-import io.koju.autopos.shared.domain.AuditableEntity;
+import io.koju.autopos.shared.domain.AuditableBaseEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -29,10 +29,10 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Entity
 @Table(name = "item")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Item extends AuditableEntity {
+public class Item extends AuditableBaseEntity {
 
     @Id
-    @SequenceGenerator(name = "item_id_seq", sequenceName = "item_id_seq", initialValue = 789, allocationSize = 1)
+    @SequenceGenerator(name = "item_id_seq", sequenceName = "item_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = "item_id_seq")
     private Long id;
 
@@ -49,13 +49,22 @@ public class Item extends AuditableEntity {
     private String description;
 
     @Size(max = 250)
+    @Column(name = "location", length = 250)
+    private String location;
+
+    @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
 
     @NotNull
-    @Min(value = 0)
+    @Min(0)
     @Column(name = "marked_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal markedPrice;
+
+    @NotNull
+    @Min(0)
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity = 0;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -73,13 +82,8 @@ public class Item extends AuditableEntity {
     private Set<Tag> tags = new HashSet<>();
 
     @PostPersist
-    public void populateItemCode(){
+    public void populateItemCode() {
         setCode(ItemCodeUtil.getCode(id));
-    }
-
-    @Override
-    protected void setId(Long id) {
-        this.id = id;
     }
 
     @Override
@@ -125,6 +129,22 @@ public class Item extends AuditableEntity {
 
     public void setMarkedPrice(BigDecimal markedPrice) {
         this.markedPrice = markedPrice;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
     }
 
     public Optional<Category> getCategory() {

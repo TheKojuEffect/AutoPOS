@@ -1,5 +1,6 @@
 package io.koju.autopos.user.domain;
 
+import io.koju.autopos.shared.domain.AbstractBaseEntity;
 import io.koju.autopos.shared.domain.AbstractEntity;
 import io.koju.autopos.user.domain.Role.RoleConverter;
 import org.hibernate.annotations.Cache;
@@ -22,7 +23,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Entity
 @Table(name = "authority")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Authority extends AbstractEntity {
+public class Authority extends AbstractBaseEntity {
 
     @Id
     @SequenceGenerator(name = "authority_id_seq", sequenceName = "authority_id_seq", initialValue = 1)
@@ -39,11 +40,6 @@ public class Authority extends AbstractEntity {
         return id;
     }
 
-    @Override
-    protected void setId(Long id) {
-        this.id = id;
-    }
-
     public Role getRole() {
         return role;
     }
@@ -55,6 +51,4 @@ public class Authority extends AbstractEntity {
     public String getName() {
         return role.getName();
     }
-
-
 }
