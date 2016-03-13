@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -70,7 +71,7 @@ public class Item extends AuditableBaseEntity {
     @Column(name = "marked_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal markedPrice;
 
-    @OneToOne(optional = false, orphanRemoval = true)
+    @OneToOne(optional = false, cascade = REMOVE)
     @JoinColumn(name = "quantity_info_id", updatable = false, nullable = false)
     @JsonIgnore
     private QuantityInfo quantityInfo;
