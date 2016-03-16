@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="POS-9" author="kplx2.0@gmail.com" dbms="postgresql">
+    <changeSet id="POS-0A" author="kplx2.0@gmail.com" dbms="postgresql">
         <sqlFile path="sql/authority_table.sql" relativeToChangelogFile="true"/>
         <sqlFile path="sql/users_table.sql" relativeToChangelogFile="true"/>
         <sqlFile path="sql/initial_users_data.sql" relativeToChangelogFile="true"/>
@@ -12,23 +12,18 @@
 
     <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
 
-    <changeSet id="POS-13" author="kplx2.0@gmail.com" dbms="postgresql">
+    <changeSet id="POS-0B" author="kplx2.0@gmail.com" dbms="postgresql">
         <sqlFile path="sql/category_table.sql" relativeToChangelogFile="true"/>
         <sqlFile path="sql/brand_table.sql" relativeToChangelogFile="true"/>
         <sqlFile path="sql/tag_table.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
-    <changeSet id="POS-39" author="kplx2.0@gmail.com" dbms="postgresql">
+    <changeSet id="POS-0C" author="kplx2.0@gmail.com" dbms="postgresql">
         <sqlFile path="sql/quantity_info_table.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
-    <changeSet id="POS-7" author="kplx2.0@gmail.com" dbms="postgresql">
+    <changeSet id="POS-0D" author="kplx2.0@gmail.com" dbms="postgresql">
         <sqlFile path="sql/item_table.sql" relativeToChangelogFile="true"/>
-    </changeSet>
-
-    <changeSet id="POS-4" author="kplx2.0@gmail.com" dbms="postgresql">
-        <sqlFile path="sql/item_code_func.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
-        <sqlFile path="sql/set_item_code_trigger.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
     </changeSet>
 
     <include file="classpath:config/liquibase/changelog/20160209141843_added_entity_PriceHistory.xml" relativeToChangelogFile="false"/>
