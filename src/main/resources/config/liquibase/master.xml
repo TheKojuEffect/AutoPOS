@@ -23,7 +23,7 @@
     </changeSet>
 
     <changeSet id="POS-0D" author="kplx2.0@gmail.com" dbms="postgresql">
-        <sqlFile path="sql/item_table.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="sql/item_table.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
     </changeSet>
 
     <include file="classpath:config/liquibase/changelog/20160209141843_added_entity_PriceHistory.xml" relativeToChangelogFile="false"/>

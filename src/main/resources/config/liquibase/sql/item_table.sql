@@ -27,15 +27,6 @@ CREATE TABLE item_tag (
     CONSTRAINT item_tag_pkey PRIMARY KEY (item_id, tag_id)
 );
 
--- Start the id from 789 so that item code is at least 3 characters length
-ALTER SEQUENCE item_id_seq RESTART WITH 789;
-
-CREATE TABLE item_tag (
-    item_id BIGINT NOT NULL REFERENCES item (id),
-    tag_id  BIGINT NOT NULL REFERENCES tag (id),
-    CONSTRAINT item_tag_pkey PRIMARY KEY (item_id, tag_id)
-);
-
 -- Function to get item code from item id
 CREATE FUNCTION item_code(id BIGINT)
     RETURNS VARCHAR(14) AS $code$
