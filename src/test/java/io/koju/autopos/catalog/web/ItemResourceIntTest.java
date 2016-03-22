@@ -80,7 +80,7 @@ public class ItemResourceIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ItemResource itemResource = new ItemResource();
+        ItemResource itemResource = new ItemResource(itemService);
         ReflectionTestUtils.setField(itemResource, "itemService", itemService);
         this.restItemMockMvc = MockMvcBuilders.standaloneSetup(itemResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)

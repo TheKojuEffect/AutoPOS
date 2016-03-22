@@ -7,8 +7,10 @@ import io.koju.autopos.catalog.service.ItemCodeUtil;
 import io.koju.autopos.catalog.service.ItemService;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -38,16 +39,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
  */
 @RestController
 @RequestMapping(value = "/api", produces = APPLICATION_JSON_VALUE)
-public class ItemResource {
+@Slf4j
+class ItemResource {
 
-    private final Logger log = LoggerFactory.getLogger(ItemResource.class);
+    private final ItemService itemService;
 
-    @Inject
-    private ItemService itemService;
+    @Autowired
+    ItemResource(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
-    /**
-     * POST  /items -> Create a new item.
-     */
     @RequestMapping(value = "/items",
         method = POST)
     @Timed
@@ -58,13 +59,10 @@ public class ItemResource {
         }
         Item result = itemService.save(item);
         return ResponseEntity.created(new URI("/api/items/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("item", ItemCodeUtil.getCode(result.getId()).toString()))
+            .headers(HeaderUtil.createEntityCreationAlert("item", ItemCodeUtil.getCode(result.getId())))
             .body(result);
     }
 
-    /**
-     * PUT  /items -> Updates an existing item.
-     */
     @RequestMapping(value = "/items",
         method = PUT)
     @Timed
@@ -75,13 +73,10 @@ public class ItemResource {
         }
         Item result = itemService.save(item);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("item", item.getCode().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("item", item.getCode()))
             .body(result);
     }
 
-    /**
-     * GET  /items -> get all the items.
-     */
     @RequestMapping(value = "/items",
         method = GET)
     @Timed
@@ -93,9 +88,6 @@ public class ItemResource {
         return new ResponseEntity<>(page.getContent(), headers, OK);
     }
 
-    /**
-     * GET  /items/:id -> get the "id" item.
-     */
     @RequestMapping(value = "/items/{id}",
         method = GET)
     @Timed
@@ -109,15 +101,12 @@ public class ItemResource {
             .orElse(new ResponseEntity<>(NOT_FOUND));
     }
 
-    /**
-     * DELETE  /items/:id -> delete the "id" item.
-     */
     @RequestMapping(value = "/items/{id}",
         method = DELETE)
     @Timed
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         log.debug("REST request to delete Item : {}", id);
         itemService.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("item", ItemCodeUtil.getCode(id).toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("item", ItemCodeUtil.getCode(id))).build();
     }
 }
