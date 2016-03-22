@@ -67,6 +67,7 @@ local.properties
 # Gradle
 ######################
 .gradle/**
+gradle-app.setting
 
 ######################
 # Package Files
