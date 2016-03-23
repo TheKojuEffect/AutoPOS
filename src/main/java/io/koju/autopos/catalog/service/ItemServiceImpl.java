@@ -35,8 +35,7 @@ class ItemServiceImpl implements ItemService {
         QuantityInfo quantityInfo = new QuantityInfo();
         quantityInfoRepository.save(quantityInfo);
         item.setQuantityInfo(quantityInfo);
-        Item result = itemRepository.save(item);
-        return result;
+        return itemRepository.save(item);
     }
 
     @Override
@@ -51,8 +50,7 @@ class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = true)
     public Item findOne(Long id) {
         log.debug("Request to get Item : {}", id);
-        Item item = itemRepository.findOneWithEagerRelationships(id);
-        return item;
+        return itemRepository.findOneWithEagerRelationships(id);
     }
 
     @Override
