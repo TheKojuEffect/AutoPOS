@@ -1,31 +1,19 @@
-
 <div>
     <h2><span translate="autopos.item.detail.title">Item</span> {{vm.item.id}}</h2>
     <hr>
     <dl class="dl-horizontal">
-        <dt><span translate="autopos.item.code">Code</dt></dt>
+        <dt>
+            <span translate="autopos.item.code">Code</span>
+        </dt>
+        </dt>
         <dd>
-            <span>{{vm.item.code}}<span>
+            <span>{{vm.item.code}}</span>
         </dd>
         <hr>
-        <dt><span translate="autopos.item.name">Name</dt></dt>
+        <dt><span translate="autopos.item.name">Name</dt>
+        </dt>
         <dd>
-            <span>{{vm.item.name}}<span>
-        </dd>
-        <hr>
-        <dt><span translate="autopos.item.description">Description</dt></dt>
-        <dd>
-            <span>{{vm.item.description}}<span>
-        </dd>
-        <hr>
-        <dt><span translate="autopos.item.remarks">Remarks</dt></dt>
-        <dd>
-            <span>{{vm.item.remarks}}<span>
-        </dd>
-        <hr>
-        <dt><span translate="autopos.item.markedPrice">MarkedPrice</dt></dt>
-        <dd>
-            <span>{{vm.item.markedPrice}}<span>
+            <span>{{vm.item.name}}</span>
         </dd>
         <hr>
         <dt><span translate="autopos.item.category">category</span></dt>
@@ -37,6 +25,40 @@
         <dd>
             <a ui-sref="brand-detail({id:vm.item.brand.id})">{{vm.item.brand.name}}</a>
         </dd>
+        <hr>
+        <dt><span translate="autopos.item.markedPrice">Marked Price</span></dt>
+        </dt>
+        <dd>
+            <span>{{vm.item.markedPrice}}</span>
+        </dd>
+        <hr>
+        <dt><span translate="autopos.item.quantity">Quantity</span></dt>
+        </dt>
+        <dd>
+            <span>{{vm.item.quantity}}</span>
+        </dd>
+        <hr>
+        <dt><span translate="autopos.item.description">Description</span></dt>
+        </dt>
+        <dd>
+            <span>{{vm.item.description}}</span>
+        </dd>
+        <hr>
+        <dt><span translate="autopos.item.location">Location</span></dt>
+        </dt>
+        <dd>
+            <span>{{vm.item.location}}</span>
+        </dd>
+        <hr>
+        <dt>
+            <span translate="autopos.item.remarks">Remarks</span>
+        </dt>
+        </dt>
+        <dd>
+            <span>{{vm.item.remarks}}</span>
+        </dd>
+
+
         <hr>
         <dt><span translate="autopos.item.tag">tag</span></dt>
         <dd>

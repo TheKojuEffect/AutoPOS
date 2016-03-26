@@ -19,8 +19,10 @@
             "code": "Code",
             "name": "Name",
             "description": "Description",
+            "quantity": "Quantity",
+            "location": "Location",
             "remarks": "Remarks",
-            "markedPrice": "MarkedPrice",
+            "markedPrice": "Marked Price",
             "category": "Category",
             "brand": "Brand",
             "tag": "Tag"
