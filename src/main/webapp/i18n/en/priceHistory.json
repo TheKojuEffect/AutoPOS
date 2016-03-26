@@ -2,7 +2,7 @@
     "autopos": {
         "priceHistory" : {
             "home": {
-                "title": "PriceHistorys",
+                "title": "PriceHistories",
                 "createLabel": "Create a new PriceHistory",
                 "createOrEditLabel": "Create or edit a PriceHistory",
                 "search": "Search for PriceHistory"

@@ -1,0 +1,33 @@
+
+<div>
+    <h2><span translate="autopos.priceHistory.detail.title">PriceHistory</span> {{vm.priceHistory.id}}</h2>
+    <hr>
+    <dl class="dl-horizontal">
+        <dt><span translate="autopos.priceHistory.date">Date</dt></dt>
+        <dd>
+            <span>{{vm.priceHistory.date | date:'medium'}}</span>
+        </dd>
+        <hr>
+        <dt><span translate="autopos.priceHistory.markedPrice">MarkedPrice</dt></dt>
+        <dd>
+            <span>{{vm.priceHistory.markedPrice}}<span>
+        </dd>
+        <hr>
+        <dt><span translate="autopos.priceHistory.remarks">Remarks</dt></dt>
+        <dd>
+            <span>{{vm.priceHistory.remarks}}<span>
+        </dd>
+        <hr>
+        <dt><span translate="autopos.priceHistory.item">item</span></dt>
+        <dd>
+            <a ui-sref="item-detail({id:vm.priceHistory.item.id})">{{vm.priceHistory.item.name}}</a>
+        </dd>
+        <hr>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

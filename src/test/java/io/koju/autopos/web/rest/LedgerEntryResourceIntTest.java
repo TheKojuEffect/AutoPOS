@@ -3,17 +3,15 @@ package io.koju.autopos.web.rest;
 import io.koju.autopos.Application;
 import io.koju.autopos.domain.LedgerEntry;
 import io.koju.autopos.repository.LedgerEntryRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -23,16 +21,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.ZoneId;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -46,7 +50,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class LedgerEntryResourceIntTest {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneId.of("Z"));
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
 
     private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
@@ -65,8 +69,8 @@ public class LedgerEntryResourceIntTest {
 
     private static final BigDecimal DEFAULT_BALANCE = new BigDecimal(0);
     private static final BigDecimal UPDATED_BALANCE = new BigDecimal(1);
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private LedgerEntryRepository ledgerEntryRepository;
@@ -110,15 +114,15 @@ public class LedgerEntryResourceIntTest {
 
         // Create the LedgerEntry
 
-        restLedgerEntryMockMvc.perform(post("/api/ledgerEntrys")
+        restLedgerEntryMockMvc.perform(post("/api/ledger-entries")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(ledgerEntry)))
                 .andExpect(status().isCreated());
 
         // Validate the LedgerEntry in the database
-        List<LedgerEntry> ledgerEntrys = ledgerEntryRepository.findAll();
-        assertThat(ledgerEntrys).hasSize(databaseSizeBeforeCreate + 1);
-        LedgerEntry testLedgerEntry = ledgerEntrys.get(ledgerEntrys.size() - 1);
+        List<LedgerEntry> ledgerEntries = ledgerEntryRepository.findAll();
+        assertThat(ledgerEntries).hasSize(databaseSizeBeforeCreate + 1);
+        LedgerEntry testLedgerEntry = ledgerEntries.get(ledgerEntries.size() - 1);
         assertThat(testLedgerEntry.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testLedgerEntry.getParticular()).isEqualTo(DEFAULT_PARTICULAR);
         assertThat(testLedgerEntry.getFolio()).isEqualTo(DEFAULT_FOLIO);
@@ -137,13 +141,13 @@ public class LedgerEntryResourceIntTest {
 
         // Create the LedgerEntry, which fails.
 
-        restLedgerEntryMockMvc.perform(post("/api/ledgerEntrys")
+        restLedgerEntryMockMvc.perform(post("/api/ledger-entries")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(ledgerEntry)))
                 .andExpect(status().isBadRequest());
 
-        List<LedgerEntry> ledgerEntrys = ledgerEntryRepository.findAll();
-        assertThat(ledgerEntrys).hasSize(databaseSizeBeforeTest);
+        List<LedgerEntry> ledgerEntries = ledgerEntryRepository.findAll();
+        assertThat(ledgerEntries).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -155,13 +159,13 @@ public class LedgerEntryResourceIntTest {
 
         // Create the LedgerEntry, which fails.
 
-        restLedgerEntryMockMvc.perform(post("/api/ledgerEntrys")
+        restLedgerEntryMockMvc.perform(post("/api/ledger-entries")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(ledgerEntry)))
                 .andExpect(status().isBadRequest());
 
-        List<LedgerEntry> ledgerEntrys = ledgerEntryRepository.findAll();
-        assertThat(ledgerEntrys).hasSize(databaseSizeBeforeTest);
+        List<LedgerEntry> ledgerEntries = ledgerEntryRepository.findAll();
+        assertThat(ledgerEntries).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -173,13 +177,13 @@ public class LedgerEntryResourceIntTest {
 
         // Create the LedgerEntry, which fails.
 
-        restLedgerEntryMockMvc.perform(post("/api/ledgerEntrys")
+        restLedgerEntryMockMvc.perform(post("/api/ledger-entries")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(ledgerEntry)))
                 .andExpect(status().isBadRequest());
 
-        List<LedgerEntry> ledgerEntrys = ledgerEntryRepository.findAll();
-        assertThat(ledgerEntrys).hasSize(databaseSizeBeforeTest);
+        List<LedgerEntry> ledgerEntries = ledgerEntryRepository.findAll();
+        assertThat(ledgerEntries).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -191,13 +195,13 @@ public class LedgerEntryResourceIntTest {
 
         // Create the LedgerEntry, which fails.
 
-        restLedgerEntryMockMvc.perform(post("/api/ledgerEntrys")
+        restLedgerEntryMockMvc.perform(post("/api/ledger-entries")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(ledgerEntry)))
                 .andExpect(status().isBadRequest());
 
-        List<LedgerEntry> ledgerEntrys = ledgerEntryRepository.findAll();
-        assertThat(ledgerEntrys).hasSize(databaseSizeBeforeTest);
+        List<LedgerEntry> ledgerEntries = ledgerEntryRepository.findAll();
+        assertThat(ledgerEntries).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -209,27 +213,27 @@ public class LedgerEntryResourceIntTest {
 
         // Create the LedgerEntry, which fails.
 
-        restLedgerEntryMockMvc.perform(post("/api/ledgerEntrys")
+        restLedgerEntryMockMvc.perform(post("/api/ledger-entries")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(ledgerEntry)))
                 .andExpect(status().isBadRequest());
 
-        List<LedgerEntry> ledgerEntrys = ledgerEntryRepository.findAll();
-        assertThat(ledgerEntrys).hasSize(databaseSizeBeforeTest);
+        List<LedgerEntry> ledgerEntries = ledgerEntryRepository.findAll();
+        assertThat(ledgerEntries).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
-    public void getAllLedgerEntrys() throws Exception {
+    public void getAllLedgerEntries() throws Exception {
         // Initialize the database
         ledgerEntryRepository.saveAndFlush(ledgerEntry);
 
-        // Get all the ledgerEntrys
-        restLedgerEntryMockMvc.perform(get("/api/ledgerEntrys?sort=id,desc"))
+        // Get all the ledgerEntries
+        restLedgerEntryMockMvc.perform(get("/api/ledger-entries?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(ledgerEntry.getId().intValue())))
-//                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
                 .andExpect(jsonPath("$.[*].particular").value(hasItem(DEFAULT_PARTICULAR.toString())))
                 .andExpect(jsonPath("$.[*].folio").value(hasItem(DEFAULT_FOLIO.toString())))
                 .andExpect(jsonPath("$.[*].debit").value(hasItem(DEFAULT_DEBIT.intValue())))
@@ -245,11 +249,11 @@ public class LedgerEntryResourceIntTest {
         ledgerEntryRepository.saveAndFlush(ledgerEntry);
 
         // Get the ledgerEntry
-        restLedgerEntryMockMvc.perform(get("/api/ledgerEntrys/{id}", ledgerEntry.getId()))
+        restLedgerEntryMockMvc.perform(get("/api/ledger-entries/{id}", ledgerEntry.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(ledgerEntry.getId().intValue()))
-//            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
             .andExpect(jsonPath("$.particular").value(DEFAULT_PARTICULAR.toString()))
             .andExpect(jsonPath("$.folio").value(DEFAULT_FOLIO.toString()))
             .andExpect(jsonPath("$.debit").value(DEFAULT_DEBIT.intValue()))
@@ -262,7 +266,7 @@ public class LedgerEntryResourceIntTest {
     @Transactional
     public void getNonExistingLedgerEntry() throws Exception {
         // Get the ledgerEntry
-        restLedgerEntryMockMvc.perform(get("/api/ledgerEntrys/{id}", Long.MAX_VALUE))
+        restLedgerEntryMockMvc.perform(get("/api/ledger-entries/{id}", Long.MAX_VALUE))
                 .andExpect(status().isNotFound());
     }
 
@@ -271,27 +275,28 @@ public class LedgerEntryResourceIntTest {
     public void updateLedgerEntry() throws Exception {
         // Initialize the database
         ledgerEntryRepository.saveAndFlush(ledgerEntry);
-
-		int databaseSizeBeforeUpdate = ledgerEntryRepository.findAll().size();
+        int databaseSizeBeforeUpdate = ledgerEntryRepository.findAll().size();
 
         // Update the ledgerEntry
-        ledgerEntry.setDate(UPDATED_DATE);
-        ledgerEntry.setParticular(UPDATED_PARTICULAR);
-        ledgerEntry.setFolio(UPDATED_FOLIO);
-        ledgerEntry.setDebit(UPDATED_DEBIT);
-        ledgerEntry.setCredit(UPDATED_CREDIT);
-        ledgerEntry.setBalance(UPDATED_BALANCE);
-        ledgerEntry.setRemarks(UPDATED_REMARKS);
+        LedgerEntry updatedLedgerEntry = new LedgerEntry();
+        updatedLedgerEntry.setId(ledgerEntry.getId());
+        updatedLedgerEntry.setDate(UPDATED_DATE);
+        updatedLedgerEntry.setParticular(UPDATED_PARTICULAR);
+        updatedLedgerEntry.setFolio(UPDATED_FOLIO);
+        updatedLedgerEntry.setDebit(UPDATED_DEBIT);
+        updatedLedgerEntry.setCredit(UPDATED_CREDIT);
+        updatedLedgerEntry.setBalance(UPDATED_BALANCE);
+        updatedLedgerEntry.setRemarks(UPDATED_REMARKS);
 
-        restLedgerEntryMockMvc.perform(put("/api/ledgerEntrys")
+        restLedgerEntryMockMvc.perform(put("/api/ledger-entries")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(ledgerEntry)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedLedgerEntry)))
                 .andExpect(status().isOk());
 
         // Validate the LedgerEntry in the database
-        List<LedgerEntry> ledgerEntrys = ledgerEntryRepository.findAll();
-        assertThat(ledgerEntrys).hasSize(databaseSizeBeforeUpdate);
-        LedgerEntry testLedgerEntry = ledgerEntrys.get(ledgerEntrys.size() - 1);
+        List<LedgerEntry> ledgerEntries = ledgerEntryRepository.findAll();
+        assertThat(ledgerEntries).hasSize(databaseSizeBeforeUpdate);
+        LedgerEntry testLedgerEntry = ledgerEntries.get(ledgerEntries.size() - 1);
         assertThat(testLedgerEntry.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testLedgerEntry.getParticular()).isEqualTo(UPDATED_PARTICULAR);
         assertThat(testLedgerEntry.getFolio()).isEqualTo(UPDATED_FOLIO);
@@ -306,16 +311,15 @@ public class LedgerEntryResourceIntTest {
     public void deleteLedgerEntry() throws Exception {
         // Initialize the database
         ledgerEntryRepository.saveAndFlush(ledgerEntry);
-
-		int databaseSizeBeforeDelete = ledgerEntryRepository.findAll().size();
+        int databaseSizeBeforeDelete = ledgerEntryRepository.findAll().size();
 
         // Get the ledgerEntry
-        restLedgerEntryMockMvc.perform(delete("/api/ledgerEntrys/{id}", ledgerEntry.getId())
+        restLedgerEntryMockMvc.perform(delete("/api/ledger-entries/{id}", ledgerEntry.getId())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<LedgerEntry> ledgerEntrys = ledgerEntryRepository.findAll();
-        assertThat(ledgerEntrys).hasSize(databaseSizeBeforeDelete - 1);
+        List<LedgerEntry> ledgerEntries = ledgerEntryRepository.findAll();
+        assertThat(ledgerEntries).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

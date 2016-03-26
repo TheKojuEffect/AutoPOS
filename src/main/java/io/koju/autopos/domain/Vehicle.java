@@ -3,11 +3,16 @@ package io.koju.autopos.domain;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -18,6 +23,8 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Vehicle implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,13 +33,12 @@ public class Vehicle implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "number", length = 20, nullable = false)
     private String number;
-    
+
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
-    
+
     @ManyToOne
-    @JoinColumn(name = "owner_id")
     private Customer owner;
 
     public Long getId() {
@@ -46,7 +52,7 @@ public class Vehicle implements Serializable {
     public String getNumber() {
         return number;
     }
-    
+
     public void setNumber(String number) {
         this.number = number;
     }
@@ -54,7 +60,7 @@ public class Vehicle implements Serializable {
     public String getRemarks() {
         return remarks;
     }
-    
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }

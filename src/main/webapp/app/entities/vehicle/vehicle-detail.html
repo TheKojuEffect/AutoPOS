@@ -1,0 +1,28 @@
+
+<div>
+    <h2><span translate="autopos.vehicle.detail.title">Vehicle</span> {{vm.vehicle.id}}</h2>
+    <hr>
+    <dl class="dl-horizontal">
+        <dt><span translate="autopos.vehicle.number">Number</dt></dt>
+        <dd>
+            <span>{{vm.vehicle.number}}<span>
+        </dd>
+        <hr>
+        <dt><span translate="autopos.vehicle.remarks">Remarks</dt></dt>
+        <dd>
+            <span>{{vm.vehicle.remarks}}<span>
+        </dd>
+        <hr>
+        <dt><span translate="autopos.vehicle.owner">owner</span></dt>
+        <dd>
+            <a ui-sref="customer-detail({id:vm.vehicle.owner.id})">{{vm.vehicle.owner.name}}</a>
+        </dd>
+        <hr>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

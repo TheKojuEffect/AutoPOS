@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,9 +39,13 @@ public class LedgerEntryResource {
     private LedgerEntryRepository ledgerEntryRepository;
     
     /**
-     * POST  /ledgerEntrys -> Create a new ledgerEntry.
+     * POST  /ledger-entries : Create a new ledgerEntry.
+     *
+     * @param ledgerEntry the ledgerEntry to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new ledgerEntry, or with status 400 (Bad Request) if the ledgerEntry has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/ledgerEntrys",
+    @RequestMapping(value = "/ledger-entries",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -47,15 +55,21 @@ public class LedgerEntryResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("ledgerEntry", "idexists", "A new ledgerEntry cannot already have an ID")).body(null);
         }
         LedgerEntry result = ledgerEntryRepository.save(ledgerEntry);
-        return ResponseEntity.created(new URI("/api/ledgerEntrys/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/ledger-entries/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("ledgerEntry", result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /ledgerEntrys -> Updates an existing ledgerEntry.
+     * PUT  /ledger-entries : Updates an existing ledgerEntry.
+     *
+     * @param ledgerEntry the ledgerEntry to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated ledgerEntry,
+     * or with status 400 (Bad Request) if the ledgerEntry is not valid,
+     * or with status 500 (Internal Server Error) if the ledgerEntry couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/ledgerEntrys",
+    @RequestMapping(value = "/ledger-entries",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -71,24 +85,31 @@ public class LedgerEntryResource {
     }
 
     /**
-     * GET  /ledgerEntrys -> get all the ledgerEntrys.
+     * GET  /ledger-entries : get all the ledgerEntries.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of ledgerEntries in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
-    @RequestMapping(value = "/ledgerEntrys",
+    @RequestMapping(value = "/ledger-entries",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<LedgerEntry>> getAllLedgerEntrys(Pageable pageable)
+    public ResponseEntity<List<LedgerEntry>> getAllLedgerEntries(Pageable pageable)
         throws URISyntaxException {
-        log.debug("REST request to get a page of LedgerEntrys");
-        Page<LedgerEntry> page = ledgerEntryRepository.findAll(pageable); 
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/ledgerEntrys");
+        log.debug("REST request to get a page of LedgerEntries");
+        Page<LedgerEntry> page = ledgerEntryRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/ledger-entries");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /ledgerEntrys/:id -> get the "id" ledgerEntry.
+     * GET  /ledger-entries/:id : get the "id" ledgerEntry.
+     *
+     * @param id the id of the ledgerEntry to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the ledgerEntry, or with status 404 (Not Found)
      */
-    @RequestMapping(value = "/ledgerEntrys/{id}",
+    @RequestMapping(value = "/ledger-entries/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -103,9 +124,12 @@ public class LedgerEntryResource {
     }
 
     /**
-     * DELETE  /ledgerEntrys/:id -> delete the "id" ledgerEntry.
+     * DELETE  /ledger-entries/:id : delete the "id" ledgerEntry.
+     *
+     * @param id the id of the ledgerEntry to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
-    @RequestMapping(value = "/ledgerEntrys/{id}",
+    @RequestMapping(value = "/ledger-entries/{id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -114,4 +138,5 @@ public class LedgerEntryResource {
         ledgerEntryRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("ledgerEntry", id.toString())).build();
     }
+
 }

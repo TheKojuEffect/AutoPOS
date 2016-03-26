@@ -20,7 +20,7 @@
             "name": "Name",
             "description": "Description",
             "remarks": "Remarks",
-            "markedPrice": "Marked Price",
+            "markedPrice": "MarkedPrice",
             "category": "Category",
             "brand": "Brand",
             "tag": "Tag"

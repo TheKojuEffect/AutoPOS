@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,7 +39,11 @@ public class StockResource {
     private StockService stockService;
     
     /**
-     * POST  /stocks -> Create a new stock.
+     * POST  /stocks : Create a new stock.
+     *
+     * @param stock the stock to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new stock, or with status 400 (Bad Request) if the stock has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/stocks",
         method = RequestMethod.POST,
@@ -53,7 +61,13 @@ public class StockResource {
     }
 
     /**
-     * PUT  /stocks -> Updates an existing stock.
+     * PUT  /stocks : Updates an existing stock.
+     *
+     * @param stock the stock to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated stock,
+     * or with status 400 (Bad Request) if the stock is not valid,
+     * or with status 500 (Internal Server Error) if the stock couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/stocks",
         method = RequestMethod.PUT,
@@ -71,7 +85,11 @@ public class StockResource {
     }
 
     /**
-     * GET  /stocks -> get all the stocks.
+     * GET  /stocks : get all the stocks.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of stocks in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/stocks",
         method = RequestMethod.GET,
@@ -80,13 +98,16 @@ public class StockResource {
     public ResponseEntity<List<Stock>> getAllStocks(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Stocks");
-        Page<Stock> page = stockService.findAll(pageable); 
+        Page<Stock> page = stockService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/stocks");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /stocks/:id -> get the "id" stock.
+     * GET  /stocks/:id : get the "id" stock.
+     *
+     * @param id the id of the stock to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the stock, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/stocks/{id}",
         method = RequestMethod.GET,
@@ -103,7 +124,10 @@ public class StockResource {
     }
 
     /**
-     * DELETE  /stocks/:id -> delete the "id" stock.
+     * DELETE  /stocks/:id : delete the "id" stock.
+     *
+     * @param id the id of the stock to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/stocks/{id}",
         method = RequestMethod.DELETE,
@@ -114,4 +138,5 @@ public class StockResource {
         stockService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("stock", id.toString())).build();
     }
+
 }

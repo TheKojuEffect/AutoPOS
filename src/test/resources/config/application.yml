@@ -12,14 +12,13 @@
 
 spring:
     datasource:
-        driver-class-name: org.postgresql.ds.PGSimpleDataSource
-        url: jdbc:postgresql://localhost:5432/TestAutoPOS
+        url: jdbc:h2:mem:AutoPOS;DB_CLOSE_DELAY=-1
         name:
-        username: test_autopos
-        password: test_autopos
+        username:
+        password:
     jpa:
-        database-platform: io.koju.autopos.domain.util.FixedPostgreSQL82Dialect
-        database: POSTGRESQL
+        database-platform: io.koju.autopos.domain.util.FixedH2Dialect
+        database: H2
         open-in-view: false
         show_sql: true
         hibernate:
@@ -29,7 +28,7 @@ spring:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
-            hibernate.hbm2ddl.auto:
+            hibernate.hbm2ddl.auto: validate
     mail:
         host: localhost
     mvc:
@@ -60,13 +59,10 @@ jhipster:
         queueCapacity: 10000
     security:
         authentication:
-            xauth:
-                secret: myXAuthSecret
+            jwt:
+                secret: jwt-secret-key
                 # Token is valid 30 minutes
                 tokenValidityInSeconds: 1800
-        rememberme:
-            # security key (this key should be unique for your application, and kept secret)
-            key: 9b854c91a59e24496474e6f084d9b2f178c0b232
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
     swagger:
@@ -74,6 +70,8 @@ jhipster:
         description: AutoPOS API documentation
         version: 0.0.1
         termsOfServiceUrl:
-        contact:
+        contactName:
+        contactUrl:
+        contactEmail:
         license:
         licenseUrl:

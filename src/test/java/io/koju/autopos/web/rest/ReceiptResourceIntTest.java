@@ -3,17 +3,15 @@ package io.koju.autopos.web.rest;
 import io.koju.autopos.Application;
 import io.koju.autopos.domain.Receipt;
 import io.koju.autopos.repository.ReceiptRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -23,14 +21,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -52,8 +56,8 @@ public class ReceiptResourceIntTest {
     private static final BigDecimal UPDATED_AMOUNT = new BigDecimal(1);
     private static final String DEFAULT_RECEIVED_BY = "AA";
     private static final String UPDATED_RECEIVED_BY = "BB";
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private ReceiptRepository receiptRepository;
@@ -174,7 +178,7 @@ public class ReceiptResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(receipt.getId().intValue())))
-//                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
                 .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
                 .andExpect(jsonPath("$.[*].receivedBy").value(hasItem(DEFAULT_RECEIVED_BY.toString())))
                 .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS.toString())));
@@ -191,7 +195,7 @@ public class ReceiptResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(receipt.getId().intValue()))
-//            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
             .andExpect(jsonPath("$.receivedBy").value(DEFAULT_RECEIVED_BY.toString()))
             .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS.toString()));
@@ -210,18 +214,19 @@ public class ReceiptResourceIntTest {
     public void updateReceipt() throws Exception {
         // Initialize the database
         receiptRepository.saveAndFlush(receipt);
-
-		int databaseSizeBeforeUpdate = receiptRepository.findAll().size();
+        int databaseSizeBeforeUpdate = receiptRepository.findAll().size();
 
         // Update the receipt
-        receipt.setDate(UPDATED_DATE);
-        receipt.setAmount(UPDATED_AMOUNT);
-        receipt.setReceivedBy(UPDATED_RECEIVED_BY);
-        receipt.setRemarks(UPDATED_REMARKS);
+        Receipt updatedReceipt = new Receipt();
+        updatedReceipt.setId(receipt.getId());
+        updatedReceipt.setDate(UPDATED_DATE);
+        updatedReceipt.setAmount(UPDATED_AMOUNT);
+        updatedReceipt.setReceivedBy(UPDATED_RECEIVED_BY);
+        updatedReceipt.setRemarks(UPDATED_REMARKS);
 
         restReceiptMockMvc.perform(put("/api/receipts")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(receipt)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedReceipt)))
                 .andExpect(status().isOk());
 
         // Validate the Receipt in the database
@@ -239,8 +244,7 @@ public class ReceiptResourceIntTest {
     public void deleteReceipt() throws Exception {
         // Initialize the database
         receiptRepository.saveAndFlush(receipt);
-
-		int databaseSizeBeforeDelete = receiptRepository.findAll().size();
+        int databaseSizeBeforeDelete = receiptRepository.findAll().size();
 
         // Get the receipt
         restReceiptMockMvc.perform(delete("/api/receipts/{id}", receipt.getId())

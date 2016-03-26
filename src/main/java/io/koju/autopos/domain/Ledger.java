@@ -3,12 +3,19 @@ package io.koju.autopos.domain;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -19,6 +26,8 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Ledger implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -27,12 +36,13 @@ public class Ledger implements Serializable {
     @Min(value = 0)
     @Column(name = "balance", precision=10, scale=2, nullable = false)
     private BigDecimal balance;
-    
+
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
-    
+
     @OneToOne
+    @JoinColumn(unique = true)
     private Customer party;
 
     public Long getId() {
@@ -46,7 +56,7 @@ public class Ledger implements Serializable {
     public BigDecimal getBalance() {
         return balance;
     }
-    
+
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
@@ -54,7 +64,7 @@ public class Ledger implements Serializable {
     public String getRemarks() {
         return remarks;
     }
-    
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }

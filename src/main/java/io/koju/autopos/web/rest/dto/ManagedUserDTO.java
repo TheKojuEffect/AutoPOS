@@ -1,5 +1,6 @@
 package io.koju.autopos.web.rest.dto;
 
+
 import io.koju.autopos.user.domain.User;
 
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class ManagedUserDTO extends UserDTO {
         super(user);
         this.id = user.getId();
         this.createdDate = user.getCreatedDate();
-        this.lastModifiedBy = user.getLastModifiedBy().getLogin();
+        this.lastModifiedBy = user.getLastModifiedBy().getUsername();
         this.lastModifiedDate = user.getLastModifiedDate();
     }
 

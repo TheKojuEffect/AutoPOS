@@ -1,0 +1,24 @@
+{
+    "autopos": {
+        "vehicle" : {
+            "home": {
+                "title": "Vehicles",
+                "createLabel": "नया Vehicle बनाएँ",
+                "createOrEditLabel": "Vehicle बनाएँ या संपादित करें",
+                "search": "Vehicle खोजें"
+            },
+            "created": "एक नया Vehicle [identifier: {{ param }}] तैयार है",
+            "updated": "एक Vehicle [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Vehicle [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Vehicle [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Vehicle"
+            },
+            "number": "Number",
+            "remarks": "Remarks",
+            "owner": "Owner"
+        }
+    }
+}

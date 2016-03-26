@@ -1,0 +1,22 @@
+{
+    "autopos": {
+        "phoneNumber" : {
+            "home": {
+                "title": "PhoneNumbers",
+                "createLabel": "नया PhoneNumber बनाएँ",
+                "createOrEditLabel": "PhoneNumber बनाएँ या संपादित करें",
+                "search": "PhoneNumber खोजें"
+            },
+            "created": "एक नया PhoneNumber [identifier: {{ param }}] तैयार है",
+            "updated": "एक PhoneNumber [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "PhoneNumber [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "PhoneNumber [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "PhoneNumber"
+            },
+            "number": "Number"
+        }
+    }
+}

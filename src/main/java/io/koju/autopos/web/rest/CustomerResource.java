@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,7 +39,11 @@ public class CustomerResource {
     private CustomerRepository customerRepository;
     
     /**
-     * POST  /customers -> Create a new customer.
+     * POST  /customers : Create a new customer.
+     *
+     * @param customer the customer to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new customer, or with status 400 (Bad Request) if the customer has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/customers",
         method = RequestMethod.POST,
@@ -53,7 +61,13 @@ public class CustomerResource {
     }
 
     /**
-     * PUT  /customers -> Updates an existing customer.
+     * PUT  /customers : Updates an existing customer.
+     *
+     * @param customer the customer to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated customer,
+     * or with status 400 (Bad Request) if the customer is not valid,
+     * or with status 500 (Internal Server Error) if the customer couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/customers",
         method = RequestMethod.PUT,
@@ -71,7 +85,11 @@ public class CustomerResource {
     }
 
     /**
-     * GET  /customers -> get all the customers.
+     * GET  /customers : get all the customers.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of customers in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/customers",
         method = RequestMethod.GET,
@@ -80,13 +98,16 @@ public class CustomerResource {
     public ResponseEntity<List<Customer>> getAllCustomers(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Customers");
-        Page<Customer> page = customerRepository.findAll(pageable); 
+        Page<Customer> page = customerRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/customers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /customers/:id -> get the "id" customer.
+     * GET  /customers/:id : get the "id" customer.
+     *
+     * @param id the id of the customer to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the customer, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/customers/{id}",
         method = RequestMethod.GET,
@@ -103,7 +124,10 @@ public class CustomerResource {
     }
 
     /**
-     * DELETE  /customers/:id -> delete the "id" customer.
+     * DELETE  /customers/:id : delete the "id" customer.
+     *
+     * @param id the id of the customer to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/customers/{id}",
         method = RequestMethod.DELETE,
@@ -114,4 +138,5 @@ public class CustomerResource {
         customerRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("customer", id.toString())).build();
     }
+
 }

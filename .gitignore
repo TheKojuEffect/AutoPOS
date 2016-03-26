@@ -2,6 +2,7 @@
 # Project Specific
 ######################
 /src/main/webapp/dist
+/build/www/**
 /src/querydsl
 /src/main/webapp/bower_components
 
@@ -129,3 +130,8 @@ Desktop.ini
 # Maven Wrapper
 ######################
 !.mvn/wrapper/maven-wrapper.jar
+
+######################
+# ESLint
+######################
+.eslintcache

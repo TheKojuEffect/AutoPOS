@@ -4,17 +4,15 @@ import io.koju.autopos.Application;
 import io.koju.autopos.domain.Bill;
 import io.koju.autopos.repository.BillRepository;
 import io.koju.autopos.service.BillService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -24,16 +22,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.ZoneId;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -47,7 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class BillResourceIntTest {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneId.of("Z"));
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
 
     private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
@@ -70,8 +74,8 @@ public class BillResourceIntTest {
     private static final BigDecimal UPDATED_GRAND_TOTAL = new BigDecimal(1);
     private static final String DEFAULT_CLIENT = "AA";
     private static final String UPDATED_CLIENT = "BB";
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_ISSUED_BY = "AA";
     private static final String UPDATED_ISSUED_BY = "BB";
 
@@ -297,7 +301,7 @@ public class BillResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(bill.getId().intValue())))
-//                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
                 .andExpect(jsonPath("$.[*].subTotal").value(hasItem(DEFAULT_SUB_TOTAL.intValue())))
                 .andExpect(jsonPath("$.[*].discount").value(hasItem(DEFAULT_DISCOUNT.intValue())))
                 .andExpect(jsonPath("$.[*].taxableAmount").value(hasItem(DEFAULT_TAXABLE_AMOUNT.intValue())))
@@ -319,7 +323,7 @@ public class BillResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(bill.getId().intValue()))
-//            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
             .andExpect(jsonPath("$.subTotal").value(DEFAULT_SUB_TOTAL.intValue()))
             .andExpect(jsonPath("$.discount").value(DEFAULT_DISCOUNT.intValue()))
             .andExpect(jsonPath("$.taxableAmount").value(DEFAULT_TAXABLE_AMOUNT.intValue()))
@@ -342,24 +346,26 @@ public class BillResourceIntTest {
     @Transactional
     public void updateBill() throws Exception {
         // Initialize the database
-        billRepository.saveAndFlush(bill);
+        billService.save(bill);
 
-		int databaseSizeBeforeUpdate = billRepository.findAll().size();
+        int databaseSizeBeforeUpdate = billRepository.findAll().size();
 
         // Update the bill
-        bill.setDate(UPDATED_DATE);
-        bill.setSubTotal(UPDATED_SUB_TOTAL);
-        bill.setDiscount(UPDATED_DISCOUNT);
-        bill.setTaxableAmount(UPDATED_TAXABLE_AMOUNT);
-        bill.setTax(UPDATED_TAX);
-        bill.setGrandTotal(UPDATED_GRAND_TOTAL);
-        bill.setClient(UPDATED_CLIENT);
-        bill.setRemarks(UPDATED_REMARKS);
-        bill.setIssuedBy(UPDATED_ISSUED_BY);
+        Bill updatedBill = new Bill();
+        updatedBill.setId(bill.getId());
+        updatedBill.setDate(UPDATED_DATE);
+        updatedBill.setSubTotal(UPDATED_SUB_TOTAL);
+        updatedBill.setDiscount(UPDATED_DISCOUNT);
+        updatedBill.setTaxableAmount(UPDATED_TAXABLE_AMOUNT);
+        updatedBill.setTax(UPDATED_TAX);
+        updatedBill.setGrandTotal(UPDATED_GRAND_TOTAL);
+        updatedBill.setClient(UPDATED_CLIENT);
+        updatedBill.setRemarks(UPDATED_REMARKS);
+        updatedBill.setIssuedBy(UPDATED_ISSUED_BY);
 
         restBillMockMvc.perform(put("/api/bills")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(bill)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedBill)))
                 .andExpect(status().isOk());
 
         // Validate the Bill in the database
@@ -381,9 +387,9 @@ public class BillResourceIntTest {
     @Transactional
     public void deleteBill() throws Exception {
         // Initialize the database
-        billRepository.saveAndFlush(bill);
+        billService.save(bill);
 
-		int databaseSizeBeforeDelete = billRepository.findAll().size();
+        int databaseSizeBeforeDelete = billRepository.findAll().size();
 
         // Get the bill
         restBillMockMvc.perform(delete("/api/bills/{id}", bill.getId())

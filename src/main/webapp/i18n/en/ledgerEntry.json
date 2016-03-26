@@ -2,7 +2,7 @@
     "autopos": {
         "ledgerEntry" : {
             "home": {
-                "title": "LedgerEntrys",
+                "title": "LedgerEntries",
                 "createLabel": "Create a new LedgerEntry",
                 "createOrEditLabel": "Create or edit a LedgerEntry",
                 "search": "Search for LedgerEntry"

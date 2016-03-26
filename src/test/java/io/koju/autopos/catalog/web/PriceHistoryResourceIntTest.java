@@ -1,11 +1,10 @@
 package io.koju.autopos.catalog.web;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.koju.autopos.Application;
+
 import io.koju.autopos.catalog.domain.PriceHistory;
 import io.koju.autopos.catalog.service.PriceHistoryRepository;
-
+import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,17 +47,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class PriceHistoryResourceIntTest {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneId.of("Z"));
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
 
     private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_STR = dateTimeFormatter.format(DEFAULT_DATE);
 
-    private static final BigDecimal DEFAULT_MARKED_PRICE = new BigDecimal(20);
-    private static final BigDecimal UPDATED_MARKED_PRICE = new BigDecimal(21);
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final BigDecimal DEFAULT_MARKED_PRICE = new BigDecimal(0);
+    private static final BigDecimal UPDATED_MARKED_PRICE = new BigDecimal(1);
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private PriceHistoryRepository priceHistoryRepository;
@@ -68,9 +67,6 @@ public class PriceHistoryResourceIntTest {
 
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-
-    @Inject
-    private ObjectMapper objectMapper;
 
     private MockMvc restPriceHistoryMockMvc;
 
@@ -101,15 +97,15 @@ public class PriceHistoryResourceIntTest {
 
         // Create the PriceHistory
 
-        restPriceHistoryMockMvc.perform(post("/api/priceHistorys")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(priceHistory)))
+        restPriceHistoryMockMvc.perform(post("/api/price-histories")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(priceHistory)))
                 .andExpect(status().isCreated());
 
         // Validate the PriceHistory in the database
-        List<PriceHistory> priceHistorys = priceHistoryRepository.findAll();
-        assertThat(priceHistorys).hasSize(databaseSizeBeforeCreate + 1);
-        PriceHistory testPriceHistory = priceHistorys.get(priceHistorys.size() - 1);
+        List<PriceHistory> priceHistories = priceHistoryRepository.findAll();
+        assertThat(priceHistories).hasSize(databaseSizeBeforeCreate + 1);
+        PriceHistory testPriceHistory = priceHistories.get(priceHistories.size() - 1);
         assertThat(testPriceHistory.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testPriceHistory.getMarkedPrice()).isEqualTo(DEFAULT_MARKED_PRICE);
         assertThat(testPriceHistory.getRemarks()).isEqualTo(DEFAULT_REMARKS);
@@ -124,13 +120,13 @@ public class PriceHistoryResourceIntTest {
 
         // Create the PriceHistory, which fails.
 
-        restPriceHistoryMockMvc.perform(post("/api/priceHistorys")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(priceHistory)))
+        restPriceHistoryMockMvc.perform(post("/api/price-histories")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(priceHistory)))
                 .andExpect(status().isBadRequest());
 
-        List<PriceHistory> priceHistorys = priceHistoryRepository.findAll();
-        assertThat(priceHistorys).hasSize(databaseSizeBeforeTest);
+        List<PriceHistory> priceHistories = priceHistoryRepository.findAll();
+        assertThat(priceHistories).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -142,27 +138,27 @@ public class PriceHistoryResourceIntTest {
 
         // Create the PriceHistory, which fails.
 
-        restPriceHistoryMockMvc.perform(post("/api/priceHistorys")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(priceHistory)))
+        restPriceHistoryMockMvc.perform(post("/api/price-histories")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(priceHistory)))
                 .andExpect(status().isBadRequest());
 
-        List<PriceHistory> priceHistorys = priceHistoryRepository.findAll();
-        assertThat(priceHistorys).hasSize(databaseSizeBeforeTest);
+        List<PriceHistory> priceHistories = priceHistoryRepository.findAll();
+        assertThat(priceHistories).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
-    public void getAllPriceHistorys() throws Exception {
+    public void getAllPriceHistories() throws Exception {
         // Initialize the database
         priceHistoryRepository.saveAndFlush(priceHistory);
 
-        // Get all the priceHistorys
-        restPriceHistoryMockMvc.perform(get("/api/priceHistorys?sort=id,desc"))
+        // Get all the priceHistories
+        restPriceHistoryMockMvc.perform(get("/api/price-histories?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(priceHistory.getId().intValue())))
-//                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
                 .andExpect(jsonPath("$.[*].markedPrice").value(hasItem(DEFAULT_MARKED_PRICE.intValue())))
                 .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS.toString())));
     }
@@ -174,11 +170,11 @@ public class PriceHistoryResourceIntTest {
         priceHistoryRepository.saveAndFlush(priceHistory);
 
         // Get the priceHistory
-        restPriceHistoryMockMvc.perform(get("/api/priceHistorys/{id}", priceHistory.getId()))
+        restPriceHistoryMockMvc.perform(get("/api/price-histories/{id}", priceHistory.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(priceHistory.getId().intValue()))
-//            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
             .andExpect(jsonPath("$.markedPrice").value(DEFAULT_MARKED_PRICE.intValue()))
             .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS.toString()));
     }
@@ -187,7 +183,7 @@ public class PriceHistoryResourceIntTest {
     @Transactional
     public void getNonExistingPriceHistory() throws Exception {
         // Get the priceHistory
-        restPriceHistoryMockMvc.perform(get("/api/priceHistorys/{id}", Long.MAX_VALUE))
+        restPriceHistoryMockMvc.perform(get("/api/price-histories/{id}", Long.MAX_VALUE))
                 .andExpect(status().isNotFound());
     }
 
@@ -196,23 +192,24 @@ public class PriceHistoryResourceIntTest {
     public void updatePriceHistory() throws Exception {
         // Initialize the database
         priceHistoryRepository.saveAndFlush(priceHistory);
-
-		int databaseSizeBeforeUpdate = priceHistoryRepository.findAll().size();
+        int databaseSizeBeforeUpdate = priceHistoryRepository.findAll().size();
 
         // Update the priceHistory
-        priceHistory.setDate(UPDATED_DATE);
-        priceHistory.setMarkedPrice(UPDATED_MARKED_PRICE);
-        priceHistory.setRemarks(UPDATED_REMARKS);
+        PriceHistory updatedPriceHistory = new PriceHistory();
+        updatedPriceHistory.setId(priceHistory.getId());
+        updatedPriceHistory.setDate(UPDATED_DATE);
+        updatedPriceHistory.setMarkedPrice(UPDATED_MARKED_PRICE);
+        updatedPriceHistory.setRemarks(UPDATED_REMARKS);
 
-        restPriceHistoryMockMvc.perform(put("/api/priceHistorys")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(priceHistory)))
+        restPriceHistoryMockMvc.perform(put("/api/price-histories")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(updatedPriceHistory)))
                 .andExpect(status().isOk());
 
         // Validate the PriceHistory in the database
-        List<PriceHistory> priceHistorys = priceHistoryRepository.findAll();
-        assertThat(priceHistorys).hasSize(databaseSizeBeforeUpdate);
-        PriceHistory testPriceHistory = priceHistorys.get(priceHistorys.size() - 1);
+        List<PriceHistory> priceHistories = priceHistoryRepository.findAll();
+        assertThat(priceHistories).hasSize(databaseSizeBeforeUpdate);
+        PriceHistory testPriceHistory = priceHistories.get(priceHistories.size() - 1);
         assertThat(testPriceHistory.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testPriceHistory.getMarkedPrice()).isEqualTo(UPDATED_MARKED_PRICE);
         assertThat(testPriceHistory.getRemarks()).isEqualTo(UPDATED_REMARKS);
@@ -223,16 +220,15 @@ public class PriceHistoryResourceIntTest {
     public void deletePriceHistory() throws Exception {
         // Initialize the database
         priceHistoryRepository.saveAndFlush(priceHistory);
-
-		int databaseSizeBeforeDelete = priceHistoryRepository.findAll().size();
+        int databaseSizeBeforeDelete = priceHistoryRepository.findAll().size();
 
         // Get the priceHistory
-        restPriceHistoryMockMvc.perform(delete("/api/priceHistorys/{id}", priceHistory.getId())
-                .accept(MediaType.APPLICATION_JSON))
+        restPriceHistoryMockMvc.perform(delete("/api/price-histories/{id}", priceHistory.getId())
+                .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<PriceHistory> priceHistorys = priceHistoryRepository.findAll();
-        assertThat(priceHistorys).hasSize(databaseSizeBeforeDelete - 1);
+        List<PriceHistory> priceHistories = priceHistoryRepository.findAll();
+        assertThat(priceHistories).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

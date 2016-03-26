@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,11 +39,15 @@ public class BrandResource {
     private BrandRepository brandRepository;
 
     /**
-     * POST  /brands -> Create a new brand.
+     * POST  /brands : Create a new brand.
+     *
+     * @param brand the brand to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new brand, or with status 400 (Bad Request) if the brand has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/brands",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Brand> createBrand(@Valid @RequestBody Brand brand) throws URISyntaxException {
         log.debug("REST request to save Brand : {}", brand);
@@ -48,16 +56,22 @@ public class BrandResource {
         }
         Brand result = brandRepository.save(brand);
         return ResponseEntity.created(new URI("/api/brands/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("brand", result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert("brand", result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /brands -> Updates an existing brand.
+     * PUT  /brands : Updates an existing brand.
+     *
+     * @param brand the brand to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated brand,
+     * or with status 400 (Bad Request) if the brand is not valid,
+     * or with status 500 (Internal Server Error) if the brand couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/brands",
-        method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Brand> updateBrand(@Valid @RequestBody Brand brand) throws URISyntaxException {
         log.debug("REST request to update Brand : {}", brand);
@@ -66,19 +80,23 @@ public class BrandResource {
         }
         Brand result = brandRepository.save(brand);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("brand", brand.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert("brand", brand.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /brands -> get all the brands.
+     * GET  /brands : get all the brands.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of brands in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/brands",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<Brand>> getAllBrands(Pageable pageable)
-        throws URISyntaxException {
+            throws URISyntaxException {
         log.debug("REST request to get a page of Brands");
         Page<Brand> page = brandRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/brands");
@@ -86,32 +104,39 @@ public class BrandResource {
     }
 
     /**
-     * GET  /brands/:id -> get the "id" brand.
+     * GET  /brands/:id : get the "id" brand.
+     *
+     * @param id the id of the brand to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the brand, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/brands/{id}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Brand> getBrand(@PathVariable Long id) {
         log.debug("REST request to get Brand : {}", id);
         Brand brand = brandRepository.findOne(id);
         return Optional.ofNullable(brand)
-            .map(result -> new ResponseEntity<>(
-                result,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(result -> new ResponseEntity<>(
+                        result,
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
-     * DELETE  /brands/:id -> delete the "id" brand.
+     * DELETE  /brands/:id : delete the "id" brand.
+     *
+     * @param id the id of the brand to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/brands/{id}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteBrand(@PathVariable Long id) {
         log.debug("REST request to delete Brand : {}", id);
         brandRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("brand", id.toString())).build();
     }
+
 }

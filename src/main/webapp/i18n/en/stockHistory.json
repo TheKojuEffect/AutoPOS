@@ -2,7 +2,7 @@
     "autopos": {
         "stockHistory" : {
             "home": {
-                "title": "StockHistorys",
+                "title": "StockHistories",
                 "createLabel": "Create a new StockHistory",
                 "createOrEditLabel": "Create or edit a StockHistory",
                 "search": "Search for StockHistory"

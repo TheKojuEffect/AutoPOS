@@ -3,17 +3,15 @@ package io.koju.autopos.web.rest;
 import io.koju.autopos.Application;
 import io.koju.autopos.domain.Payment;
 import io.koju.autopos.repository.PaymentRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -23,14 +21,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -50,12 +54,12 @@ public class PaymentResourceIntTest {
 
     private static final BigDecimal DEFAULT_AMOUNT = new BigDecimal(0);
     private static final BigDecimal UPDATED_AMOUNT = new BigDecimal(1);
-    private static final String DEFAULT_RECEIPT_NUMBER = "AAAAA";
-    private static final String UPDATED_RECEIPT_NUMBER = "BBBBB";
+    private static final String DEFAULT_RECEIPT_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_RECEIPT_NUMBER = "BBBBBBBBBB";
     private static final String DEFAULT_PAID_BY = "AA";
     private static final String UPDATED_PAID_BY = "BB";
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private PaymentRepository paymentRepository;
@@ -178,7 +182,7 @@ public class PaymentResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(payment.getId().intValue())))
-//                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
                 .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
                 .andExpect(jsonPath("$.[*].receiptNumber").value(hasItem(DEFAULT_RECEIPT_NUMBER.toString())))
                 .andExpect(jsonPath("$.[*].paidBy").value(hasItem(DEFAULT_PAID_BY.toString())))
@@ -196,7 +200,7 @@ public class PaymentResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(payment.getId().intValue()))
-//            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
             .andExpect(jsonPath("$.receiptNumber").value(DEFAULT_RECEIPT_NUMBER.toString()))
             .andExpect(jsonPath("$.paidBy").value(DEFAULT_PAID_BY.toString()))
@@ -216,19 +220,20 @@ public class PaymentResourceIntTest {
     public void updatePayment() throws Exception {
         // Initialize the database
         paymentRepository.saveAndFlush(payment);
-
-		int databaseSizeBeforeUpdate = paymentRepository.findAll().size();
+        int databaseSizeBeforeUpdate = paymentRepository.findAll().size();
 
         // Update the payment
-        payment.setDate(UPDATED_DATE);
-        payment.setAmount(UPDATED_AMOUNT);
-        payment.setReceiptNumber(UPDATED_RECEIPT_NUMBER);
-        payment.setPaidBy(UPDATED_PAID_BY);
-        payment.setRemarks(UPDATED_REMARKS);
+        Payment updatedPayment = new Payment();
+        updatedPayment.setId(payment.getId());
+        updatedPayment.setDate(UPDATED_DATE);
+        updatedPayment.setAmount(UPDATED_AMOUNT);
+        updatedPayment.setReceiptNumber(UPDATED_RECEIPT_NUMBER);
+        updatedPayment.setPaidBy(UPDATED_PAID_BY);
+        updatedPayment.setRemarks(UPDATED_REMARKS);
 
         restPaymentMockMvc.perform(put("/api/payments")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(payment)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedPayment)))
                 .andExpect(status().isOk());
 
         // Validate the Payment in the database
@@ -247,8 +252,7 @@ public class PaymentResourceIntTest {
     public void deletePayment() throws Exception {
         // Initialize the database
         paymentRepository.saveAndFlush(payment);
-
-		int databaseSizeBeforeDelete = paymentRepository.findAll().size();
+        int databaseSizeBeforeDelete = paymentRepository.findAll().size();
 
         // Get the payment
         restPaymentMockMvc.perform(delete("/api/payments/{id}", payment.getId())

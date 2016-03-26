@@ -1,10 +1,7 @@
 package io.koju.autopos.repository;
 
 import io.koju.autopos.domain.Stock;
-
-import org.springframework.data.jpa.repository.*;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Spring Data JPA repository for the Stock entity.

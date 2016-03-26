@@ -1,9 +1,0 @@
-{
-    "main": {
-        "title": "AutoPOS",
-        "subtitle": "Auto Point of Sale",
-        "logged": {
-            "message": "You are logged in as user \"{{username}}\"."
-        }
-    }
-}

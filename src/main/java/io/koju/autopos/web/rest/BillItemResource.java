@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,9 +39,13 @@ public class BillItemResource {
     private BillItemRepository billItemRepository;
     
     /**
-     * POST  /billItems -> Create a new billItem.
+     * POST  /bill-items : Create a new billItem.
+     *
+     * @param billItem the billItem to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new billItem, or with status 400 (Bad Request) if the billItem has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/billItems",
+    @RequestMapping(value = "/bill-items",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -47,15 +55,21 @@ public class BillItemResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("billItem", "idexists", "A new billItem cannot already have an ID")).body(null);
         }
         BillItem result = billItemRepository.save(billItem);
-        return ResponseEntity.created(new URI("/api/billItems/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/bill-items/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("billItem", result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /billItems -> Updates an existing billItem.
+     * PUT  /bill-items : Updates an existing billItem.
+     *
+     * @param billItem the billItem to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated billItem,
+     * or with status 400 (Bad Request) if the billItem is not valid,
+     * or with status 500 (Internal Server Error) if the billItem couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/billItems",
+    @RequestMapping(value = "/bill-items",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -71,24 +85,31 @@ public class BillItemResource {
     }
 
     /**
-     * GET  /billItems -> get all the billItems.
+     * GET  /bill-items : get all the billItems.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of billItems in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
-    @RequestMapping(value = "/billItems",
+    @RequestMapping(value = "/bill-items",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<BillItem>> getAllBillItems(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of BillItems");
-        Page<BillItem> page = billItemRepository.findAll(pageable); 
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/billItems");
+        Page<BillItem> page = billItemRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/bill-items");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /billItems/:id -> get the "id" billItem.
+     * GET  /bill-items/:id : get the "id" billItem.
+     *
+     * @param id the id of the billItem to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the billItem, or with status 404 (Not Found)
      */
-    @RequestMapping(value = "/billItems/{id}",
+    @RequestMapping(value = "/bill-items/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -103,9 +124,12 @@ public class BillItemResource {
     }
 
     /**
-     * DELETE  /billItems/:id -> delete the "id" billItem.
+     * DELETE  /bill-items/:id : delete the "id" billItem.
+     *
+     * @param id the id of the billItem to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
-    @RequestMapping(value = "/billItems/{id}",
+    @RequestMapping(value = "/bill-items/{id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -114,4 +138,5 @@ public class BillItemResource {
         billItemRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("billItem", id.toString())).build();
     }
+
 }

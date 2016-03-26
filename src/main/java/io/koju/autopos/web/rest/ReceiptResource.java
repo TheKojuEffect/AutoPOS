@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,7 +39,11 @@ public class ReceiptResource {
     private ReceiptRepository receiptRepository;
     
     /**
-     * POST  /receipts -> Create a new receipt.
+     * POST  /receipts : Create a new receipt.
+     *
+     * @param receipt the receipt to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new receipt, or with status 400 (Bad Request) if the receipt has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/receipts",
         method = RequestMethod.POST,
@@ -53,7 +61,13 @@ public class ReceiptResource {
     }
 
     /**
-     * PUT  /receipts -> Updates an existing receipt.
+     * PUT  /receipts : Updates an existing receipt.
+     *
+     * @param receipt the receipt to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated receipt,
+     * or with status 400 (Bad Request) if the receipt is not valid,
+     * or with status 500 (Internal Server Error) if the receipt couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/receipts",
         method = RequestMethod.PUT,
@@ -71,7 +85,11 @@ public class ReceiptResource {
     }
 
     /**
-     * GET  /receipts -> get all the receipts.
+     * GET  /receipts : get all the receipts.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of receipts in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/receipts",
         method = RequestMethod.GET,
@@ -80,13 +98,16 @@ public class ReceiptResource {
     public ResponseEntity<List<Receipt>> getAllReceipts(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Receipts");
-        Page<Receipt> page = receiptRepository.findAll(pageable); 
+        Page<Receipt> page = receiptRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /receipts/:id -> get the "id" receipt.
+     * GET  /receipts/:id : get the "id" receipt.
+     *
+     * @param id the id of the receipt to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the receipt, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/receipts/{id}",
         method = RequestMethod.GET,
@@ -103,7 +124,10 @@ public class ReceiptResource {
     }
 
     /**
-     * DELETE  /receipts/:id -> delete the "id" receipt.
+     * DELETE  /receipts/:id : delete the "id" receipt.
+     *
+     * @param id the id of the receipt to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/receipts/{id}",
         method = RequestMethod.DELETE,
@@ -114,4 +138,5 @@ public class ReceiptResource {
         receiptRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("receipt", id.toString())).build();
     }
+
 }

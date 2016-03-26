@@ -1,0 +1,29 @@
+{
+    "autopos": {
+        "billItem" : {
+            "home": {
+                "title": "BillItems",
+                "createLabel": "नया BillItem बनाएँ",
+                "createOrEditLabel": "BillItem बनाएँ या संपादित करें",
+                "search": "BillItem खोजें"
+            },
+            "created": "एक नया BillItem [identifier: {{ param }}] तैयार है",
+            "updated": "एक BillItem [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "BillItem [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "BillItem [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "BillItem"
+            },
+            "quantity": "Quantity",
+            "rate": "Rate",
+            "amount": "Amount",
+            "date": "Date",
+            "remarks": "Remarks",
+            "issuedBy": "IssuedBy",
+            "particular": "Particular",
+            "bill": "Bill"
+        }
+    }
+}

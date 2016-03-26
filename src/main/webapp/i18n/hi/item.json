@@ -1,0 +1,29 @@
+{
+    "autopos": {
+        "item" : {
+            "home": {
+                "title": "Items",
+                "createLabel": "नया Item बनाएँ",
+                "createOrEditLabel": "Item बनाएँ या संपादित करें",
+                "search": "Item खोजें"
+            },
+            "created": "एक नया Item [identifier: {{ param }}] तैयार है",
+            "updated": "एक Item [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Item [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Item [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Item"
+            },
+            "code": "Code",
+            "name": "Name",
+            "description": "Description",
+            "remarks": "Remarks",
+            "markedPrice": "MarkedPrice",
+            "category": "Category",
+            "brand": "Brand",
+            "tag": "Tag"
+        }
+    }
+}

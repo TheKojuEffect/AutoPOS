@@ -3,17 +3,15 @@ package io.koju.autopos.web.rest;
 import io.koju.autopos.Application;
 import io.koju.autopos.domain.BillItem;
 import io.koju.autopos.repository.BillItemRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -23,16 +21,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.ZoneId;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -46,7 +50,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class BillItemResourceIntTest {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneId.of("Z"));
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
 
     private static final Integer DEFAULT_QUANTITY = 1;
@@ -61,8 +65,8 @@ public class BillItemResourceIntTest {
     private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_STR = dateTimeFormatter.format(DEFAULT_DATE);
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_ISSUED_BY = "AA";
     private static final String UPDATED_ISSUED_BY = "BB";
 
@@ -107,7 +111,7 @@ public class BillItemResourceIntTest {
 
         // Create the BillItem
 
-        restBillItemMockMvc.perform(post("/api/billItems")
+        restBillItemMockMvc.perform(post("/api/bill-items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(billItem)))
                 .andExpect(status().isCreated());
@@ -133,7 +137,7 @@ public class BillItemResourceIntTest {
 
         // Create the BillItem, which fails.
 
-        restBillItemMockMvc.perform(post("/api/billItems")
+        restBillItemMockMvc.perform(post("/api/bill-items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(billItem)))
                 .andExpect(status().isBadRequest());
@@ -151,7 +155,7 @@ public class BillItemResourceIntTest {
 
         // Create the BillItem, which fails.
 
-        restBillItemMockMvc.perform(post("/api/billItems")
+        restBillItemMockMvc.perform(post("/api/bill-items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(billItem)))
                 .andExpect(status().isBadRequest());
@@ -169,7 +173,7 @@ public class BillItemResourceIntTest {
 
         // Create the BillItem, which fails.
 
-        restBillItemMockMvc.perform(post("/api/billItems")
+        restBillItemMockMvc.perform(post("/api/bill-items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(billItem)))
                 .andExpect(status().isBadRequest());
@@ -187,7 +191,7 @@ public class BillItemResourceIntTest {
 
         // Create the BillItem, which fails.
 
-        restBillItemMockMvc.perform(post("/api/billItems")
+        restBillItemMockMvc.perform(post("/api/bill-items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(billItem)))
                 .andExpect(status().isBadRequest());
@@ -203,14 +207,14 @@ public class BillItemResourceIntTest {
         billItemRepository.saveAndFlush(billItem);
 
         // Get all the billItems
-        restBillItemMockMvc.perform(get("/api/billItems?sort=id,desc"))
+        restBillItemMockMvc.perform(get("/api/bill-items?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(billItem.getId().intValue())))
                 .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
                 .andExpect(jsonPath("$.[*].rate").value(hasItem(DEFAULT_RATE.intValue())))
                 .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
-//                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
                 .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS.toString())))
                 .andExpect(jsonPath("$.[*].issuedBy").value(hasItem(DEFAULT_ISSUED_BY.toString())));
     }
@@ -222,14 +226,14 @@ public class BillItemResourceIntTest {
         billItemRepository.saveAndFlush(billItem);
 
         // Get the billItem
-        restBillItemMockMvc.perform(get("/api/billItems/{id}", billItem.getId()))
+        restBillItemMockMvc.perform(get("/api/bill-items/{id}", billItem.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(billItem.getId().intValue()))
             .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
             .andExpect(jsonPath("$.rate").value(DEFAULT_RATE.intValue()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
-//            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
             .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS.toString()))
             .andExpect(jsonPath("$.issuedBy").value(DEFAULT_ISSUED_BY.toString()));
     }
@@ -238,7 +242,7 @@ public class BillItemResourceIntTest {
     @Transactional
     public void getNonExistingBillItem() throws Exception {
         // Get the billItem
-        restBillItemMockMvc.perform(get("/api/billItems/{id}", Long.MAX_VALUE))
+        restBillItemMockMvc.perform(get("/api/bill-items/{id}", Long.MAX_VALUE))
                 .andExpect(status().isNotFound());
     }
 
@@ -247,20 +251,21 @@ public class BillItemResourceIntTest {
     public void updateBillItem() throws Exception {
         // Initialize the database
         billItemRepository.saveAndFlush(billItem);
-
-		int databaseSizeBeforeUpdate = billItemRepository.findAll().size();
+        int databaseSizeBeforeUpdate = billItemRepository.findAll().size();
 
         // Update the billItem
-        billItem.setQuantity(UPDATED_QUANTITY);
-        billItem.setRate(UPDATED_RATE);
-        billItem.setAmount(UPDATED_AMOUNT);
-        billItem.setDate(UPDATED_DATE);
-        billItem.setRemarks(UPDATED_REMARKS);
-        billItem.setIssuedBy(UPDATED_ISSUED_BY);
+        BillItem updatedBillItem = new BillItem();
+        updatedBillItem.setId(billItem.getId());
+        updatedBillItem.setQuantity(UPDATED_QUANTITY);
+        updatedBillItem.setRate(UPDATED_RATE);
+        updatedBillItem.setAmount(UPDATED_AMOUNT);
+        updatedBillItem.setDate(UPDATED_DATE);
+        updatedBillItem.setRemarks(UPDATED_REMARKS);
+        updatedBillItem.setIssuedBy(UPDATED_ISSUED_BY);
 
-        restBillItemMockMvc.perform(put("/api/billItems")
+        restBillItemMockMvc.perform(put("/api/bill-items")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(billItem)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedBillItem)))
                 .andExpect(status().isOk());
 
         // Validate the BillItem in the database
@@ -280,11 +285,10 @@ public class BillItemResourceIntTest {
     public void deleteBillItem() throws Exception {
         // Initialize the database
         billItemRepository.saveAndFlush(billItem);
-
-		int databaseSizeBeforeDelete = billItemRepository.findAll().size();
+        int databaseSizeBeforeDelete = billItemRepository.findAll().size();
 
         // Get the billItem
-        restBillItemMockMvc.perform(delete("/api/billItems/{id}", billItem.getId())
+        restBillItemMockMvc.perform(delete("/api/bill-items/{id}", billItem.getId())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 

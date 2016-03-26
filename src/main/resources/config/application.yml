@@ -11,14 +11,17 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+
 spring:
+    application:
+        name: AutoPOS
     jpa:
         open-in-view: false
         hibernate:
             ddl-auto: none
             naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
     messages:
-        basename: classpath:/i18n/messages
+        basename: i18n/messages
     mvc:
         favicon:
             enabled: false
@@ -49,18 +52,17 @@ jhipster:
         from: AutoPOS@localhost
     security:
         authentication:
-            xauth:
-                secret: myXAuthSecret
-                # Token is valid 30 minutes
-                tokenValidityInSeconds: 1800
-        rememberme:
-            # security key (this key should be unique for your application, and kept secret)
-            key: 9b854c91a59e24496474e6f084d9b2f178c0b232
+            jwt:
+                secret: 6b7351dc7535673df733688a4c6920563e90178d
+                # Token is valid 24 hours
+                tokenValidityInSeconds: 86400
     swagger:
         title: AutoPOS API
         description: AutoPOS API documentation
         version: 0.0.1
         termsOfServiceUrl:
-        contact:
+        contactName:
+        contactUrl:
+        contactEmail:
         license:
         licenseUrl:

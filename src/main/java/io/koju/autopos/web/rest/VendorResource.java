@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,7 +39,11 @@ public class VendorResource {
     private VendorRepository vendorRepository;
     
     /**
-     * POST  /vendors -> Create a new vendor.
+     * POST  /vendors : Create a new vendor.
+     *
+     * @param vendor the vendor to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new vendor, or with status 400 (Bad Request) if the vendor has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/vendors",
         method = RequestMethod.POST,
@@ -53,7 +61,13 @@ public class VendorResource {
     }
 
     /**
-     * PUT  /vendors -> Updates an existing vendor.
+     * PUT  /vendors : Updates an existing vendor.
+     *
+     * @param vendor the vendor to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated vendor,
+     * or with status 400 (Bad Request) if the vendor is not valid,
+     * or with status 500 (Internal Server Error) if the vendor couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/vendors",
         method = RequestMethod.PUT,
@@ -71,7 +85,11 @@ public class VendorResource {
     }
 
     /**
-     * GET  /vendors -> get all the vendors.
+     * GET  /vendors : get all the vendors.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of vendors in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/vendors",
         method = RequestMethod.GET,
@@ -80,13 +98,16 @@ public class VendorResource {
     public ResponseEntity<List<Vendor>> getAllVendors(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Vendors");
-        Page<Vendor> page = vendorRepository.findAll(pageable); 
+        Page<Vendor> page = vendorRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/vendors");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /vendors/:id -> get the "id" vendor.
+     * GET  /vendors/:id : get the "id" vendor.
+     *
+     * @param id the id of the vendor to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the vendor, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/vendors/{id}",
         method = RequestMethod.GET,
@@ -103,7 +124,10 @@ public class VendorResource {
     }
 
     /**
-     * DELETE  /vendors/:id -> delete the "id" vendor.
+     * DELETE  /vendors/:id : delete the "id" vendor.
+     *
+     * @param id the id of the vendor to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/vendors/{id}",
         method = RequestMethod.DELETE,
@@ -114,4 +138,5 @@ public class VendorResource {
         vendorRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("vendor", id.toString())).build();
     }
+
 }

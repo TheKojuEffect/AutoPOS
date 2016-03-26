@@ -1,17 +1,16 @@
 package io.koju.autopos.catalog.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.koju.autopos.Application;
+
 import io.koju.autopos.catalog.domain.Item;
-import io.koju.autopos.catalog.service.ItemCodeUtil;
 import io.koju.autopos.catalog.service.ItemRepository;
 import io.koju.autopos.catalog.service.ItemService;
-
-import io.koju.autopos.security.SecurityTestUtil;
+import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
@@ -31,7 +30,6 @@ import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,17 +43,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-@Ignore
 public class ItemResourceIntTest {
 
+    private static final String DEFAULT_CODE = "A";
+    private static final String UPDATED_CODE = "B";
     private static final String DEFAULT_NAME = "AA";
     private static final String UPDATED_NAME = "BB";
-    private static final String DEFAULT_DESCRIPTION = "AAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBB";
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
-    private static final BigDecimal DEFAULT_MARKED_PRICE = new BigDecimal(20);
+    private static final BigDecimal DEFAULT_MARKED_PRICE = new BigDecimal(0);
     private static final BigDecimal UPDATED_MARKED_PRICE = new BigDecimal(1);
 
     @Inject
@@ -70,9 +69,6 @@ public class ItemResourceIntTest {
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
-    @Inject
-    private ObjectMapper objectMapper;
-
     private MockMvc restItemMockMvc;
 
     private Item item;
@@ -80,7 +76,7 @@ public class ItemResourceIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ItemResource itemResource = new ItemResource(itemService);
+        ItemResource itemResource = new ItemResource(null);
         ReflectionTestUtils.setField(itemResource, "itemService", itemService);
         this.restItemMockMvc = MockMvcBuilders.standaloneSetup(itemResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -99,25 +95,41 @@ public class ItemResourceIntTest {
     @Test
     @Transactional
     public void createItem() throws Exception {
-        SecurityTestUtil.makeSystemUserCurrentUser();
         int databaseSizeBeforeCreate = itemRepository.findAll().size();
 
         // Create the Item
 
         restItemMockMvc.perform(post("/api/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(item)))
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(item)))
                 .andExpect(status().isCreated());
 
         // Validate the Item in the database
         List<Item> items = itemRepository.findAll();
         assertThat(items).hasSize(databaseSizeBeforeCreate + 1);
         Item testItem = items.get(items.size() - 1);
-        assertThat(testItem.getCode()).isEqualTo(ItemCodeUtil.getCode(testItem.getId()));
+        assertThat(testItem.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testItem.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testItem.getDescription().get()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testItem.getRemarks().get()).isEqualTo(DEFAULT_REMARKS);
-        assertThat(testItem.getMarkedPrice()).isEqualByComparingTo(DEFAULT_MARKED_PRICE);
+        assertThat(testItem.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testItem.getRemarks()).isEqualTo(DEFAULT_REMARKS);
+        assertThat(testItem.getMarkedPrice()).isEqualTo(DEFAULT_MARKED_PRICE);
+    }
+
+    @Test
+    @Transactional
+    public void checkCodeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = itemRepository.findAll().size();
+        // set the field null
+
+        // Create the Item, which fails.
+
+        restItemMockMvc.perform(post("/api/items")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(item)))
+                .andExpect(status().isBadRequest());
+
+        List<Item> items = itemRepository.findAll();
+        assertThat(items).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -130,8 +142,8 @@ public class ItemResourceIntTest {
         // Create the Item, which fails.
 
         restItemMockMvc.perform(post("/api/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(item)))
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(item)))
                 .andExpect(status().isBadRequest());
 
         List<Item> items = itemRepository.findAll();
@@ -148,8 +160,8 @@ public class ItemResourceIntTest {
         // Create the Item, which fails.
 
         restItemMockMvc.perform(post("/api/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(item)))
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(item)))
                 .andExpect(status().isBadRequest());
 
         List<Item> items = itemRepository.findAll();
@@ -159,7 +171,6 @@ public class ItemResourceIntTest {
     @Test
     @Transactional
     public void getAllItems() throws Exception {
-        SecurityTestUtil.makeSystemUserCurrentUser();
         // Initialize the database
         itemRepository.saveAndFlush(item);
 
@@ -168,7 +179,7 @@ public class ItemResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(item.getId().intValue())))
-                .andExpect(jsonPath("$.[*].code").value(hasItem(ItemCodeUtil.getCode(item.getId()).toString())))
+                .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS.toString())))
@@ -178,10 +189,6 @@ public class ItemResourceIntTest {
     @Test
     @Transactional
     public void getItem() throws Exception {
-
-        SecurityTestUtil.makeSystemUserCurrentUser();
-
-
         // Initialize the database
         itemRepository.saveAndFlush(item);
 
@@ -190,7 +197,7 @@ public class ItemResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(item.getId().intValue()))
-            .andExpect(jsonPath("$.code").value(ItemCodeUtil.getCode(item.getId()).toString()))
+            .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS.toString()))
@@ -208,47 +215,46 @@ public class ItemResourceIntTest {
     @Test
     @Transactional
     public void updateItem() throws Exception {
-        SecurityTestUtil.makeSystemUserCurrentUser();
         // Initialize the database
-        itemRepository.saveAndFlush(item);
+        itemService.save(item);
 
-		int databaseSizeBeforeUpdate = itemRepository.findAll().size();
+        int databaseSizeBeforeUpdate = itemRepository.findAll().size();
 
         // Update the item
-        item.setName(UPDATED_NAME);
-        item.setDescription(UPDATED_DESCRIPTION);
-        item.setRemarks(UPDATED_REMARKS);
-        item.setMarkedPrice(UPDATED_MARKED_PRICE);
+        Item updatedItem = new Item();
+        updatedItem.setId(item.getId());
+        updatedItem.setName(UPDATED_NAME);
+        updatedItem.setDescription(UPDATED_DESCRIPTION);
+        updatedItem.setRemarks(UPDATED_REMARKS);
+        updatedItem.setMarkedPrice(UPDATED_MARKED_PRICE);
 
         restItemMockMvc.perform(put("/api/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(item)))
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(updatedItem)))
                 .andExpect(status().isOk());
 
         // Validate the Item in the database
         List<Item> items = itemRepository.findAll();
         assertThat(items).hasSize(databaseSizeBeforeUpdate);
         Item testItem = items.get(items.size() - 1);
-        assertThat(testItem.getCode()).isEqualTo(ItemCodeUtil.getCode(testItem.getId()));
+        assertThat(testItem.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testItem.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testItem.getDescription().get()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testItem.getRemarks().get()).isEqualTo(UPDATED_REMARKS);
+        assertThat(testItem.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testItem.getRemarks()).isEqualTo(UPDATED_REMARKS);
         assertThat(testItem.getMarkedPrice()).isEqualTo(UPDATED_MARKED_PRICE);
     }
 
     @Test
     @Transactional
     public void deleteItem() throws Exception {
-        SecurityTestUtil.makeSystemUserCurrentUser();
-
         // Initialize the database
-        itemRepository.saveAndFlush(item);
+        itemService.save(item);
 
-		int databaseSizeBeforeDelete = itemRepository.findAll().size();
+        int databaseSizeBeforeDelete = itemRepository.findAll().size();
 
         // Get the item
         restItemMockMvc.perform(delete("/api/items/{id}", item.getId())
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Validate the database is empty

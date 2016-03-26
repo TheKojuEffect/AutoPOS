@@ -3,17 +3,15 @@ package io.koju.autopos.web.rest;
 import io.koju.autopos.Application;
 import io.koju.autopos.domain.Vendor;
 import io.koju.autopos.repository.VendorRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -26,8 +24,14 @@ import javax.inject.Inject;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -43,10 +47,10 @@ public class VendorResourceIntTest {
 
     private static final String DEFAULT_NAME = "AA";
     private static final String UPDATED_NAME = "BB";
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
-    private static final String DEFAULT_PHONE_NUMBERS = "AAAAA";
-    private static final String UPDATED_PHONE_NUMBERS = "BBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_PHONE_NUMBERS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_PHONE_NUMBERS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private VendorRepository vendorRepository;
@@ -181,17 +185,18 @@ public class VendorResourceIntTest {
     public void updateVendor() throws Exception {
         // Initialize the database
         vendorRepository.saveAndFlush(vendor);
-
-		int databaseSizeBeforeUpdate = vendorRepository.findAll().size();
+        int databaseSizeBeforeUpdate = vendorRepository.findAll().size();
 
         // Update the vendor
-        vendor.setName(UPDATED_NAME);
-        vendor.setRemarks(UPDATED_REMARKS);
-        vendor.setPhoneNumbers(UPDATED_PHONE_NUMBERS);
+        Vendor updatedVendor = new Vendor();
+        updatedVendor.setId(vendor.getId());
+        updatedVendor.setName(UPDATED_NAME);
+        updatedVendor.setRemarks(UPDATED_REMARKS);
+        updatedVendor.setPhoneNumbers(UPDATED_PHONE_NUMBERS);
 
         restVendorMockMvc.perform(put("/api/vendors")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(vendor)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedVendor)))
                 .andExpect(status().isOk());
 
         // Validate the Vendor in the database
@@ -208,8 +213,7 @@ public class VendorResourceIntTest {
     public void deleteVendor() throws Exception {
         // Initialize the database
         vendorRepository.saveAndFlush(vendor);
-
-		int databaseSizeBeforeDelete = vendorRepository.findAll().size();
+        int databaseSizeBeforeDelete = vendorRepository.findAll().size();
 
         // Get the vendor
         restVendorMockMvc.perform(delete("/api/vendors/{id}", vendor.getId())

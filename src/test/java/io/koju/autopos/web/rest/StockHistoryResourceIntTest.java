@@ -3,17 +3,15 @@ package io.koju.autopos.web.rest;
 import io.koju.autopos.Application;
 import io.koju.autopos.domain.StockHistory;
 import io.koju.autopos.repository.StockHistoryRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -24,14 +22,20 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -45,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class StockHistoryResourceIntTest {
 
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneId.of("Z"));
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
 
 
     private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
@@ -54,8 +58,8 @@ public class StockHistoryResourceIntTest {
 
     private static final Integer DEFAULT_QUANTITY = 0;
     private static final Integer UPDATED_QUANTITY = 1;
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private StockHistoryRepository stockHistoryRepository;
@@ -95,15 +99,15 @@ public class StockHistoryResourceIntTest {
 
         // Create the StockHistory
 
-        restStockHistoryMockMvc.perform(post("/api/stockHistorys")
+        restStockHistoryMockMvc.perform(post("/api/stock-histories")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(stockHistory)))
                 .andExpect(status().isCreated());
 
         // Validate the StockHistory in the database
-        List<StockHistory> stockHistorys = stockHistoryRepository.findAll();
-        assertThat(stockHistorys).hasSize(databaseSizeBeforeCreate + 1);
-        StockHistory testStockHistory = stockHistorys.get(stockHistorys.size() - 1);
+        List<StockHistory> stockHistories = stockHistoryRepository.findAll();
+        assertThat(stockHistories).hasSize(databaseSizeBeforeCreate + 1);
+        StockHistory testStockHistory = stockHistories.get(stockHistories.size() - 1);
         assertThat(testStockHistory.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testStockHistory.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testStockHistory.getRemarks()).isEqualTo(DEFAULT_REMARKS);
@@ -118,13 +122,13 @@ public class StockHistoryResourceIntTest {
 
         // Create the StockHistory, which fails.
 
-        restStockHistoryMockMvc.perform(post("/api/stockHistorys")
+        restStockHistoryMockMvc.perform(post("/api/stock-histories")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(stockHistory)))
                 .andExpect(status().isBadRequest());
 
-        List<StockHistory> stockHistorys = stockHistoryRepository.findAll();
-        assertThat(stockHistorys).hasSize(databaseSizeBeforeTest);
+        List<StockHistory> stockHistories = stockHistoryRepository.findAll();
+        assertThat(stockHistories).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -136,27 +140,27 @@ public class StockHistoryResourceIntTest {
 
         // Create the StockHistory, which fails.
 
-        restStockHistoryMockMvc.perform(post("/api/stockHistorys")
+        restStockHistoryMockMvc.perform(post("/api/stock-histories")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(stockHistory)))
                 .andExpect(status().isBadRequest());
 
-        List<StockHistory> stockHistorys = stockHistoryRepository.findAll();
-        assertThat(stockHistorys).hasSize(databaseSizeBeforeTest);
+        List<StockHistory> stockHistories = stockHistoryRepository.findAll();
+        assertThat(stockHistories).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
-    public void getAllStockHistorys() throws Exception {
+    public void getAllStockHistories() throws Exception {
         // Initialize the database
         stockHistoryRepository.saveAndFlush(stockHistory);
 
-        // Get all the stockHistorys
-        restStockHistoryMockMvc.perform(get("/api/stockHistorys?sort=id,desc"))
+        // Get all the stockHistories
+        restStockHistoryMockMvc.perform(get("/api/stock-histories?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(stockHistory.getId().intValue())))
-//                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
                 .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
                 .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS.toString())));
     }
@@ -168,11 +172,11 @@ public class StockHistoryResourceIntTest {
         stockHistoryRepository.saveAndFlush(stockHistory);
 
         // Get the stockHistory
-        restStockHistoryMockMvc.perform(get("/api/stockHistorys/{id}", stockHistory.getId()))
+        restStockHistoryMockMvc.perform(get("/api/stock-histories/{id}", stockHistory.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(stockHistory.getId().intValue()))
-//            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
             .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY))
             .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS.toString()));
     }
@@ -181,7 +185,7 @@ public class StockHistoryResourceIntTest {
     @Transactional
     public void getNonExistingStockHistory() throws Exception {
         // Get the stockHistory
-        restStockHistoryMockMvc.perform(get("/api/stockHistorys/{id}", Long.MAX_VALUE))
+        restStockHistoryMockMvc.perform(get("/api/stock-histories/{id}", Long.MAX_VALUE))
                 .andExpect(status().isNotFound());
     }
 
@@ -190,23 +194,24 @@ public class StockHistoryResourceIntTest {
     public void updateStockHistory() throws Exception {
         // Initialize the database
         stockHistoryRepository.saveAndFlush(stockHistory);
-
-		int databaseSizeBeforeUpdate = stockHistoryRepository.findAll().size();
+        int databaseSizeBeforeUpdate = stockHistoryRepository.findAll().size();
 
         // Update the stockHistory
-        stockHistory.setDate(UPDATED_DATE);
-        stockHistory.setQuantity(UPDATED_QUANTITY);
-        stockHistory.setRemarks(UPDATED_REMARKS);
+        StockHistory updatedStockHistory = new StockHistory();
+        updatedStockHistory.setId(stockHistory.getId());
+        updatedStockHistory.setDate(UPDATED_DATE);
+        updatedStockHistory.setQuantity(UPDATED_QUANTITY);
+        updatedStockHistory.setRemarks(UPDATED_REMARKS);
 
-        restStockHistoryMockMvc.perform(put("/api/stockHistorys")
+        restStockHistoryMockMvc.perform(put("/api/stock-histories")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(stockHistory)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedStockHistory)))
                 .andExpect(status().isOk());
 
         // Validate the StockHistory in the database
-        List<StockHistory> stockHistorys = stockHistoryRepository.findAll();
-        assertThat(stockHistorys).hasSize(databaseSizeBeforeUpdate);
-        StockHistory testStockHistory = stockHistorys.get(stockHistorys.size() - 1);
+        List<StockHistory> stockHistories = stockHistoryRepository.findAll();
+        assertThat(stockHistories).hasSize(databaseSizeBeforeUpdate);
+        StockHistory testStockHistory = stockHistories.get(stockHistories.size() - 1);
         assertThat(testStockHistory.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testStockHistory.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testStockHistory.getRemarks()).isEqualTo(UPDATED_REMARKS);
@@ -217,16 +222,15 @@ public class StockHistoryResourceIntTest {
     public void deleteStockHistory() throws Exception {
         // Initialize the database
         stockHistoryRepository.saveAndFlush(stockHistory);
-
-		int databaseSizeBeforeDelete = stockHistoryRepository.findAll().size();
+        int databaseSizeBeforeDelete = stockHistoryRepository.findAll().size();
 
         // Get the stockHistory
-        restStockHistoryMockMvc.perform(delete("/api/stockHistorys/{id}", stockHistory.getId())
+        restStockHistoryMockMvc.perform(delete("/api/stock-histories/{id}", stockHistory.getId())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<StockHistory> stockHistorys = stockHistoryRepository.findAll();
-        assertThat(stockHistorys).hasSize(databaseSizeBeforeDelete - 1);
+        List<StockHistory> stockHistories = stockHistoryRepository.findAll();
+        assertThat(stockHistories).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

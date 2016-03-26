@@ -3,17 +3,15 @@ package io.koju.autopos.web.rest;
 import io.koju.autopos.Application;
 import io.koju.autopos.domain.PhoneNumber;
 import io.koju.autopos.repository.PhoneNumberRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -26,8 +24,14 @@ import javax.inject.Inject;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -80,7 +84,7 @@ public class PhoneNumberResourceIntTest {
 
         // Create the PhoneNumber
 
-        restPhoneNumberMockMvc.perform(post("/api/phoneNumbers")
+        restPhoneNumberMockMvc.perform(post("/api/phone-numbers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(phoneNumber)))
                 .andExpect(status().isCreated());
@@ -101,7 +105,7 @@ public class PhoneNumberResourceIntTest {
 
         // Create the PhoneNumber, which fails.
 
-        restPhoneNumberMockMvc.perform(post("/api/phoneNumbers")
+        restPhoneNumberMockMvc.perform(post("/api/phone-numbers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(phoneNumber)))
                 .andExpect(status().isBadRequest());
@@ -117,7 +121,7 @@ public class PhoneNumberResourceIntTest {
         phoneNumberRepository.saveAndFlush(phoneNumber);
 
         // Get all the phoneNumbers
-        restPhoneNumberMockMvc.perform(get("/api/phoneNumbers?sort=id,desc"))
+        restPhoneNumberMockMvc.perform(get("/api/phone-numbers?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(phoneNumber.getId().intValue())))
@@ -131,7 +135,7 @@ public class PhoneNumberResourceIntTest {
         phoneNumberRepository.saveAndFlush(phoneNumber);
 
         // Get the phoneNumber
-        restPhoneNumberMockMvc.perform(get("/api/phoneNumbers/{id}", phoneNumber.getId()))
+        restPhoneNumberMockMvc.perform(get("/api/phone-numbers/{id}", phoneNumber.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(phoneNumber.getId().intValue()))
@@ -142,7 +146,7 @@ public class PhoneNumberResourceIntTest {
     @Transactional
     public void getNonExistingPhoneNumber() throws Exception {
         // Get the phoneNumber
-        restPhoneNumberMockMvc.perform(get("/api/phoneNumbers/{id}", Long.MAX_VALUE))
+        restPhoneNumberMockMvc.perform(get("/api/phone-numbers/{id}", Long.MAX_VALUE))
                 .andExpect(status().isNotFound());
     }
 
@@ -151,15 +155,16 @@ public class PhoneNumberResourceIntTest {
     public void updatePhoneNumber() throws Exception {
         // Initialize the database
         phoneNumberRepository.saveAndFlush(phoneNumber);
-
-		int databaseSizeBeforeUpdate = phoneNumberRepository.findAll().size();
+        int databaseSizeBeforeUpdate = phoneNumberRepository.findAll().size();
 
         // Update the phoneNumber
-        phoneNumber.setNumber(UPDATED_NUMBER);
+        PhoneNumber updatedPhoneNumber = new PhoneNumber();
+        updatedPhoneNumber.setId(phoneNumber.getId());
+        updatedPhoneNumber.setNumber(UPDATED_NUMBER);
 
-        restPhoneNumberMockMvc.perform(put("/api/phoneNumbers")
+        restPhoneNumberMockMvc.perform(put("/api/phone-numbers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(phoneNumber)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedPhoneNumber)))
                 .andExpect(status().isOk());
 
         // Validate the PhoneNumber in the database
@@ -174,11 +179,10 @@ public class PhoneNumberResourceIntTest {
     public void deletePhoneNumber() throws Exception {
         // Initialize the database
         phoneNumberRepository.saveAndFlush(phoneNumber);
-
-		int databaseSizeBeforeDelete = phoneNumberRepository.findAll().size();
+        int databaseSizeBeforeDelete = phoneNumberRepository.findAll().size();
 
         // Get the phoneNumber
-        restPhoneNumberMockMvc.perform(delete("/api/phoneNumbers/{id}", phoneNumber.getId())
+        restPhoneNumberMockMvc.perform(delete("/api/phone-numbers/{id}", phoneNumber.getId())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 

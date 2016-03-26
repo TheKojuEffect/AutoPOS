@@ -1,6 +1,5 @@
 package io.koju.autopos.security;
 
-import io.koju.autopos.user.domain.Role;
 import io.koju.autopos.user.domain.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +20,8 @@ public final class SecurityUtils {
 
     /**
      * Get the login of the current user.
+     *
+     * @return the login of the current user
      */
     public static String getCurrentUserLogin() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -47,7 +48,7 @@ public final class SecurityUtils {
         Collection<? extends GrantedAuthority> authorities = securityContext.getAuthentication().getAuthorities();
         if (authorities != null) {
             for (GrantedAuthority authority : authorities) {
-                if (AuthoritiesConstants.ANONYMOUS.equals(authority.getAuthority())) {
+                if (authority.getAuthority().equals(AuthoritiesConstants.ANONYMOUS)) {
                     return false;
                 }
             }
@@ -76,6 +77,9 @@ public final class SecurityUtils {
      * If the current user has a specific authority (security role).
      *
      * <p>The name of this method comes from the isUserInRole() method in the Servlet API</p>
+     *
+     * @param authority the authorithy to check
+     * @return true if the current user has the authority, false otherwise
      */
     public static boolean isCurrentUserInRole(String authority) {
         SecurityContext securityContext = SecurityContextHolder.getContext();

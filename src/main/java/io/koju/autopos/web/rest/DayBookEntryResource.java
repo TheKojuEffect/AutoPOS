@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,9 +39,13 @@ public class DayBookEntryResource {
     private DayBookEntryRepository dayBookEntryRepository;
     
     /**
-     * POST  /dayBookEntrys -> Create a new dayBookEntry.
+     * POST  /day-book-entries : Create a new dayBookEntry.
+     *
+     * @param dayBookEntry the dayBookEntry to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new dayBookEntry, or with status 400 (Bad Request) if the dayBookEntry has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/dayBookEntrys",
+    @RequestMapping(value = "/day-book-entries",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -47,15 +55,21 @@ public class DayBookEntryResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("dayBookEntry", "idexists", "A new dayBookEntry cannot already have an ID")).body(null);
         }
         DayBookEntry result = dayBookEntryRepository.save(dayBookEntry);
-        return ResponseEntity.created(new URI("/api/dayBookEntrys/" + result.getId()))
+        return ResponseEntity.created(new URI("/api/day-book-entries/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("dayBookEntry", result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /dayBookEntrys -> Updates an existing dayBookEntry.
+     * PUT  /day-book-entries : Updates an existing dayBookEntry.
+     *
+     * @param dayBookEntry the dayBookEntry to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated dayBookEntry,
+     * or with status 400 (Bad Request) if the dayBookEntry is not valid,
+     * or with status 500 (Internal Server Error) if the dayBookEntry couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/dayBookEntrys",
+    @RequestMapping(value = "/day-book-entries",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -71,24 +85,31 @@ public class DayBookEntryResource {
     }
 
     /**
-     * GET  /dayBookEntrys -> get all the dayBookEntrys.
+     * GET  /day-book-entries : get all the dayBookEntries.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of dayBookEntries in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
-    @RequestMapping(value = "/dayBookEntrys",
+    @RequestMapping(value = "/day-book-entries",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<DayBookEntry>> getAllDayBookEntrys(Pageable pageable)
+    public ResponseEntity<List<DayBookEntry>> getAllDayBookEntries(Pageable pageable)
         throws URISyntaxException {
-        log.debug("REST request to get a page of DayBookEntrys");
-        Page<DayBookEntry> page = dayBookEntryRepository.findAll(pageable); 
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dayBookEntrys");
+        log.debug("REST request to get a page of DayBookEntries");
+        Page<DayBookEntry> page = dayBookEntryRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/day-book-entries");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /dayBookEntrys/:id -> get the "id" dayBookEntry.
+     * GET  /day-book-entries/:id : get the "id" dayBookEntry.
+     *
+     * @param id the id of the dayBookEntry to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the dayBookEntry, or with status 404 (Not Found)
      */
-    @RequestMapping(value = "/dayBookEntrys/{id}",
+    @RequestMapping(value = "/day-book-entries/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -103,9 +124,12 @@ public class DayBookEntryResource {
     }
 
     /**
-     * DELETE  /dayBookEntrys/:id -> delete the "id" dayBookEntry.
+     * DELETE  /day-book-entries/:id : delete the "id" dayBookEntry.
+     *
+     * @param id the id of the dayBookEntry to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
-    @RequestMapping(value = "/dayBookEntrys/{id}",
+    @RequestMapping(value = "/day-book-entries/{id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -114,4 +138,5 @@ public class DayBookEntryResource {
         dayBookEntryRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("dayBookEntry", id.toString())).build();
     }
+
 }

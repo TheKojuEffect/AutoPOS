@@ -2,18 +2,20 @@ package io.koju.autopos.web.rest.dto;
 
 import io.koju.autopos.user.domain.Authority;
 import io.koju.autopos.user.domain.User;
-
 import org.hibernate.validator.constraints.Email;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 /**
  * A DTO representing a user, with his authorities.
  */
 public class UserDTO {
 
-    public static final int PASSWORD_MIN_LENGTH = 5;
+    public static final int PASSWORD_MIN_LENGTH = 4;
     public static final int PASSWORD_MAX_LENGTH = 100;
 
     @Pattern(regexp = "^[a-z0-9]*$")
@@ -48,7 +50,7 @@ public class UserDTO {
     public UserDTO(User user) {
         this(user.getLogin(), null, user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getLangKey(),
-            user.getUserAuthorities().stream().map(Authority::getName)
+            user.getAuthorities().stream().map(a -> a.getAuthority())
                 .collect(Collectors.toSet()));
     }
 

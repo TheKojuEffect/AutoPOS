@@ -1,0 +1,25 @@
+{
+    "autopos": {
+        "stockHistory" : {
+            "home": {
+                "title": "StockHistories",
+                "createLabel": "नया StockHistory बनाएँ",
+                "createOrEditLabel": "StockHistory बनाएँ या संपादित करें",
+                "search": "StockHistory खोजें"
+            },
+            "created": "एक नया StockHistory [identifier: {{ param }}] तैयार है",
+            "updated": "एक StockHistory [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "StockHistory [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "StockHistory [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "StockHistory"
+            },
+            "date": "Date",
+            "quantity": "Quantity",
+            "remarks": "Remarks",
+            "item": "Item"
+        }
+    }
+}

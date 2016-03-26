@@ -1,0 +1,25 @@
+{
+    "autopos": {
+        "dayBookEntry" : {
+            "home": {
+                "title": "DayBookEntries",
+                "createLabel": "नया DayBookEntry बनाएँ",
+                "createOrEditLabel": "DayBookEntry बनाएँ या संपादित करें",
+                "search": "DayBookEntry खोजें"
+            },
+            "created": "एक नया DayBookEntry [identifier: {{ param }}] तैयार है",
+            "updated": "एक DayBookEntry [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "DayBookEntry [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "DayBookEntry [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "DayBookEntry"
+            },
+            "date": "Date",
+            "incomingAmount": "IncomingAmount",
+            "outgoingAmount": "OutgoingAmount",
+            "miscExpenses": "MiscExpenses"
+        }
+    }
+}

@@ -2,7 +2,7 @@
 
 describe('Controller Tests', function() {
 
-    describe('Bill Detail Controller', function() {
+    describe('Bill Management Detail Controller', function() {
         var $scope, $rootScope;
         var MockEntity, MockBill, MockBillItem, MockVehicle;
         var createController;
@@ -14,7 +14,7 @@ describe('Controller Tests', function() {
             MockBill = jasmine.createSpy('MockBill');
             MockBillItem = jasmine.createSpy('MockBillItem');
             MockVehicle = jasmine.createSpy('MockVehicle');
-
+            
 
             var locals = {
                 '$scope': $scope,
@@ -32,7 +32,7 @@ describe('Controller Tests', function() {
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'autopos:billUpdate';
+                var eventType = 'autoPosApp:billUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

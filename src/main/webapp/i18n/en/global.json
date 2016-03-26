@@ -7,32 +7,25 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "bill": "Bill",
+                "billItem": "BillItem",
+                "brand": "Brand",
+                "category": "Category",
+                "customer": "Customer",
+                "dayBookEntry": "DayBookEntry",
+                "item": "Item",
+                "ledger": "Ledger",
+                "ledgerEntry": "LedgerEntry",
+                "payment": "Payment",
+                "phoneNumber": "PhoneNumber",
+                "priceHistory": "PriceHistory",
+                "receipt": "Receipt",
                 "stock": "Stock",
                 "stockHistory": "StockHistory",
-                "phoneNumber": "PhoneNumber",
-                "customer": "Customer",
-                "vendor": "Vendor",
-                "vehicle": "Vehicle",
-                "dayBookEntry": "DayBookEntry",
-                "receipt": "Receipt",
-                "payment": "Payment",
-                "billItem": "BillItem",
-                "bill": "Bill",
-                "ledgerEntry": "LedgerEntry",
-                "ledger": "Ledger",
-                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
-            },
-            "catalog": {
-                "main": "Catalog",
-                "category": "Category",
-                "categories": "Categories",
-                "brand": "Brand",
-                "brands": "Brands",
                 "tag": "Tag",
-                "tags": "Tags",
-                "item": "Item",
-                "items": "Items",
-                "priceHistory": "PriceHistory"
+                "vehicle": "Vehicle",
+                "vendor": "Vendor",
+                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
                 "main": "Account",
@@ -45,7 +38,7 @@
             },
             "admin": {
                 "main": "Administration",
-                "user-management": "User management",
+                "userManagement": "User management",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
                 "health": "Health",
@@ -70,8 +63,8 @@
         },
         "messages": {
             "info": {
-                "authenticated": "If you want to <a class=\"alert-link\" href=\"#/login\">sign in</a>, you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
-                "register": "You don't have an account yet? <a class=\"alert-link\" href=\"#/register\">Register a new account</a>"
+                "authenticated": "If you want to <a class=\"alert-link\" href=\"\" ng-click=\"vm.login()\">sign in</a>, you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
+                "register": "You don't have an account yet? <a class=\"alert-link\" ui-sref=\"register\">Register a new account</a>"
             },
             "error": {
                 "dontmatch": "The password and its confirmation do not match!"
@@ -139,5 +132,5 @@
         "emailexists": "E-mail is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID"
     },
-    "footer": "Laxmi Auto Center"
+    "footer": "This is your footer"
 }

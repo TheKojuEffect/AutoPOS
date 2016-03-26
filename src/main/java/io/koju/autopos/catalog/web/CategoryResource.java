@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,11 +39,15 @@ public class CategoryResource {
     private CategoryRepository categoryRepository;
 
     /**
-     * POST  /categories -> Create a new category.
+     * POST  /categories : Create a new category.
+     *
+     * @param category the category to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new category, or with status 400 (Bad Request) if the category has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/categories",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Category> createCategory(@Valid @RequestBody Category category) throws URISyntaxException {
         log.debug("REST request to save Category : {}", category);
@@ -48,16 +56,22 @@ public class CategoryResource {
         }
         Category result = categoryRepository.save(category);
         return ResponseEntity.created(new URI("/api/categories/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("category", result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert("category", result.getId().toString()))
+                .body(result);
     }
 
     /**
-     * PUT  /categories -> Updates an existing category.
+     * PUT  /categories : Updates an existing category.
+     *
+     * @param category the category to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated category,
+     * or with status 400 (Bad Request) if the category is not valid,
+     * or with status 500 (Internal Server Error) if the category couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/categories",
-        method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category) throws URISyntaxException {
         log.debug("REST request to update Category : {}", category);
@@ -66,19 +80,23 @@ public class CategoryResource {
         }
         Category result = categoryRepository.save(category);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("category", category.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityUpdateAlert("category", category.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /categories -> get all the categories.
+     * GET  /categories : get all the categories.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of categories in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/categories",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<Category>> getAllCategories(Pageable pageable)
-        throws URISyntaxException {
+            throws URISyntaxException {
         log.debug("REST request to get a page of Categories");
         Page<Category> page = categoryRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/categories");
@@ -86,32 +104,39 @@ public class CategoryResource {
     }
 
     /**
-     * GET  /categories/:id -> get the "id" category.
+     * GET  /categories/:id : get the "id" category.
+     *
+     * @param id the id of the category to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the category, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/categories/{id}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Category> getCategory(@PathVariable Long id) {
         log.debug("REST request to get Category : {}", id);
         Category category = categoryRepository.findOne(id);
         return Optional.ofNullable(category)
-            .map(result -> new ResponseEntity<>(
-                result,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .map(result -> new ResponseEntity<>(
+                        result,
+                        HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
-     * DELETE  /categories/:id -> delete the "id" category.
+     * DELETE  /categories/:id : delete the "id" category.
+     *
+     * @param id the id of the category to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/categories/{id}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
         log.debug("REST request to delete Category : {}", id);
         categoryRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("category", id.toString())).build();
     }
+
 }

@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,7 +39,11 @@ public class LedgerResource {
     private LedgerService ledgerService;
     
     /**
-     * POST  /ledgers -> Create a new ledger.
+     * POST  /ledgers : Create a new ledger.
+     *
+     * @param ledger the ledger to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new ledger, or with status 400 (Bad Request) if the ledger has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/ledgers",
         method = RequestMethod.POST,
@@ -53,7 +61,13 @@ public class LedgerResource {
     }
 
     /**
-     * PUT  /ledgers -> Updates an existing ledger.
+     * PUT  /ledgers : Updates an existing ledger.
+     *
+     * @param ledger the ledger to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated ledger,
+     * or with status 400 (Bad Request) if the ledger is not valid,
+     * or with status 500 (Internal Server Error) if the ledger couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/ledgers",
         method = RequestMethod.PUT,
@@ -71,7 +85,11 @@ public class LedgerResource {
     }
 
     /**
-     * GET  /ledgers -> get all the ledgers.
+     * GET  /ledgers : get all the ledgers.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of ledgers in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/ledgers",
         method = RequestMethod.GET,
@@ -80,13 +98,16 @@ public class LedgerResource {
     public ResponseEntity<List<Ledger>> getAllLedgers(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Ledgers");
-        Page<Ledger> page = ledgerService.findAll(pageable); 
+        Page<Ledger> page = ledgerService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/ledgers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /ledgers/:id -> get the "id" ledger.
+     * GET  /ledgers/:id : get the "id" ledger.
+     *
+     * @param id the id of the ledger to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the ledger, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/ledgers/{id}",
         method = RequestMethod.GET,
@@ -103,7 +124,10 @@ public class LedgerResource {
     }
 
     /**
-     * DELETE  /ledgers/:id -> delete the "id" ledger.
+     * DELETE  /ledgers/:id : delete the "id" ledger.
+     *
+     * @param id the id of the ledger to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/ledgers/{id}",
         method = RequestMethod.DELETE,
@@ -114,4 +138,5 @@ public class LedgerResource {
         ledgerService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("ledger", id.toString())).build();
     }
+
 }

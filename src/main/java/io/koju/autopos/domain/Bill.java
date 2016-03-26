@@ -3,15 +3,24 @@ package io.koju.autopos.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import java.time.ZonedDateTime;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Bill.
@@ -21,6 +30,8 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Bill implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -28,53 +39,52 @@ public class Bill implements Serializable {
     @NotNull
     @Column(name = "date", nullable = false)
     private ZonedDateTime date;
-    
+
     @NotNull
     @Min(value = 0)
     @Column(name = "sub_total", precision=10, scale=2, nullable = false)
     private BigDecimal subTotal;
-    
+
     @NotNull
     @Min(value = 0)
     @Column(name = "discount", precision=10, scale=2, nullable = false)
     private BigDecimal discount;
-    
+
     @NotNull
     @Min(value = 0)
     @Column(name = "taxable_amount", precision=10, scale=2, nullable = false)
     private BigDecimal taxableAmount;
-    
+
     @NotNull
     @Min(value = 0)
     @Column(name = "tax", precision=10, scale=2, nullable = false)
     private BigDecimal tax;
-    
+
     @NotNull
     @Min(value = 0)
     @Column(name = "grand_total", precision=10, scale=2, nullable = false)
     private BigDecimal grandTotal;
-    
+
     @NotNull
     @Size(min = 2, max = 100)
     @Column(name = "client", length = 100, nullable = false)
     private String client;
-    
+
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
-    
+
     @NotNull
     @Size(min = 2, max = 100)
     @Column(name = "issued_by", length = 100, nullable = false)
     private String issuedBy;
-    
+
     @OneToMany(mappedBy = "bill")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<BillItem> billItems = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
     public Long getId() {
@@ -88,7 +98,7 @@ public class Bill implements Serializable {
     public ZonedDateTime getDate() {
         return date;
     }
-    
+
     public void setDate(ZonedDateTime date) {
         this.date = date;
     }
@@ -96,7 +106,7 @@ public class Bill implements Serializable {
     public BigDecimal getSubTotal() {
         return subTotal;
     }
-    
+
     public void setSubTotal(BigDecimal subTotal) {
         this.subTotal = subTotal;
     }
@@ -104,7 +114,7 @@ public class Bill implements Serializable {
     public BigDecimal getDiscount() {
         return discount;
     }
-    
+
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
@@ -112,7 +122,7 @@ public class Bill implements Serializable {
     public BigDecimal getTaxableAmount() {
         return taxableAmount;
     }
-    
+
     public void setTaxableAmount(BigDecimal taxableAmount) {
         this.taxableAmount = taxableAmount;
     }
@@ -120,7 +130,7 @@ public class Bill implements Serializable {
     public BigDecimal getTax() {
         return tax;
     }
-    
+
     public void setTax(BigDecimal tax) {
         this.tax = tax;
     }
@@ -128,7 +138,7 @@ public class Bill implements Serializable {
     public BigDecimal getGrandTotal() {
         return grandTotal;
     }
-    
+
     public void setGrandTotal(BigDecimal grandTotal) {
         this.grandTotal = grandTotal;
     }
@@ -136,7 +146,7 @@ public class Bill implements Serializable {
     public String getClient() {
         return client;
     }
-    
+
     public void setClient(String client) {
         this.client = client;
     }
@@ -144,7 +154,7 @@ public class Bill implements Serializable {
     public String getRemarks() {
         return remarks;
     }
-    
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
@@ -152,7 +162,7 @@ public class Bill implements Serializable {
     public String getIssuedBy() {
         return issuedBy;
     }
-    
+
     public void setIssuedBy(String issuedBy) {
         this.issuedBy = issuedBy;
     }

@@ -3,17 +3,15 @@ package io.koju.autopos.web.rest;
 import io.koju.autopos.Application;
 import io.koju.autopos.domain.Vehicle;
 import io.koju.autopos.repository.VehicleRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -26,8 +24,14 @@ import javax.inject.Inject;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -43,8 +47,8 @@ public class VehicleResourceIntTest {
 
     private static final String DEFAULT_NUMBER = "A";
     private static final String UPDATED_NUMBER = "B";
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private VehicleRepository vehicleRepository;
@@ -157,16 +161,17 @@ public class VehicleResourceIntTest {
     public void updateVehicle() throws Exception {
         // Initialize the database
         vehicleRepository.saveAndFlush(vehicle);
-
-		int databaseSizeBeforeUpdate = vehicleRepository.findAll().size();
+        int databaseSizeBeforeUpdate = vehicleRepository.findAll().size();
 
         // Update the vehicle
-        vehicle.setNumber(UPDATED_NUMBER);
-        vehicle.setRemarks(UPDATED_REMARKS);
+        Vehicle updatedVehicle = new Vehicle();
+        updatedVehicle.setId(vehicle.getId());
+        updatedVehicle.setNumber(UPDATED_NUMBER);
+        updatedVehicle.setRemarks(UPDATED_REMARKS);
 
         restVehicleMockMvc.perform(put("/api/vehicles")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(vehicle)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedVehicle)))
                 .andExpect(status().isOk());
 
         // Validate the Vehicle in the database
@@ -182,8 +187,7 @@ public class VehicleResourceIntTest {
     public void deleteVehicle() throws Exception {
         // Initialize the database
         vehicleRepository.saveAndFlush(vehicle);
-
-		int databaseSizeBeforeDelete = vehicleRepository.findAll().size();
+        int databaseSizeBeforeDelete = vehicleRepository.findAll().size();
 
         // Get the vehicle
         restVehicleMockMvc.perform(delete("/api/vehicles/{id}", vehicle.getId())

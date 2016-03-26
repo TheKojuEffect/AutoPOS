@@ -1,10 +1,7 @@
 package io.koju.autopos.repository;
 
 import io.koju.autopos.domain.Receipt;
-
-import org.springframework.data.jpa.repository.*;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Spring Data JPA repository for the Receipt entity.

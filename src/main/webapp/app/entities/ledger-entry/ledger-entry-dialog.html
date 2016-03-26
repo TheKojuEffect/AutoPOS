@@ -1,0 +1,160 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myLedgerEntryLabel" translate="autopos.ledgerEntry.home.createOrEditLabel">Create or edit a LedgerEntry</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.ledgerEntry.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="autopos.ledgerEntry.date" for="field_date">Date</label>
+                <div class="input-group">
+                    <input id="field_date" type="text" class="form-control" name="date" datetime-picker="{{dateformat}}" ng-model="vm.ledgerEntry.date" is-open="vm.datePickerOpenStatus.date"
+                    required  />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.date.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.date.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.date.$error.ZonedDateTimelocal" translate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="autopos.ledgerEntry.particular" for="field_particular">Particular</label>
+            <input type="text" class="form-control" name="particular" id="field_particular"
+                    ng-model="vm.ledgerEntry.particular"
+                    required ng-minlength="2" ng-maxlength="150" />
+            <div ng-show="editForm.particular.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.particular.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.particular.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                    This field is required to be at least 2 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.particular.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="150">
+                    This field cannot be longer than 150 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="autopos.ledgerEntry.folio" for="field_folio">Folio</label>
+            <input type="text" class="form-control" name="folio" id="field_folio"
+                    ng-model="vm.ledgerEntry.folio"
+                    ng-minlength="1" ng-maxlength="20" />
+            <div ng-show="editForm.folio.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.folio.$error.minlength" translate="entity.validation.minlength" translate-value-min="1">
+                    This field is required to be at least 1 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.folio.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
+                    This field cannot be longer than 20 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="autopos.ledgerEntry.debit" for="field_debit">Debit</label>
+            <input type="number" class="form-control" name="debit" id="field_debit"
+                    ng-model="vm.ledgerEntry.debit"
+                    required min="0" />
+            <div ng-show="editForm.debit.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.debit.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.debit.$error.min" translate="entity.validation.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.debit.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="autopos.ledgerEntry.credit" for="field_credit">Credit</label>
+            <input type="number" class="form-control" name="credit" id="field_credit"
+                    ng-model="vm.ledgerEntry.credit"
+                    required min="0" />
+            <div ng-show="editForm.credit.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.credit.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.credit.$error.min" translate="entity.validation.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.credit.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="autopos.ledgerEntry.balance" for="field_balance">Balance</label>
+            <input type="number" class="form-control" name="balance" id="field_balance"
+                    ng-model="vm.ledgerEntry.balance"
+                    required min="0" />
+            <div ng-show="editForm.balance.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.balance.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.balance.$error.min" translate="entity.validation.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.balance.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="autopos.ledgerEntry.remarks" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="vm.ledgerEntry.remarks"
+                    ng-maxlength="250" />
+            <div ng-show="editForm.remarks.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.remarks.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="250">
+                    This field cannot be longer than 250 characters.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="autopos.ledgerEntry.ledger" for="field_ledger">ledger</label>
+            <select class="form-control" id="field_ledger" name="ledger" ng-model="vm.ledgerEntry.ledger" ng-options="ledger as ledger.id for ledger in vm.ledgers track by ledger.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

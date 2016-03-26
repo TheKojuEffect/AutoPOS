@@ -13,7 +13,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -35,7 +39,11 @@ public class BillResource {
     private BillService billService;
     
     /**
-     * POST  /bills -> Create a new bill.
+     * POST  /bills : Create a new bill.
+     *
+     * @param bill the bill to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new bill, or with status 400 (Bad Request) if the bill has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/bills",
         method = RequestMethod.POST,
@@ -53,7 +61,13 @@ public class BillResource {
     }
 
     /**
-     * PUT  /bills -> Updates an existing bill.
+     * PUT  /bills : Updates an existing bill.
+     *
+     * @param bill the bill to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated bill,
+     * or with status 400 (Bad Request) if the bill is not valid,
+     * or with status 500 (Internal Server Error) if the bill couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/bills",
         method = RequestMethod.PUT,
@@ -71,7 +85,11 @@ public class BillResource {
     }
 
     /**
-     * GET  /bills -> get all the bills.
+     * GET  /bills : get all the bills.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of bills in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @RequestMapping(value = "/bills",
         method = RequestMethod.GET,
@@ -80,13 +98,16 @@ public class BillResource {
     public ResponseEntity<List<Bill>> getAllBills(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Bills");
-        Page<Bill> page = billService.findAll(pageable); 
+        Page<Bill> page = billService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/bills");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /bills/:id -> get the "id" bill.
+     * GET  /bills/:id : get the "id" bill.
+     *
+     * @param id the id of the bill to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the bill, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/bills/{id}",
         method = RequestMethod.GET,
@@ -103,7 +124,10 @@ public class BillResource {
     }
 
     /**
-     * DELETE  /bills/:id -> delete the "id" bill.
+     * DELETE  /bills/:id : delete the "id" bill.
+     *
+     * @param id the id of the bill to delete
+     * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/bills/{id}",
         method = RequestMethod.DELETE,
@@ -114,4 +138,5 @@ public class BillResource {
         billService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("bill", id.toString())).build();
     }
+
 }

@@ -4,17 +4,15 @@ import io.koju.autopos.Application;
 import io.koju.autopos.domain.Ledger;
 import io.koju.autopos.repository.LedgerRepository;
 import io.koju.autopos.service.LedgerService;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -28,8 +26,14 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 /**
@@ -46,8 +50,8 @@ public class LedgerResourceIntTest {
 
     private static final BigDecimal DEFAULT_BALANCE = new BigDecimal(0);
     private static final BigDecimal UPDATED_BALANCE = new BigDecimal(1);
-    private static final String DEFAULT_REMARKS = "AAAAA";
-    private static final String UPDATED_REMARKS = "BBBBB";
+    private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private LedgerRepository ledgerRepository;
@@ -162,17 +166,19 @@ public class LedgerResourceIntTest {
     @Transactional
     public void updateLedger() throws Exception {
         // Initialize the database
-        ledgerRepository.saveAndFlush(ledger);
+        ledgerService.save(ledger);
 
-		int databaseSizeBeforeUpdate = ledgerRepository.findAll().size();
+        int databaseSizeBeforeUpdate = ledgerRepository.findAll().size();
 
         // Update the ledger
-        ledger.setBalance(UPDATED_BALANCE);
-        ledger.setRemarks(UPDATED_REMARKS);
+        Ledger updatedLedger = new Ledger();
+        updatedLedger.setId(ledger.getId());
+        updatedLedger.setBalance(UPDATED_BALANCE);
+        updatedLedger.setRemarks(UPDATED_REMARKS);
 
         restLedgerMockMvc.perform(put("/api/ledgers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(ledger)))
+                .content(TestUtil.convertObjectToJsonBytes(updatedLedger)))
                 .andExpect(status().isOk());
 
         // Validate the Ledger in the database
@@ -187,9 +193,9 @@ public class LedgerResourceIntTest {
     @Transactional
     public void deleteLedger() throws Exception {
         // Initialize the database
-        ledgerRepository.saveAndFlush(ledger);
+        ledgerService.save(ledger);
 
-		int databaseSizeBeforeDelete = ledgerRepository.findAll().size();
+        int databaseSizeBeforeDelete = ledgerRepository.findAll().size();
 
         // Get the ledger
         restLedgerMockMvc.perform(delete("/api/ledgers/{id}", ledger.getId())

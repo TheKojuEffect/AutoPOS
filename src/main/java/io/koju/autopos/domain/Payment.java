@@ -2,14 +2,20 @@ package io.koju.autopos.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import java.time.LocalDate;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -20,6 +26,8 @@ import java.util.Objects;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Payment implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -27,27 +35,26 @@ public class Payment implements Serializable {
     @NotNull
     @Column(name = "date", nullable = false)
     private LocalDate date;
-    
+
     @NotNull
     @Min(value = 0)
     @Column(name = "amount", precision=10, scale=2, nullable = false)
     private BigDecimal amount;
-    
+
     @Size(max = 10)
     @Column(name = "receipt_number", length = 10)
     private String receiptNumber;
-    
+
     @NotNull
     @Size(min = 2, max = 100)
     @Column(name = "paid_by", length = 100, nullable = false)
     private String paidBy;
-    
+
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
-    
+
     @ManyToOne
-    @JoinColumn(name = "paid_to_id")
     private Vendor paidTo;
 
     public Long getId() {
@@ -61,7 +68,7 @@ public class Payment implements Serializable {
     public LocalDate getDate() {
         return date;
     }
-    
+
     public void setDate(LocalDate date) {
         this.date = date;
     }
@@ -69,7 +76,7 @@ public class Payment implements Serializable {
     public BigDecimal getAmount() {
         return amount;
     }
-    
+
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
@@ -77,7 +84,7 @@ public class Payment implements Serializable {
     public String getReceiptNumber() {
         return receiptNumber;
     }
-    
+
     public void setReceiptNumber(String receiptNumber) {
         this.receiptNumber = receiptNumber;
     }
@@ -85,7 +92,7 @@ public class Payment implements Serializable {
     public String getPaidBy() {
         return paidBy;
     }
-    
+
     public void setPaidBy(String paidBy) {
         this.paidBy = paidBy;
     }
@@ -93,7 +100,7 @@ public class Payment implements Serializable {
     public String getRemarks() {
         return remarks;
     }
-    
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
