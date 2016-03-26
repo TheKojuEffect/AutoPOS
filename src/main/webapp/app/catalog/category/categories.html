@@ -18,7 +18,6 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="shortName"><span translate="autopos.category.shortName">ShortName</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span translate="autopos.category.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
@@ -26,8 +25,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="category in vm.categories track by category.id">
-                    <td><a ui-sref="category-detail({id:category.id})">{{category.id}}</a></td>
-                    <td>{{category.shortName}}</td>
+                    <td><a ui-sref="category-detail({id:category.id})">{{category.shortName}}</a></td>
                     <td>{{category.name}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
