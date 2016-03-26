@@ -13,15 +13,24 @@
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
+        vm.filter = '';
         vm.transition = transition;
         vm.loadAll();
 
         function loadAll () {
-            Item.query({
+
+            var requestParams = {
                 page: pagingParams.page - 1,
                 size: paginationConstants.itemsPerPage,
                 sort: sort()
-            }, onSuccess, onError);
+            };
+
+            if (vm.filter) {
+                requestParams.name = '*' + vm.filter + '*';
+                requestParams.code = vm.filter;
+            }
+
+            Item.query(requestParams, onSuccess, onError);
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
                 if (vm.predicate !== 'id') {

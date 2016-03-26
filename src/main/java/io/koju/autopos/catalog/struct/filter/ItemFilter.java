@@ -18,8 +18,8 @@ public class ItemFilter implements FilterRequest<Item, QItem> {
     @Override
     public Predicate toQueryDslPredicate(QItem item) {
         BooleanBuilder predicate = new BooleanBuilder();
-        Optional.ofNullable(code).map(codeFilter -> codeFilter.toQueryDslPredicate(item.code)).ifPresent(predicate::and);
-        Optional.ofNullable(name).map(nameFilter -> nameFilter.toQueryDslPredicate(item.name)).ifPresent(predicate::and);
+        Optional.ofNullable(code).map(codeFilter -> codeFilter.toQueryDslPredicate(item.code)).ifPresent(predicate::or);
+        Optional.ofNullable(name).map(nameFilter -> nameFilter.toQueryDslPredicate(item.name)).ifPresent(predicate::or);
         return predicate;
     }
 }
