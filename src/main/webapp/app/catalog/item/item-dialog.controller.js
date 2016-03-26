@@ -10,7 +10,7 @@
     function ItemDialogController ($scope, $stateParams, $uibModalInstance, entity, Item, Category, Brand, Tag) {
         var vm = this;
         vm.item = entity;
-        vm.categorys = Category.query();
+        vm.categories = Category.query();
         vm.brands = Brand.query();
         vm.tags = Tag.query();
         vm.load = function(id) {
