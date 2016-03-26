@@ -3,7 +3,6 @@ package io.koju.autopos.catalog.service;
 import com.mysema.query.types.Predicate;
 import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.domain.QItem;
-import io.koju.autopos.catalog.domain.QuantityInfo;
 import io.koju.autopos.catalog.struct.filter.ItemFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,20 +20,14 @@ class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
 
-    private final QuantityInfoRepository quantityInfoRepository;
-
     @Autowired
-    ItemServiceImpl(ItemRepository itemRepository, QuantityInfoRepository quantityInfoRepository) {
+    ItemServiceImpl(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
-        this.quantityInfoRepository = quantityInfoRepository;
     }
 
     @Override
     public Item save(Item item) {
         log.debug("Request to save Item : {}", item);
-        QuantityInfo quantityInfo = new QuantityInfo();
-        quantityInfoRepository.save(quantityInfo);
-        item.setQuantityInfo(quantityInfo);
         return itemRepository.save(item);
     }
 

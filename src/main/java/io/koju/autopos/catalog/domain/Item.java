@@ -1,7 +1,5 @@
 package io.koju.autopos.catalog.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.koju.autopos.catalog.service.ItemCodeUtil;
 import io.koju.autopos.shared.domain.AuditableBaseEntity;
 import lombok.Getter;
@@ -17,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.PostPersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -29,7 +26,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -62,6 +58,10 @@ public class Item extends AuditableBaseEntity {
     @Column(name = "location", length = 250)
     private String location;
 
+    @Min(0)
+    @Column(name="quantity", nullable = false)
+    private Integer quantity;
+
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
@@ -70,11 +70,6 @@ public class Item extends AuditableBaseEntity {
     @Min(0)
     @Column(name = "marked_price", precision = 10, scale = 2, nullable = false)
     private BigDecimal markedPrice;
-
-    @OneToOne(optional = false, cascade = REMOVE)
-    @JoinColumn(name = "quantity_info_id", updatable = false, nullable = false)
-    @JsonIgnore
-    private QuantityInfo quantityInfo;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -94,16 +89,6 @@ public class Item extends AuditableBaseEntity {
     @PostPersist
     public void populateItemCode() {
         setCode(ItemCodeUtil.getCode(id));
-    }
-
-    @JsonProperty
-    public Integer getQuantity() {
-        return quantityInfo.getQuantity();
-    }
-
-    @JsonIgnore
-    public void setQuantity(Integer quantity) {
-        quantityInfo.setQuantity(quantity);
     }
 
     public Optional<String> getDescription() {
