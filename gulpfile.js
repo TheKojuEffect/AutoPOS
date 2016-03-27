@@ -26,8 +26,6 @@ var handleErrors = require('./gulp/handleErrors'),
     util = require('./gulp/utils'),
     build = require('./gulp/build');
 
-var yorc = require('./.yo-rc.json')['generator-jhipster'];
-
 var config = require('./gulp/config');
 
 gulp.task('clean', function () {
@@ -85,7 +83,7 @@ gulp.task('images', function () {
 
 
 gulp.task('languages', function () {
-    var locales = yorc.languages.map(function (locale) {
+    var locales = ["en", "hi"].map(function (locale) {
         return config.bower + 'angular-i18n/angular-locale_' + locale + '.js';
     });
     return gulp.src(locales)
