@@ -18,7 +18,6 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="date"><span translate="autopos.dayBookEntry.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="incomingAmount"><span translate="autopos.dayBookEntry.incomingAmount">IncomingAmount</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="outgoingAmount"><span translate="autopos.dayBookEntry.outgoingAmount">OutgoingAmount</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -28,8 +27,11 @@
             </thead>
             <tbody>
                 <tr ng-repeat="dayBookEntry in vm.dayBookEntries track by dayBookEntry.id">
-                    <td><a ui-sref="day-book-entry-detail({id:dayBookEntry.id})">{{dayBookEntry.id}}</a></td>
-                        <td>{{dayBookEntry.date | date:'mediumDate'}}</td>
+                    <td>
+                        <a ui-sref="day-book-entry-detail({id:dayBookEntry.id})">
+                            {{ dayBookEntry.date | arrDate | date:'mediumDate'}}
+                        </a>
+                    </td>
                     <td>{{dayBookEntry.incomingAmount}}</td>
                     <td>{{dayBookEntry.outgoingAmount}}</td>
                     <td>{{dayBookEntry.miscExpenses}}</td>

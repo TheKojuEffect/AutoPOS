@@ -45,10 +45,6 @@
                                                        data-target=".navbar-collapse.in"><span
                                 class="glyphicon glyphicon-asterisk"></span>
                             &#xA0;<span translate="global.menu.entities.customer">Customer</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="day-book-entry" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.dayBookEntry">Day Book Entry</span></a></li>
 
                         <li ui-sref-active="active"><a ui-sref="ledger" data-toggle="collapse"
                                                        data-target=".navbar-collapse.in"><span
@@ -84,9 +80,16 @@
                 </li>
 
                 <li ng-class="{active: vm.$state.includes('catalog')}" ng-switch-when="true">
-                    <a ui-sref="item" data-toggle="collapse" data-target=".navbar-collapse.in">
+                    <a ui-sref="item">
                         <span class="glyphicon glyphicon-list"></span>
                         <span class="hidden-sm">Catalog</span>
+                    </a>
+                </li>
+
+                <li ui-sref-active="active" ng-switch-when="true">
+                    <a ui-sref="day-book-entry">
+                        <span class="glyphicon glyphicon-book"></span>
+                        <span class="hidden-sm">Accounting</span>
                     </a>
                 </li>
 

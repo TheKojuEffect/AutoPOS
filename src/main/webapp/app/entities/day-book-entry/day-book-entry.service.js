@@ -21,9 +21,9 @@
             },
             'update': {
                 method: 'PUT',
-                transformRequest: function (data) {
-                    data.date = DateUtils.convertLocalDateToServer(data.date);
-                    return angular.toJson(data);
+                transformRequest: function (dayBookEntry) {
+                    dayBookEntry.date = DateUtils.convertLocalDateToServer(dayBookEntry.date);
+                    return angular.toJson(dayBookEntry);
                 }
             },
             'save': {

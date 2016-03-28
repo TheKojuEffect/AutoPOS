@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('day-book-entry', {
-            parent: 'entity',
+            parent: 'app',
             url: '/day-book-entry?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
@@ -52,7 +52,7 @@
             }
         })
         .state('day-book-entry-detail', {
-            parent: 'entity',
+            parent: 'day-book-entry',
             url: '/day-book-entry/{id}',
             data: {
                 authorities: ['ROLE_USER'],
