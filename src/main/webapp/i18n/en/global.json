@@ -20,8 +20,6 @@
                 "phoneNumber": "PhoneNumber",
                 "priceHistory": "PriceHistory",
                 "receipt": "Receipt",
-                "stock": "Stock",
-                "stockHistory": "StockHistory",
                 "tag": "Tag",
                 "vehicle": "Vehicle",
                 "vendor": "Vendor",

@@ -23,8 +23,6 @@
     </changeSet>
 
     <include file="classpath:config/liquibase/changelog/20160209141843_added_entity_PriceHistory.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160209145726_added_entity_Stock.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160209150025_added_entity_StockHistory.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209150626_added_entity_PhoneNumber.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209150903_added_entity_Customer.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209151025_added_entity_Vendor.xml" relativeToChangelogFile="false"/>
