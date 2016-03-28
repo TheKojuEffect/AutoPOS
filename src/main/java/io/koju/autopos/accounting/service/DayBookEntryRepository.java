@@ -1,6 +1,6 @@
-package io.koju.autopos.repository;
+package io.koju.autopos.accounting.service;
 
-import io.koju.autopos.domain.DayBookEntry;
+import io.koju.autopos.accounting.domain.DayBookEntry;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

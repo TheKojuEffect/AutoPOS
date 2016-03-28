@@ -3,6 +3,8 @@ package io.koju.autopos.config;
 import com.codahale.metrics.MetricRegistry;
 import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.zaxxer.hikari.HikariDataSource;
+import io.koju.autopos.accounting.domain.AccountingDomainPackage;
+import io.koju.autopos.accounting.service.AccountingServicePackage;
 import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.service.CatalogServicePackage;
 import io.koju.autopos.config.liquibase.AsyncSpringLiquibase;
@@ -35,16 +37,18 @@ import java.util.Arrays;
 
 @Configuration
 @EnableJpaRepositories(basePackageClasses = {
-    RepositoryPackage.class,
-    CatalogServicePackage.class,
-    UserServicePackage.class})
+        RepositoryPackage.class,
+        CatalogServicePackage.class,
+        UserServicePackage.class,
+        AccountingServicePackage.class})
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = {
-    AbstractEntity.class,
-    DomainPackage.class,
-    Jsr310JpaConverters.class,
-    Item.class,
-    User.class})
+        AbstractEntity.class,
+        DomainPackage.class,
+        Jsr310JpaConverters.class,
+        User.class,
+        Item.class,
+        AccountingDomainPackage.class})
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
@@ -62,12 +66,12 @@ public class DatabaseConfiguration {
         log.debug("Configuring Datasource");
         if (dataSourceProperties.getUrl() == null) {
             log.error("Your database connection pool configuration is incorrect! The application" +
-                    " cannot start. Please check your Spring profile, current profiles are: {}",
-                Arrays.toString(env.getActiveProfiles()));
+                            " cannot start. Please check your Spring profile, current profiles are: {}",
+                    Arrays.toString(env.getActiveProfiles()));
 
             throw new ApplicationContextException("Database connection pool is not configured correctly");
         }
-        HikariDataSource hikariDataSource =  (HikariDataSource) DataSourceBuilder
+        HikariDataSource hikariDataSource = (HikariDataSource) DataSourceBuilder
                 .create(dataSourceProperties.getClassLoader())
                 .type(HikariDataSource.class)
                 .driverClassName(dataSourceProperties.getDriverClassName())
@@ -81,9 +85,10 @@ public class DatabaseConfiguration {
         }
         return hikariDataSource;
     }
+
     @Bean
     public SpringLiquibase liquibase(DataSource dataSource, DataSourceProperties dataSourceProperties,
-        LiquibaseProperties liquibaseProperties) {
+                                     LiquibaseProperties liquibaseProperties) {
 
         // Use liquibase.integration.spring.SpringLiquibase if you don't want Liquibase to start asynchronously
         SpringLiquibase liquibase = new AsyncSpringLiquibase();

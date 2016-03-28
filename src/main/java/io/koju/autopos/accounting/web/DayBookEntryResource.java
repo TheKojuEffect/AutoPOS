@@ -1,8 +1,8 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.accounting.web;
 
 import com.codahale.metrics.annotation.Timed;
-import io.koju.autopos.domain.DayBookEntry;
-import io.koju.autopos.repository.DayBookEntryRepository;
+import io.koju.autopos.accounting.domain.DayBookEntry;
+import io.koju.autopos.accounting.service.DayBookEntryRepository;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;

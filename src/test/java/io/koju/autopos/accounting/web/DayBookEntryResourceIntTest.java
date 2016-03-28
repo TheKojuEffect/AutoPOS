@@ -1,8 +1,9 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.accounting.web;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.DayBookEntry;
-import io.koju.autopos.repository.DayBookEntryRepository;
+import io.koju.autopos.accounting.domain.DayBookEntry;
+import io.koju.autopos.accounting.service.DayBookEntryRepository;
+import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
