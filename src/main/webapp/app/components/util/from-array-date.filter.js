@@ -3,7 +3,7 @@
 
     angular
         .module('autopos')
-        .filter('arrDate', arrToDate);
+        .filter('fromArrayDate', arrToDate);
 
     function arrToDate() {
         return arrToDateFilter;
