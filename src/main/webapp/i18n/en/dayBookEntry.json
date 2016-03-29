@@ -14,12 +14,12 @@
                 "question": "Are you sure you want to delete DayBookEntry {{ id }}?"
             },
             "detail": {
-                "title": "DayBookEntry"
+                "title": "Day Book"
             },
             "date": "Date",
-            "incomingAmount": "IncomingAmount",
-            "outgoingAmount": "OutgoingAmount",
-            "miscExpenses": "MiscExpenses"
+            "incomingAmount": "Incoming Amount",
+            "outgoingAmount": "Outgoing Amount",
+            "miscExpenses": "Misc Expenses"
         }
     }
 }

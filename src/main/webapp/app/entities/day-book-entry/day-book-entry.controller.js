@@ -49,8 +49,7 @@
         function transition () {
             $state.transitionTo($state.$current, {
                 page: vm.page,
-                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
-                search: vm.currentSearch
+                sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')
             });
         }
 

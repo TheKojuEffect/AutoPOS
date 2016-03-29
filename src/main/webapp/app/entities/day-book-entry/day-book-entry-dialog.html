@@ -8,11 +8,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group">
-            <label for="id" translate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.dayBookEntry.id" readonly />
-        </div>
+
         <div class="form-group">
             <label class="control-label" translate="autopos.dayBookEntry.date" for="field_date">Date</label>
                 <div class="input-group">
@@ -29,6 +25,7 @@
                 </p>
             </div>
         </div>
+
         <div class="form-group">
             <label class="control-label" translate="autopos.dayBookEntry.incomingAmount" for="field_incomingAmount">IncomingAmount</label>
             <input type="number" class="form-control" name="incomingAmount" id="field_incomingAmount"
@@ -49,6 +46,7 @@
                 </p>
             </div>
         </div>
+
         <div class="form-group">
             <label class="control-label" translate="autopos.dayBookEntry.outgoingAmount" for="field_outgoingAmount">OutgoingAmount</label>
             <input type="number" class="form-control" name="outgoingAmount" id="field_outgoingAmount"
@@ -69,6 +67,7 @@
                 </p>
             </div>
         </div>
+
         <div class="form-group">
             <label class="control-label" translate="autopos.dayBookEntry.miscExpenses" for="field_miscExpenses">MiscExpenses</label>
             <input type="number" class="form-control" name="miscExpenses" id="field_miscExpenses"
@@ -86,6 +85,20 @@
                 <p class="help-block"
                     ng-show="editForm.miscExpenses.$error.number" translate="entity.validation.number">
                     This field should be a number.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="field_remarks">Remarks</label>
+            <textarea type="text" class="form-control" name="remarks" id="field_remarks"
+                      ng-model="vm.dayBookEntry.remarks"
+                      ng-maxlength="500"/>
+            <div ng-show="editForm.remarks.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.remarks.$error.maxlength" translate="entity.validation.maxlength"
+                   translate-value-max="500">
+                    This field cannot be longer than 500 characters.
                 </p>
             </div>
         </div>

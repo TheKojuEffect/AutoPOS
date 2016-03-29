@@ -17,9 +17,9 @@
                 "title": "DayBookEntry"
             },
             "date": "Date",
-            "incomingAmount": "IncomingAmount",
-            "outgoingAmount": "OutgoingAmount",
-            "miscExpenses": "MiscExpenses"
+            "incomingAmount": "Incoming Amount",
+            "outgoingAmount": "Outgoing Amount",
+            "miscExpenses": "Misc Expenses"
         }
     }
 }

@@ -1,7 +1,7 @@
 CREATE TABLE day_book_entry
 (
   id                 BIGSERIAL PRIMARY KEY,
-  txn_date           DATE                         NOT NULL,
+  txn_date           DATE UNIQUE                  NOT NULL,
   incoming_amount    NUMERIC(10, 2)               NOT NULL CHECK (incoming_amount >= 0),
   outgoing_amount    NUMERIC(10, 2)               NOT NULL CHECK (outgoing_amount >= 0),
   misc_expenses      NUMERIC(10, 2)               NOT NULL CHECK (misc_expenses >= 0),
