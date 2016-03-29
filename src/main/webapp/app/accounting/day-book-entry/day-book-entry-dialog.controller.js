@@ -5,15 +5,17 @@
         .module('autopos')
         .controller('DayBookEntryDialogController', DayBookEntryDialogController);
 
-    DayBookEntryDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'DayBookEntry'];
+    DayBookEntryDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'pageHeader', 'DayBookEntry'];
 
-    function DayBookEntryDialogController ($scope, $stateParams, $uibModalInstance, entity, DayBookEntry) {
+    function DayBookEntryDialogController ($scope, $stateParams, $uibModalInstance, entity, pageHeader, DayBookEntry) {
         var vm = this;
         vm.dayBookEntry = entity;
 
         vm.datePickerOptions = {
             maxDate: new Date()
         };
+
+        vm.pageHeader = pageHeader;
 
         vm.load = function(id) {
             DayBookEntry.get({id : id}, function(result) {

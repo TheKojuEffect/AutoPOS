@@ -97,6 +97,9 @@
                                 miscExpenses: null,
                                 id: null
                             };
+                        },
+                        pageHeader: function () {
+                            return 'Add a Day Book Entry';
                         }
                     }
                 }).result.then(function() {
@@ -122,7 +125,10 @@
                     resolve: {
                         entity: ['DayBookEntry', function(DayBookEntry) {
                             return DayBookEntry.get({id : $stateParams.id});
-                        }]
+                        }],
+                        pageHeader: function () {
+                            return 'Edit a Day Book Entry';
+                        }
                     }
                 }).result.then(function() {
                     $state.go('day-book-entry', null, { reload: true });
