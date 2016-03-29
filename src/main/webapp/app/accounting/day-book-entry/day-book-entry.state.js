@@ -91,7 +91,7 @@
                     resolve: {
                         entity: function () {
                             return {
-                                date: null,
+                                date: new Date(),
                                 incomingAmount: null,
                                 outgoingAmount: null,
                                 miscExpenses: null,

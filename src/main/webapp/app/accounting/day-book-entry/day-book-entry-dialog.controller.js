@@ -10,6 +10,11 @@
     function DayBookEntryDialogController ($scope, $stateParams, $uibModalInstance, entity, DayBookEntry) {
         var vm = this;
         vm.dayBookEntry = entity;
+
+        vm.datePickerOptions = {
+            maxDate: new Date()
+        };
+
         vm.load = function(id) {
             DayBookEntry.get({id : id}, function(result) {
                 vm.dayBookEntry = result;

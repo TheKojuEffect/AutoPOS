@@ -2,8 +2,8 @@
     "autopos": {
         "dayBookEntry" : {
             "home": {
-                "title": "DayBookEntries",
-                "createLabel": "Create a new DayBookEntry",
+                "title": "Day Book",
+                "createLabel": "Add a new Day Book Entry",
                 "createOrEditLabel": "Create or edit a DayBookEntry",
                 "search": "Search for DayBookEntry"
             },
