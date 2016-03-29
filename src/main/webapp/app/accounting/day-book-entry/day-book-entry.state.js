@@ -18,7 +18,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/day-book-entry/day-book-entries.html',
+                    templateUrl: 'app/accounting/day-book-entry/day-book-entries.html',
                     controller: 'DayBookEntryController',
                     controllerAs: 'vm'
                 }
@@ -60,7 +60,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/day-book-entry/day-book-entry-detail.html',
+                    templateUrl: 'app/accounting/day-book-entry/day-book-entry-detail.html',
                     controller: 'DayBookEntryDetailController',
                     controllerAs: 'vm'
                 }
@@ -83,7 +83,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/day-book-entry/day-book-entry-dialog.html',
+                    templateUrl: 'app/accounting/day-book-entry/day-book-entry-dialog.html',
                     controller: 'DayBookEntryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -114,7 +114,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/day-book-entry/day-book-entry-dialog.html',
+                    templateUrl: 'app/accounting/day-book-entry/day-book-entry-dialog.html',
                     controller: 'DayBookEntryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -139,7 +139,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/day-book-entry/day-book-entry-delete-dialog.html',
+                    templateUrl: 'app/accounting/day-book-entry/day-book-entry-delete-dialog.html',
                     controller: 'DayBookEntryDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
