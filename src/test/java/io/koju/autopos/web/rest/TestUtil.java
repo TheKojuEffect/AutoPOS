@@ -3,8 +3,6 @@ package io.koju.autopos.web.rest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.koju.autopos.domain.util.JSR310DateTimeSerializer;
-import io.koju.autopos.domain.util.JSR310LocalDateDeserializer;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
@@ -37,14 +35,6 @@ public class TestUtil {
             throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
-        JavaTimeModule module = new JavaTimeModule();
-        module.addSerializer(OffsetDateTime.class, JSR310DateTimeSerializer.INSTANCE);
-        module.addSerializer(ZonedDateTime.class, JSR310DateTimeSerializer.INSTANCE);
-        module.addSerializer(LocalDateTime.class, JSR310DateTimeSerializer.INSTANCE);
-        module.addSerializer(Instant.class, JSR310DateTimeSerializer.INSTANCE);
-        module.addDeserializer(LocalDate.class, JSR310LocalDateDeserializer.INSTANCE);
-        mapper.registerModule(module);
 
         return mapper.writeValueAsBytes(object);
     }
