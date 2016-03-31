@@ -26,8 +26,11 @@
         <sqlFile path="sql/day_book_entry_table.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
     </changeSet>
 
+    <changeSet id="POS-12" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sqlFile path="sql/phone_table.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
+    </changeSet>
+
     <include file="classpath:config/liquibase/changelog/20160209141843_added_entity_PriceHistory.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160209150626_added_entity_PhoneNumber.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209150903_added_entity_Customer.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209151025_added_entity_Vendor.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209151302_added_entity_Vehicle.xml" relativeToChangelogFile="false"/>

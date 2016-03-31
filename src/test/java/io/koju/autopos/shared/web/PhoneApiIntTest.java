@@ -2,7 +2,7 @@ package io.koju.autopos.shared.web;
 
 import io.koju.autopos.Application;
 import io.koju.autopos.shared.domain.Phone;
-import io.koju.autopos.shared.service.PhoneNumberRepository;
+import io.koju.autopos.shared.service.PhoneRepository;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,19 +38,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test class for the PhoneNumberResource REST controller.
  *
- * @see PhoneNumberResource
+ * @see PhoneApi
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-public class PhoneResourceIntTest {
+public class PhoneApiIntTest {
 
     private static final String DEFAULT_NUMBER = "AAAAAAA";
     private static final String UPDATED_NUMBER = "BBBBBBB";
 
     @Inject
-    private PhoneNumberRepository phoneNumberRepository;
+    private PhoneRepository phoneRepository;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -65,9 +65,9 @@ public class PhoneResourceIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        PhoneNumberResource phoneNumberResource = new PhoneNumberResource();
-        ReflectionTestUtils.setField(phoneNumberResource, "phoneNumberRepository", phoneNumberRepository);
-        this.restPhoneNumberMockMvc = MockMvcBuilders.standaloneSetup(phoneNumberResource)
+        PhoneApi phoneApi = new PhoneApi(phoneRepository);
+        ReflectionTestUtils.setField(phoneApi, "phoneNumberRepository", phoneRepository);
+        this.restPhoneNumberMockMvc = MockMvcBuilders.standaloneSetup(phoneApi)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
     }
@@ -81,17 +81,17 @@ public class PhoneResourceIntTest {
     @Test
     @Transactional
     public void createPhoneNumber() throws Exception {
-        int databaseSizeBeforeCreate = phoneNumberRepository.findAll().size();
+        int databaseSizeBeforeCreate = phoneRepository.findAll().size();
 
         // Create the Phone
 
-        restPhoneNumberMockMvc.perform(post("/api/phone-numbers")
+        restPhoneNumberMockMvc.perform(post("/api/phones")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(phone)))
                 .andExpect(status().isCreated());
 
         // Validate the Phone in the database
-        List<Phone> phones = phoneNumberRepository.findAll();
+        List<Phone> phones = phoneRepository.findAll();
         assertThat(phones).hasSize(databaseSizeBeforeCreate + 1);
         Phone testPhone = phones.get(phones.size() - 1);
         assertThat(testPhone.getNumber()).isEqualTo(DEFAULT_NUMBER);
@@ -100,18 +100,18 @@ public class PhoneResourceIntTest {
     @Test
     @Transactional
     public void checkNumberIsRequired() throws Exception {
-        int databaseSizeBeforeTest = phoneNumberRepository.findAll().size();
+        int databaseSizeBeforeTest = phoneRepository.findAll().size();
         // set the field null
         phone.setNumber(null);
 
         // Create the Phone, which fails.
 
-        restPhoneNumberMockMvc.perform(post("/api/phone-numbers")
+        restPhoneNumberMockMvc.perform(post("/api/phones")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(phone)))
                 .andExpect(status().isBadRequest());
 
-        List<Phone> phones = phoneNumberRepository.findAll();
+        List<Phone> phones = phoneRepository.findAll();
         assertThat(phones).hasSize(databaseSizeBeforeTest);
     }
 
@@ -119,35 +119,35 @@ public class PhoneResourceIntTest {
     @Transactional
     public void getAllPhoneNumbers() throws Exception {
         // Initialize the database
-        phoneNumberRepository.saveAndFlush(phone);
+        phoneRepository.saveAndFlush(phone);
 
         // Get all the phoneNumbers
-        restPhoneNumberMockMvc.perform(get("/api/phone-numbers?sort=id,desc"))
+        restPhoneNumberMockMvc.perform(get("/api/phones?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(phone.getId().intValue())))
-                .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.toString())));
+                .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER)));
     }
 
     @Test
     @Transactional
     public void getPhoneNumber() throws Exception {
         // Initialize the database
-        phoneNumberRepository.saveAndFlush(phone);
+        phoneRepository.saveAndFlush(phone);
 
         // Get the phone
-        restPhoneNumberMockMvc.perform(get("/api/phone-numbers/{id}", phone.getId()))
+        restPhoneNumberMockMvc.perform(get("/api/phones/{id}", phone.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(phone.getId().intValue()))
-            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.toString()));
+            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER));
     }
 
     @Test
     @Transactional
     public void getNonExistingPhoneNumber() throws Exception {
         // Get the phone
-        restPhoneNumberMockMvc.perform(get("/api/phone-numbers/{id}", Long.MAX_VALUE))
+        restPhoneNumberMockMvc.perform(get("/api/phones/{id}", Long.MAX_VALUE))
                 .andExpect(status().isNotFound());
     }
 
@@ -155,21 +155,21 @@ public class PhoneResourceIntTest {
     @Transactional
     public void updatePhoneNumber() throws Exception {
         // Initialize the database
-        phoneNumberRepository.saveAndFlush(phone);
-        int databaseSizeBeforeUpdate = phoneNumberRepository.findAll().size();
+        phoneRepository.saveAndFlush(phone);
+        int databaseSizeBeforeUpdate = phoneRepository.findAll().size();
 
         // Update the phone
         Phone updatedPhone = new Phone();
         updatedPhone.setId(phone.getId());
         updatedPhone.setNumber(UPDATED_NUMBER);
 
-        restPhoneNumberMockMvc.perform(put("/api/phone-numbers")
+        restPhoneNumberMockMvc.perform(put("/api/phones")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(updatedPhone)))
                 .andExpect(status().isOk());
 
         // Validate the Phone in the database
-        List<Phone> phones = phoneNumberRepository.findAll();
+        List<Phone> phones = phoneRepository.findAll();
         assertThat(phones).hasSize(databaseSizeBeforeUpdate);
         Phone testPhone = phones.get(phones.size() - 1);
         assertThat(testPhone.getNumber()).isEqualTo(UPDATED_NUMBER);
@@ -179,16 +179,16 @@ public class PhoneResourceIntTest {
     @Transactional
     public void deletePhoneNumber() throws Exception {
         // Initialize the database
-        phoneNumberRepository.saveAndFlush(phone);
-        int databaseSizeBeforeDelete = phoneNumberRepository.findAll().size();
+        phoneRepository.saveAndFlush(phone);
+        int databaseSizeBeforeDelete = phoneRepository.findAll().size();
 
         // Get the phone
-        restPhoneNumberMockMvc.perform(delete("/api/phone-numbers/{id}", phone.getId())
+        restPhoneNumberMockMvc.perform(delete("/api/phones/{id}", phone.getId())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<Phone> phones = phoneNumberRepository.findAll();
+        List<Phone> phones = phoneRepository.findAll();
         assertThat(phones).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

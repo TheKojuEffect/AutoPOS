@@ -1,79 +1,36 @@
 package io.koju.autopos.shared.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import io.koju.autopos.kernel.domain.AuditableBaseEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.Objects;
 
-/**
- * A Phone.
- */
+import static javax.persistence.GenerationType.SEQUENCE;
+
 @Entity
 @Table(name = "phone")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Phone implements Serializable {
+@Getter
+@Setter
+public class Phone extends AuditableBaseEntity {
 
-    private static final long serialVersionUID = 1L;
+    private static final String ID_SEQ = "phone_id_seq";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = ID_SEQ, sequenceName = ID_SEQ, allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = ID_SEQ)
     private Long id;
 
     @NotNull
     @Size(min = 7, max = 10)
-    @Column(name = "number", length = 10, nullable = false)
+    @Column(name = "number", length = 10, nullable = false, unique = true)
     private String number;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Phone phone = (Phone) o;
-        if(phone.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, phone.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Phone{" +
-            "id=" + id +
-            ", number='" + number + "'" +
-            '}';
-    }
 }
