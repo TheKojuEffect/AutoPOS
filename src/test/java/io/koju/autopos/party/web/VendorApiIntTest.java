@@ -3,7 +3,6 @@ package io.koju.autopos.party.web;
 import io.koju.autopos.Application;
 import io.koju.autopos.party.domain.Vendor;
 import io.koju.autopos.party.service.VendorRepository;
-import io.koju.autopos.party.web.VendorResource;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,13 +38,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test class for the VendorResource REST controller.
  *
- * @see VendorResource
+ * @see VendorApi
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-public class VendorResourceIntTest {
+public class VendorApiIntTest {
 
     private static final String DEFAULT_NAME = "AA";
     private static final String UPDATED_NAME = "BB";
@@ -70,9 +69,9 @@ public class VendorResourceIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        VendorResource vendorResource = new VendorResource();
-        ReflectionTestUtils.setField(vendorResource, "vendorRepository", vendorRepository);
-        this.restVendorMockMvc = MockMvcBuilders.standaloneSetup(vendorResource)
+        VendorApi vendorApi = new VendorApi();
+        ReflectionTestUtils.setField(vendorApi, "vendorRepository", vendorRepository);
+        this.restVendorMockMvc = MockMvcBuilders.standaloneSetup(vendorApi)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
     }
@@ -82,7 +81,6 @@ public class VendorResourceIntTest {
         vendor = new Vendor();
         vendor.setName(DEFAULT_NAME);
         vendor.setRemarks(DEFAULT_REMARKS);
-        vendor.setPhoneNumbers(DEFAULT_PHONE_NUMBERS);
     }
 
     @Test
@@ -103,7 +101,6 @@ public class VendorResourceIntTest {
         Vendor testVendor = vendors.get(vendors.size() - 1);
         assertThat(testVendor.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testVendor.getRemarks()).isEqualTo(DEFAULT_REMARKS);
-        assertThat(testVendor.getPhoneNumbers()).isEqualTo(DEFAULT_PHONE_NUMBERS);
     }
 
     @Test
@@ -129,7 +126,6 @@ public class VendorResourceIntTest {
     public void checkPhoneNumbersIsRequired() throws Exception {
         int databaseSizeBeforeTest = vendorRepository.findAll().size();
         // set the field null
-        vendor.setPhoneNumbers(null);
 
         // Create the Vendor, which fails.
 
@@ -153,9 +149,8 @@ public class VendorResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(vendor.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS.toString())))
-                .andExpect(jsonPath("$.[*].phoneNumbers").value(hasItem(DEFAULT_PHONE_NUMBERS.toString())));
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+                .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS)));
     }
 
     @Test
@@ -194,7 +189,6 @@ public class VendorResourceIntTest {
         updatedVendor.setId(vendor.getId());
         updatedVendor.setName(UPDATED_NAME);
         updatedVendor.setRemarks(UPDATED_REMARKS);
-        updatedVendor.setPhoneNumbers(UPDATED_PHONE_NUMBERS);
 
         restVendorMockMvc.perform(put("/api/vendors")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -207,7 +201,6 @@ public class VendorResourceIntTest {
         Vendor testVendor = vendors.get(vendors.size() - 1);
         assertThat(testVendor.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testVendor.getRemarks()).isEqualTo(UPDATED_REMARKS);
-        assertThat(testVendor.getPhoneNumbers()).isEqualTo(UPDATED_PHONE_NUMBERS);
     }
 
     @Test

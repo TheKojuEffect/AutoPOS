@@ -1,106 +1,53 @@
 package io.koju.autopos.party.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import io.koju.autopos.kernel.domain.AuditableBaseEntity;
+import io.koju.autopos.shared.domain.Phone;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A Vendor.
- */
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.GenerationType.SEQUENCE;
+
 @Entity
 @Table(name = "vendor")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Vendor implements Serializable {
+@Getter
+@Setter
+public class Vendor extends AuditableBaseEntity {
 
-    private static final long serialVersionUID = 1L;
+    private static final String ID_SEQ = "vendor_id_seq";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = ID_SEQ, sequenceName = ID_SEQ, allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = ID_SEQ)
     private Long id;
 
     @NotNull
     @Size(min = 2, max = 100)
-    @Column(name = "name", length = 100, nullable = false)
+    @Column(name = "name", length = 100, nullable = false, unique = true)
     private String name;
 
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
 
-    @NotNull
-    @Size(max = 250)
-    @Column(name = "phone_numbers", length = 250, nullable = false)
-    private String phoneNumbers;
+    @OneToMany(cascade = ALL)
+    @JoinTable(name = "vendor_phone",
+            joinColumns = @JoinColumn(name = "vendor_id"),
+            inverseJoinColumns = @JoinColumn(name = "phone_id"))
+    private List<Phone> phones = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getPhoneNumbers() {
-        return phoneNumbers;
-    }
-
-    public void setPhoneNumbers(String phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Vendor vendor = (Vendor) o;
-        if(vendor.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, vendor.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Vendor{" +
-            "id=" + id +
-            ", name='" + name + "'" +
-            ", remarks='" + remarks + "'" +
-            ", phoneNumbers='" + phoneNumbers + "'" +
-            '}';
-    }
 }

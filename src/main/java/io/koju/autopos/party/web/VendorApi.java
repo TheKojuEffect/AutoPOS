@@ -31,9 +31,9 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-public class VendorResource {
+public class VendorApi {
 
-    private final Logger log = LoggerFactory.getLogger(VendorResource.class);
+    private final Logger log = LoggerFactory.getLogger(VendorApi.class);
         
     @Inject
     private VendorRepository vendorRepository;
