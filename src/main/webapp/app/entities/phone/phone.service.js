@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('autopos')
-        .factory('PhoneNumber', PhoneNumber);
+        .factory('Phone', Phone);
 
-    PhoneNumber.$inject = ['$resource'];
+    Phone.$inject = ['$resource'];
 
-    function PhoneNumber ($resource) {
-        var resourceUrl =  'api/phone-numbers/:id';
+    function Phone ($resource) {
+        var resourceUrl =  'api/phones/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

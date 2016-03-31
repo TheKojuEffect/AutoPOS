@@ -5,14 +5,14 @@
         .module('autopos')
         .controller('PhoneNumberDialogController', PhoneNumberDialogController);
 
-    PhoneNumberDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'PhoneNumber'];
+    PhoneNumberDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Phone'];
 
-    function PhoneNumberDialogController ($scope, $stateParams, $uibModalInstance, entity, PhoneNumber) {
+    function PhoneNumberDialogController ($scope, $stateParams, $uibModalInstance, entity, Phone) {
         var vm = this;
-        vm.phoneNumber = entity;
+        vm.phone = entity;
         vm.load = function(id) {
-            PhoneNumber.get({id : id}, function(result) {
-                vm.phoneNumber = result;
+            Phone.get({id : id}, function(result) {
+                vm.phone = result;
             });
         };
 
@@ -28,10 +28,10 @@
 
         vm.save = function () {
             vm.isSaving = true;
-            if (vm.phoneNumber.id !== null) {
-                PhoneNumber.update(vm.phoneNumber, onSaveSuccess, onSaveError);
+            if (vm.phone.id !== null) {
+                Phone.update(vm.phone, onSaveSuccess, onSaveError);
             } else {
-                PhoneNumber.save(vm.phoneNumber, onSaveSuccess, onSaveError);
+                Phone.save(vm.phone, onSaveSuccess, onSaveError);
             }
         };
 

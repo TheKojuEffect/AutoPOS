@@ -17,7 +17,7 @@
                 "ledger": "Ledger",
                 "ledgerEntry": "LedgerEntry",
                 "payment": "Payment",
-                "phoneNumber": "PhoneNumber",
+                "phone": "Phone",
                 "priceHistory": "PriceHistory",
                 "receipt": "Receipt",
                 "tag": "Tag",

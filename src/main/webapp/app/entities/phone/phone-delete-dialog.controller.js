@@ -5,16 +5,16 @@
         .module('autopos')
         .controller('PhoneNumberDeleteController',PhoneNumberDeleteController);
 
-    PhoneNumberDeleteController.$inject = ['$uibModalInstance', 'entity', 'PhoneNumber'];
+    PhoneNumberDeleteController.$inject = ['$uibModalInstance', 'entity', 'Phone'];
 
-    function PhoneNumberDeleteController($uibModalInstance, entity, PhoneNumber) {
+    function PhoneNumberDeleteController($uibModalInstance, entity, Phone) {
         var vm = this;
-        vm.phoneNumber = entity;
+        vm.phone = entity;
         vm.clear = function() {
             $uibModalInstance.dismiss('cancel');
         };
         vm.confirmDelete = function (id) {
-            PhoneNumber.delete({id: id},
+            Phone.delete({id: id},
                 function () {
                     $uibModalInstance.close(true);
                 });

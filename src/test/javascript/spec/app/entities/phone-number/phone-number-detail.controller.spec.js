@@ -2,7 +2,7 @@
 
 describe('Controller Tests', function() {
 
-    describe('PhoneNumber Management Detail Controller', function() {
+    describe('Phone Management Detail Controller', function() {
         var $scope, $rootScope;
         var MockEntity, MockPhoneNumber;
         var createController;
@@ -18,7 +18,7 @@ describe('Controller Tests', function() {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
                 'entity': MockEntity ,
-                'PhoneNumber': MockPhoneNumber
+                'Phone': MockPhoneNumber
             };
             createController = function() {
                 $injector.get('$controller')("PhoneNumberDetailController", locals);

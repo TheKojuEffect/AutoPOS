@@ -9,16 +9,16 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('phone-number', {
+        .state('phone', {
             parent: 'entity',
-            url: '/phone-number?page&sort&search',
+            url: '/phone?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.phoneNumber.home.title'
+                pageTitle: 'autopos.phone.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/phone-number/phone-numbers.html',
+                    templateUrl: 'app/entities/phone/phones.html',
                     controller: 'PhoneNumberController',
                     controllerAs: 'vm'
                 }
@@ -45,45 +45,45 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('phoneNumber');
+                    $translatePartialLoader.addPart('phone');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('phone-number-detail', {
+        .state('phone-detail', {
             parent: 'entity',
-            url: '/phone-number/{id}',
+            url: '/phone/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.phoneNumber.detail.title'
+                pageTitle: 'autopos.phone.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/phone-number/phone-number-detail.html',
+                    templateUrl: 'app/entities/phone/phone-detail.html',
                     controller: 'PhoneNumberDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('phoneNumber');
+                    $translatePartialLoader.addPart('phone');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'PhoneNumber', function($stateParams, PhoneNumber) {
-                    return PhoneNumber.get({id : $stateParams.id});
+                entity: ['$stateParams', 'Phone', function($stateParams, Phone) {
+                    return Phone.get({id : $stateParams.id});
                 }]
             }
         })
-        .state('phone-number.new', {
-            parent: 'phone-number',
+        .state('phone.new', {
+            parent: 'phone',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/phone-number/phone-number-dialog.html',
+                    templateUrl: 'app/entities/phone/phone-dialog.html',
                     controller: 'PhoneNumberDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -97,56 +97,56 @@
                         }
                     }
                 }).result.then(function() {
-                    $state.go('phone-number', null, { reload: true });
+                    $state.go('phone', null, { reload: true });
                 }, function() {
-                    $state.go('phone-number');
+                    $state.go('phone');
                 });
             }]
         })
-        .state('phone-number.edit', {
-            parent: 'phone-number',
+        .state('phone.edit', {
+            parent: 'phone',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/phone-number/phone-number-dialog.html',
+                    templateUrl: 'app/entities/phone/phone-dialog.html',
                     controller: 'PhoneNumberDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['PhoneNumber', function(PhoneNumber) {
-                            return PhoneNumber.get({id : $stateParams.id});
+                        entity: ['Phone', function(Phone) {
+                            return Phone.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('phone-number', null, { reload: true });
+                    $state.go('phone', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('phone-number.delete', {
-            parent: 'phone-number',
+        .state('phone.delete', {
+            parent: 'phone',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/phone-number/phone-number-delete-dialog.html',
+                    templateUrl: 'app/entities/phone/phone-delete-dialog.html',
                     controller: 'PhoneNumberDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['PhoneNumber', function(PhoneNumber) {
-                            return PhoneNumber.get({id : $stateParams.id});
+                        entity: ['Phone', function(Phone) {
+                            return Phone.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('phone-number', null, { reload: true });
+                    $state.go('phone', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });

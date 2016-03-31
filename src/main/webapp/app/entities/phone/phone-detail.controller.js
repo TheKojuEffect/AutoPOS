@@ -5,18 +5,18 @@
         .module('autopos')
         .controller('PhoneNumberDetailController', PhoneNumberDetailController);
 
-    PhoneNumberDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'PhoneNumber'];
+    PhoneNumberDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Phone'];
 
-    function PhoneNumberDetailController($scope, $rootScope, $stateParams, entity, PhoneNumber) {
+    function PhoneNumberDetailController($scope, $rootScope, $stateParams, entity, Phone) {
         var vm = this;
-        vm.phoneNumber = entity;
+        vm.phone = entity;
         vm.load = function (id) {
-            PhoneNumber.get({id: id}, function(result) {
-                vm.phoneNumber = result;
+            Phone.get({id: id}, function(result) {
+                vm.phone = result;
             });
         };
         var unsubscribe = $rootScope.$on('autopos:phoneNumberUpdate', function(event, result) {
-            vm.phoneNumber = result;
+            vm.phone = result;
         });
         $scope.$on('$destroy', unsubscribe);
 

@@ -5,9 +5,9 @@
         .module('autopos')
         .controller('PhoneNumberController', PhoneNumberController);
 
-    PhoneNumberController.$inject = ['$scope', '$state', 'PhoneNumber', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    PhoneNumberController.$inject = ['$scope', '$state', 'Phone', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function PhoneNumberController ($scope, $state, PhoneNumber, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function PhoneNumberController ($scope, $state, Phone, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         vm.loadAll = loadAll;
         vm.loadPage = loadPage;
@@ -17,7 +17,7 @@
         vm.loadAll();
 
         function loadAll () {
-            PhoneNumber.query({
+            Phone.query({
                 page: pagingParams.page - 1,
                 size: paginationConstants.itemsPerPage,
                 sort: sort()
