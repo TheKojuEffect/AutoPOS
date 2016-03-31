@@ -3,7 +3,6 @@ package io.koju.autopos.party.web;
 import io.koju.autopos.Application;
 import io.koju.autopos.party.domain.Customer;
 import io.koju.autopos.party.service.CustomerRepository;
-import io.koju.autopos.party.web.CustomerResource;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,20 +38,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test class for the CustomerResource REST controller.
  *
- * @see CustomerResource
+ * @see CustomerApi
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-public class CustomerResourceIntTest {
+public class CustomerApiIntTest {
 
     private static final String DEFAULT_NAME = "AA";
     private static final String UPDATED_NAME = "BB";
     private static final String DEFAULT_REMARKS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_PHONE_NUMBERS = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_PHONE_NUMBERS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
     private CustomerRepository customerRepository;
@@ -70,9 +68,9 @@ public class CustomerResourceIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        CustomerResource customerResource = new CustomerResource();
-        ReflectionTestUtils.setField(customerResource, "customerRepository", customerRepository);
-        this.restCustomerMockMvc = MockMvcBuilders.standaloneSetup(customerResource)
+        CustomerApi customerApi = new CustomerApi(customerRepository);
+        ReflectionTestUtils.setField(customerApi, "customerRepository", customerRepository);
+        this.restCustomerMockMvc = MockMvcBuilders.standaloneSetup(customerApi)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
     }
@@ -82,7 +80,6 @@ public class CustomerResourceIntTest {
         customer = new Customer();
         customer.setName(DEFAULT_NAME);
         customer.setRemarks(DEFAULT_REMARKS);
-        customer.setPhoneNumbers(DEFAULT_PHONE_NUMBERS);
     }
 
     @Test
@@ -103,7 +100,6 @@ public class CustomerResourceIntTest {
         Customer testCustomer = customers.get(customers.size() - 1);
         assertThat(testCustomer.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCustomer.getRemarks()).isEqualTo(DEFAULT_REMARKS);
-        assertThat(testCustomer.getPhoneNumbers()).isEqualTo(DEFAULT_PHONE_NUMBERS);
     }
 
     @Test
@@ -129,7 +125,6 @@ public class CustomerResourceIntTest {
     public void checkPhoneNumbersIsRequired() throws Exception {
         int databaseSizeBeforeTest = customerRepository.findAll().size();
         // set the field null
-        customer.setPhoneNumbers(null);
 
         // Create the Customer, which fails.
 
@@ -194,7 +189,6 @@ public class CustomerResourceIntTest {
         updatedCustomer.setId(customer.getId());
         updatedCustomer.setName(UPDATED_NAME);
         updatedCustomer.setRemarks(UPDATED_REMARKS);
-        updatedCustomer.setPhoneNumbers(UPDATED_PHONE_NUMBERS);
 
         restCustomerMockMvc.perform(put("/api/customers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -207,7 +201,6 @@ public class CustomerResourceIntTest {
         Customer testCustomer = customers.get(customers.size() - 1);
         assertThat(testCustomer.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCustomer.getRemarks()).isEqualTo(UPDATED_REMARKS);
-        assertThat(testCustomer.getPhoneNumbers()).isEqualTo(UPDATED_PHONE_NUMBERS);
     }
 
     @Test
