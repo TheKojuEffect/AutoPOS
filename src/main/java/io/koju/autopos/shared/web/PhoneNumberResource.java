@@ -1,8 +1,8 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.shared.web;
 
 import com.codahale.metrics.annotation.Timed;
-import io.koju.autopos.domain.PhoneNumber;
-import io.koju.autopos.repository.PhoneNumberRepository;
+import io.koju.autopos.shared.domain.Phone;
+import io.koju.autopos.shared.service.PhoneNumberRepository;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST controller for managing PhoneNumber.
+ * REST controller for managing Phone.
  */
 @RestController
 @RequestMapping("/api")
@@ -39,48 +39,48 @@ public class PhoneNumberResource {
     private PhoneNumberRepository phoneNumberRepository;
     
     /**
-     * POST  /phone-numbers : Create a new phoneNumber.
+     * POST  /phone-numbers : Create a new phone.
      *
-     * @param phoneNumber the phoneNumber to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new phoneNumber, or with status 400 (Bad Request) if the phoneNumber has already an ID
+     * @param phone the phone to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new phone, or with status 400 (Bad Request) if the phone has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/phone-numbers",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<PhoneNumber> createPhoneNumber(@Valid @RequestBody PhoneNumber phoneNumber) throws URISyntaxException {
-        log.debug("REST request to save PhoneNumber : {}", phoneNumber);
-        if (phoneNumber.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("phoneNumber", "idexists", "A new phoneNumber cannot already have an ID")).body(null);
+    public ResponseEntity<Phone> createPhoneNumber(@Valid @RequestBody Phone phone) throws URISyntaxException {
+        log.debug("REST request to save Phone : {}", phone);
+        if (phone.getId() != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("phone", "idexists", "A new phone cannot already have an ID")).body(null);
         }
-        PhoneNumber result = phoneNumberRepository.save(phoneNumber);
+        Phone result = phoneNumberRepository.save(phone);
         return ResponseEntity.created(new URI("/api/phone-numbers/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("phoneNumber", result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert("phone", result.getId().toString()))
             .body(result);
     }
 
     /**
-     * PUT  /phone-numbers : Updates an existing phoneNumber.
+     * PUT  /phone-numbers : Updates an existing phone.
      *
-     * @param phoneNumber the phoneNumber to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated phoneNumber,
-     * or with status 400 (Bad Request) if the phoneNumber is not valid,
-     * or with status 500 (Internal Server Error) if the phoneNumber couldnt be updated
+     * @param phone the phone to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated phone,
+     * or with status 400 (Bad Request) if the phone is not valid,
+     * or with status 500 (Internal Server Error) if the phone couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @RequestMapping(value = "/phone-numbers",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<PhoneNumber> updatePhoneNumber(@Valid @RequestBody PhoneNumber phoneNumber) throws URISyntaxException {
-        log.debug("REST request to update PhoneNumber : {}", phoneNumber);
-        if (phoneNumber.getId() == null) {
-            return createPhoneNumber(phoneNumber);
+    public ResponseEntity<Phone> updatePhoneNumber(@Valid @RequestBody Phone phone) throws URISyntaxException {
+        log.debug("REST request to update Phone : {}", phone);
+        if (phone.getId() == null) {
+            return createPhoneNumber(phone);
         }
-        PhoneNumber result = phoneNumberRepository.save(phoneNumber);
+        Phone result = phoneNumberRepository.save(phone);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("phoneNumber", phoneNumber.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert("phone", phone.getId().toString()))
             .body(result);
     }
 
@@ -95,28 +95,28 @@ public class PhoneNumberResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<PhoneNumber>> getAllPhoneNumbers(Pageable pageable)
+    public ResponseEntity<List<Phone>> getAllPhoneNumbers(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of PhoneNumbers");
-        Page<PhoneNumber> page = phoneNumberRepository.findAll(pageable);
+        Page<Phone> page = phoneNumberRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/phone-numbers");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /phone-numbers/:id : get the "id" phoneNumber.
+     * GET  /phone-numbers/:id : get the "id" phone.
      *
-     * @param id the id of the phoneNumber to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the phoneNumber, or with status 404 (Not Found)
+     * @param id the id of the phone to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the phone, or with status 404 (Not Found)
      */
     @RequestMapping(value = "/phone-numbers/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<PhoneNumber> getPhoneNumber(@PathVariable Long id) {
-        log.debug("REST request to get PhoneNumber : {}", id);
-        PhoneNumber phoneNumber = phoneNumberRepository.findOne(id);
-        return Optional.ofNullable(phoneNumber)
+    public ResponseEntity<Phone> getPhoneNumber(@PathVariable Long id) {
+        log.debug("REST request to get Phone : {}", id);
+        Phone phone = phoneNumberRepository.findOne(id);
+        return Optional.ofNullable(phone)
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))
@@ -124,9 +124,9 @@ public class PhoneNumberResource {
     }
 
     /**
-     * DELETE  /phone-numbers/:id : delete the "id" phoneNumber.
+     * DELETE  /phone-numbers/:id : delete the "id" phone.
      *
-     * @param id the id of the phoneNumber to delete
+     * @param id the id of the phone to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @RequestMapping(value = "/phone-numbers/{id}",
@@ -134,9 +134,9 @@ public class PhoneNumberResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deletePhoneNumber(@PathVariable Long id) {
-        log.debug("REST request to delete PhoneNumber : {}", id);
+        log.debug("REST request to delete Phone : {}", id);
         phoneNumberRepository.delete(id);
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("phoneNumber", id.toString())).build();
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("phone", id.toString())).build();
     }
 
 }

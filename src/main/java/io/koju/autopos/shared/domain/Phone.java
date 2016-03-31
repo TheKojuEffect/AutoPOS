@@ -1,4 +1,4 @@
-package io.koju.autopos.domain;
+package io.koju.autopos.shared.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -15,12 +15,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A PhoneNumber.
+ * A Phone.
  */
 @Entity
-@Table(name = "phone_number")
+@Table(name = "phone")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class PhoneNumber implements Serializable {
+public class Phone implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,11 +57,11 @@ public class PhoneNumber implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PhoneNumber phoneNumber = (PhoneNumber) o;
-        if(phoneNumber.id == null || id == null) {
+        Phone phone = (Phone) o;
+        if(phone.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, phoneNumber.id);
+        return Objects.equals(id, phone.id);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class PhoneNumber implements Serializable {
 
     @Override
     public String toString() {
-        return "PhoneNumber{" +
+        return "Phone{" +
             "id=" + id +
             ", number='" + number + "'" +
             '}';

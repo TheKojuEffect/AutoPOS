@@ -13,11 +13,8 @@
     <property name="floatType" value="float4" dbms="postgresql, h2"/>
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
-    <!--
-        Added the entity PhoneNumber.
-    -->
     <changeSet id="20160209150626" author="jhipster">
-        <createTable tableName="phone_number">
+        <createTable tableName="phone">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -25,7 +22,6 @@
                 <constraints nullable="false" />
             </column>
             
-            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
     </changeSet>

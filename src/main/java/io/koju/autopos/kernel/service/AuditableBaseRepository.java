@@ -1,4 +1,4 @@
-package io.koju.autopos.kernel.service.repo;
+package io.koju.autopos.kernel.service;
 
 import io.koju.autopos.kernel.domain.AuditableBaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -11,6 +11,8 @@ import io.koju.autopos.config.liquibase.AsyncSpringLiquibase;
 import io.koju.autopos.domain.DomainPackage;
 import io.koju.autopos.repository.RepositoryPackage;
 import io.koju.autopos.kernel.domain.AbstractEntity;
+import io.koju.autopos.shared.domain.SharedDomainPackage;
+import io.koju.autopos.shared.service.SharedServicePackage;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.user.service.UserServicePackage;
 import liquibase.integration.spring.SpringLiquibase;
@@ -37,6 +39,7 @@ import java.util.Arrays;
 @Configuration
 @EnableJpaRepositories(basePackageClasses = {
         RepositoryPackage.class,
+        SharedServicePackage.class,
         CatalogServicePackage.class,
         UserServicePackage.class,
         AccountingServicePackage.class})
@@ -45,6 +48,7 @@ import java.util.Arrays;
         AbstractEntity.class,
         DomainPackage.class,
         Jsr310JpaConverters.class,
+        SharedDomainPackage.class,
         User.class,
         Item.class,
         AccountingDomainPackage.class})
