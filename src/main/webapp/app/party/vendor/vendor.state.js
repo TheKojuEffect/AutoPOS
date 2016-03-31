@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('customer', {
-            parent: 'entity',
-            url: '/customer?page&sort&search',
+        .state('vendor', {
+            parent: 'party',
+            url: '/vendor?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.customer.home.title'
+                pageTitle: 'autopos.vendor.home.title'
             },
             views: {
-                'content@': {
-                    templateUrl: 'app/entities/customer/customers.html',
-                    controller: 'CustomerController',
+                'content-tab': {
+                    templateUrl: 'app/party/vendor/vendors.html',
+                    controller: 'VendorController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,46 +45,46 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('customer');
+                    $translatePartialLoader.addPart('vendor');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('customer-detail', {
-            parent: 'entity',
-            url: '/customer/{id}',
+        .state('vendor-detail', {
+            parent: 'party',
+            url: '/vendor/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.customer.detail.title'
+                pageTitle: 'autopos.vendor.detail.title'
             },
             views: {
-                'content@': {
-                    templateUrl: 'app/entities/customer/customer-detail.html',
-                    controller: 'CustomerDetailController',
+                'content-tab': {
+                    templateUrl: 'app/party/vendor/vendor-detail.html',
+                    controller: 'VendorDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('customer');
+                    $translatePartialLoader.addPart('vendor');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Customer', function($stateParams, Customer) {
-                    return Customer.get({id : $stateParams.id});
+                entity: ['$stateParams', 'Vendor', function($stateParams, Vendor) {
+                    return Vendor.get({id : $stateParams.id});
                 }]
             }
         })
-        .state('customer.new', {
-            parent: 'customer',
+        .state('vendor.new', {
+            parent: 'vendor',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/customer/customer-dialog.html',
-                    controller: 'CustomerDialogController',
+                    templateUrl: 'app/party/vendor/vendor-dialog.html',
+                    controller: 'VendorDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
@@ -99,56 +99,56 @@
                         }
                     }
                 }).result.then(function() {
-                    $state.go('customer', null, { reload: true });
+                    $state.go('vendor', null, { reload: true });
                 }, function() {
-                    $state.go('customer');
+                    $state.go('vendor');
                 });
             }]
         })
-        .state('customer.edit', {
-            parent: 'customer',
+        .state('vendor.edit', {
+            parent: 'vendor',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/customer/customer-dialog.html',
-                    controller: 'CustomerDialogController',
+                    templateUrl: 'app/party/vendor/vendor-dialog.html',
+                    controller: 'VendorDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Customer', function(Customer) {
-                            return Customer.get({id : $stateParams.id});
+                        entity: ['Vendor', function(Vendor) {
+                            return Vendor.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('customer', null, { reload: true });
+                    $state.go('vendor', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('customer.delete', {
-            parent: 'customer',
+        .state('vendor.delete', {
+            parent: 'vendor',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/customer/customer-delete-dialog.html',
-                    controller: 'CustomerDeleteController',
+                    templateUrl: 'app/party/vendor/vendor-delete-dialog.html',
+                    controller: 'VendorDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Customer', function(Customer) {
-                            return Customer.get({id : $stateParams.id});
+                        entity: ['Vendor', function(Vendor) {
+                            return Vendor.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('customer', null, { reload: true });
+                    $state.go('vendor', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });

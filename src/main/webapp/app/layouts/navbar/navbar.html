@@ -34,49 +34,60 @@
                         <li ui-sref-active="active"><a ui-sref="bill" data-toggle="collapse"
                                                        data-target=".navbar-collapse.in"><span
                                 class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.bill">Bill</span></a></li>
+                            &#xA0;<span translate="global.menu.entities.bill">Bill</span></a>
+                        </li>
+
                         <li ui-sref-active="active"><a ui-sref="bill-item" data-toggle="collapse"
                                                        data-target=".navbar-collapse.in"><span
                                 class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.billItem">Bill Item</span></a></li>
-
-
-                        <li ui-sref-active="active"><a ui-sref="customer" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.customer">Customer</span></a></li>
+                            &#xA0;<span translate="global.menu.entities.billItem">Bill Item</span></a>
+                        </li>
 
                         <li ui-sref-active="active"><a ui-sref="ledger" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.ledger">Ledger</span></a></li>
+                                                       data-target=".navbar-collapse.in">
+                            <span
+                                    class="glyphicon glyphicon-asterisk"></span>
+                            &#xA0;<span translate="global.menu.entities.ledger">Ledger</span></a>
+                        </li>
+
                         <li ui-sref-active="active"><a ui-sref="ledger-entry" data-toggle="collapse"
                                                        data-target=".navbar-collapse.in"><span
                                 class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.ledgerEntry">Ledger Entry</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="payment" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.payment">Payment</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="phone-number" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.phoneNumber">Phone Number</span></a></li>
+                            &#xA0;<span translate="global.menu.entities.ledgerEntry">Ledger Entry</span></a>
+                        </li>
 
-                        <li ui-sref-active="active"><a ui-sref="receipt" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.receipt">Receipt</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="vehicle" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.vehicle">Vehicle</span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="vendor" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.vendor">Vendor</span></a></li>
-                        <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                        <li ui-sref-active="active">
+                            <a ui-sref="payment" data-toggle="collapse"
+                               data-target=".navbar-collapse.in"><span
+                                    class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.payment">Payment</span>
+                            </a>
+                        </li>
+
+                        <li ui-sref-active="active">
+                            <a ui-sref="phone-number" data-toggle="collapse"
+                               data-target=".navbar-collapse.in"><span
+                                    class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.phoneNumber">Phone Number</span>
+                            </a>
+                        </li>
+
+                        <li ui-sref-active="active">
+                            <a ui-sref="receipt" data-toggle="collapse"
+                               data-target=".navbar-collapse.in"><span
+                                    class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.receipt">Receipt</span>
+                            </a>
+                        </li>
+
                     </ul>
+                </li>
+
+                <li ng-class="{active: vm.$state.includes('party')}" ng-switch-when="true">
+                    <a ui-sref="customer">
+                        <span class="glyphicon glyphicon-king"></span>
+                        <span class="hidden-sm">Party</span>
+                    </a>
                 </li>
 
                 <li ng-class="{active: vm.$state.includes('catalog')}" ng-switch-when="true">

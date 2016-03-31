@@ -1,0 +1,20 @@
+<ul class="nav nav-tabs">
+    <li ng-class="{active: $state.includes('customer')}">
+        <a ui-sref="customer">
+            <span>Customers</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('vehicle')}">
+        <a ui-sref="vehicle">
+            <span>Vehicles</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('vendor')}">
+        <a ui-sref="vendor">
+            <span>Vendors</span>
+        </a>
+    </li>
+</ul>
+<div ui-view="content-tab"></div>

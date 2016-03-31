@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('vendor', {
-            parent: 'entity',
-            url: '/vendor?page&sort&search',
+        .state('vehicle', {
+            parent: 'party',
+            url: '/vehicle?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.vendor.home.title'
+                pageTitle: 'autopos.vehicle.home.title'
             },
             views: {
-                'content@': {
-                    templateUrl: 'app/entities/vendor/vendors.html',
-                    controller: 'VendorController',
+                'content-tab': {
+                    templateUrl: 'app/party/vehicle/vehicles.html',
+                    controller: 'VehicleController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,110 +45,109 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('vendor');
+                    $translatePartialLoader.addPart('vehicle');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('vendor-detail', {
+        .state('vehicle-detail', {
             parent: 'entity',
-            url: '/vendor/{id}',
+            url: '/vehicle/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.vendor.detail.title'
+                pageTitle: 'autopos.vehicle.detail.title'
             },
             views: {
-                'content@': {
-                    templateUrl: 'app/entities/vendor/vendor-detail.html',
-                    controller: 'VendorDetailController',
+                'content-tab': {
+                    templateUrl: 'app/party/vehicle/vehicle-detail.html',
+                    controller: 'VehicleDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('vendor');
+                    $translatePartialLoader.addPart('vehicle');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Vendor', function($stateParams, Vendor) {
-                    return Vendor.get({id : $stateParams.id});
+                entity: ['$stateParams', 'Vehicle', function($stateParams, Vehicle) {
+                    return Vehicle.get({id : $stateParams.id});
                 }]
             }
         })
-        .state('vendor.new', {
-            parent: 'vendor',
+        .state('vehicle.new', {
+            parent: 'vehicle',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/vendor/vendor-dialog.html',
-                    controller: 'VendorDialogController',
+                    templateUrl: 'app/party/vehicle/vehicle-dialog.html',
+                    controller: 'VehicleDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                name: null,
+                                number: null,
                                 remarks: null,
-                                phoneNumbers: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('vendor', null, { reload: true });
+                    $state.go('vehicle', null, { reload: true });
                 }, function() {
-                    $state.go('vendor');
+                    $state.go('vehicle');
                 });
             }]
         })
-        .state('vendor.edit', {
-            parent: 'vendor',
+        .state('vehicle.edit', {
+            parent: 'vehicle',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/vendor/vendor-dialog.html',
-                    controller: 'VendorDialogController',
+                    templateUrl: 'app/party/vehicle/vehicle-dialog.html',
+                    controller: 'VehicleDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Vendor', function(Vendor) {
-                            return Vendor.get({id : $stateParams.id});
+                        entity: ['Vehicle', function(Vehicle) {
+                            return Vehicle.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('vendor', null, { reload: true });
+                    $state.go('vehicle', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('vendor.delete', {
-            parent: 'vendor',
+        .state('vehicle.delete', {
+            parent: 'vehicle',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/vendor/vendor-delete-dialog.html',
-                    controller: 'VendorDeleteController',
+                    templateUrl: 'app/party/vehicle/vehicle-delete-dialog.html',
+                    controller: 'VehicleDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Vendor', function(Vendor) {
-                            return Vendor.get({id : $stateParams.id});
+                        entity: ['Vehicle', function(Vehicle) {
+                            return Vehicle.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('vendor', null, { reload: true });
+                    $state.go('vehicle', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
