@@ -3,7 +3,7 @@ package io.koju.autopos.config;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
 import com.codahale.metrics.servlets.MetricsServlet;
-import io.koju.autopos.shared.web.FilterRequestHandlerMethodArgumentResolver;
+import io.koju.autopos.kernel.web.FilterRequestHandlerMethodArgumentResolver;
 import io.koju.autopos.web.filter.CachingHttpHeadersFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

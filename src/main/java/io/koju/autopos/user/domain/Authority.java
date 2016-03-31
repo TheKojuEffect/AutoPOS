@@ -1,7 +1,6 @@
 package io.koju.autopos.user.domain;
 
-import io.koju.autopos.shared.domain.AbstractBaseEntity;
-import io.koju.autopos.shared.domain.AbstractEntity;
+import io.koju.autopos.kernel.domain.AbstractBaseEntity;
 import io.koju.autopos.user.domain.Role.RoleConverter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

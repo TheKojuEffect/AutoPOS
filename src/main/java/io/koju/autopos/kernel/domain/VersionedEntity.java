@@ -1,4 +1,4 @@
-package io.koju.autopos.shared.domain;
+package io.koju.autopos.kernel.domain;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;

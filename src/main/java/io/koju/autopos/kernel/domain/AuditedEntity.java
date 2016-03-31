@@ -1,4 +1,4 @@
-package io.koju.autopos.shared.domain;
+package io.koju.autopos.kernel.domain;
 
 import io.koju.autopos.user.domain.User;
 

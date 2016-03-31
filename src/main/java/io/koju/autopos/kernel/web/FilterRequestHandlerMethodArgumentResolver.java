@@ -1,9 +1,9 @@
-package io.koju.autopos.shared.web;
+package io.koju.autopos.kernel.web;
 
 import io.koju.autopos.catalog.struct.filter.ItemFilter;
-import io.koju.autopos.shared.struct.filter.FilterParam;
-import io.koju.autopos.shared.struct.filter.FilterRequest;
-import io.koju.autopos.shared.util.ClassUtil;
+import io.koju.autopos.kernel.struct.filter.FilterParam;
+import io.koju.autopos.kernel.struct.filter.FilterRequest;
+import io.koju.autopos.kernel.util.ClassUtil;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;

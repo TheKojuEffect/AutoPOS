@@ -1,6 +1,6 @@
 package io.koju.autopos.catalog.domain;
 
-import io.koju.autopos.shared.domain.AuditableBaseEntity;
+import io.koju.autopos.kernel.domain.AuditableBaseEntity;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 

@@ -1,7 +1,7 @@
 package io.koju.autopos.catalog.domain;
 
 import io.koju.autopos.catalog.service.ItemCodeUtil;
-import io.koju.autopos.shared.domain.AuditableBaseEntity;
+import io.koju.autopos.kernel.domain.AuditableBaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;

@@ -1,6 +1,6 @@
-package io.koju.autopos.shared.service.repo;
+package io.koju.autopos.kernel.service.repo;
 
-import io.koju.autopos.shared.domain.AuditableBaseEntity;
+import io.koju.autopos.kernel.domain.AuditableBaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 

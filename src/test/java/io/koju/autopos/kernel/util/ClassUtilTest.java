@@ -1,4 +1,4 @@
-package io.koju.autopos.shared.util;
+package io.koju.autopos.kernel.util;
 
 
 import org.junit.Test;

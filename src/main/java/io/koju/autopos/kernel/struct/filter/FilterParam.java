@@ -1,4 +1,4 @@
-package io.koju.autopos.shared.struct.filter;
+package io.koju.autopos.kernel.struct.filter;
 
 import com.mysema.query.types.Path;
 import com.mysema.query.types.Predicate;

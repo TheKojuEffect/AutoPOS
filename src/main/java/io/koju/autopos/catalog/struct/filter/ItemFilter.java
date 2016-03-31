@@ -4,8 +4,8 @@ import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
 import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.domain.QItem;
-import io.koju.autopos.shared.struct.filter.FilterRequest;
-import io.koju.autopos.shared.struct.filter.TextFilter;
+import io.koju.autopos.kernel.struct.filter.FilterRequest;
+import io.koju.autopos.kernel.struct.filter.TextFilter;
 
 import java.util.Optional;
 
