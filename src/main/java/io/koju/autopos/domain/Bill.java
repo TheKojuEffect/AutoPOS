@@ -1,6 +1,7 @@
 package io.koju.autopos.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.koju.autopos.party.domain.Vehicle;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 

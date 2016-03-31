@@ -1,4 +1,4 @@
-package io.koju.autopos.domain;
+package io.koju.autopos.party.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -15,12 +15,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Customer.
+ * A Vendor.
  */
 @Entity
-@Table(name = "customer")
+@Table(name = "vendor")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Customer implements Serializable {
+public class Vendor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -82,11 +82,11 @@ public class Customer implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Customer customer = (Customer) o;
-        if(customer.id == null || id == null) {
+        Vendor vendor = (Vendor) o;
+        if(vendor.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, customer.id);
+        return Objects.equals(id, vendor.id);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "Vendor{" +
             "id=" + id +
             ", name='" + name + "'" +
             ", remarks='" + remarks + "'" +

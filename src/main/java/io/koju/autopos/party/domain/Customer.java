@@ -1,4 +1,4 @@
-package io.koju.autopos.domain;
+package io.koju.autopos.party.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,12 +15,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Vehicle.
+ * A Customer.
  */
 @Entity
-@Table(name = "vehicle")
+@Table(name = "customer")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Vehicle implements Serializable {
+public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,16 +29,18 @@ public class Vehicle implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "number", length = 20, nullable = false)
-    private String number;
+    @Size(min = 2, max = 100)
+    @Column(name = "name", length = 100, nullable = false)
+    private String name;
 
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
 
-    @ManyToOne
-    private Customer owner;
+    @NotNull
+    @Size(max = 250)
+    @Column(name = "phone_numbers", length = 250, nullable = false)
+    private String phoneNumbers;
 
     public Long getId() {
         return id;
@@ -49,12 +50,12 @@ public class Vehicle implements Serializable {
         this.id = id;
     }
 
-    public String getNumber() {
-        return number;
+    public String getName() {
+        return name;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRemarks() {
@@ -65,12 +66,12 @@ public class Vehicle implements Serializable {
         this.remarks = remarks;
     }
 
-    public Customer getOwner() {
-        return owner;
+    public String getPhoneNumbers() {
+        return phoneNumbers;
     }
 
-    public void setOwner(Customer customer) {
-        this.owner = customer;
+    public void setPhoneNumbers(String phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
     }
 
     @Override
@@ -81,11 +82,11 @@ public class Vehicle implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Vehicle vehicle = (Vehicle) o;
-        if(vehicle.id == null || id == null) {
+        Customer customer = (Customer) o;
+        if(customer.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, vehicle.id);
+        return Objects.equals(id, customer.id);
     }
 
     @Override
@@ -95,10 +96,11 @@ public class Vehicle implements Serializable {
 
     @Override
     public String toString() {
-        return "Vehicle{" +
+        return "Customer{" +
             "id=" + id +
-            ", number='" + number + "'" +
+            ", name='" + name + "'" +
             ", remarks='" + remarks + "'" +
+            ", phoneNumbers='" + phoneNumbers + "'" +
             '}';
     }
 }

@@ -1,6 +1,6 @@
-package io.koju.autopos.repository;
+package io.koju.autopos.party.service;
 
-import io.koju.autopos.domain.Customer;
+import io.koju.autopos.party.domain.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

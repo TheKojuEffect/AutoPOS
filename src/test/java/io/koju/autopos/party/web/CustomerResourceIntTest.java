@@ -1,8 +1,10 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.party.web;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.Customer;
-import io.koju.autopos.repository.CustomerRepository;
+import io.koju.autopos.party.domain.Customer;
+import io.koju.autopos.party.service.CustomerRepository;
+import io.koju.autopos.party.web.CustomerResource;
+import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

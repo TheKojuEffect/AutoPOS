@@ -1,5 +1,6 @@
 package io.koju.autopos.domain;
 
+import io.koju.autopos.party.domain.Vendor;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 

@@ -1,8 +1,8 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.party.web;
 
 import com.codahale.metrics.annotation.Timed;
-import io.koju.autopos.domain.Vendor;
-import io.koju.autopos.repository.VendorRepository;
+import io.koju.autopos.party.domain.Vendor;
+import io.koju.autopos.party.service.VendorRepository;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;

@@ -9,6 +9,8 @@ import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.service.CatalogServicePackage;
 import io.koju.autopos.config.liquibase.AsyncSpringLiquibase;
 import io.koju.autopos.domain.DomainPackage;
+import io.koju.autopos.party.domain.PartyDomainPackage;
+import io.koju.autopos.party.service.PartyServicePackage;
 import io.koju.autopos.repository.RepositoryPackage;
 import io.koju.autopos.kernel.domain.AbstractEntity;
 import io.koju.autopos.shared.domain.SharedDomainPackage;
@@ -42,7 +44,8 @@ import java.util.Arrays;
         SharedServicePackage.class,
         CatalogServicePackage.class,
         UserServicePackage.class,
-        AccountingServicePackage.class})
+        AccountingServicePackage.class,
+        PartyServicePackage.class})
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = {
         AbstractEntity.class,
@@ -51,7 +54,8 @@ import java.util.Arrays;
         SharedDomainPackage.class,
         User.class,
         Item.class,
-        AccountingDomainPackage.class})
+        AccountingDomainPackage.class,
+        PartyDomainPackage.class})
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
