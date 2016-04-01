@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('payment', {
+        .state('bill-item', {
             parent: 'entity',
-            url: '/payment?page&sort&search',
+            url: '/bill-item?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.payment.home.title'
+                pageTitle: 'autopos.billItem.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/payment/payments.html',
-                    controller: 'PaymentController',
+                    templateUrl: 'app/trade/bill-item/bill-items.html',
+                    controller: 'BillItemController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,112 +45,113 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('payment');
+                    $translatePartialLoader.addPart('billItem');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('payment-detail', {
+        .state('bill-item-detail', {
             parent: 'entity',
-            url: '/payment/{id}',
+            url: '/bill-item/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.payment.detail.title'
+                pageTitle: 'autopos.billItem.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/payment/payment-detail.html',
-                    controller: 'PaymentDetailController',
+                    templateUrl: 'app/trade/bill-item/bill-item-detail.html',
+                    controller: 'BillItemDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('payment');
+                    $translatePartialLoader.addPart('billItem');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Payment', function($stateParams, Payment) {
-                    return Payment.get({id : $stateParams.id});
+                entity: ['$stateParams', 'BillItem', function($stateParams, BillItem) {
+                    return BillItem.get({id : $stateParams.id});
                 }]
             }
         })
-        .state('payment.new', {
-            parent: 'payment',
+        .state('bill-item.new', {
+            parent: 'bill-item',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/payment/payment-dialog.html',
-                    controller: 'PaymentDialogController',
+                    templateUrl: 'app/trade/bill-item/bill-item-dialog.html',
+                    controller: 'BillItemDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                date: null,
+                                quantity: null,
+                                rate: null,
                                 amount: null,
-                                receiptNumber: null,
-                                paidBy: null,
+                                date: null,
                                 remarks: null,
+                                issuedBy: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('payment', null, { reload: true });
+                    $state.go('bill-item', null, { reload: true });
                 }, function() {
-                    $state.go('payment');
+                    $state.go('bill-item');
                 });
             }]
         })
-        .state('payment.edit', {
-            parent: 'payment',
+        .state('bill-item.edit', {
+            parent: 'bill-item',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/payment/payment-dialog.html',
-                    controller: 'PaymentDialogController',
+                    templateUrl: 'app/trade/bill-item/bill-item-dialog.html',
+                    controller: 'BillItemDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Payment', function(Payment) {
-                            return Payment.get({id : $stateParams.id});
+                        entity: ['BillItem', function(BillItem) {
+                            return BillItem.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('payment', null, { reload: true });
+                    $state.go('bill-item', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('payment.delete', {
-            parent: 'payment',
+        .state('bill-item.delete', {
+            parent: 'bill-item',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/payment/payment-delete-dialog.html',
-                    controller: 'PaymentDeleteController',
+                    templateUrl: 'app/trade/bill-item/bill-item-delete-dialog.html',
+                    controller: 'BillItemDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Payment', function(Payment) {
-                            return Payment.get({id : $stateParams.id});
+                        entity: ['BillItem', function(BillItem) {
+                            return BillItem.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('payment', null, { reload: true });
+                    $state.go('bill-item', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });

@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('receipt', {
+        .state('payment', {
             parent: 'entity',
-            url: '/receipt?page&sort&search',
+            url: '/payment?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.receipt.home.title'
+                pageTitle: 'autopos.payment.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/receipt/receipts.html',
-                    controller: 'ReceiptController',
+                    templateUrl: 'app/trade/payment/payments.html',
+                    controller: 'PaymentController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,46 +45,46 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('receipt');
+                    $translatePartialLoader.addPart('payment');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('receipt-detail', {
+        .state('payment-detail', {
             parent: 'entity',
-            url: '/receipt/{id}',
+            url: '/payment/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.receipt.detail.title'
+                pageTitle: 'autopos.payment.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/receipt/receipt-detail.html',
-                    controller: 'ReceiptDetailController',
+                    templateUrl: 'app/trade/payment/payment-detail.html',
+                    controller: 'PaymentDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('receipt');
+                    $translatePartialLoader.addPart('payment');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Receipt', function($stateParams, Receipt) {
-                    return Receipt.get({id : $stateParams.id});
+                entity: ['$stateParams', 'Payment', function($stateParams, Payment) {
+                    return Payment.get({id : $stateParams.id});
                 }]
             }
         })
-        .state('receipt.new', {
-            parent: 'receipt',
+        .state('payment.new', {
+            parent: 'payment',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/receipt/receipt-dialog.html',
-                    controller: 'ReceiptDialogController',
+                    templateUrl: 'app/trade/payment/payment-dialog.html',
+                    controller: 'PaymentDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
@@ -93,63 +93,64 @@
                             return {
                                 date: null,
                                 amount: null,
-                                receivedBy: null,
+                                receiptNumber: null,
+                                paidBy: null,
                                 remarks: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('receipt', null, { reload: true });
+                    $state.go('payment', null, { reload: true });
                 }, function() {
-                    $state.go('receipt');
+                    $state.go('payment');
                 });
             }]
         })
-        .state('receipt.edit', {
-            parent: 'receipt',
+        .state('payment.edit', {
+            parent: 'payment',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/receipt/receipt-dialog.html',
-                    controller: 'ReceiptDialogController',
+                    templateUrl: 'app/trade/payment/payment-dialog.html',
+                    controller: 'PaymentDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Receipt', function(Receipt) {
-                            return Receipt.get({id : $stateParams.id});
+                        entity: ['Payment', function(Payment) {
+                            return Payment.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('receipt', null, { reload: true });
+                    $state.go('payment', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('receipt.delete', {
-            parent: 'receipt',
+        .state('payment.delete', {
+            parent: 'payment',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/receipt/receipt-delete-dialog.html',
-                    controller: 'ReceiptDeleteController',
+                    templateUrl: 'app/trade/payment/payment-delete-dialog.html',
+                    controller: 'PaymentDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Receipt', function(Receipt) {
-                            return Receipt.get({id : $stateParams.id});
+                        entity: ['Payment', function(Payment) {
+                            return Payment.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('receipt', null, { reload: true });
+                    $state.go('payment', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });

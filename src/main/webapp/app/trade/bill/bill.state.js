@@ -18,7 +18,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/bill/bills.html',
+                    templateUrl: 'app/trade/bill/bills.html',
                     controller: 'BillController',
                     controllerAs: 'vm'
                 }
@@ -60,7 +60,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/bill/bill-detail.html',
+                    templateUrl: 'app/trade/bill/bill-detail.html',
                     controller: 'BillDetailController',
                     controllerAs: 'vm'
                 }
@@ -83,7 +83,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/bill/bill-dialog.html',
+                    templateUrl: 'app/trade/bill/bill-dialog.html',
                     controller: 'BillDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -119,7 +119,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/bill/bill-dialog.html',
+                    templateUrl: 'app/trade/bill/bill-dialog.html',
                     controller: 'BillDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -144,7 +144,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/bill/bill-delete-dialog.html',
+                    templateUrl: 'app/trade/bill/bill-delete-dialog.html',
                     controller: 'BillDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
