@@ -30,53 +30,30 @@
                             <b class="caret"></b>
                         </span>
                     </a>
+
                     <ul class="dropdown-menu" uib-dropdown-menu>
-                        <li ui-sref-active="active"><a ui-sref="bill" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.bill">Bill</span></a>
-                        </li>
-
-                        <li ui-sref-active="active"><a ui-sref="bill-item" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.billItem">Bill Item</span></a>
-                        </li>
-
-                        <li ui-sref-active="active"><a ui-sref="ledger" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in">
-                            <span
-                                    class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.ledger">Ledger</span></a>
-                        </li>
-
-                        <li ui-sref-active="active"><a ui-sref="ledger-entry" data-toggle="collapse"
-                                                       data-target=".navbar-collapse.in"><span
-                                class="glyphicon glyphicon-asterisk"></span>
-                            &#xA0;<span translate="global.menu.entities.ledgerEntry">Ledger Entry</span></a>
-                        </li>
-
                         <li ui-sref-active="active">
-                            <a ui-sref="payment" data-toggle="collapse"
-                               data-target=".navbar-collapse.in"><span
-                                    class="glyphicon glyphicon-asterisk"></span>
-                                &#xA0;<span translate="global.menu.entities.payment">Payment</span>
+                            <a ui-sref="ledger" data-toggle="collapse" data-target=".navbar-collapse.in">
+                                <span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;
+                                <span translate="global.menu.entities.ledger">Ledger</span>
                             </a>
                         </li>
 
                         <li ui-sref-active="active">
-                            <a ui-sref="phone" data-toggle="collapse"
-                               data-target=".navbar-collapse.in"><span
-                                    class="glyphicon glyphicon-asterisk"></span>
-                                &#xA0;<span translate="global.menu.entities.phone">Phone Number</span>
+                            <a ui-sref="ledger-entry" data-toggle="collapse" data-target=".navbar-collapse.in">
+                                <span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;
+                                <span translate="global.menu.entities.ledgerEntry">Ledger Entry</span>
                             </a>
                         </li>
 
+
                         <li ui-sref-active="active">
-                            <a ui-sref="receipt" data-toggle="collapse"
-                               data-target=".navbar-collapse.in"><span
-                                    class="glyphicon glyphicon-asterisk"></span>
-                                &#xA0;<span translate="global.menu.entities.receipt">Receipt</span>
+                            <a ui-sref="phone" data-toggle="collapse" data-target=".navbar-collapse.in">
+                                <span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;
+                                <span translate="global.menu.entities.phone">Phone Number</span>
                             </a>
                         </li>
 
@@ -89,6 +66,15 @@
                         <span class="hidden-sm">Party</span>
                     </a>
                 </li>
+
+
+                <li ng-class="{active: vm.$state.includes('trade')}" ng-switch-when="true">
+                    <a ui-sref="receipt">
+                        <span class="glyphicon glyphicon-transfer"></span>
+                        <span class="hidden-sm">Trade</span>
+                    </a>
+                </li>
+
 
                 <li ng-class="{active: vm.$state.includes('catalog')}" ng-switch-when="true">
                     <a ui-sref="item">

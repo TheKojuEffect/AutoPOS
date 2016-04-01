@@ -10,14 +10,14 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('bill-item', {
-            parent: 'entity',
+            parent: 'trade',
             url: '/bill-item?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.billItem.home.title'
             },
             views: {
-                'content@': {
+                'content-tab': {
                     templateUrl: 'app/trade/bill-item/bill-items.html',
                     controller: 'BillItemController',
                     controllerAs: 'vm'
@@ -52,14 +52,14 @@
             }
         })
         .state('bill-item-detail', {
-            parent: 'entity',
+            parent: 'trade',
             url: '/bill-item/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.billItem.detail.title'
             },
             views: {
-                'content@': {
+                'content-tab': {
                     templateUrl: 'app/trade/bill-item/bill-item-detail.html',
                     controller: 'BillItemDetailController',
                     controllerAs: 'vm'

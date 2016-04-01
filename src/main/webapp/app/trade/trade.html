@@ -1,0 +1,26 @@
+<ul class="nav nav-tabs">
+    <li ng-class="{active: $state.includes('receipt')}">
+        <a ui-sref="receipt">
+            <span>Receipts</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('paymeny')}">
+        <a ui-sref="payment">
+            <span>Payments</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('bill')}">
+        <a ui-sref="bill">
+            <span>Bills</span>
+        </a>
+    </li>
+
+    <li ng-class="{active: $state.includes('bill-item')}">
+        <a ui-sref="bill-item">
+            <span>Bill Items</span>
+        </a>
+    </li>
+</ul>
+<div ui-view="content-tab"></div>
