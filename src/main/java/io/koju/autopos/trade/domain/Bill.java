@@ -1,4 +1,4 @@
-package io.koju.autopos.domain;
+package io.koju.autopos.trade.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.koju.autopos.party.domain.Vehicle;

@@ -1,7 +1,7 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.trade.web;
 
 import com.codahale.metrics.annotation.Timed;
-import io.koju.autopos.domain.Bill;
+import io.koju.autopos.trade.domain.Bill;
 import io.koju.autopos.service.BillService;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;

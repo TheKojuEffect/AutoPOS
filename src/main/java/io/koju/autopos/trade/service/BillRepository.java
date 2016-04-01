@@ -1,6 +1,6 @@
-package io.koju.autopos.repository;
+package io.koju.autopos.trade.service;
 
-import io.koju.autopos.domain.Bill;
+import io.koju.autopos.trade.domain.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

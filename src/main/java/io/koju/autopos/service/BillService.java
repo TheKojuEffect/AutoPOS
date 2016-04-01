@@ -1,10 +1,8 @@
 package io.koju.autopos.service;
 
-import io.koju.autopos.domain.Bill;
+import io.koju.autopos.trade.domain.Bill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 /**
  * Service Interface for managing Bill.

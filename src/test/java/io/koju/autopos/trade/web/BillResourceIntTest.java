@@ -1,9 +1,11 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.trade.web;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.Bill;
-import io.koju.autopos.repository.BillRepository;
+import io.koju.autopos.trade.domain.Bill;
+import io.koju.autopos.trade.service.BillRepository;
 import io.koju.autopos.service.BillService;
+import io.koju.autopos.trade.web.BillResource;
+import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

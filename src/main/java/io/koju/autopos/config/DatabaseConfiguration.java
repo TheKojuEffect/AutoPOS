@@ -9,12 +9,14 @@ import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.service.CatalogServicePackage;
 import io.koju.autopos.config.liquibase.AsyncSpringLiquibase;
 import io.koju.autopos.domain.DomainPackage;
+import io.koju.autopos.kernel.domain.AbstractEntity;
 import io.koju.autopos.party.domain.PartyDomainPackage;
 import io.koju.autopos.party.service.PartyServicePackage;
 import io.koju.autopos.repository.RepositoryPackage;
-import io.koju.autopos.kernel.domain.AbstractEntity;
 import io.koju.autopos.shared.domain.SharedDomainPackage;
 import io.koju.autopos.shared.service.SharedServicePackage;
+import io.koju.autopos.trade.domain.TradeDomainPackage;
+import io.koju.autopos.trade.service.TradeServicePackage;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.user.service.UserServicePackage;
 import liquibase.integration.spring.SpringLiquibase;
@@ -45,7 +47,8 @@ import java.util.Arrays;
         CatalogServicePackage.class,
         UserServicePackage.class,
         AccountingServicePackage.class,
-        PartyServicePackage.class})
+        PartyServicePackage.class,
+        TradeServicePackage.class})
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = {
         AbstractEntity.class,
@@ -55,7 +58,8 @@ import java.util.Arrays;
         User.class,
         Item.class,
         AccountingDomainPackage.class,
-        PartyDomainPackage.class})
+        PartyDomainPackage.class,
+        TradeDomainPackage.class})
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);

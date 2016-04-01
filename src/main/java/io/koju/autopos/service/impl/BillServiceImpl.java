@@ -1,8 +1,8 @@
 package io.koju.autopos.service.impl;
 
 import io.koju.autopos.service.BillService;
-import io.koju.autopos.domain.Bill;
-import io.koju.autopos.repository.BillRepository;
+import io.koju.autopos.trade.domain.Bill;
+import io.koju.autopos.trade.service.BillRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing Bill.

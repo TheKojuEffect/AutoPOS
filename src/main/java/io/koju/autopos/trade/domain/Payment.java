@@ -1,4 +1,4 @@
-package io.koju.autopos.domain;
+package io.koju.autopos.trade.domain;
 
 import io.koju.autopos.party.domain.Vendor;
 import org.hibernate.annotations.Cache;

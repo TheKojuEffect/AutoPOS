@@ -1,8 +1,10 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.trade.web;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.Receipt;
-import io.koju.autopos.repository.ReceiptRepository;
+import io.koju.autopos.trade.domain.Receipt;
+import io.koju.autopos.trade.service.ReceiptRepository;
+import io.koju.autopos.trade.web.ReceiptResource;
+import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

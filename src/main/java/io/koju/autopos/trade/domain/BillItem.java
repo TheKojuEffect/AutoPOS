@@ -1,4 +1,4 @@
-package io.koju.autopos.domain;
+package io.koju.autopos.trade.domain;
 
 import io.koju.autopos.catalog.domain.Item;
 import org.hibernate.annotations.Cache;

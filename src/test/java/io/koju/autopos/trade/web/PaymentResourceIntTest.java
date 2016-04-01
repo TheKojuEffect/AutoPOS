@@ -1,8 +1,10 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.trade.web;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.Payment;
-import io.koju.autopos.repository.PaymentRepository;
+import io.koju.autopos.trade.domain.Payment;
+import io.koju.autopos.trade.service.PaymentRepository;
+import io.koju.autopos.trade.web.PaymentResource;
+import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

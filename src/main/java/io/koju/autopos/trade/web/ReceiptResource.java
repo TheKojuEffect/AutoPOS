@@ -1,8 +1,8 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.trade.web;
 
 import com.codahale.metrics.annotation.Timed;
-import io.koju.autopos.domain.Receipt;
-import io.koju.autopos.repository.ReceiptRepository;
+import io.koju.autopos.trade.domain.Receipt;
+import io.koju.autopos.trade.service.ReceiptRepository;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
