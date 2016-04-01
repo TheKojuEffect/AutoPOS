@@ -34,12 +34,17 @@
         <sqlFile path="sql/customer_table.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
     </changeSet>
 
+    <changeSet id="POS-15" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sqlFile path="sql/vehicle_table.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
+    </changeSet>
+
     <changeSet id="POS-14" author="kplx2.0@gmail.com" dbms="postgresql">
         <sqlFile path="sql/vendor_table.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
     </changeSet>
 
+
+
     <include file="classpath:config/liquibase/changelog/20160209141843_added_entity_PriceHistory.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160209151302_added_entity_Vehicle.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209154002_added_entity_Receipt.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209154439_added_entity_Payment.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209160001_added_entity_Bill.xml" relativeToChangelogFile="false"/>

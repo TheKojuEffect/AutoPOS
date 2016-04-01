@@ -3,7 +3,6 @@ package io.koju.autopos.party.web;
 import io.koju.autopos.Application;
 import io.koju.autopos.party.domain.Vehicle;
 import io.koju.autopos.party.service.VehicleRepository;
-import io.koju.autopos.party.web.VehicleResource;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,13 +38,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test class for the VehicleResource REST controller.
  *
- * @see VehicleResource
+ * @see VehicleApi
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-public class VehicleResourceIntTest {
+public class VehicleApiIntTest {
 
     private static final String DEFAULT_NUMBER = "A";
     private static final String UPDATED_NUMBER = "B";
@@ -68,9 +67,9 @@ public class VehicleResourceIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        VehicleResource vehicleResource = new VehicleResource();
-        ReflectionTestUtils.setField(vehicleResource, "vehicleRepository", vehicleRepository);
-        this.restVehicleMockMvc = MockMvcBuilders.standaloneSetup(vehicleResource)
+        VehicleApi vehicleApi = new VehicleApi(vehicleRepository);
+        ReflectionTestUtils.setField(vehicleApi, "vehicleRepository", vehicleRepository);
+        this.restVehicleMockMvc = MockMvcBuilders.standaloneSetup(vehicleApi)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
     }

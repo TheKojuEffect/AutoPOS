@@ -52,7 +52,7 @@
             }
         })
         .state('vehicle-detail', {
-            parent: 'entity',
+            parent: 'party',
             url: '/vehicle/{id}',
             data: {
                 authorities: ['ROLE_USER'],
