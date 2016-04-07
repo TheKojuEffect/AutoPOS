@@ -39,7 +39,7 @@ apply plugin: 'net.ltgt.apt'
 defaultTasks 'bootRun'
 
 bootRepackage {
-   mainClass = 'io.koju.autopos.Application'
+    mainClass = 'io.koju.autopos.Application'
 }
 
 war {
@@ -64,6 +64,7 @@ querydsl {
 idea {
     module {
         generatedSourceDirs += file('src/querydsl/java')
+        excludeDirs += file('node_modules')
     }
 }
 
@@ -120,7 +121,7 @@ dependencies {
     compile group: 'io.dropwizard.metrics', name: 'metrics-jvm', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-servlet', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-json', version: dropwizard_metrics_version
-    compile (group: 'io.dropwizard.metrics', name: 'metrics-servlets', version: dropwizard_metrics_version) {
+    compile(group: 'io.dropwizard.metrics', name: 'metrics-servlets', version: dropwizard_metrics_version) {
         exclude(module: 'metrics-healthchecks')
     }
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-json-org', version: jackson_version
@@ -130,7 +131,7 @@ dependencies {
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: jackson_version
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jackson_version
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_version
-    compile (group: 'com.ryantenney.metrics', name: 'metrics-spring', version: metrics_spring_version) {
+    compile(group: 'com.ryantenney.metrics', name: 'metrics-spring', version: metrics_spring_version) {
         exclude(module: 'metrics-core')
         exclude(module: 'metrics-healthchecks')
     }
@@ -144,7 +145,7 @@ dependencies {
     compile group: 'org.apache.geronimo.javamail', name: 'geronimo-javamail_1.4_mail', version: geronimo_javamail_1_4_mail_version
     compile group: 'org.hibernate', name: 'hibernate-core'
 
-    compile (group: 'org.hibernate', name: 'hibernate-ehcache') {
+    compile(group: 'org.hibernate', name: 'hibernate-ehcache') {
         exclude(module: 'ehcache-core')
     }
     compile group: 'org.hibernate', name: 'hibernate-envers'
@@ -182,7 +183,7 @@ dependencies {
     testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: awaility_version
     testCompile group: 'com.jayway.jsonpath', name: 'json-path'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-	  testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_core_version
+    testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_core_version
     testCompile group: 'junit', name: 'junit'
     testCompile group: 'org.mockito', name: 'mockito-core'
     testCompile group: 'com.mattbertolini', name: 'liquibase-slf4j', version: liquibase_slf4j_version
