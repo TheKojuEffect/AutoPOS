@@ -1,8 +1,10 @@
-package io.koju.autopos.web.rest;
+package io.koju.autopos.party.web;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.domain.LedgerEntry;
-import io.koju.autopos.repository.LedgerEntryRepository;
+import io.koju.autopos.party.domain.LedgerEntry;
+import io.koju.autopos.party.service.LedgerEntryRepository;
+import io.koju.autopos.party.web.LedgerEntryResource;
+import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

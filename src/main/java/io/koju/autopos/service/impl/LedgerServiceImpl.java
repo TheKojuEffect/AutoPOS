@@ -1,8 +1,8 @@
 package io.koju.autopos.service.impl;
 
 import io.koju.autopos.service.LedgerService;
-import io.koju.autopos.domain.Ledger;
-import io.koju.autopos.repository.LedgerRepository;
+import io.koju.autopos.party.domain.Ledger;
+import io.koju.autopos.party.service.LedgerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing Ledger.

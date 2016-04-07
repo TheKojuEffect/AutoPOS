@@ -10,15 +10,15 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('ledger-entry', {
-            parent: 'entity',
+            parent: 'party',
             url: '/ledger-entry?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.ledgerEntry.home.title'
             },
             views: {
-                'content@': {
-                    templateUrl: 'app/entities/ledger-entry/ledger-entries.html',
+                'content-tab': {
+                    templateUrl: 'app/party/ledger-entry/ledger-entries.html',
                     controller: 'LedgerEntryController',
                     controllerAs: 'vm'
                 }
@@ -52,15 +52,15 @@
             }
         })
         .state('ledger-entry-detail', {
-            parent: 'entity',
+            parent: 'party',
             url: '/ledger-entry/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.ledgerEntry.detail.title'
             },
             views: {
-                'content@': {
-                    templateUrl: 'app/entities/ledger-entry/ledger-entry-detail.html',
+                'content-tab': {
+                    templateUrl: 'app/party/ledger-entry/ledger-entry-detail.html',
                     controller: 'LedgerEntryDetailController',
                     controllerAs: 'vm'
                 }
@@ -83,7 +83,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/ledger-entry/ledger-entry-dialog.html',
+                    templateUrl: 'app/party/ledger-entry/ledger-entry-dialog.html',
                     controller: 'LedgerEntryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -117,7 +117,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/ledger-entry/ledger-entry-dialog.html',
+                    templateUrl: 'app/party/ledger-entry/ledger-entry-dialog.html',
                     controller: 'LedgerEntryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -142,7 +142,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/ledger-entry/ledger-entry-delete-dialog.html',
+                    templateUrl: 'app/party/ledger-entry/ledger-entry-delete-dialog.html',
                     controller: 'LedgerEntryDeleteController',
                     controllerAs: 'vm',
                     size: 'md',

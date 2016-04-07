@@ -1,10 +1,8 @@
 package io.koju.autopos.service;
 
-import io.koju.autopos.domain.Ledger;
+import io.koju.autopos.party.domain.Ledger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 /**
  * Service Interface for managing Ledger.
