@@ -9,12 +9,3 @@ CREATE TABLE customer (
   created_by         BIGINT REFERENCES users (id)  NOT NULL,
   last_modified_by   BIGINT REFERENCES users (id)  NOT NULL
 );
-
-
-CREATE TABLE customer_phone (
-  customer_id BIGINT REFERENCES customer (id),
-  phone_id    BIGINT REFERENCES phone (id),
-  CONSTRAINT customer_phone_pkey PRIMARY KEY (customer_id, phone_id)
-)
-
-

@@ -9,12 +9,3 @@ CREATE TABLE vendor (
   created_by         BIGINT REFERENCES users (id)  NOT NULL,
   last_modified_by   BIGINT REFERENCES users (id)  NOT NULL
 );
-
-
-CREATE TABLE vendor_phone (
-  vendor_id BIGINT REFERENCES vendor (id),
-  phone_id    BIGINT REFERENCES phone (id),
-  CONSTRAINT vendor_phone_pkey PRIMARY KEY (vendor_id, phone_id)
-)
-
-

@@ -93,7 +93,6 @@
                             return {
                                 name: null,
                                 remarks: null,
-                                phoneNumbers: null,
                                 id: null
                             };
                         }

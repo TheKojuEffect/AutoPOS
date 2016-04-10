@@ -1,18 +1,16 @@
 package io.koju.autopos.party.domain;
 
 import io.koju.autopos.kernel.domain.AuditableBaseEntity;
-import io.koju.autopos.shared.domain.Phone;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,7 +18,6 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -44,11 +41,5 @@ public class Customer extends AuditableBaseEntity {
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
-
-    @OneToMany(cascade = ALL)
-    @JoinTable(name = "customer_phone",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "phone_id"))
-    private List<Phone> phones = new ArrayList<>();
 
 }
