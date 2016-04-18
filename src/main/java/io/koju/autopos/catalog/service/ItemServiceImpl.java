@@ -1,6 +1,6 @@
 package io.koju.autopos.catalog.service;
 
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.Predicate;
 import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.domain.QItem;
 import io.koju.autopos.catalog.struct.filter.ItemFilter;

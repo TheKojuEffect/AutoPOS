@@ -1,7 +1,7 @@
 package io.koju.autopos.kernel.struct.filter;
 
-import com.mysema.query.types.Path;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.Path;
+import com.querydsl.core.types.Predicate;
 
 public abstract class FilterParam<T, P extends Path<T>> {
 

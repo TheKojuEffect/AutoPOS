@@ -1,7 +1,7 @@
 package io.koju.autopos.catalog.struct.filter;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.domain.QItem;
 import io.koju.autopos.kernel.struct.filter.FilterRequest;

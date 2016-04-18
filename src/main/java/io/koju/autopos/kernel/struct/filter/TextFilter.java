@@ -1,7 +1,8 @@
 package io.koju.autopos.kernel.struct.filter;
 
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.path.StringPath;
+
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.StringPath;
 
 public class TextFilter extends FilterParam<String, StringPath> {
 

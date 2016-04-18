@@ -2,11 +2,12 @@ package io.koju.autopos;
 
 import io.koju.autopos.config.Constants;
 import io.koju.autopos.config.JHipsterProperties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.autoconfigure.*;
+import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,8 +16,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,7 +27,7 @@ public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-    @Inject
+    @Autowired
     private Environment env;
 
     /**
@@ -59,18 +58,20 @@ public class Application {
      * @throws UnknownHostException if the local host name could not be resolved into an address
      */
     public static void main(String[] args) throws UnknownHostException {
-        SpringApplication app = new SpringApplication(Application.class);
-        SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
-        addDefaultProfile(app, source);
-        Environment env = app.run(args).getEnvironment();
-        log.info("\n----------------------------------------------------------\n\t" +
-                        "Application '{}' is running! Access URLs:\n\t" +
-                        "Local: \t\thttp://127.0.0.1:{}\n\t" +
-                        "External: \thttp://{}:{}\n----------------------------------------------------------",
-                env.getProperty("spring.application.name"),
-                env.getProperty("server.port"),
-                InetAddress.getLocalHost().getHostAddress(),
-                env.getProperty("server.port"));
+
+        SpringApplication.run(Application.class);
+//        SpringApplication app = new SpringApplication(Application.class);
+//        SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
+//        addDefaultProfile(app, source);
+//        Environment env = app.run(args).getEnvironment();
+//        log.info("\n----------------------------------------------------------\n\t" +
+//                        "Application '{}' is running! Access URLs:\n\t" +
+//                        "Local: \t\thttp://127.0.0.1:{}\n\t" +
+//                        "External: \thttp://{}:{}\n----------------------------------------------------------",
+//                env.getProperty("spring.application.name"),
+//                env.getProperty("server.port"),
+//                InetAddress.getLocalHost().getHostAddress(),
+//                env.getProperty("server.port"));
 
     }
 

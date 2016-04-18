@@ -1,7 +1,8 @@
 package io.koju.autopos.kernel.struct.filter;
 
-import com.mysema.query.types.Predicate;
-import com.mysema.query.types.path.EntityPathBase;
+
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.EntityPathBase;
 
 public interface FilterRequest<T, B extends EntityPathBase<T>> {
 

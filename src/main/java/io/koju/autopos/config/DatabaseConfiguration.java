@@ -1,7 +1,6 @@
 package io.koju.autopos.config;
 
 import com.codahale.metrics.MetricRegistry;
-import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 import com.zaxxer.hikari.HikariDataSource;
 import io.koju.autopos.accounting.domain.AccountingDomainPackage;
 import io.koju.autopos.accounting.service.AccountingServicePackage;
@@ -117,8 +116,4 @@ public class DatabaseConfiguration {
         return liquibase;
     }
 
-    @Bean
-    public Hibernate4Module hibernate4Module() {
-        return new Hibernate4Module();
-    }
 }
