@@ -20,6 +20,23 @@
                     </a>
                 </li>
 
+
+                <li ng-class="{active: vm.$state.includes('sale')}" ng-switch-when="true">
+                    <a ui-sref="sale-invoice">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>
+                        <span class="hidden-sm">Sales</span>
+                    </a>
+                </li>
+
+
+                <li ng-class="{active: vm.$state.includes('purchase')}" ng-switch-when="true">
+                    <a ui-sref="customer">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <span class="hidden-sm">Purchases</span>
+                    </a>
+                </li>
+
+
                 <li ng-class="{active: vm.$state.includes('party')}" ng-switch-when="true">
                     <a ui-sref="customer">
                         <span class="glyphicon glyphicon-king"></span>
