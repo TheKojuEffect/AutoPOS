@@ -1,6 +1,8 @@
 package io.koju.autopos.trade.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import io.koju.autopos.kernel.domain.AuditableBaseEntity;
+import io.koju.autopos.kernel.web.View;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +23,7 @@ public abstract class Invoice<T extends InvoiceLine> extends AuditableBaseEntity
 
     @NotNull
     @Column(name = "date", nullable = false)
+    @JsonView(View.Summary.class)
     private LocalDateTime date;
 
     @OneToMany
@@ -49,6 +52,7 @@ public abstract class Invoice<T extends InvoiceLine> extends AuditableBaseEntity
     @NotNull
     @Min(value = 0)
     @Column(name = "grand_total", precision = 10, scale = 2, nullable = false)
+    @JsonView(View.Summary.class)
     private BigDecimal grandTotal;
 
     @Size(max = 250)

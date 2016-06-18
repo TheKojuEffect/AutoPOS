@@ -16,6 +16,8 @@ import io.koju.autopos.repository.RepositoryPackage;
 import io.koju.autopos.shared.domain.SharedDomainPackage;
 import io.koju.autopos.shared.service.SharedServicePackage;
 import io.koju.autopos.trade.domain.TradeDomainPackage;
+import io.koju.autopos.trade.sale.domain.SaleDomainPackage;
+import io.koju.autopos.trade.sale.service.SaleServicePackage;
 import io.koju.autopos.trade.service.TradeServicePackage;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.user.service.UserServicePackage;
@@ -48,7 +50,8 @@ import java.util.Arrays;
         UserServicePackage.class,
         AccountingServicePackage.class,
         PartyServicePackage.class,
-        TradeServicePackage.class})
+        TradeServicePackage.class,
+        SaleServicePackage.class})
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = {
         AbstractEntity.class,
@@ -59,7 +62,8 @@ import java.util.Arrays;
         Item.class,
         AccountingDomainPackage.class,
         PartyDomainPackage.class,
-        TradeDomainPackage.class})
+        TradeDomainPackage.class,
+        SaleDomainPackage.class})
 public class DatabaseConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
