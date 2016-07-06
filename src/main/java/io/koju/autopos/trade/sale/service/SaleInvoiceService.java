@@ -8,4 +8,5 @@ public interface SaleInvoiceService {
 
     Page<SaleInvoice> findAll(Pageable pageable);
 
+    Page<SaleInvoice> getPendingSaleInvoices(Pageable pageable);
 }

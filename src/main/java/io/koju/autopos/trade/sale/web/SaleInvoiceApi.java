@@ -1,6 +1,8 @@
 package io.koju.autopos.trade.sale.web;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.koju.autopos.kernel.web.View;
 import io.koju.autopos.trade.sale.domain.SaleInvoice;
 import io.koju.autopos.trade.sale.service.SaleInvoiceService;
 import io.koju.autopos.web.rest.util.PaginationUtil;
@@ -39,6 +41,16 @@ class SaleInvoiceApi {
         Page<SaleInvoice> page = saleInvoiceService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, API_SALE_INVOICES);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/pending", method = GET)
+    @JsonView(View.Summary.class)
+    @Timed
+    public ResponseEntity<List<SaleInvoice>> getPendingSales(Pageable pageable) throws URISyntaxException {
+        final Page<SaleInvoice> pendingSales = saleInvoiceService.getPendingSaleInvoices(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(pendingSales, API_SALE_INVOICES + "/pending");
+        return new ResponseEntity<>(pendingSales.getContent(), headers, HttpStatus.OK);
     }
 
 }

@@ -2,16 +2,21 @@ package io.koju.autopos.trade.sale.domain;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import io.koju.autopos.kernel.web.View;
+import io.koju.autopos.party.domain.Vehicle;
 import io.koju.autopos.trade.domain.Invoice;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Optional;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
@@ -30,12 +35,27 @@ public class SaleInvoice extends Invoice<SaleInvoiceLine> {
     @JsonView(View.Summary.class)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
+
+    @Column(name = "buyer")
+    private String buyer;
+
     @Enumerated(STRING)
     private Status status;
 
     @Override
     public Long getId() {
         return id;
+    }
+
+    public String getClient() {
+        return getVehicle().map(Vehicle::getNumber).orElse(buyer);
+    }
+
+    public Optional<Vehicle> getVehicle() {
+        return Optional.ofNullable(vehicle);
     }
 
     public enum Status {
