@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class InvoiceLine extends AuditableBaseEntity {
+public abstract class LineItem extends AuditableBaseEntity {
 
     @NotNull
     @Column(name = "date", nullable = false)

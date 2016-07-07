@@ -3,7 +3,7 @@ package io.koju.autopos.trade.sale.domain;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.koju.autopos.kernel.web.View;
 import io.koju.autopos.party.domain.Vehicle;
-import io.koju.autopos.trade.domain.Invoice;
+import io.koju.autopos.trade.domain.Trade;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,20 +14,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
-@Table(name = "sale_invoice")
+@Table(name = "sale")
 @Getter
 @Setter
-public class SaleInvoice extends Invoice<SaleInvoiceLine> {
+public class Sale extends Trade {
 
-    private static final String ID_SEQ = "sale_invoice_id_seq";
+    private static final String ID_SEQ = "sale_id_seq";
 
     @Id
     @SequenceGenerator(name = ID_SEQ, sequenceName = ID_SEQ, allocationSize = 1)
@@ -41,6 +44,9 @@ public class SaleInvoice extends Invoice<SaleInvoiceLine> {
 
     @Column(name = "buyer")
     private String buyer;
+
+    @OneToMany(mappedBy = "sale")
+    private List<SaleLine> lines = new ArrayList<>();
 
     @Enumerated(STRING)
     private Status status;

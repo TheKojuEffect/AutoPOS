@@ -1,6 +1,6 @@
 package io.koju.autopos.trade.purchase.domain;
 
-import io.koju.autopos.trade.domain.InvoiceLine;
+import io.koju.autopos.trade.domain.Trade;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,12 +13,13 @@ import javax.persistence.Table;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
-@Table(name = "purchase_invoice_line")
+@Table(name = "purchase")
 @Getter
 @Setter
-public class PurchaseInvoiceLine extends InvoiceLine {
+public class Purchase extends Trade {
 
-    private static final String ID_SEQ = "purchase_invoice_line_id_seq";
+
+    private static final String ID_SEQ = "purchase_id_seq";
 
     @Id
     @SequenceGenerator(name = ID_SEQ, sequenceName = ID_SEQ, allocationSize = 1)
