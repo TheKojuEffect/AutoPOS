@@ -1,8 +1,6 @@
 package io.koju.autopos.trade.sale.web;
 
 import com.codahale.metrics.annotation.Timed;
-import com.fasterxml.jackson.annotation.JsonView;
-import io.koju.autopos.kernel.web.View;
 import io.koju.autopos.trade.sale.domain.Sale;
 import io.koju.autopos.trade.sale.service.SaleService;
 import io.koju.autopos.web.rest.util.PaginationUtil;
@@ -12,7 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedCaseInsensitiveMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URISyntaxException;
@@ -36,21 +38,11 @@ class SaleApi {
 
     @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Sale>> getAllSales(Pageable pageable)
+    public ResponseEntity<List<Sale>> getAllSales(@RequestParam("status") Sale.Status status, Pageable pageable)
             throws URISyntaxException {
-        Page<Sale> page = saleService.findAll(pageable);
+        Page<Sale> page = saleService.getSalesWithStatus(status, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, API_SALES);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
-
-    @RequestMapping(value = "/pending", method = GET)
-    @JsonView(View.Summary.class)
-    @Timed
-    public ResponseEntity<List<Sale>> getPendingSales(Pageable pageable) throws URISyntaxException {
-        final Page<Sale> pendingSales = saleService.getPendingSales(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(pendingSales, API_SALES + "/pending");
-        return new ResponseEntity<>(pendingSales.getContent(), headers, HttpStatus.OK);
     }
 
 }

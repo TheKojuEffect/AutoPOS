@@ -8,6 +8,7 @@ CREATE TABLE sale (
   taxable_amount     NUMERIC(10, 2) DEFAULT 0             NOT NULL,
   grand_total        NUMERIC(10, 2)                       NOT NULL,
   vehicle_id         BIGINT REFERENCES vehicle (id),
+  status             VARCHAR(15)                          NOT NULL,
   remarks            VARCHAR(250),
 
   opt_lock           BIGINT                               NOT NULL,
