@@ -1,0 +1,8 @@
+{
+  "autopos": {
+    "sales": {
+      "pendingSales": "Pending Sales",
+      "completedSales": "Completed Sales"
+    }
+  }
+}
