@@ -9,6 +9,30 @@
             .state('sales', {
                 abstract: true,
                 parent: 'app',
+                resolve: {
+                    translatePartialLoader: function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('sales');
+                        $translatePartialLoader.addPart('global');
+                        return $translate.refresh();
+                    }
+                }
+            })
+            .state('sales.new', {
+                parent: 'sales',
+                url: '/sales/new',
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'autopos.sales.newSale'
+                },
+                views: {
+                    'content@': {
+                        template: '<h2>New Sale Interface</h2>'
+                    }
+                }
+            })
+            .state('sales.list', {
+                abstract: true,
+                parent: 'sales',
                 views: {
                     'content@': {
                         templateUrl: 'app/sales/sales.html',
@@ -17,7 +41,7 @@
                 }
             })
             .state('sales.pending', {
-                parent: 'sales',
+                parent: 'sales.list',
                 url: '/sales/pending?page&sort&search',
                 data: {
                     authorities: ['ROLE_USER'],
@@ -45,7 +69,7 @@
                     saleStatus: function () {
                         return 'PENDING';
                     },
-                    pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
+                    pagingParams: function ($stateParams, PaginationUtil) {
                         return {
                             page: PaginationUtil.parsePage($stateParams.page),
                             sort: $stateParams.sort,
@@ -53,16 +77,11 @@
                             ascending: PaginationUtil.parseAscending($stateParams.sort),
                             search: $stateParams.search
                         };
-                    }],
-                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('sales');
-                        $translatePartialLoader.addPart('global');
-                        return $translate.refresh();
-                    }]
+                    }
                 }
             })
             .state('sales.completed', {
-                parent: 'sales',
+                parent: 'sales.list',
                 url: '/sales/completed?page&sort&search',
                 data: {
                     authorities: ['ROLE_USER'],
@@ -98,11 +117,6 @@
                             ascending: PaginationUtil.parseAscending($stateParams.sort),
                             search: $stateParams.search
                         };
-                    },
-                    translatePartialLoader: function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('sales');
-                        $translatePartialLoader.addPart('global');
-                        return $translate.refresh();
                     }
                 }
             });
