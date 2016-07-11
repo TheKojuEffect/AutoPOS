@@ -26,7 +26,7 @@
                 },
                 views: {
                     'content@': {
-                        template: '<h2>New Sale Interface</h2>'
+                        templateUrl: 'app/sales/salePanel.html'
                     }
                 }
             })
