@@ -28,6 +28,13 @@
                     'content@': {
                         templateUrl: 'app/sales/salePanel.html'
                     }
+                },
+                resolve: {
+                    translatePartialLoader: function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('saleLine');
+                        $translatePartialLoader.addPart('global');
+                        return $translate.refresh();
+                    }
                 }
             })
             .state('sales.list', {

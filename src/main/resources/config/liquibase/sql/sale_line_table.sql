@@ -5,7 +5,6 @@ CREATE TABLE sale_line (
   item_id            BIGINT REFERENCES item (id)          NOT NULL,
   quantity           INT                                  NOT NULL  CHECK (quantity > 0),
   rate               NUMERIC(10, 2)                       NOT NULL  CHECK (rate > 0),
-  amount             NUMERIC(10, 2)                       NOT NULL  CHECK (amount > 0),
   buyer              VARCHAR(250)                         NOT NULL,
   remarks            VARCHAR(250),
 

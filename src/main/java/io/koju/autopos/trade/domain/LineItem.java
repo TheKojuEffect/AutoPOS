@@ -13,16 +13,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Getter
 @Setter
 public abstract class LineItem extends AuditableBaseEntity {
-
-    @NotNull
-    @Column(name = "date", nullable = false)
-    private LocalDateTime date;
 
     @NotNull
     @ManyToOne(optional = false)
@@ -38,11 +33,6 @@ public abstract class LineItem extends AuditableBaseEntity {
     @Min(value = 0)
     @Column(name = "rate", precision = 10, scale = 2, nullable = false)
     private BigDecimal rate;
-
-    @NotNull
-    @Min(value = 0)
-    @Column(name = "amount", precision = 10, scale = 2, nullable = false)
-    private BigDecimal amount;
 
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
