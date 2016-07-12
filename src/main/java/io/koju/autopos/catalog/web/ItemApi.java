@@ -13,12 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -27,10 +25,18 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping(ItemApi.API_ITEMS)
 @Slf4j
 public class ItemApi {
+
+    static final String API_ITEMS = "/api/items";
 
     private final ItemService itemService;
 
@@ -39,9 +45,7 @@ public class ItemApi {
         this.itemService = itemService;
     }
 
-    @RequestMapping(value = "/items",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = POST, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Item> createItem(@Valid @RequestBody Item item) throws URISyntaxException {
         log.debug("REST request to save Item : {}", item);
@@ -49,14 +53,12 @@ public class ItemApi {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("item", "idexists", "A new item cannot already have an ID")).body(null);
         }
         Item result = itemService.save(item);
-        return ResponseEntity.created(new URI("/api/items/" + result.getId()))
+        return ResponseEntity.created(new URI(API_ITEMS + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("item", ItemCodeUtil.getCode(result.getId())))
                 .body(result);
     }
 
-    @RequestMapping(value = "/items",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = PUT, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Item> updateItem(@Valid @RequestBody Item item) throws URISyntaxException {
         log.debug("REST request to update Item : {}", item);
@@ -69,22 +71,18 @@ public class ItemApi {
                 .body(result);
     }
 
-    @RequestMapping(value = "/items",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<Item>> getAllItems(Pageable pageable, ItemFilter itemFilter)
             throws URISyntaxException {
         log.debug("REST request to get a page of Items");
         Page<Item> page = itemService.findAll(itemFilter, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, API_ITEMS);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/items/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Item> getItem(@PathVariable Long id) {
         log.debug("REST request to get Item : {}", id);
@@ -96,9 +94,7 @@ public class ItemApi {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/items/{id}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         log.debug("REST request to delete Item : {}", id);

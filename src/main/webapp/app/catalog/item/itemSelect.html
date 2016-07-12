@@ -1,0 +1,15 @@
+<input type="text" ng-model="$ctrl.selectedItem"
+       uib-typeahead="item as $ctrl.itemTitle(item) for item in $ctrl.searchItem($viewValue)"
+       typeahead-min-length="2"
+       typeahead-loading="loadingItems"
+       typeahead-editable="false"
+       typeahead-wait-ms="500"
+       typeahead-no-results="noResults"
+       typeahead-on-select="$ctrl.onItemSelect($item)"
+       class="form-control">
+
+<i ng-show="loadingItems" class="glyphicon glyphicon-refresh"></i>
+
+<div ng-show="noResults">
+    <i class="glyphicon glyphicon-remove"></i> No Items Found
+</div>

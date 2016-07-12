@@ -6,26 +6,8 @@
         <form name="editForm" novalidate show-validation>
 
             <div class="form-group">
-                <label class="control-label" translate="autopos.saleLine.item" for="field_item">Item</label>
-                <input type="text" class="form-control" name="item" id="field_item"
-                       ng-model="vm.billItem.item"
-                       required ng-minlength="3" ng-maxlength="50"/>
-                <div ng-show="editForm.item.$invalid">
-                    <p class="help-block"
-                       ng-show="editForm.quantity.$error.required" translate="entity.validation.required">
-                        This field is required.
-                    </p>
-                    <p class="help-block"
-                       ng-show="editForm.item.$error.minlength" translate="entity.validation.minlength"
-                       translate-value-min="3">
-                        This field is required to be at least 3 characters.
-                    </p>
-                    <p class="help-block"
-                       ng-show="editForm.item.$error.maxlength" translate="entity.validation.maxlength"
-                       translate-value-max="50">
-                        This field cannot be longer than 50 characters.
-                    </p>
-                </div>
+                <label class="control-label" translate="autopos.saleLine.item">Item</label>
+                <item-select on-select="$ctrl.itemSelected(item)"></item-select>
             </div>
 
             <div class="form-group">

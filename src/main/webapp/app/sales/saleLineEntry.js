@@ -16,6 +16,10 @@
         ctrl.openCalendar = function (date) {
             ctrl.datePickerOpenStatus[date] = true;
         };
+        
+        ctrl.itemSelected = function(item) {
+            console.log(item);
+        }
     }
 
 })();
