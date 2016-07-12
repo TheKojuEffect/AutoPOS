@@ -30,12 +30,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 @Slf4j
-public class ItemResource {
+public class ItemApi {
 
     private final ItemService itemService;
 
     @Autowired
-    ItemResource(ItemService itemService) {
+    ItemApi(ItemService itemService) {
         this.itemService = itemService;
     }
 

@@ -37,13 +37,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test class for the ItemResource REST controller.
  *
- * @see ItemResource
+ * @see ItemApi
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest
-public class ItemResourceIntTest {
+public class ItemApiIntTest {
 
     private static final String DEFAULT_CODE = "A";
     private static final String UPDATED_CODE = "B";
@@ -76,9 +76,9 @@ public class ItemResourceIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ItemResource itemResource = new ItemResource(null);
-        ReflectionTestUtils.setField(itemResource, "itemService", itemService);
-        this.restItemMockMvc = MockMvcBuilders.standaloneSetup(itemResource)
+        ItemApi itemApi = new ItemApi(null);
+        ReflectionTestUtils.setField(itemApi, "itemService", itemService);
+        this.restItemMockMvc = MockMvcBuilders.standaloneSetup(itemApi)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
     }
