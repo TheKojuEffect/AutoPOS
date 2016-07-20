@@ -7,16 +7,17 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath group: 'net.ltgt.gradle', name: 'gradle-apt-plugin', version: '0.6'
-        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.4.0.M2'
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.4.0.RC1'
         classpath group: 'org.springframework.build.gradle', name: 'propdeps-plugin', version: '0.0.7'
-        classpath group: 'com.moowork.gradle', name: 'gradle-node-plugin', version: '0.12'
-        classpath group: 'com.moowork.gradle', name: 'gradle-gulp-plugin', version: '0.12'
     }
 }
 
 plugins {
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.6"
+    id "net.ltgt.apt" version "0.6"
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.7"
+    id "com.github.ben-manes.versions" version "0.13.0"
+    id "com.moowork.node" version "0.13"
+    id "com.moowork.gulp" version "0.13"
 }
 
 apply plugin: 'java'
@@ -215,10 +216,6 @@ compileJava.dependsOn(processResources)
 
 clean {
     delete "target"
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
 }
 
 task stage(dependsOn: 'bootRepackage') {
