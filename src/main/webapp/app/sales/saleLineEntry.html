@@ -1,0 +1,135 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Add Sale Entry</h3>
+    </div>
+    <div class="panel-body">
+        <form name="editForm" novalidate show-validation>
+
+            <div class="form-group">
+                <label class="control-label" translate="autopos.saleLine.item">Item</label>
+                <item-select on-select="$ctrl.itemSelected(item)"></item-select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" translate="autopos.saleLine.quantity" for="field_quantity">Quantity</label>
+                <input type="number" class="form-control" name="quantity" id="field_quantity"
+                       ng-model="vm.billItem.quantity"
+                       required min="1"/>
+                <div ng-show="editForm.quantity.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.quantity.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.quantity.$error.min" translate="entity.validation.min" translate-value-min="1">
+                        This field should be more than 1.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.quantity.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" translate="autopos.saleLine.rate" for="field_rate">Rate</label>
+                <input type="number" class="form-control" name="rate" id="field_rate"
+                       ng-model="vm.billItem.rate"
+                       required min="0"/>
+                <div ng-show="editForm.rate.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.rate.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.rate.$error.min" translate="entity.validation.min" translate-value-min="0">
+                        This field should be more than 0.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.rate.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" translate="autopos.saleLine.amount" for="field_amount">Amount</label>
+                <input type="number" class="form-control" name="amount" id="field_amount"
+                       ng-model="vm.billItem.amount"
+                       required min="0"/>
+                <div ng-show="editForm.amount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.min" translate="entity.validation.min" translate-value-min="0">
+                        This field should be more than 0.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" translate="autopos.saleLine.date" for="field_date">Date</label>
+                <div class="input-group">
+                    <input id="field_date" type="text" class="form-control" name="date"
+                           uib-datepicker-popup="{{dateformat}}" ng-model="vm.dayBookEntry.date"
+                           is-open="$ctrl.datePickerOpenStatus.date" datepicker-options="$ctrl.datePickerOptions"
+                           required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="$ctrl.openCalendar('date')"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+                <div ng-show="editForm.date.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.date.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" translate="autopos.saleLine.buyer" for="field_buyer">Buyer</label>
+                <input type="text" class="form-control" name="buyer" id="field_buyer"
+                          ng-model="vm.billItem.buyer"
+                          ng-maxlength="250">
+                <div ng-show="editForm.buyer.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.buyer.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="250">
+                        This field cannot be longer than 250 characters.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label" translate="autopos.saleLine.remarks" for="field_remarks">Remarks</label>
+                <textarea type="text" class="form-control" name="remarks" id="field_remarks"
+                          ng-model="vm.billItem.remarks"
+                          ng-maxlength="250"></textarea>
+                <div ng-show="editForm.remarks.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.remarks.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="250">
+                        This field cannot be longer than 250 characters.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group pull-right">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>Add Item</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

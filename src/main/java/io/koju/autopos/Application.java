@@ -2,9 +2,7 @@ package io.koju.autopos;
 
 import io.koju.autopos.config.Constants;
 import io.koju.autopos.config.JHipsterProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
@@ -23,11 +21,10 @@ import java.util.Collection;
 @ComponentScan
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class })
 @EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class })
+@Slf4j
 public class Application {
 
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
-
-    @Autowired
+    @Inject
     private Environment env;
 
     /**

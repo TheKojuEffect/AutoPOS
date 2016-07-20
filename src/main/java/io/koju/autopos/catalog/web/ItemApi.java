@@ -13,12 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -27,30 +25,27 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * REST controller for managing Item.
- */
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping(ItemApi.API_ITEMS)
 @Slf4j
-public class ItemResource {
+public class ItemApi {
+
+    static final String API_ITEMS = "/api/items";
 
     private final ItemService itemService;
 
     @Autowired
-    ItemResource(ItemService itemService) {
+    ItemApi(ItemService itemService) {
         this.itemService = itemService;
     }
-    /**
-     * POST  /items : Create a new item.
-     *
-     * @param item the item to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new item, or with status 400 (Bad Request) if the item has already an ID
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @RequestMapping(value = "/items",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(method = POST, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Item> createItem(@Valid @RequestBody Item item) throws URISyntaxException {
         log.debug("REST request to save Item : {}", item);
@@ -58,23 +53,12 @@ public class ItemResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("item", "idexists", "A new item cannot already have an ID")).body(null);
         }
         Item result = itemService.save(item);
-        return ResponseEntity.created(new URI("/api/items/" + result.getId()))
+        return ResponseEntity.created(new URI(API_ITEMS + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("item", ItemCodeUtil.getCode(result.getId())))
                 .body(result);
     }
 
-    /**
-     * PUT  /items : Updates an existing item.
-     *
-     * @param item the item to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated item,
-     * or with status 400 (Bad Request) if the item is not valid,
-     * or with status 500 (Internal Server Error) if the item couldnt be updated
-     * @throws URISyntaxException if the Location URI syntax is incorrect
-     */
-    @RequestMapping(value = "/items",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = PUT, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Item> updateItem(@Valid @RequestBody Item item) throws URISyntaxException {
         log.debug("REST request to update Item : {}", item);
@@ -87,34 +71,18 @@ public class ItemResource {
                 .body(result);
     }
 
-    /**
-     * GET  /items : get all the items.
-     *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of items in body
-     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
-     */
-    @RequestMapping(value = "/items",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<Item>> getAllItems(Pageable pageable, ItemFilter itemFilter)
-        throws URISyntaxException {
+            throws URISyntaxException {
         log.debug("REST request to get a page of Items");
         Page<Item> page = itemService.findAll(itemFilter, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, API_ITEMS);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
-    /**
-     * GET  /items/:id : get the "id" item.
-     *
-     * @param id the id of the item to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the item, or with status 404 (Not Found)
-     */
-    @RequestMapping(value = "/items/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Item> getItem(@PathVariable Long id) {
         log.debug("REST request to get Item : {}", id);
@@ -126,15 +94,7 @@ public class ItemResource {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * DELETE  /items/:id : delete the "id" item.
-     *
-     * @param id the id of the item to delete
-     * @return the ResponseEntity with status 200 (OK)
-     */
-    @RequestMapping(value = "/items/{id}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         log.debug("REST request to delete Item : {}", id);

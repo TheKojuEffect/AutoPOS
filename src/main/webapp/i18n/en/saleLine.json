@@ -1,0 +1,13 @@
+{
+  "autopos": {
+    "saleLine": {
+      "item": "Item",
+      "quantity": "Quantity",
+      "rate": "Rate",
+      "amount": "Amount",
+      "date": "Date",
+      "buyer": "Buyer",
+      "remarks": "Remarks"
+    }
+  }
+}

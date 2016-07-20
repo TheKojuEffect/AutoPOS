@@ -10,8 +10,8 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css"/>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
@@ -68,7 +68,30 @@
 <script src="app/account/reset/request/reset.request.controller.js"></script>
 <script src="app/account/reset/finish/reset.finish.state.js"></script>
 <script src="app/account/reset/finish/reset.finish.controller.js"></script>
-<script src="app/services/user/user.service.js"></script>
+<script src="app/trade/receipt/receipt.state.js"></script>
+<script src="app/trade/receipt/receipt.service.js"></script>
+<script src="app/trade/receipt/receipt.controller.js"></script>
+<script src="app/trade/receipt/receipt-dialog.controller.js"></script>
+<script src="app/trade/receipt/receipt-detail.controller.js"></script>
+<script src="app/trade/receipt/receipt-delete-dialog.controller.js"></script>
+<script src="app/trade/payment/payment.state.js"></script>
+<script src="app/trade/payment/payment.service.js"></script>
+<script src="app/trade/payment/payment.controller.js"></script>
+<script src="app/trade/payment/payment-dialog.controller.js"></script>
+<script src="app/trade/payment/payment-detail.controller.js"></script>
+<script src="app/trade/payment/payment-delete-dialog.controller.js"></script>
+<script src="app/trade/bill-item/bill-item.state.js"></script>
+<script src="app/trade/bill-item/bill-item.service.js"></script>
+<script src="app/trade/bill-item/bill-item.controller.js"></script>
+<script src="app/trade/bill-item/bill-item-dialog.controller.js"></script>
+<script src="app/trade/bill-item/bill-item-detail.controller.js"></script>
+<script src="app/trade/bill-item/bill-item-delete-dialog.controller.js"></script>
+<script src="app/trade/bill/bill.state.js"></script>
+<script src="app/trade/bill/bill.service.js"></script>
+<script src="app/trade/bill/bill.controller.js"></script>
+<script src="app/trade/bill/bill-dialog.controller.js"></script>
+<script src="app/trade/bill/bill-detail.controller.js"></script>
+<script src="app/trade/bill/bill-delete-dialog.controller.js"></script>
 <script src="app/services/auth/register.service.js"></script>
 <script src="app/services/auth/principal.service.js"></script>
 <script src="app/services/auth/password.service.js"></script>
@@ -80,58 +103,7 @@
 <script src="app/services/auth/auth.jwt.service.js"></script>
 <script src="app/services/auth/activate.service.js"></script>
 <script src="app/services/auth/account.service.js"></script>
-<script src="app/layouts/navbar/navbar.controller.js"></script>
-<script src="app/layouts/navbar/active-menu.directive.js"></script>
-<script src="app/layouts/navbar/active-link.directive.js"></script>
-<script src="app/layouts/error/error.state.js"></script>
-
-<script src="app/trade/trade.controller.js"></script>
-<script src="app/trade/trade.state.js"></script>
-
-
-<script src="app/trade/bill-item/bill-item.state.js"></script>
-<script src="app/trade/bill-item/bill-item.service.js"></script>
-<script src="app/trade/bill-item/bill-item.controller.js"></script>
-<script src="app/trade/bill-item/bill-item-dialog.controller.js"></script>
-<script src="app/trade/bill-item/bill-item-detail.controller.js"></script>
-<script src="app/trade/bill-item/bill-item-delete-dialog.controller.js"></script>
-
-<script src="app/trade/bill/bill.state.js"></script>
-<script src="app/trade/bill/bill.service.js"></script>
-<script src="app/trade/bill/bill.controller.js"></script>
-<script src="app/trade/bill/bill-dialog.controller.js"></script>
-<script src="app/trade/bill/bill-detail.controller.js"></script>
-<script src="app/trade/bill/bill-delete-dialog.controller.js"></script>
-
-<script src="app/trade/receipt/receipt.state.js"></script>
-<script src="app/trade/receipt/receipt.service.js"></script>
-<script src="app/trade/receipt/receipt.controller.js"></script>
-<script src="app/trade/receipt/receipt-dialog.controller.js"></script>
-<script src="app/trade/receipt/receipt-detail.controller.js"></script>
-<script src="app/trade/receipt/receipt-delete-dialog.controller.js"></script>
-
-<script src="app/trade/payment/payment.state.js"></script>
-<script src="app/trade/payment/payment.service.js"></script>
-<script src="app/trade/payment/payment.controller.js"></script>
-<script src="app/trade/payment/payment-dialog.controller.js"></script>
-<script src="app/trade/payment/payment-detail.controller.js"></script>
-<script src="app/trade/payment/payment-delete-dialog.controller.js"></script>
-
-<script src="app/accounting/day-book-entry/day-book-entry.state.js"></script>
-<script src="app/accounting/day-book-entry/day-book-entry.service.js"></script>
-<script src="app/accounting/day-book-entry/day-book-entry.controller.js"></script>
-<script src="app/accounting/day-book-entry/day-book-entry-dialog.controller.js"></script>
-<script src="app/accounting/day-book-entry/day-book-entry-detail.controller.js"></script>
-<script src="app/accounting/day-book-entry/day-book-entry-delete-dialog.controller.js"></script>
-
-<script src="app/party/party.js"></script>
-<script src="app/party/party.controller.js"></script>
-<script src="app/party/customer/customer.state.js"></script>
-<script src="app/party/customer/customer.service.js"></script>
-<script src="app/party/customer/customer.controller.js"></script>
-<script src="app/party/customer/customer-dialog.controller.js"></script>
-<script src="app/party/customer/customer-detail.controller.js"></script>
-<script src="app/party/customer/customer-delete-dialog.controller.js"></script>
+<script src="app/services/user/user.service.js"></script>
 <script src="app/party/vendor/vendor.state.js"></script>
 <script src="app/party/vendor/vendor.service.js"></script>
 <script src="app/party/vendor/vendor.controller.js"></script>
@@ -144,8 +116,6 @@
 <script src="app/party/vehicle/vehicle-dialog.controller.js"></script>
 <script src="app/party/vehicle/vehicle-detail.controller.js"></script>
 <script src="app/party/vehicle/vehicle-delete-dialog.controller.js"></script>
-
-
 <script src="app/party/ledger-entry/ledger-entry.state.js"></script>
 <script src="app/party/ledger-entry/ledger-entry.service.js"></script>
 <script src="app/party/ledger-entry/ledger-entry.controller.js"></script>
@@ -158,7 +128,16 @@
 <script src="app/party/ledger/ledger-dialog.controller.js"></script>
 <script src="app/party/ledger/ledger-detail.controller.js"></script>
 <script src="app/party/ledger/ledger-delete-dialog.controller.js"></script>
-
+<script src="app/party/customer/customer.state.js"></script>
+<script src="app/party/customer/customer.service.js"></script>
+<script src="app/party/customer/customer.controller.js"></script>
+<script src="app/party/customer/customer-dialog.controller.js"></script>
+<script src="app/party/customer/customer-detail.controller.js"></script>
+<script src="app/party/customer/customer-delete-dialog.controller.js"></script>
+<script src="app/layouts/navbar/navbar.controller.js"></script>
+<script src="app/layouts/navbar/active-menu.directive.js"></script>
+<script src="app/layouts/navbar/active-link.directive.js"></script>
+<script src="app/layouts/error/error.state.js"></script>
 <script src="app/components/util/truncate-words.filter.js"></script>
 <script src="app/components/util/truncate-characters.filter.js"></script>
 <script src="app/components/util/sort.directive.js"></script>
@@ -166,10 +145,10 @@
 <script src="app/components/util/parse-links.service.js"></script>
 <script src="app/components/util/pagination-util.service.js"></script>
 <script src="app/components/util/jhi-item-count.directive.js"></script>
+<script src="app/components/util/from-array-date.filter.js"></script>
 <script src="app/components/util/date-util.service.js"></script>
 <script src="app/components/util/data-util.service.js"></script>
 <script src="app/components/util/capitalize.filter.js"></script>
-<script src="app/components/util/from-array-date.filter.js"></script>
 <script src="app/components/util/base64.service.js"></script>
 <script src="app/components/login/login.service.js"></script>
 <script src="app/components/login/login.controller.js"></script>
@@ -198,18 +177,19 @@
 <script src="app/catalog/price-history/price-history-dialog.controller.js"></script>
 <script src="app/catalog/price-history/price-history-detail.controller.js"></script>
 <script src="app/catalog/price-history/price-history-delete-dialog.controller.js"></script>
-<script src="app/catalog/category/category.state.js"></script>
-<script src="app/catalog/category/category.service.js"></script>
-<script src="app/catalog/category/category.controller.js"></script>
-<script src="app/catalog/category/category-dialog.controller.js"></script>
-<script src="app/catalog/category/category-detail.controller.js"></script>
-<script src="app/catalog/category/category-delete-dialog.controller.js"></script>
+<script src="app/catalog/item/itemSelect.js"></script>
 <script src="app/catalog/item/item.state.js"></script>
 <script src="app/catalog/item/item.service.js"></script>
 <script src="app/catalog/item/item.controller.js"></script>
 <script src="app/catalog/item/item-dialog.controller.js"></script>
 <script src="app/catalog/item/item-detail.controller.js"></script>
 <script src="app/catalog/item/item-delete-dialog.controller.js"></script>
+<script src="app/catalog/category/category.state.js"></script>
+<script src="app/catalog/category/category.service.js"></script>
+<script src="app/catalog/category/category.controller.js"></script>
+<script src="app/catalog/category/category-dialog.controller.js"></script>
+<script src="app/catalog/category/category-detail.controller.js"></script>
+<script src="app/catalog/category/category-delete-dialog.controller.js"></script>
 <script src="app/catalog/brand/brand.state.js"></script>
 <script src="app/catalog/brand/brand.service.js"></script>
 <script src="app/catalog/brand/brand.controller.js"></script>
@@ -220,23 +200,23 @@
 <script src="app/blocks/interceptor/errorhandler.interceptor.js"></script>
 <script src="app/blocks/interceptor/auth.interceptor.js"></script>
 <script src="app/blocks/interceptor/auth-expired.interceptor.js"></script>
-<script src="app/admin/metrics/metrics.state.js"></script>
-<script src="app/admin/metrics/metrics.service.js"></script>
-<script src="app/admin/metrics/metrics.modal.controller.js"></script>
-<script src="app/admin/metrics/metrics.controller.js"></script>
 <script src="app/blocks/handlers/translation.handler.js"></script>
 <script src="app/blocks/handlers/state.handler.js"></script>
+<script src="app/admin/user-management/user-management.state.js"></script>
+<script src="app/admin/user-management/user-management.controller.js"></script>
+<script src="app/admin/user-management/user-management-dialog.controller.js"></script>
+<script src="app/admin/user-management/user-management-detail.controller.js"></script>
+<script src="app/admin/user-management/user-management-delete-dialog.controller.js"></script>
 <script src="app/blocks/config/translation.config.js"></script>
 <script src="app/blocks/config/translation-storage.provider.js"></script>
 <script src="app/blocks/config/localstorage.config.js"></script>
 <script src="app/blocks/config/http.config.js"></script>
 <script src="app/blocks/config/compile.config.js"></script>
 <script src="app/blocks/config/alert.config.js"></script>
-<script src="app/admin/user-management/user-management.state.js"></script>
-<script src="app/admin/user-management/user-management.controller.js"></script>
-<script src="app/admin/user-management/user-management-dialog.controller.js"></script>
-<script src="app/admin/user-management/user-management-detail.controller.js"></script>
-<script src="app/admin/user-management/user-management-delete-dialog.controller.js"></script>
+<script src="app/admin/metrics/metrics.state.js"></script>
+<script src="app/admin/metrics/metrics.service.js"></script>
+<script src="app/admin/metrics/metrics.modal.controller.js"></script>
+<script src="app/admin/metrics/metrics.controller.js"></script>
 <script src="app/admin/logs/logs.state.js"></script>
 <script src="app/admin/logs/logs.service.js"></script>
 <script src="app/admin/logs/logs.controller.js"></script>
@@ -251,6 +231,12 @@
 <script src="app/admin/audits/audits.state.js"></script>
 <script src="app/admin/audits/audits.service.js"></script>
 <script src="app/admin/audits/audits.controller.js"></script>
+<script src="app/accounting/day-book-entry/day-book-entry.state.js"></script>
+<script src="app/accounting/day-book-entry/day-book-entry.service.js"></script>
+<script src="app/accounting/day-book-entry/day-book-entry.controller.js"></script>
+<script src="app/accounting/day-book-entry/day-book-entry-dialog.controller.js"></script>
+<script src="app/accounting/day-book-entry/day-book-entry-detail.controller.js"></script>
+<script src="app/accounting/day-book-entry/day-book-entry-delete-dialog.controller.js"></script>
 <script src="app/account/settings/settings.state.js"></script>
 <script src="app/account/settings/settings.controller.js"></script>
 <script src="app/account/register/register.state.js"></script>
@@ -260,6 +246,21 @@
 <script src="app/account/password/password-strength-bar.directive.js"></script>
 <script src="app/account/activate/activate.state.js"></script>
 <script src="app/account/activate/activate.controller.js"></script>
+<script src="app/trade/trade.state.js"></script>
+<script src="app/trade/trade.controller.js"></script>
+<script src="app/sales/sales.state.js"></script>
+<script src="app/sales/sales.controller.js"></script>
+<script src="app/sales/salePanel.js"></script>
+<script src="app/sales/saleLineEntry.js"></script>
+<script src="app/sales/sale.service.js"></script>
+<script src="app/sales/sale-list.ctrl.js"></script>
+<script src="app/sales/sale-invoice.state.js"></script>
+<script src="app/sales/sale-dialog.controller.js"></script>
+<script src="app/sales/sale-detail.controller.js"></script>
+<script src="app/sales/sale-delete-dialog.controller.js"></script>
+<script src="app/sales/pending-sales.js"></script>
+<script src="app/party/party.js"></script>
+<script src="app/party/party.controller.js"></script>
 <script src="app/home/home.state.js"></script>
 <script src="app/home/home.controller.js"></script>
 <script src="app/catalog/catalog.js"></script>
