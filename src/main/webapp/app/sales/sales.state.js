@@ -26,7 +26,7 @@
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'app/sales/salePanel.html'
+                        template: '<sale-panel></sale-panel>'
                     }
                 },
                 resolve: {
