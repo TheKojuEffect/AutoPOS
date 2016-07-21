@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
