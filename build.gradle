@@ -7,16 +7,17 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath group: 'net.ltgt.gradle', name: 'gradle-apt-plugin', version: '0.6'
-        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.3.3.RELEASE'
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '1.3.6.RELEASE'
         classpath group: 'org.springframework.build.gradle', name: 'propdeps-plugin', version: '0.0.7'
-        classpath group: 'com.moowork.gradle', name: 'gradle-node-plugin', version: '0.12'
-        classpath group: 'com.moowork.gradle', name: 'gradle-gulp-plugin', version: '0.12'
     }
 }
 
 plugins {
+    id "net.ltgt.apt" version "0.6"
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.5"
+    id "com.github.ben-manes.versions" version "0.13.0"
+    id "com.moowork.node" version "0.13"
+    id "com.moowork.gulp" version "0.13"
 }
 
 apply plugin: 'java'
@@ -29,31 +30,22 @@ apply plugin: 'idea'
 apply plugin: 'net.ltgt.apt'
 
 ext {
-    queryDslVersion = '3.7.2'
-    lombokVersion = '1.16.8'
-    dropwizardMetricsVersion = '3.1.2'
+    queryDslVersion = '3.7.4'
+    lombokVersion = '1.16.10'
     assertj_core_version = '3.3.0'
     awaility_version = '1.7.0'
     commons_lang_version = '2.6'
-    commons_io_version = '2.4'
+    commons_io_version = '2.5'
     dropwizard_metrics_version = '3.1.2'
-    logstash_logback_encoder_version = '4.6'
     javax_inject_version = '1'
     javax_transaction_version = '1.2'
-    json_path_version = '0.9.1'
-    jackson_version = '2.6.3'
+    jackson_version = '2.7.5'
     jjwt_version = '0.6.0'
     geronimo_javamail_1_4_mail_version = '1.8.4'
-    hibernate_entitymanager_version = '4.3.11.Final'
-    HikariCP_version = '2.4.3'
-    liquibase_slf4j_version = '1.2.1'
-    liquibase_core_version = '3.4.2'
-    hibernate_validator_version = '5.2.1.Final'
+    liquibase_slf4j_version = '2.0.0'
     metrics_spark_reporter_version = '1.2'
-    metrics_spring_version = '3.1.2'
-    postgresql_version = '9.4-1203-jdbc42'
-    spring_security_version = '4.0.4.RELEASE'
-    springfox_version = '2.4.0'
+    metrics_spring_version = '3.1.3'
+    springfox_version = '2.5.0'
 }
 
 group = 'io.koju.autopos'
@@ -81,22 +73,22 @@ dependencies {
 
     compile group: 'io.dropwizard.metrics', name: 'metrics-core'
     compile group: 'io.dropwizard.metrics', name: 'metrics-annotation', version: dropwizard_metrics_version
+    compile group: 'io.dropwizard.metrics', name: 'metrics-graphite'
     compile group: 'io.dropwizard.metrics', name: 'metrics-ehcache', version: dropwizard_metrics_version
-    compile group: 'io.dropwizard.metrics', name: 'metrics-graphite', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-healthchecks', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-jvm', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-servlet', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-json', version: dropwizard_metrics_version
-    compile(group: 'io.dropwizard.metrics', name: 'metrics-servlets', version: dropwizard_metrics_version) {
+    compile(group: 'io.dropwizard.metrics', name: 'metrics-servlets') {
         exclude(module: 'metrics-healthchecks')
     }
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-json-org', version: jackson_version
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hppc', version: jackson_version
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jackson_version
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate4', version: jackson_version
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: jackson_version
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jackson_version
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_version
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate4'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
     compile(group: 'com.ryantenney.metrics', name: 'metrics-spring', version: metrics_spring_version) {
         exclude(module: 'metrics-core')
         exclude(module: 'metrics-healthchecks')
@@ -135,9 +127,9 @@ dependencies {
     compile(group: 'org.springframework', name: 'spring-context-support') {
         exclude(module: 'quartz')
     }
-    compile group: 'org.springframework.security', name: 'spring-security-config', version: spring_security_version
-    compile group: 'org.springframework.security', name: 'spring-security-data', version: spring_security_version
-    compile group: 'org.springframework.security', name: 'spring-security-web', version: spring_security_version
+    compile group: 'org.springframework.security', name: 'spring-security-config'
+    compile group: 'org.springframework.security', name: 'spring-security-data'
+    compile group: 'org.springframework.security', name: 'spring-security-web'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: jjwt_version
 
     compile(group: 'io.springfox', name: 'springfox-swagger2', version: springfox_version)
@@ -225,10 +217,6 @@ compileJava.dependsOn(processResources)
 
 clean {
     delete "target"
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
 }
 
 task stage(dependsOn: 'bootRepackage') {
