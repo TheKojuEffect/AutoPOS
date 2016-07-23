@@ -238,7 +238,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('install', function () {
-    runSequence(['wiredep', 'ngconstant:dev'], 'languages', 'inject');
+    runSequence(['wiredep', 'ngconstant:dev']);
 });
 
 gulp.task('serve', function () {

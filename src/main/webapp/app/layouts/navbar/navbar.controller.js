@@ -1,13 +1,6 @@
-(function() {
-    'use strict';
+class NavbarController {
 
-    angular
-        .module('autopos')
-        .controller('NavbarController', NavbarController);
-
-    NavbarController.$inject = ['$location', '$state', 'Auth', 'Principal', 'ENV', 'LoginService'];
-
-    function NavbarController ($location, $state, Auth, Principal, ENV, LoginService) {
+    constructor($state, Auth, Principal, ENV, LoginService) {
         var vm = this;
 
         vm.navCollapsed = true;
@@ -17,13 +10,18 @@
         vm.logout = logout;
         vm.$state = $state;
 
-        function login () {
+        function login() {
             LoginService.open();
         }
 
-        function logout () {
+        function logout() {
             Auth.logout();
             $state.go('home');
         }
     }
-})();
+}
+
+angular
+    .module('autopos')
+    .controller('NavbarController', NavbarController);
+
