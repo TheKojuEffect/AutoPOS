@@ -4,8 +4,6 @@ CREATE TABLE sale (
   buyer              VARCHAR(250)                         NOT NULL,
   sub_total          NUMERIC(10, 2)                       NOT NULL,
   discount           NUMERIC(10, 2) DEFAULT 0             NOT NULL,
-  tax_amount         NUMERIC(10, 2) DEFAULT 0             NOT NULL,
-  taxable_amount     NUMERIC(10, 2) DEFAULT 0             NOT NULL,
   grand_total        NUMERIC(10, 2)                       NOT NULL,
   vehicle_id         BIGINT REFERENCES vehicle (id),
   status             VARCHAR(15)                          NOT NULL,
