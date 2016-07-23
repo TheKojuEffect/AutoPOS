@@ -1,27 +1,31 @@
-class NavbarController {
+(function () {
+    'use strict';
 
-    constructor($state, Auth, Principal, ENV, LoginService) {
-        var vm = this;
+    class NavbarController {
 
-        vm.navCollapsed = true;
-        vm.isAuthenticated = Principal.isAuthenticated;
-        vm.inProduction = ENV === 'prod';
-        vm.login = login;
-        vm.logout = logout;
-        vm.$state = $state;
+        constructor($state, Auth, Principal, ENV, LoginService) {
+            var vm = this;
 
-        function login() {
-            LoginService.open();
-        }
+            vm.navCollapsed = true;
+            vm.isAuthenticated = Principal.isAuthenticated;
+            vm.inProduction = ENV === 'prod';
+            vm.login = login;
+            vm.logout = logout;
+            vm.$state = $state;
 
-        function logout() {
-            Auth.logout();
-            $state.go('home');
+            function login() {
+                LoginService.open();
+            }
+
+            function logout() {
+                Auth.logout();
+                $state.go('home');
+            }
         }
     }
-}
 
-angular
-    .module('autopos')
-    .controller('NavbarController', NavbarController);
+    angular
+        .module('autopos')
+        .controller('NavbarController', NavbarController);
 
+})();

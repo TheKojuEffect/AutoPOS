@@ -1,13 +1,17 @@
-class ItemEntryCtrl {
+(function () {
+    'use strict';
 
-    itemSelected(item) {
-        console.log(item);
+    class ItemEntryCtrl {
+
+        itemSelected(item) {
+            console.log(item);
+        }
     }
-}
 
-angular.module('autopos')
-    .component('saleLineEntry', {
-        templateUrl: 'app/sales/saleLineEntry.html',
-        controller: ItemEntryCtrl
-    });
+    angular.module('autopos')
+        .component('saleLineEntry', {
+            templateUrl: 'app/sales/saleLineEntry.html',
+            controller: ItemEntryCtrl
+        });
 
+})();
