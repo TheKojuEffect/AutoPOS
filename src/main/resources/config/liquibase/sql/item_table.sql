@@ -10,7 +10,7 @@ CREATE TABLE item (
   category_id        BIGINT REFERENCES category (id),
   brand_id           BIGINT REFERENCES brand (id),
 
-  opt_lock           BIGINT                       NOT NULL,
+  version           BIGINT                       NOT NULL,
   created_date       TIMESTAMP                    NOT NULL,
   last_modified_date TIMESTAMP                    NOT NULL,
   created_by         BIGINT REFERENCES users (id) NOT NULL,

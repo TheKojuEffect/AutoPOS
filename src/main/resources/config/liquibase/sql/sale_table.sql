@@ -9,7 +9,7 @@ CREATE TABLE sale (
   status             VARCHAR(15)                          NOT NULL,
   remarks            VARCHAR(250),
 
-  opt_lock           BIGINT                               NOT NULL,
+  version           BIGINT                               NOT NULL,
   created_date       TIMESTAMP                            NOT NULL,
   last_modified_date TIMESTAMP                            NOT NULL,
   created_by         BIGINT REFERENCES users (id)         NOT NULL,

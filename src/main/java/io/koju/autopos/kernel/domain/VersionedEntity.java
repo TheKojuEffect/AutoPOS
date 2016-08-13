@@ -11,7 +11,7 @@ public abstract class VersionedEntity<ID extends Serializable>
     implements Versioned {
 
     @Version
-    @Column(name = "opt_lock")
+    @Column(name = "version")
     private Long version;
 
     @Override
