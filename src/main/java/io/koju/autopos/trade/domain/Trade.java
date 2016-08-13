@@ -36,16 +36,6 @@ public abstract class Trade extends AuditableBaseEntity {
 
     @NotNull
     @Min(value = 0)
-    @Column(name = "tax_amount", precision = 10, scale = 2, nullable = false)
-    private BigDecimal taxAmount;
-
-    @NotNull
-    @Min(value = 0)
-    @Column(name = "taxable_amount", precision = 10, scale = 2, nullable = false)
-    private BigDecimal taxableAmount;
-
-    @NotNull
-    @Min(value = 0)
     @Column(name = "grand_total", precision = 10, scale = 2, nullable = false)
     @JsonView(View.Summary.class)
     private BigDecimal grandTotal;
