@@ -36,6 +36,7 @@ spring:
         mode: XHTML
 
 liquibase:
+    change-log: classpath:/config/liquibase/master.xml
     contexts: test
 
 security:

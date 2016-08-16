@@ -33,6 +33,10 @@ security:
     basic:
         enabled: false
 
+liquibase:
+    change-log: classpath:/config/liquibase/master.xml
+
+
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
