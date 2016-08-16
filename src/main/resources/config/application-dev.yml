@@ -69,3 +69,8 @@ jhipster:
         logs: # report metrics in the logs
             enabled: false
             reportFrequency: 60 # in seconds
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace
