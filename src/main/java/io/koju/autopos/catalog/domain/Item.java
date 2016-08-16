@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -80,7 +81,7 @@ public class Item extends AuditableBaseEntity {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "item_tag",
             joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"),
