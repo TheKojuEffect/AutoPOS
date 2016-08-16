@@ -54,8 +54,8 @@ public class ItemApi {
         }
         Item result = itemService.save(item);
         return ResponseEntity.created(new URI(API_ITEMS + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert("item", ItemCodeUtil.getCode(result.getId())))
-                .body(result);
+                             .headers(HeaderUtil.createEntityCreationAlert("item", result.getCode()))
+                             .body(result);
     }
 
     @RequestMapping(method = PUT, produces = APPLICATION_JSON_VALUE)
@@ -67,8 +67,8 @@ public class ItemApi {
         }
         Item result = itemService.save(item);
         return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityUpdateAlert("item", item.getId().toString()))
-                .body(result);
+                             .headers(HeaderUtil.createEntityUpdateAlert("item", item.getId().toString()))
+                             .body(result);
     }
 
     @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
@@ -88,10 +88,10 @@ public class ItemApi {
         log.debug("REST request to get Item : {}", id);
         Item item = itemService.findOne(id);
         return Optional.ofNullable(item)
-                .map(result -> new ResponseEntity<>(
-                        result,
-                        HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                       .map(result -> new ResponseEntity<>(
+                               result,
+                               HttpStatus.OK))
+                       .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
