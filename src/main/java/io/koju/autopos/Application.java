@@ -15,13 +15,14 @@ import org.springframework.core.env.SimpleCommandLinePropertySource;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 
 @ComponentScan
-@EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class })
-@EnableConfigurationProperties({ JHipsterProperties.class, LiquibaseProperties.class })
+@EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
+@EnableConfigurationProperties({JHipsterProperties.class, LiquibaseProperties.class})
 @Slf4j
 public class Application {
 
@@ -56,21 +57,18 @@ public class Application {
      * @throws UnknownHostException if the local host name could not be resolved into an address
      */
     public static void main(String[] args) throws UnknownHostException {
-
-        SpringApplication.run(Application.class);
-//        SpringApplication app = new SpringApplication(Application.class);
-//        SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
-//        addDefaultProfile(app, source);
-//        Environment env = app.run(args).getEnvironment();
-//        log.info("\n----------------------------------------------------------\n\t" +
-//                        "Application '{}' is running! Access URLs:\n\t" +
-//                        "Local: \t\thttp://127.0.0.1:{}\n\t" +
-//                        "External: \thttp://{}:{}\n----------------------------------------------------------",
-//                env.getProperty("spring.application.name"),
-//                env.getProperty("server.port"),
-//                InetAddress.getLocalHost().getHostAddress(),
-//                env.getProperty("server.port"));
-
+        SpringApplication app = new SpringApplication(Application.class);
+        SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(args);
+        addDefaultProfile(app, source);
+        Environment env = app.run(args).getEnvironment();
+        log.info("\n----------------------------------------------------------\n\t" +
+                        "Application '{}' is running! Access URLs:\n\t" +
+                        "Local: \t\thttp://127.0.0.1:{}\n\t" +
+                        "External: \thttp://{}:{}\n----------------------------------------------------------",
+                env.getProperty("spring.application.name"),
+                env.getProperty("server.port"),
+                InetAddress.getLocalHost().getHostAddress(),
+                env.getProperty("server.port"));
     }
 
     /**
