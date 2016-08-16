@@ -6,6 +6,7 @@ import io.koju.autopos.accounting.domain.AccountingDomainPackage;
 import io.koju.autopos.accounting.service.AccountingServicePackage;
 import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.service.CatalogServicePackage;
+import io.koju.autopos.config.liquibase.AsyncSpringLiquibase;
 import io.koju.autopos.domain.DomainPackage;
 import io.koju.autopos.kernel.domain.AbstractEntity;
 import io.koju.autopos.party.domain.PartyDomainPackage;
@@ -19,11 +20,13 @@ import io.koju.autopos.trade.sale.service.SaleServicePackage;
 import io.koju.autopos.trade.service.TradeServicePackage;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.user.service.UserServicePackage;
+import liquibase.integration.spring.SpringLiquibase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.ApplicationContextException;
@@ -95,4 +98,26 @@ public class DatabaseConfiguration {
         }
         return hikariDataSource;
     }
+
+    @Bean
+    public SpringLiquibase liquibase(DataSource dataSource, DataSourceProperties dataSourceProperties,
+                                     LiquibaseProperties liquibaseProperties) {
+
+        // Use liquibase.integration.spring.SpringLiquibase if you don't want Liquibase to start asynchronously
+        SpringLiquibase liquibase = new AsyncSpringLiquibase();
+        liquibase.setDataSource(dataSource);
+        liquibase.setChangeLog(liquibaseProperties.getChangeLog());
+        liquibase.setContexts(liquibaseProperties.getContexts());
+        liquibase.setDefaultSchema(liquibaseProperties.getDefaultSchema());
+        liquibase.setDropFirst(liquibaseProperties.isDropFirst());
+        if (env.acceptsProfiles(Constants.SPRING_PROFILE_NO_LIQUIBASE)) {
+            liquibase.setShouldRun(false);
+        } else {
+            liquibase.setShouldRun(liquibaseProperties.isEnabled());
+            log.debug("Configuring Liquibase");
+        }
+
+        return liquibase;
+    }
+
 }
