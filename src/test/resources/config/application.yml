@@ -12,23 +12,21 @@
 
 spring:
     datasource:
-        url: jdbc:h2:mem:AutoPOS;DB_CLOSE_DELAY=-1
+        url: jdbc:postgresql://localhost:5432/TestAutoPOS
         name:
-        username:
-        password:
+        username: testautopos
+        password: test12
     jpa:
-        database-platform: io.koju.autopos.domain.util.FixedH2Dialect
-        database: H2
+        database: postgresql
         open-in-view: false
         show_sql: true
         hibernate:
             ddl-auto: none
-            naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
         properties:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
-            hibernate.hbm2ddl.auto: validate
+            hibernate.hbm2ddl.auto: none
     mail:
         host: localhost
     mvc:
