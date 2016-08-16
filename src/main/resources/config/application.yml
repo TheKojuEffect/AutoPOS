@@ -19,6 +19,8 @@ spring:
         open-in-view: false
         hibernate:
             ddl-auto: none
+            use-new-id-generator-mappings: true
+
     messages:
         basename: i18n/messages
     mvc:
