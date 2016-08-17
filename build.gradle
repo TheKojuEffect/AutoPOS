@@ -195,7 +195,7 @@ querydsl {
 idea {
     module {
         generatedSourceDirs += file('src/querydsl/java')
-        excludeDirs += file('node_modules')
+        generatedSourceDirs += file('node_modules')
 //        downloadJavadoc = true
 //        downloadSources = true
         jdkName = '1.8'
