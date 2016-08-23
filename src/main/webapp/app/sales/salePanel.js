@@ -4,16 +4,7 @@
     class SalePanelCtrl {
 
         constructor() {
-            this.lines = [
-                {
-                    code: 'ABC',
-                    name: 'First'
-                },
-                {
-                    code: 'MNO',
-                    name: 'Second'
-                }
-            ];
+            this.lines = [];
 
             this.datePickerOptions = {
                 maxDate: new Date()
@@ -25,6 +16,10 @@
 
         openCalendar(date) {
             this.datePickerOpenStatus[date] = true;
+        }
+
+        addSaleLine(saleLine) {
+            this.lines.push(saleLine);
         }
     }
 

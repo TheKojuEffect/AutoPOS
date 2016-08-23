@@ -3,7 +3,7 @@
         <h3 class="panel-title">Add Sale Entry</h3>
     </div>
     <div class="panel-body">
-        <form name="editForm" novalidate show-validation>
+        <form name="editForm" novalidate show-validation ng-submit="$ctrl.acceptSaleLine()">
 
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.item">Item</label>

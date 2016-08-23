@@ -11,12 +11,20 @@
             this.saleLine.item = item;
             this.saleLine.rate = item.markedPrice;
         }
+
+        acceptSaleLine() {
+            this.onAccept({saleLine: this.saleLine});
+            this.saleLine = new SaleLine();
+        }
     }
 
     angular.module('autopos')
         .component('saleLineEntry', {
             templateUrl: 'app/sales/saleLineEntry.html',
-            controller: ItemEntryCtrl
+            controller: ItemEntryCtrl,
+            bindings: {
+                onAccept: '&'
+            }
         });
 
 })();

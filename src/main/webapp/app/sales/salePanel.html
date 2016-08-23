@@ -1,5 +1,5 @@
 <div class="row">
-    <sale-line-entry class="col-md-4"></sale-line-entry>
+    <sale-line-entry class="col-md-4" on-accept="$ctrl.addSaleLine(saleLine)"></sale-line-entry>
 
     <div class="col-md-8">
         <div class="panel panel-primary">
@@ -49,11 +49,11 @@
                 <thead>
                 <tr ng-repeat="line in $ctrl.lines">
                     <td>{{$index + 1}}</td>
-                    <td>{{line.code}}</td>
-                    <td>{{line.name}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{line.item.code}}</td>
+                    <td>{{line.item.name}}</td>
+                    <td>{{line.quantity}}</td>
+                    <td>{{line.rate}}</td>
+                    <td>{{line.amount}}</td>
                 </tr>
                 </thead>
             </table>
