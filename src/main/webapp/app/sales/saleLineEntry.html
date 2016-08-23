@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.quantity" for="field_quantity">Quantity</label>
                 <input type="number" class="form-control" name="quantity" id="field_quantity"
-                       ng-model="vm.billItem.quantity"
+                       ng-model="$ctrl.saleLine.quantity"
                        required min="1"/>
                 <div ng-show="editForm.quantity.$invalid">
                     <p class="help-block"
@@ -34,7 +34,7 @@
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.rate" for="field_rate">Rate</label>
                 <input type="number" class="form-control" name="rate" id="field_rate"
-                       ng-model="vm.billItem.rate"
+                       ng-model="$ctrl.saleLine.rate"
                        required min="0"/>
                 <div ng-show="editForm.rate.$invalid">
                     <p class="help-block"
@@ -55,7 +55,7 @@
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.amount" for="field_amount">Amount</label>
                 <input type="number" class="form-control" name="amount" id="field_amount"
-                       ng-model="vm.billItem.amount"
+                       ng-model="$ctrl.saleLine.amount"
                        required min="0"/>
                 <div ng-show="editForm.amount.$invalid">
                     <p class="help-block"
@@ -76,7 +76,7 @@
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.buyer" for="field_buyer">Buyer</label>
                 <input type="text" class="form-control" name="buyer" id="field_buyer"
-                          ng-model="vm.billItem.buyer"
+                          ng-model="$ctrl.saleLine.buyer"
                           ng-maxlength="250">
                 <div ng-show="editForm.buyer.$invalid">
                     <p class="help-block"
@@ -90,7 +90,7 @@
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.remarks" for="field_remarks">Remarks</label>
                 <textarea type="text" class="form-control" name="remarks" id="field_remarks"
-                          ng-model="vm.billItem.remarks"
+                          ng-model="$ctrl.saleLine.remarks"
                           ng-maxlength="250"></textarea>
                 <div ng-show="editForm.remarks.$invalid">
                     <p class="help-block"

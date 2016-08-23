@@ -3,8 +3,13 @@
 
     class ItemEntryCtrl {
 
+        constructor() {
+            this.saleLine = new SaleLine();
+        }
+
         itemSelected(item) {
-            console.log(item);
+            this.saleLine.item = item;
+            this.saleLine.rate = item.markedPrice;
         }
     }
 
