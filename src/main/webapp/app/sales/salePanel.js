@@ -4,7 +4,21 @@
     class SalePanelCtrl {
 
         constructor() {
-            this.lines = [];
+            this.lines = [
+                {
+                    item: {
+                        code: 'ABC',
+                        name: 'First'
+                    },
+                    amount: 1450
+                },
+                {
+                    item: {
+                        code: 'XYZ',
+                        name: 'Tail'
+                    },
+                    amount: 2000
+                }];
 
             this.datePickerOptions = {
                 maxDate: new Date()
