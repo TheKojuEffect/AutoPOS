@@ -27,7 +27,7 @@ public abstract class Trade extends AuditableBaseEntity {
     @NotNull
     @Min(value = 0)
     @Column(name = "discount", precision = 10, scale = 2, nullable = false)
-    private BigDecimal discount;
+    private BigDecimal discount = BigDecimal.ZERO;
 
     @Size(max = 250)
     @Column(name = "remarks", length = 250)

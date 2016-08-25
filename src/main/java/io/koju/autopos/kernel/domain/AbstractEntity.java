@@ -1,5 +1,6 @@
 package io.koju.autopos.kernel.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.util.ClassUtils;
 
 import javax.persistence.MappedSuperclass;
@@ -13,6 +14,7 @@ public abstract class AbstractEntity<ID extends Serializable>
     private static final long serialVersionUID = -5554308939380869754L;
 
     @Transient
+    @JsonIgnore
     public boolean isNew() {
         return null == getIdentity();
     }

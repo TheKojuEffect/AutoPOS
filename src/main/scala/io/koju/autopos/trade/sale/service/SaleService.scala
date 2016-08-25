@@ -7,5 +7,6 @@ trait SaleService {
 
   def getSalesWithStatus(status: Sale.Status, pageable: Pageable): Page[Sale]
 
+  def createNewSale(): Sale
 
 }
