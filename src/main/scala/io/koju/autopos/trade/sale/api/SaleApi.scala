@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation._
 
 
 @RestController
-@RequestMapping(value = Array("/api/sales"))
+@RequestMapping(Array("/api/sales"))
 class SaleApi(private val saleService: SaleService) {
 
   @GetMapping
@@ -30,6 +30,15 @@ class SaleApi(private val saleService: SaleService) {
     ResponseEntity
       .created(new URI(s"/api/sales/${newSale.getId}"))
       .body(newSale)
+  }
+
+  @GetMapping(Array("/{id}"))
+  @Timed
+  def getSale(@PathVariable("id") sale: Sale): ResponseEntity[Sale] = {
+    Option(sale) match {
+      case Some(s) => ResponseEntity.ok(s)
+      case None => new ResponseEntity[Sale](HttpStatus.NOT_FOUND)
+    }
   }
 
 }
