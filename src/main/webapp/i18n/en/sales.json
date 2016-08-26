@@ -3,7 +3,8 @@
     "sales": {
       "pendingSales": "Pending Sales",
       "completedSales": "Completed Sales",
-      "newSale": "New Sale"
+      "newSale": "New Sale",
+      "saleDetail": "Sale Detail"
     }
   }
 }

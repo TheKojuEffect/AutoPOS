@@ -9,29 +9,12 @@
             .state('sales', {
                 abstract: true,
                 parent: 'app',
+                data: {
+                    authorities: ['ROLE_USER']
+                },
                 resolve: {
                     translatePartialLoader: function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('sales');
-                        $translatePartialLoader.addPart('global');
-                        return $translate.refresh();
-                    }
-                }
-            })
-            .state('sales.new', {
-                parent: 'sales',
-                url: '/sales/new',
-                data: {
-                    authorities: ['ROLE_USER'],
-                    pageTitle: 'autopos.sales.newSale'
-                },
-                views: {
-                    'content@': {
-                        template: '<sale-panel></sale-panel>'
-                    }
-                },
-                resolve: {
-                    translatePartialLoader: function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('saleLine');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
                     }
@@ -43,7 +26,8 @@
                 views: {
                     'content@': {
                         templateUrl: 'app/sales/sales.html',
-                        controller: 'SalesController'
+                        controller: 'SalesController',
+                        controllerAs: '$ctrl'
                     }
                 }
             })
@@ -124,6 +108,27 @@
                             ascending: PaginationUtil.parseAscending($stateParams.sort),
                             search: $stateParams.search
                         };
+                    }
+                }
+            })
+            .state('sales.detail', {
+                parent: 'sales',
+                url: '/sales/:id',
+                data: {
+                    pageTitle: 'autopos.sales.saleDetail'
+                },
+                views: {
+                    'content@': {
+                        template: '<sale-panel></sale-panel>'
+                    }
+                },
+                resolve: {
+                    sale: function ($stateParams, SaleService) {
+                        return SaleService.get({id: $stateParams.id});
+                    },
+                    translatePartialLoader: function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('saleLine');
+                        return $translate.refresh();
                     }
                 }
             });
