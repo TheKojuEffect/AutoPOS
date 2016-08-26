@@ -5,7 +5,7 @@
         .module('autopos')
         .controller('SaleListCtrl', SaleListCtrl);
 
-    function SaleListCtrl($state, Sale, saleStatus, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function SaleListCtrl($state, SaleService, saleStatus, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         vm.loadAll = loadAll;
         vm.loadPage = loadPage;
@@ -15,7 +15,7 @@
         vm.loadAll();
 
         function loadAll() {
-            Sale.query({
+            SaleService.query({
                 status: saleStatus,
                 page: pagingParams.page - 1,
                 size: paginationConstants.itemsPerPage,

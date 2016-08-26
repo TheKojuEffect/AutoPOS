@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('autopos')
-        .factory('Sale', Sale);
+        .factory('SaleService', SaleService);
 
-    function Sale($resource) {
+    function SaleService($resource) {
         return $resource('api/sales/:id');
     }
 
