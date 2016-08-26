@@ -34,7 +34,7 @@
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
                 vm.queryCount = vm.totalItems;
-                vm.bills = data;
+                vm.sales = data;
                 vm.page = pagingParams.page;
             }
 
