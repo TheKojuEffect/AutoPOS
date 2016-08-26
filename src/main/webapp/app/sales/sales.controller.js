@@ -3,7 +3,7 @@
 
     angular.module('autopos')
         .controller('SalesController',
-            function ($state, SaleService) {
+            function ($state, $timeout, SaleService) {
                 let $ctrl = this;
                 $ctrl.$state = $state;
 
@@ -14,7 +14,9 @@
                     SaleService.save({}, onCreateSuccess);
 
                     function onCreateSuccess(sale) {
-                        $state.go('sales.detail', {id: sale.id})
+                        $timeout(function () {
+                            $state.go('sales.detail', {id: sale.id})
+                        }, 10);
                     }
 
                 }

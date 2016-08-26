@@ -1,25 +1,9 @@
 (function () {
     'use strict';
 
-    class SalePanelCtrl {
+    class SalePanelController {
 
         constructor() {
-            this.lines = [
-                {
-                    item: {
-                        code: 'ABC',
-                        name: 'First'
-                    },
-                    amount: 1450
-                },
-                {
-                    item: {
-                        code: 'XYZ',
-                        name: 'Tail'
-                    },
-                    amount: 2000
-                }];
-
             this.datePickerOptions = {
                 maxDate: new Date()
             };
@@ -41,7 +25,10 @@
     angular.module('autopos')
         .component('salePanel', {
             templateUrl: 'app/sales/salePanel.html',
-            controller: SalePanelCtrl
+            controller: SalePanelController,
+            bindings: {
+                sale: '<'
+            }
         });
 
 })();

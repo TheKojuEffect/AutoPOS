@@ -119,7 +119,7 @@
                 },
                 views: {
                     'content@': {
-                        template: '<sale-panel></sale-panel>'
+                        template: '<sale-panel sale="$resolve.sale"></sale-panel>'
                     }
                 },
                 resolve: {
