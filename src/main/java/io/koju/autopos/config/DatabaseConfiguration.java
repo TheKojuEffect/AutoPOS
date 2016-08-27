@@ -16,7 +16,7 @@ import io.koju.autopos.shared.domain.SharedDomainPackage;
 import io.koju.autopos.shared.service.SharedServicePackage;
 import io.koju.autopos.trade.domain.TradeDomainPackage;
 import io.koju.autopos.trade.sale.domain.SaleDomainPackage;
-import io.koju.autopos.trade.sale.service.SaleServicePackage;
+import io.koju.autopos.trade.sale.repo.SaleRepoPackage;
 import io.koju.autopos.trade.service.TradeServicePackage;
 import io.koju.autopos.user.domain.User;
 import io.koju.autopos.user.service.UserServicePackage;
@@ -50,7 +50,7 @@ import java.util.Arrays;
         AccountingServicePackage.class,
         PartyServicePackage.class,
         TradeServicePackage.class,
-        SaleServicePackage.class})
+        SaleRepoPackage.class})
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = {
         AbstractEntity.class,

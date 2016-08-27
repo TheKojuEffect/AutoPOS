@@ -1,5 +1,6 @@
 package io.koju.autopos.trade.sale.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.koju.autopos.trade.domain.LineItem;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +33,7 @@ public class SaleLine extends LineItem {
     @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "sale_id")
+    @JsonBackReference
     private Sale sale;
 
     @Column(name = "buyer")

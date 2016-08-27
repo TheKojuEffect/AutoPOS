@@ -1,5 +1,6 @@
 package io.koju.autopos.trade.sale.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.koju.autopos.kernel.web.View;
 import io.koju.autopos.party.domain.Vehicle;
@@ -47,6 +48,7 @@ public class Sale extends Trade {
     private String buyer;
 
     @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<SaleLine> lines = new ArrayList<>();
 
     @Enumerated(STRING)
