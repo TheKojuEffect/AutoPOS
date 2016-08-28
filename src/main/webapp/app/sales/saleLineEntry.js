@@ -25,12 +25,12 @@
 
         acceptSaleLine() {
             this.onAccept({saleLine: this.saleLine});
-            this.saleLine = new SaleLine();
+            this.reset();
         }
 
         reset() {
             this.saleLine = new SaleLine();
-            this.saleLineId = null;
+            this.itemSelectApi.setSelectedItem(null);
         }
 
 

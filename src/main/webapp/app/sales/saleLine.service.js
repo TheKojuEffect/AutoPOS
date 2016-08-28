@@ -5,7 +5,9 @@
         .factory('SaleLineService', SaleLineService);
 
     function SaleLineService($resource) {
-        return $resource('api/sales/:saleId/lines/:saleLineId');
+        return $resource('api/sales/:saleId/lines/:saleLineId',
+            {},
+            {update: {method: 'PUT'}});
     }
 
 })();

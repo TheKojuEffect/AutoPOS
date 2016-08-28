@@ -3,7 +3,8 @@
 
     class SalePanelController {
 
-        constructor() {
+        constructor(SaleLineService) {
+            this.saleLineService = SaleLineService;
             this.datePickerOptions = {
                 maxDate: new Date()
             };
@@ -18,7 +19,27 @@
         }
 
         acceptSaleLine(saleLine) {
-            this.sale.lines.push(saleLine);
+            saleLine.sale = {id: this.sale.id};
+            if (saleLine.id) {
+
+                const lineIndex = _.findIndex(this.sale.lines,
+                    line => line.id === saleLine.id);
+
+                this.saleLineService.update(
+                    {
+                        saleId: this.sale.id,
+                        saleLineId: saleLine.id
+                    },
+                    saleLine,
+                    (line) => this.sale.lines.splice(lineIndex, 1, line)
+                );
+            } else {
+                this.saleLineService.save(
+                    {saleId: this.sale.id},
+                    saleLine,
+                    (line) => this.sale.lines.push(line)
+                );
+            }
         }
 
         editSaleLine(saleLine) {
