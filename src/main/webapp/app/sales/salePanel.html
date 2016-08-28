@@ -1,7 +1,12 @@
 <div class="row">
-    <sale-line-entry class="col-md-4" on-accept="$ctrl.addSaleLine(saleLine)"></sale-line-entry>
+    <sale-line-entry class="col-md-4"
+                     api = "$ctrl.saleLineEntryApi"
+                     sale-id="$ctrl.sale.id"
+                     on-accept="$ctrl.acceptSaleLine(saleLine)">
+    </sale-line-entry>
 
     <div class="col-md-8">
+
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">Sale Items</h3>
@@ -47,7 +52,7 @@
                 </tr>
                 </thead>
                 <thead>
-                <tr ng-repeat="line in $ctrl.sale.lines">
+                <tr ng-repeat="line in $ctrl.sale.lines" ng-click="$ctrl.editSaleLine(line)">
                     <td>{{$index + 1}}</td>
                     <td>{{line.item.code}}</td>
                     <td>{{line.item.name}}</td>

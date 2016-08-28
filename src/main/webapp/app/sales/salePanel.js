@@ -7,17 +7,22 @@
             this.datePickerOptions = {
                 maxDate: new Date()
             };
-
             this.datePickerOpenStatus = {};
             this.datePickerOpenStatus.date = false;
+
+            this.saleLineEntryApi = null;
         }
 
         openCalendar(date) {
             this.datePickerOpenStatus[date] = true;
         }
 
-        addSaleLine(saleLine) {
-            this.lines.push(saleLine);
+        acceptSaleLine(saleLine) {
+            this.sale.lines.push(saleLine);
+        }
+
+        editSaleLine(saleLine) {
+            this.saleLineEntryApi.setSaleLine(saleLine);
         }
     }
 

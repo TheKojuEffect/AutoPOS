@@ -1,38 +1,46 @@
-(function () {
+(function (angular) {
     'use strict';
 
-    angular.module('autopos')
-        .component('itemSelect', {
-            templateUrl: 'app/catalog/item/itemSelect.html',
-            controller: ItemSelectCtrl,
-            bindings: {
-                onSelect: '&'
-            }
-        });
+    class ItemSelectController {
 
-    function ItemSelectCtrl(Item) {
-        var ctrl = this;
-        ctrl.searchItem = searchItem;
-        ctrl.itemTitle = itemTitle;
-        ctrl.onItemSelect = onItemSelect;
+        constructor(Item) {
+            this.itemService = Item;
+            this.selectedItem = null;
+            this.setSelectedItem = (item) => this.selectedItem = item;
 
-        function searchItem(term) {
-            return Item.query({
+        }
+
+        $onInit() {
+            this.api = this.api || {};
+            this.api.setSelectedItem = this.setSelectedItem;
+        }
+
+        searchItem(term) {
+            return this.itemService.query({
                 name: '*' + term + '*',
                 code: term + '*'
             }).$promise;
         }
 
-        function itemTitle(item) {
+        onItemSelect(selectedItem) {
+            this.onSelect({'item': selectedItem});
+        }
+
+        itemTitle(item) {
             if (angular.isObject(item)) {
                 return '[' + item.code + '] ' + item.name;
             }
         }
-
-        function onItemSelect(selectedItem) {
-            ctrl.onSelect({'item': selectedItem});
-        }
-
     }
 
-})();
+    angular.module('autopos')
+        .component('itemSelect', {
+            templateUrl: 'app/catalog/item/itemSelect.html',
+            controller: ItemSelectController,
+            bindings: {
+                api: '=',
+                onSelect: '&'
+            }
+        });
+
+})(window.angular);

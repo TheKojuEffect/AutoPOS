@@ -7,7 +7,10 @@
 
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.item">Item</label>
-                <item-select on-select="$ctrl.itemSelected(item)"></item-select>
+                <item-select
+                        api="$ctrl.itemSelectApi"
+                        on-select="$ctrl.itemSelected(item)">
+                </item-select>
             </div>
 
             <div class="form-group">
@@ -55,8 +58,8 @@
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.amount" for="field_amount">Amount</label>
                 <input type="number" class="form-control" name="amount" id="field_amount"
-                       ng-model="$ctrl.saleLine.amount"
-                       required min="0"/>
+                       ng-value="$ctrl.saleLine.rate * $ctrl.saleLine.quantity"
+                       required min="0" readonly/>
                 <div ng-show="editForm.amount.$invalid">
                     <p class="help-block"
                        ng-show="editForm.amount.$error.required" translate="entity.validation.required">
@@ -76,8 +79,8 @@
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.buyer" for="field_buyer">Buyer</label>
                 <input type="text" class="form-control" name="buyer" id="field_buyer"
-                          ng-model="$ctrl.saleLine.buyer"
-                          ng-maxlength="250">
+                       ng-model="$ctrl.saleLine.buyer"
+                       ng-maxlength="250">
                 <div ng-show="editForm.buyer.$invalid">
                     <p class="help-block"
                        ng-show="editForm.buyer.$error.maxlength" translate="entity.validation.maxlength"
@@ -86,7 +89,7 @@
                     </p>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label class="control-label" translate="autopos.saleLine.remarks" for="field_remarks">Remarks</label>
                 <textarea type="text" class="form-control" name="remarks" id="field_remarks"
@@ -102,11 +105,20 @@
             </div>
 
             <div class="form-group pull-right">
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+                <button type="reset" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.reset()">
                     <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+
+                <button ng-if="!$ctrl.saleLine.id"
+                        type="submit" ng-disabled="editForm.$invalid || isSaving"
+                        class="btn btn-primary">
                     <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span>Add Item</span>
+                </button>
+
+                <button ng-if="$ctrl.saleLine.id"
+                        type="submit" ng-disabled="editForm.$invalid || isSaving"
+                        class="btn btn-primary">
+                    <span class="glyphicon glyphicon-ok-circle"></span>&nbsp;<span>Accept</span>
                 </button>
             </div>
 

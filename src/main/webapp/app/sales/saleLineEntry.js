@@ -1,9 +1,20 @@
 (function () {
     'use strict';
 
-    class ItemEntryCtrl {
+    class ItemEntryController {
 
         constructor() {
+            this.itemSelectApi = null;
+
+            this.setSaleLine = saleLine => {
+                this.saleLine = saleLine;
+                this.itemSelectApi.setSelectedItem(saleLine.item)
+            };
+        }
+
+        $onInit() {
+            this.api = this.api || {};
+            this.api.setSaleLine = this.setSaleLine;
             this.saleLine = new SaleLine();
         }
 
@@ -16,15 +27,23 @@
             this.onAccept({saleLine: this.saleLine});
             this.saleLine = new SaleLine();
         }
+
+        reset() {
+            this.saleLine = new SaleLine();
+            this.saleLineId = null;
+        }
+
+
     }
 
     angular.module('autopos')
         .component('saleLineEntry', {
             templateUrl: 'app/sales/saleLineEntry.html',
-            controller: ItemEntryCtrl,
+            controller: ItemEntryController,
             bindings: {
+                api: '=',
+                saleId: '<',
                 onAccept: '&'
             }
         });
-
 })();

@@ -38,4 +38,8 @@ public abstract class LineItem extends AuditableBaseEntity {
     @Column(name = "remarks", length = 250)
     private String remarks;
 
+    public BigDecimal getAmount() {
+        return rate.multiply(new BigDecimal(quantity));
+    }
+
 }
