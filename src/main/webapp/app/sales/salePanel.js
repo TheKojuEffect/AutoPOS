@@ -1,4 +1,4 @@
-(function () {
+(function (angular) {
     'use strict';
 
     class SalePanelController {
@@ -24,6 +24,14 @@
         editSaleLine(saleLine) {
             this.saleLineEntryApi.setSaleLine(saleLine);
         }
+
+        get subTotal() {
+            return _.reduce(this.sale.lines, (sum, line) => line.amount + sum, 0);
+        }
+
+        get total() {
+            return this.subTotal - this.sale.discount;
+        }
     }
 
 
@@ -36,4 +44,4 @@
             }
         });
 
-})();
+})(window.angular);
