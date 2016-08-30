@@ -14,7 +14,7 @@
                 },
                 resolve: {
                     translatePartialLoader: function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('sales');
+                        $translatePartialLoader.addPart('sale');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
                     }
@@ -36,7 +36,7 @@
                 url: '/sales/pending?page&sort&search',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'autopos.sales.pendingSales'
+                    pageTitle: 'autopos.sale.pendingSales'
                 },
                 views: {
                     'content-tab': {
@@ -76,7 +76,7 @@
                 url: '/sales/completed?page&sort&search',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'autopos.sales.completedSales'
+                    pageTitle: 'autopos.sale.completedSales'
                 },
                 views: {
                     'content-tab': {
@@ -115,7 +115,7 @@
                 parent: 'sales',
                 url: '/sales/:id',
                 data: {
-                    pageTitle: 'autopos.sales.saleDetail'
+                    pageTitle: 'autopos.sale.saleDetail'
                 },
                 views: {
                     'content@': {

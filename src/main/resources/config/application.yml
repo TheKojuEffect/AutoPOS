@@ -29,6 +29,11 @@ spring:
     thymeleaf:
         mode: XHTML
 
+    jackson:
+        serialization:
+            WRITE_DATES_AS_TIMESTAMPS: false
+
+
 security:
     basic:
         enabled: false

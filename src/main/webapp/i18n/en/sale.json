@@ -1,10 +1,11 @@
 {
   "autopos": {
-    "sales": {
+    "sale": {
       "pendingSales": "Pending Sales",
       "completedSales": "Completed Sales",
       "newSale": "New Sale",
-      "saleDetail": "Sale Detail"
+      "saleDetail": "Sale Detail",
+      "updated": "Sale is updated with identifier {{ param }}"
     }
   }
 }

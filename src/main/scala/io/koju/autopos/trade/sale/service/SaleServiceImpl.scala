@@ -22,4 +22,9 @@ class SaleServiceImpl(private val saleRepo: SaleRepo) extends SaleService {
     sale.setStatus(Sale.Status.PENDING)
     saleRepo.save(sale)
   }
+
+  override def updateSale(sale: Sale) = {
+    saleRepo.save(sale)
+  }
+
 }

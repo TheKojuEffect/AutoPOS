@@ -9,4 +9,6 @@ trait SaleService {
 
   def createNewSale(): Sale
 
+  def updateSale(sale: Sale): Sale
+
 }

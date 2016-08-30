@@ -35,6 +35,16 @@ class SaleApi(private val saleService: SaleService,
       .body(newSale)
   }
 
+  @PutMapping(Array("/{id}"))
+  @Timed
+  def updateSale(@PathVariable("id") id: Long, @RequestBody sale: Sale): ResponseEntity[Sale] = {
+    sale.setId(id)
+    val updatedSale = saleService.updateSale(sale)
+    ResponseEntity.ok
+      .headers(HeaderUtil.createEntityUpdateAlert("sale", updatedSale.getId.toString))
+      .body(updatedSale)
+  }
+
   @GetMapping(Array("/{id}"))
   @Timed
   def getSale(@PathVariable("id") saleOp: Sale): ResponseEntity[Sale] = {

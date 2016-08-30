@@ -3,7 +3,9 @@
 
     class SalePanelController {
 
-        constructor(SaleLineService) {
+        constructor(SaleService, SaleLineService, $state) {
+            this.$state = $state;
+            this.saleService = SaleService;
             this.saleLineService = SaleLineService;
             this.datePickerOptions = {
                 maxDate: new Date()
@@ -40,6 +42,13 @@
                     (line) => this.sale.lines.push(line)
                 );
             }
+        }
+
+        updateSale() {
+            this.saleService.update(
+                {id: this.sale.id},
+                this.sale,
+                () => this.$state.go('sales.pending'));
         }
 
         editSaleLine(saleLine) {

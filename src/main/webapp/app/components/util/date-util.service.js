@@ -5,8 +5,6 @@
         .module('autopos')
         .factory('DateUtils', DateUtils);
 
-    DateUtils.$inject = ['$filter'];
-
     function DateUtils ($filter) {
 
         var service = {
