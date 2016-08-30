@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -20,9 +20,13 @@
         ])
         .run(run);
 
-    run.$inject = ['stateHandler', 'translationHandler'];
+    run.$inject = ['stateHandler', 'translationHandler', 'moment'];
 
-    function run(stateHandler, translationHandler) {
+    function run(stateHandler, translationHandler, moment) {
+        Date.prototype.toJSON = function () {
+            return moment(this).format("YYYY-MM-DDTHH:mm:ss");
+        };
+
         stateHandler.initialize();
         translationHandler.initialize();
     }

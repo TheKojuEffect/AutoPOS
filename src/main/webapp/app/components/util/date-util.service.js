@@ -5,7 +5,7 @@
         .module('autopos')
         .factory('DateUtils', DateUtils);
 
-    function DateUtils ($filter) {
+    function DateUtils ($filter, moment) {
 
         var service = {
             convertDateTimeFromServer : convertDateTimeFromServer,
@@ -18,7 +18,7 @@
 
         function convertDateTimeFromServer (date) {
             if (date) {
-                return new Date(date);
+                return moment(date).toDate();
             } else {
                 return null;
             }
@@ -26,7 +26,7 @@
 
         function convertLocalDateFromServer (date) {
             if (date) {
-                return new Date(date);
+                return moment(date).toDate();
             }
             return null;
         }
