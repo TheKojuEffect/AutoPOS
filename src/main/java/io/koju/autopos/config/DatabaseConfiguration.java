@@ -33,7 +33,6 @@ import org.springframework.context.ApplicationContextException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -55,7 +54,6 @@ import java.util.Arrays;
 @EntityScan(basePackageClasses = {
         AbstractEntity.class,
         DomainPackage.class,
-        Jsr310JpaConverters.class,
         SharedDomainPackage.class,
         User.class,
         Item.class,
