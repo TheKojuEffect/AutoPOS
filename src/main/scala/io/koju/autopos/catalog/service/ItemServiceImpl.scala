@@ -38,4 +38,10 @@ class ItemServiceImpl(private val itemRepository: ItemRepository)
     log.debug("Request to delete Item : {}", id)
     itemRepository.delete(id)
   }
+
+  override def adjustQuantity(item: Item, number: Integer): Unit = {
+    val dbItem = itemRepository.findOne(item.getId)
+    dbItem.setQuantity(dbItem.getQuantity + number)
+    itemRepository.save(dbItem)
+  }
 }

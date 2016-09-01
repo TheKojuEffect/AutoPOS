@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation._
 @RestController
 @RequestMapping(Array("/api/sales/{saleId}/lines"))
 class SaleLineApi(private val saleService: SaleService,
-                   private val saleLineRepo: SaleLineRepo) {
+                  private val saleLineRepo: SaleLineRepo) {
 
   @GetMapping(Array("/{saleLineId}"))
   @Timed
@@ -32,7 +32,7 @@ class SaleLineApi(private val saleService: SaleService,
   @PostMapping
   @Timed
   def createSaleLine(@PathVariable("saleId") sale: Sale,
-                  @RequestBody @Valid saleLine: SaleLine): ResponseEntity[SaleLine] = {
+                     @RequestBody @Valid saleLine: SaleLine): ResponseEntity[SaleLine] = {
 
     val addedSaleLine = saleService.addSaleLine(sale, saleLine)
     ResponseEntity
@@ -43,8 +43,8 @@ class SaleLineApi(private val saleService: SaleService,
   @PutMapping(Array("/{saleLineId}"))
   @Timed
   def updateSaleLine(@PathVariable("saleId") sale: Sale,
-                  @PathVariable("saleLineId") saleLineId: Long,
-                  @RequestBody @Valid saleLine: SaleLine): ResponseEntity[SaleLine] = {
+                     @PathVariable("saleLineId") saleLineId: Long,
+                     @RequestBody @Valid saleLine: SaleLine): ResponseEntity[SaleLine] = {
 
     saleLine.setId(saleLineId)
     val updatedSaleLine = saleService.updateSaleLine(sale, saleLine)

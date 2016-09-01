@@ -2,6 +2,7 @@ package io.koju.autopos.trade.sale.service
 
 import java.time.LocalDateTime
 
+import io.koju.autopos.catalog.service.ItemService
 import io.koju.autopos.trade.sale.domain.Sale.Status
 import io.koju.autopos.trade.sale.domain.{QSale, Sale, SaleLine}
 import io.koju.autopos.trade.sale.repo.{SaleLineRepo, SaleRepo}
@@ -12,7 +13,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class SaleServiceImpl(private val saleRepo: SaleRepo,
-                      private val saleLineRepo: SaleLineRepo)
+                      private val saleLineRepo: SaleLineRepo,
+                      private val itemService: ItemService)
   extends SaleService {
 
   private val qSale = QSale.sale
@@ -35,10 +37,18 @@ class SaleServiceImpl(private val saleRepo: SaleRepo,
     saleLine.setSale(sale)
     saleLine.setId(null)
     saleLineRepo.save(saleLine)
+    itemService.substractQuantity(saleLine.getItem, saleLine.getQuantity)
+    saleLine
   }
 
   override def updateSaleLine(sale: Sale, saleLine: SaleLine): SaleLine = {
     saleLine.setSale(sale)
+
+    val dbSaleLine = saleLineRepo.findOne(saleLine.getId)
+    val quantityChanged = saleLine.getQuantity - dbSaleLine.getQuantity
+
     saleLineRepo.save(saleLine)
+    itemService.adjustQuantity(saleLine.getItem, quantityChanged)
+    saleLine
   }
 }

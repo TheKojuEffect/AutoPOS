@@ -14,4 +14,15 @@ public interface ItemService {
     Item findOne(Long id);
 
     void delete(Long id);
+
+    void adjustQuantity(Item item, Integer number);
+
+    default void addQuantity(Item item, Integer number) {
+        adjustQuantity(item, number);
+    }
+
+    default void substractQuantity(Item item, Integer number) {
+        adjustQuantity(item, -number);
+    }
+
 }
