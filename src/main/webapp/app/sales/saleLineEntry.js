@@ -32,6 +32,13 @@
             this.saleLine = new SaleLine();
             this.itemSelectApi.setSelectedItem(null);
         }
+
+        deleteSaleLine() {
+            const deleteConfirmation = confirm("Are you sure you want to delete this sale line?");
+            if (deleteConfirmation) {
+                this.onDelete({saleLine: this.saleLine})
+            }
+        }
     }
 
     angular.module('autopos')
@@ -41,7 +48,8 @@
             bindings: {
                 api: '=',
                 saleId: '<',
-                onAccept: '&'
+                onAccept: '&',
+                onDelete: '&'
             }
         });
 })();

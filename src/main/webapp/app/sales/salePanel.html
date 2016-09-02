@@ -2,7 +2,8 @@
     <sale-line-entry class="col-md-4"
                      api="$ctrl.saleLineEntryApi"
                      sale-id="$ctrl.sale.id"
-                     on-accept="$ctrl.acceptSaleLine(saleLine)">
+                     on-accept="$ctrl.acceptSaleLine(saleLine)"
+                     on-delete="$ctrl.deleteSaleLine(saleLine)">
     </sale-line-entry>
 
     <div class="col-md-8">
@@ -79,7 +80,8 @@
                             <div class="form-group">
                                 <label for="discount" class="col-sm-6 control-label">Discount</label>
                                 <div class="col-sm-6">
-                                    <input type="number" ng-model="$ctrl.sale.discount" class="form-control" id="discount" placeholder="0.00">
+                                    <input type="number" ng-model="$ctrl.sale.discount" class="form-control"
+                                           id="discount" placeholder="0.00">
                                 </div>
                             </div>
                             <div class="form-group">

@@ -52,4 +52,21 @@ class SaleLineApi(private val saleService: SaleService,
       .headers(HeaderUtil.createEntityUpdateAlert("saleLine", updatedSaleLine.getId.toString))
       .body(updatedSaleLine)
   }
+
+  @DeleteMapping(Array("/{saleLineId}"))
+  @Timed
+  def deleteSaleLine(@PathVariable("saleId") saleId: Long,
+                     @PathVariable("saleLineId") saleLineOp: SaleLine): ResponseEntity[Void] = {
+
+    Option(saleLineOp) match {
+      case Some(saleLine)
+        if saleLine.getSale.getId == saleId => {
+
+        saleService.deleteSaleLine(saleLine)
+        ResponseEntity.ok
+          .headers(HeaderUtil.createEntityDeletionAlert("saleLine", saleLine.getId.toString)).build
+      }
+      case _ => new ResponseEntity[Void](HttpStatus.NOT_FOUND)
+    }
+  }
 }

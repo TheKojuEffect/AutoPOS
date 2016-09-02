@@ -44,6 +44,18 @@
             }
         }
 
+        deleteSaleLine(saleLine) {
+
+            const lineIndex = _.findIndex(this.sale.lines,
+                line => line.id === saleLine.id);
+
+            this.saleLineService.remove({
+                saleId: this.sale.id,
+                saleLineId: saleLine.id
+            }).$promise
+                .then(() => this.sale.lines.splice(lineIndex, 1));
+        }
+
         updateSale() {
             this.saleService.update(
                 {id: this.sale.id},

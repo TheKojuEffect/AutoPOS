@@ -51,4 +51,9 @@ class SaleServiceImpl(private val saleRepo: SaleRepo,
     itemService.adjustQuantity(saleLine.getItem, -quantityChanged)
     saleLine
   }
+
+  override def deleteSaleLine(saleLine: SaleLine): Unit = {
+    saleLineRepo.delete(saleLine)
+    itemService.addQuantity(saleLine.getItem, saleLine.getQuantity)
+  }
 }
