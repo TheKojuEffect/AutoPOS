@@ -7,7 +7,7 @@
             this.itemSelectApi = null;
 
             this.setSaleLine = saleLine => {
-                this.saleLine = saleLine;
+                this.saleLine = Object.assign({}, saleLine);
                 this.itemSelectApi.setSelectedItem(saleLine.item)
             };
         }
@@ -32,8 +32,6 @@
             this.saleLine = new SaleLine();
             this.itemSelectApi.setSelectedItem(null);
         }
-
-
     }
 
     angular.module('autopos')
