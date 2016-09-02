@@ -48,7 +48,7 @@ class SaleServiceImpl(private val saleRepo: SaleRepo,
     val quantityChanged = saleLine.getQuantity - dbSaleLine.getQuantity
 
     saleLineRepo.save(saleLine)
-    itemService.adjustQuantity(saleLine.getItem, quantityChanged)
+    itemService.adjustQuantity(saleLine.getItem, -quantityChanged)
     saleLine
   }
 }
