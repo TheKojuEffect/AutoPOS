@@ -18,7 +18,6 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="number"><span translate="autopos.vehicle.number">Number</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="remarks"><span translate="autopos.vehicle.remarks">Remarks</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="owner.name"><span translate="autopos.vehicle.owner">owner</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -27,8 +26,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="vehicle in vm.vehicles track by vehicle.id">
-                    <td><a ui-sref="vehicle-detail({id:vehicle.id})">{{vehicle.id}}</a></td>
-                    <td>{{vehicle.number}}</td>
+                    <td><a ui-sref="vehicle-detail({id:vehicle.id})">{{vehicle.number}}</a></td>
                     <td>{{vehicle.remarks}}</td>
                     <td>
                         <a ui-sref="customer-detail({id:vehicle.owner.id})">{{vehicle.owner.name}}</a>

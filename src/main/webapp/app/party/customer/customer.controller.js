@@ -1,13 +1,13 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('autopos')
         .controller('CustomerController', CustomerController);
 
-    CustomerController.$inject = ['$scope', '$state', 'Customer', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    CustomerController.$inject = ['$state', 'Customer', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function CustomerController ($scope, $state, Customer, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function CustomerController($state, Customer, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         vm.loadAll = loadAll;
         vm.loadPage = loadPage;
@@ -16,19 +16,17 @@
         vm.transition = transition;
         vm.loadAll();
 
-        function loadAll () {
+        function loadAll() {
             Customer.query({
                 page: pagingParams.page - 1,
                 size: paginationConstants.itemsPerPage,
                 sort: sort()
             }, onSuccess, onError);
+
             function sort() {
-                var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
-                if (vm.predicate !== 'id') {
-                    result.push('id');
-                }
-                return result;
+                return [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
             }
+
             function onSuccess(data, headers) {
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
@@ -36,17 +34,18 @@
                 vm.customers = data;
                 vm.page = pagingParams.page;
             }
+
             function onError(error) {
                 AlertService.error(error.data.message);
             }
         }
 
-        function loadPage (page) {
+        function loadPage(page) {
             vm.page = page;
             vm.transition();
         }
 
-        function transition () {
+        function transition() {
             $state.transitionTo($state.$current, {
                 page: vm.page,
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
