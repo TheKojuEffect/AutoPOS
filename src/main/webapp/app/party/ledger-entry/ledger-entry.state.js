@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('ledger-entry', {
-            parent: 'party',
+              parent: 'trade',
             url: '/ledger-entry?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
@@ -52,7 +52,7 @@
             }
         })
         .state('ledger-entry-detail', {
-            parent: 'party',
+              parent: 'trade',
             url: '/ledger-entry/{id}',
             data: {
                 authorities: ['ROLE_USER'],

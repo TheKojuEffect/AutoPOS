@@ -10,16 +10,14 @@
             <span>Payments</span>
         </a>
     </li>
-
-    <li ng-class="{active: $state.includes('bill')}">
-        <a ui-sref="bill">
-            <span>Bills</span>
+    <li ng-class="{active: $state.includes('ledger')}">
+        <a ui-sref="ledger">
+            <span>Ledgers</span>
         </a>
     </li>
-
-    <li ng-class="{active: $state.includes('bill-item')}">
-        <a ui-sref="bill-item">
-            <span>Bill Items</span>
+    <li ng-class="{active: $state.includes('ledger-entry')}">
+        <a ui-sref="ledger-entry">
+            <span>Ledger Entries</span>
         </a>
     </li>
 </ul>
