@@ -11,7 +11,7 @@
         $stateProvider
         .state('day-book-entry', {
             parent: 'app',
-            url: '/day-book-entry?page&sort&search',
+            url: '/daybook?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.dayBookEntry.home.title'
@@ -53,7 +53,7 @@
         })
         .state('day-book-entry-detail', {
             parent: 'day-book-entry',
-            url: '/day-book-entry/{id}',
+            url: '/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.dayBookEntry.detail.title'
