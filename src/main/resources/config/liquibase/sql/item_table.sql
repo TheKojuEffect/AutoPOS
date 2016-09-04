@@ -10,7 +10,7 @@ CREATE TABLE item (
   category_id        BIGINT REFERENCES category (id),
   brand_id           BIGINT REFERENCES brand (id),
 
-  version           BIGINT                       NOT NULL,
+  version            BIGINT                       NOT NULL,
   created_date       TIMESTAMP                    NOT NULL,
   last_modified_date TIMESTAMP                    NOT NULL,
   created_by         BIGINT REFERENCES users (id) NOT NULL,
@@ -74,6 +74,6 @@ LANGUAGE PLPGSQL;
 -- Trigger to set item code before insert
 CREATE TRIGGER set_item_code_trigger
 BEFORE INSERT
-ON item
+  ON item
 FOR EACH ROW
 EXECUTE PROCEDURE set_item_code();
