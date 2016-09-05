@@ -1,5 +1,6 @@
 package io.koju.autopos.web.rest.errors;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.List;
  * Controller advice to translate the server side exceptions to client-friendly json structures.
  */
 @ControllerAdvice
+@Slf4j
 public class ExceptionTranslator {
 
     @ExceptionHandler(ConcurrencyFailureException.class)
@@ -73,6 +75,11 @@ public class ExceptionTranslator {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> processRuntimeException(Exception ex) throws Exception {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Exception caught processing request.", ex);
+        }
+
         BodyBuilder builder;
         ErrorDTO errorDTO;
         ResponseStatus responseStatus = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class);
