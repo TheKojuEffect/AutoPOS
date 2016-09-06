@@ -1,6 +1,7 @@
 package io.koju.autopos.party.web;
 
 import io.koju.autopos.Application;
+import io.koju.autopos.party.api.CustomerApi;
 import io.koju.autopos.party.domain.Customer;
 import io.koju.autopos.party.service.CustomerRepository;
 import io.koju.autopos.web.rest.TestUtil;

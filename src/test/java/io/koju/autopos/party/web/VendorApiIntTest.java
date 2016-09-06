@@ -1,6 +1,7 @@
 package io.koju.autopos.party.web;
 
 import io.koju.autopos.Application;
+import io.koju.autopos.party.api.VendorApi;
 import io.koju.autopos.party.domain.Vendor;
 import io.koju.autopos.party.service.VendorRepository;
 import io.koju.autopos.web.rest.TestUtil;
@@ -67,7 +68,7 @@ public class VendorApiIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        VendorApi vendorApi = new VendorApi();
+        VendorApi vendorApi = new VendorApi(vendorRepository);
         ReflectionTestUtils.setField(vendorApi, "vendorRepository", vendorRepository);
         this.restVendorMockMvc = MockMvcBuilders.standaloneSetup(vendorApi)
             .setCustomArgumentResolvers(pageableArgumentResolver)
