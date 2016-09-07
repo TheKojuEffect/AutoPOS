@@ -54,11 +54,6 @@ public class Sale extends Trade {
     @Enumerated(STRING)
     private Status status;
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
     public String getClient() {
         return getVehicle().map(Vehicle::getNumber).orElse(buyer);
     }
