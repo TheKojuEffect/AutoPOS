@@ -2,6 +2,8 @@ package io.koju.autopos.kernel.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.koju.autopos.kernel.api.Views;
 import io.koju.autopos.user.domain.User;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,15 +24,17 @@ import static javax.persistence.FetchType.LAZY;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditableEntity<ID extends Serializable>
-    extends VersionedEntity<ID>
-    implements AuditedEntity {
+        extends VersionedEntity<ID>
+        implements AuditedEntity {
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
+    @JsonView(Views.DateTimeAudited.class)
     private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(name = "last_modified_date", nullable = false)
+    @JsonView(Views.DateTimeAudited.class)
     private LocalDateTime lastModifiedDate;
 
     @CreatedBy
