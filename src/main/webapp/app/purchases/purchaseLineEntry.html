@@ -77,20 +77,6 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label" translate="autopos.purchaseLine.buyer" for="field_buyer">Buyer</label>
-                <input type="text" class="form-control" name="buyer" id="field_buyer"
-                       ng-model="$ctrl.purchaseLine.buyer"
-                       ng-maxlength="250">
-                <div ng-show="editForm.buyer.$invalid">
-                    <p class="help-block"
-                       ng-show="editForm.buyer.$error.maxlength" translate="entity.validation.maxlength"
-                       translate-value-max="250">
-                        This field cannot be longer than 250 characters.
-                    </p>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="control-label" translate="autopos.purchaseLine.remarks" for="field_remarks">Remarks</label>
                 <textarea type="text" class="form-control" name="remarks" id="field_remarks"
                           ng-model="$ctrl.purchaseLine.remarks"

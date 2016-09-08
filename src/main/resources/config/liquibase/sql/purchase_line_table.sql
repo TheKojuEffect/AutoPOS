@@ -4,7 +4,6 @@ CREATE TABLE purchase_line (
   item_id            BIGINT REFERENCES item (id)              NOT NULL,
   quantity           INT                                      NOT NULL  CHECK (quantity > 0),
   rate               NUMERIC(10, 2)                           NOT NULL  CHECK (rate > 0),
-  buyer              VARCHAR(250),
   remarks            VARCHAR(250),
 
   version            BIGINT                                   NOT NULL,

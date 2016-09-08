@@ -2,7 +2,6 @@ class PurchaseLine {
     constructor() {
         this.id;
         this.item;
-        this.buyer;
         this.remarks;
         this.quantity;
         this.rate;
