@@ -33,7 +33,7 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
     purchaseLine.setPurchase(purchase)
     purchaseLine.setId(null)
     purchaseLineRepo.save(purchaseLine)
-    itemService.substractQuantity(purchaseLine.getItem, purchaseLine.getQuantity)
+    itemService.addQuantity(purchaseLine.getItem, purchaseLine.getQuantity)
     purchaseLine
   }
 
@@ -44,7 +44,7 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
     val quantityChanged = purchaseLine.getQuantity - dbPurchaseLine.getQuantity
 
     purchaseLineRepo.save(purchaseLine)
-    itemService.adjustQuantity(purchaseLine.getItem, -quantityChanged)
+    itemService.adjustQuantity(purchaseLine.getItem, quantityChanged)
     purchaseLine
   }
 

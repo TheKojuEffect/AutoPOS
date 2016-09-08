@@ -20,7 +20,6 @@
 
         itemSelected(item) {
             this.purchaseLine.item = item;
-            this.purchaseLine.rate = item.markedPrice;
         }
 
         acceptPurchaseLine() {

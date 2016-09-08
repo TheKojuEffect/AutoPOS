@@ -38,7 +38,7 @@
                 <label class="control-label" translate="autopos.saleLine.rate" for="field_rate">Rate</label>
                 <input type="number" class="form-control" name="rate" id="field_rate"
                        ng-model="$ctrl.saleLine.rate"
-                       required min="0"/>
+                       required min="0" readonly/>
                 <div ng-show="editForm.rate.$invalid">
                     <p class="help-block"
                        ng-show="editForm.rate.$error.required" translate="entity.validation.required">

@@ -60,7 +60,7 @@
             this.purchaseService.update(
                 {id: this.purchase.id},
                 this.purchase,
-                () => this.$state.go('purchases.pending'));
+                () => this.$state.go('purchases.list'));
         }
 
         editPurchaseLine(purchaseLine) {
