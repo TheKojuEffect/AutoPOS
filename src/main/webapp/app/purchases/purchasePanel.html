@@ -37,9 +37,14 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="buyer" class="col-sm-2 control-label">Buyer</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="buyer" ng-model="$ctrl.purchase.buyer">
+                        <label for="vendor" class="col-sm-2 control-label">Vendor</label>
+                        <div class=" col-sm-6">
+                            <select class="form-control"
+                                    id="vendor" name="vendor"
+                                    ng-model="$ctrl.purchase.vendor"
+                                    ng-options="vendor as vendor.name for vendor in $ctrl.vendors | orderBy: 'name' track by vendor.id">
+                                <option value=""></option>
+                            </select>
                         </div>
                     </div>
                 </form>

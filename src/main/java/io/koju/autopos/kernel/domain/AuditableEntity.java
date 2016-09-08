@@ -27,12 +27,10 @@ public abstract class AuditableEntity<ID extends Serializable>
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
-    @JsonIgnore
     private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(name = "last_modified_date", nullable = false)
-    @JsonIgnore
     private LocalDateTime lastModifiedDate;
 
     @CreatedBy

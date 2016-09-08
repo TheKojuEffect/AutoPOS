@@ -3,7 +3,7 @@
 
     class PurchasePanelController {
 
-        constructor(PurchaseService, PurchaseLineService, $state) {
+        constructor($state, PurchaseService, PurchaseLineService, Vendor) {
             this.$state = $state;
             this.purchaseService = PurchaseService;
             this.purchaseLineService = PurchaseLineService;
@@ -14,6 +14,8 @@
             this.datePickerOpenStatus.date = false;
 
             this.purchaseLineEntryApi = null;
+            this.vendors = Vendor.query();
+
         }
 
         openCalendar(date) {

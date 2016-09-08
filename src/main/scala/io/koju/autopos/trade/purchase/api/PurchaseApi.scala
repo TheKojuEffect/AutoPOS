@@ -52,6 +52,4 @@ class PurchaseApi(private val purchaseService: PurchaseService,
       case None => new ResponseEntity[Purchase](HttpStatus.NOT_FOUND)
     }
   }
-
-
 }
