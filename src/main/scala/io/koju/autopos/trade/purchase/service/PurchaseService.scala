@@ -5,7 +5,7 @@ import org.springframework.data.domain.{Page, Pageable}
 
 trait PurchaseService {
 
-  def getPurchasesWithStatus(status: Purchase.Status, pageable: Pageable): Page[Purchase]
+  def getPurchases(pageable: Pageable): Page[Purchase]
 
   def createNewPurchase(): Purchase
 

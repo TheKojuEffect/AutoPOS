@@ -1,40 +1,54 @@
 <div>
+    <h2>Purchases</h2>
     <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ng-click="vm.createNewPurchase()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span>
+                        New Purchase
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
     <br/>
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
-                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id">
-                        <span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span>
-                    </th>
-                    <th jh-sort-by="buyer">
-                        <span>Buyer</span> <span class="glyphicon glyphicon-sort"></span>
-                    </th>
-                    <th jh-sort-by="grandTotal">
-                        <span>Grand Total</span> <span class="glyphicon glyphicon-sort"></span>
-                    </th>
-                    <th jh-sort-by="date">
-                        <span>Date</span> <span class="glyphicon glyphicon-sort"></span>
-                    </th>
-                    <th jh-sort-by="lastModifiedDate">
-                        <span>Last Modified</span> <span class="glyphicon glyphicon-sort"></span>
-                    </th>
-                </tr>
+            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <th jh-sort-by="id">
+                    <span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="buyer">
+                    <span>Buyer</span> <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="grandTotal">
+                    <span>Grand Total</span> <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="date">
+                    <span>Date</span> <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="lastModifiedDate">
+                    <span>Last Modified</span> <span class="glyphicon glyphicon-sort"></span>
+                </th>
+            </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="purchase in vm.purchases track by purchase.id">
-                    <td><a ui-sref="purchases.detail({id:purchase.id})">{{purchase.id}}</a></td>
-                    <td>{{purchase.buyer}}</td>
-                    <td>{{purchase.grandTotal}}</td>
-                    <td>{{purchase.date | date:'medium'}}</td>
-                    <td>{{purchase.lastModifiedDate | date:'medium'}}</td>
-                </tr>
+            <tr ng-repeat="purchase in vm.purchases track by purchase.id">
+                <td><a ui-sref="purchases.detail({id:purchase.id})">{{purchase.id}}</a></td>
+                <td>{{purchase.buyer}}</td>
+                <td>{{purchase.grandTotal}}</td>
+                <td>{{purchase.date | date:'medium'}}</td>
+                <td>{{purchase.lastModifiedDate | date:'medium'}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
     <div class="text-center">
         <jhi-item-count page="vm.page" total="vm.queryCount"></jhi-item-count>
-        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page"
+                        ng-change="vm.transition()"></uib-pagination>
     </div>
 </div>

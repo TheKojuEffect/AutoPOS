@@ -1,10 +1,8 @@
 CREATE TABLE purchase (
   id                 BIGSERIAL PRIMARY KEY,
   date               TIMESTAMP                            NOT NULL,
-  buyer              VARCHAR(250),
   discount           NUMERIC(10, 2) DEFAULT 0             NOT NULL,
-  vehicle_id         BIGINT REFERENCES vehicle (id),
-  status             VARCHAR(15)                          NOT NULL,
+  vendor_id          BIGINT REFERENCES vendor (id),
   remarks            VARCHAR(250),
 
   version            BIGINT                               NOT NULL,

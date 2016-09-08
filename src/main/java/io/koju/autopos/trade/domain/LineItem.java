@@ -29,17 +29,14 @@ public abstract class LineItem extends AuditableBaseEntity {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @NotNull
-    @Min(value = 0)
-    @Column(name = "rate", precision = 10, scale = 2, nullable = false)
-    private BigDecimal rate;
-
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;
 
     public BigDecimal getAmount() {
-        return rate.multiply(new BigDecimal(quantity));
+        return getRate().multiply(new BigDecimal(quantity));
     }
+
+    public abstract BigDecimal getRate();
 
 }

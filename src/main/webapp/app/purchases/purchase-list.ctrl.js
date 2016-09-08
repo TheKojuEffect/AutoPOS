@@ -5,7 +5,7 @@
         .module('autopos')
         .controller('PurchaseListCtrl', PurchaseListCtrl);
 
-    function PurchaseListCtrl($state, PurchaseService, purchaseStatus, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function PurchaseListCtrl($state, $timeout, PurchaseService, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         vm.loadAll = loadAll;
         vm.loadPage = loadPage;
@@ -14,9 +14,10 @@
         vm.transition = transition;
         vm.loadAll();
 
+        vm.createNewPurchase = createNewPurchase;
+
         function loadAll() {
             PurchaseService.query({
-                status: purchaseStatus,
                 page: pagingParams.page - 1,
                 size: paginationConstants.itemsPerPage,
                 sort: sort()
@@ -54,6 +55,18 @@
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
                 search: vm.currentSearch
             });
+        }
+
+        function createNewPurchase() {
+
+            PurchaseService.save({}, onCreateSuccess);
+
+            function onCreateSuccess(purchase) {
+                $timeout(function () {
+                    $state.go('purchases.detail', {id: purchase.id})
+                }, 10);
+            }
+
         }
 
     }

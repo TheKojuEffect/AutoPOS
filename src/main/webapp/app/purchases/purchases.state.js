@@ -21,65 +21,14 @@
                 }
             })
             .state('purchases.list', {
-                abstract: true,
                 parent: 'purchases',
-                views: {
-                    'content@': {
-                        templateUrl: 'app/purchases/purchases.html',
-                        controller: 'PurchasesController',
-                        controllerAs: '$ctrl'
-                    }
-                }
-            })
-            .state('purchases.pending', {
-                parent: 'purchases.list',
-                url: '/purchases/pending?page&sort&search',
-                data: {
-                    authorities: ['ROLE_USER'],
-                    pageTitle: 'autopos.purchase.pendingPurchases'
-                },
-                views: {
-                    'content-tab': {
-                        templateUrl: 'app/purchases/purchaseList.html',
-                        controller: 'PurchaseListCtrl',
-                        controllerAs: 'vm'
-                    }
-                },
-                params: {
-                    page: {
-                        value: '1',
-                        squash: true
-                    },
-                    sort: {
-                        value: 'id,desc',
-                        squash: true
-                    },
-                    search: null
-                },
-                resolve: {
-                    purchaseStatus: function () {
-                        return 'PENDING';
-                    },
-                    pagingParams: function ($stateParams, PaginationUtil) {
-                        return {
-                            page: PaginationUtil.parsePage($stateParams.page),
-                            sort: $stateParams.sort,
-                            predicate: PaginationUtil.parsePredicate($stateParams.sort),
-                            ascending: PaginationUtil.parseAscending($stateParams.sort),
-                            search: $stateParams.search
-                        };
-                    }
-                }
-            })
-            .state('purchases.completed', {
-                parent: 'purchases.list',
-                url: '/purchases/completed?page&sort&search',
+                url: '/purchases?page&sort&search',
                 data: {
                     authorities: ['ROLE_USER'],
                     pageTitle: 'autopos.purchase.completedPurchases'
                 },
                 views: {
-                    'content-tab': {
+                    'content@': {
                         templateUrl: 'app/purchases/purchaseList.html',
                         controller: 'PurchaseListCtrl',
                         controllerAs: 'vm'
@@ -97,9 +46,6 @@
                     search: null
                 },
                 resolve: {
-                    purchaseStatus: function () {
-                        return 'COMPLETED';
-                    },
                     pagingParams: function ($stateParams, PaginationUtil) {
                         return {
                             page: PaginationUtil.parsePage($stateParams.page),

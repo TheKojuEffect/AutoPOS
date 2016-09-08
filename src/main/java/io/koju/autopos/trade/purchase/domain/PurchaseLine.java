@@ -13,7 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -31,18 +33,16 @@ public class PurchaseLine extends LineItem {
     private Long id;
 
     @NotNull
+    @Min(value = 0)
+    @Column(name = "rate", precision = 10, scale = 2, nullable = false)
+    private BigDecimal rate;
+
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "purchase_id")
     @JsonBackReference
     private Purchase purchase;
 
-    @Column(name = "buyer")
-    private String buyer;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
 }
 
 

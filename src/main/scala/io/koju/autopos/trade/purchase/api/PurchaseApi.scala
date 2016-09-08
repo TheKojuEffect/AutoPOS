@@ -19,8 +19,8 @@ class PurchaseApi(private val purchaseService: PurchaseService,
 
   @GetMapping
   @Timed
-  def getAllPurchases(@RequestParam("status") status: Purchase.Status, pageable: Pageable) = {
-    val page = purchaseService.getPurchasesWithStatus(status, pageable)
+  def getAllPurchases(pageable: Pageable) = {
+    val page = purchaseService.getPurchases(pageable)
     val headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/purchases")
     new ResponseEntity(page.getContent, headers, HttpStatus.OK)
   }
