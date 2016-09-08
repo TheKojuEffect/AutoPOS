@@ -1,4 +1,4 @@
-package io.koju.autopos.party.api
+package io.koju.autopos.kernel.api
 
 import java.util.List
 import javax.validation.Valid
