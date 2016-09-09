@@ -1,6 +1,8 @@
 package io.koju.autopos.trade.sale.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import io.koju.autopos.kernel.json.Views;
 import io.koju.autopos.party.domain.Vehicle;
 import io.koju.autopos.trade.domain.Trade;
 import lombok.Getter;
@@ -17,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,10 +52,20 @@ public class Sale extends Trade {
     private List<SaleLine> lines = new ArrayList<>();
 
     @Enumerated(STRING)
+    @JsonView(Views.Summary.class)
     private Status status;
 
+    @JsonView(Views.Summary.class)
     public String getClient() {
         return getVehicle().map(Vehicle::getNumber).orElse(buyer);
+    }
+
+    @JsonView(Views.Summary.class)
+    public BigDecimal getGrandTotal() {
+        return lines.stream()
+                    .map(SaleLine::getAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .subtract(getDiscount());
     }
 
     public Optional<Vehicle> getVehicle() {

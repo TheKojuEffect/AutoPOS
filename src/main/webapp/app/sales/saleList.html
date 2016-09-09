@@ -8,10 +8,10 @@
                     <th jh-sort-by="id">
                         <span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span>
                     </th>
-                    <th jh-sort-by="buyer">
-                        <span>Buyer</span> <span class="glyphicon glyphicon-sort"></span>
+                    <th>
+                        <span>Client</span> <span class="glyphicon glyphicon-sort"></span>
                     </th>
-                    <th jh-sort-by="grandTotal">
+                    <th>
                         <span>Grand Total</span> <span class="glyphicon glyphicon-sort"></span>
                     </th>
                     <th jh-sort-by="date">
@@ -25,7 +25,7 @@
             <tbody>
                 <tr ng-repeat="sale in vm.sales track by sale.id">
                     <td><a ui-sref="sales.detail({id:sale.id})">{{sale.id}}</a></td>
-                    <td>{{sale.buyer}}</td>
+                    <td>{{sale.client}}</td>
                     <td>{{sale.grandTotal}}</td>
                     <td>{{sale.date | date:'medium'}}</td>
                     <td>{{sale.lastModifiedDate | date:'medium'}}</td>

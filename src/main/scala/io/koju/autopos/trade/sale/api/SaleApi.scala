@@ -4,6 +4,8 @@ import java.net.URI
 import javax.validation.Valid
 
 import com.codahale.metrics.annotation.Timed
+import com.fasterxml.jackson.annotation.JsonView
+import io.koju.autopos.kernel.json.Views
 import io.koju.autopos.trade.sale.domain.{Sale, SaleLine}
 import io.koju.autopos.trade.sale.repo.SaleLineRepo
 import io.koju.autopos.trade.sale.service.SaleService
@@ -20,6 +22,7 @@ class SaleApi(private val saleService: SaleService,
 
   @GetMapping
   @Timed
+  @JsonView(Array(classOf[Views.Summary]))
   def getAllSales(@RequestParam("status") status: Sale.Status, pageable: Pageable) = {
     val page = saleService.getSalesWithStatus(status, pageable)
     val headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/sales")
