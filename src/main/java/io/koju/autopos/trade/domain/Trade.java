@@ -1,8 +1,6 @@
 package io.koju.autopos.trade.domain;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import io.koju.autopos.kernel.domain.AuditableBaseEntity;
-import io.koju.autopos.kernel.web.View;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +19,6 @@ public abstract class Trade extends AuditableBaseEntity {
 
     @NotNull
     @Column(name = "date", nullable = false)
-    @JsonView(View.Summary.class)
     private LocalDateTime date;
 
     @NotNull

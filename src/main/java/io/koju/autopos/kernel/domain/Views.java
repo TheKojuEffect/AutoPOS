@@ -1,4 +1,4 @@
-package io.koju.autopos.kernel.api;
+package io.koju.autopos.kernel.domain;
 
 public class Views {
 

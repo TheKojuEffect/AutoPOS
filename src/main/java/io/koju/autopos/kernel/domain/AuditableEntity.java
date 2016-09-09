@@ -3,7 +3,6 @@ package io.koju.autopos.kernel.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
-import io.koju.autopos.kernel.api.Views;
 import io.koju.autopos.user.domain.User;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
