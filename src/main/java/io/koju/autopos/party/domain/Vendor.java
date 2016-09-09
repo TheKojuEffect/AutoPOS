@@ -1,22 +1,19 @@
 package io.koju.autopos.party.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import io.koju.autopos.kernel.domain.AuditableBaseEntity;
+import io.koju.autopos.kernel.json.Views;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -36,6 +33,7 @@ public class Vendor extends AuditableBaseEntity {
     @NotNull
     @Size(min = 2, max = 100)
     @Column(name = "name", length = 100, nullable = false, unique = true)
+    @JsonView(Views.Summary.class)
     private String name;
 
     @Size(max = 250)

@@ -1,4 +1,4 @@
-package io.koju.autopos.kernel.domain;
+package io.koju.autopos.kernel.json;
 
 public class Views {
 
@@ -9,6 +9,9 @@ public class Views {
     }
 
     public interface DateTimeAudited extends Versioned {
+    }
+
+    public interface Summary extends DateTimeAudited {
     }
 
 }

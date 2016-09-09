@@ -3,6 +3,8 @@ package io.koju.autopos.trade.purchase.api
 import java.net.URI
 
 import com.codahale.metrics.annotation.Timed
+import com.fasterxml.jackson.annotation.JsonView
+import io.koju.autopos.kernel.json.Views
 import io.koju.autopos.trade.purchase.domain.Purchase
 import io.koju.autopos.trade.purchase.repo.PurchaseLineRepo
 import io.koju.autopos.trade.purchase.service.PurchaseService
@@ -19,6 +21,7 @@ class PurchaseApi(private val purchaseService: PurchaseService,
 
   @GetMapping
   @Timed
+  @JsonView(Array(classOf[Views.Summary]))
   def getAllPurchases(pageable: Pageable) = {
     val page = purchaseService.getPurchases(pageable)
     val headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/purchases")
