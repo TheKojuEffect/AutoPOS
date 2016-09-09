@@ -1,19 +1,12 @@
 <div>
-    <h2>Purchases</h2>
+    <h2>
+        <span>Purchases</span>
+        <button class="btn btn-primary pull-right" ng-click="vm.createNewPurchase()">
+            <span class="glyphicon glyphicon-plus"></span>
+            <span> New Purchase </span>
+        </button>
+    </h2>
     <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ng-click="vm.createNewPurchase()">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span>
-                        New Purchase
-                    </span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <br/>
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
