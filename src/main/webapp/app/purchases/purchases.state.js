@@ -25,7 +25,7 @@
                 url: '/purchases?page&sort&search',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'autopos.purchase.completedPurchases'
+                    pageTitle: 'autopos.purchase.purchases'
                 },
                 views: {
                     'content@': {

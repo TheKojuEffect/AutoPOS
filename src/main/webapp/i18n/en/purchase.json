@@ -1,8 +1,7 @@
 {
   "autopos": {
     "purchase": {
-      "pendingPurchases": "Pending Purchases",
-      "completedPurchases": "Completed Purchases",
+      "purchases": "Purchases",
       "newPurchase": "New Purchase",
       "purchaseDetail": "Purchase Detail",
       "updated": "Purchase is updated with identifier {{ param }}"
