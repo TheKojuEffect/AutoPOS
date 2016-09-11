@@ -14,6 +14,9 @@
                 <th jh-sort-by="id">
                     <span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span>
                 </th>
+                <th>
+                    <span>Invoice #</span> <span class="glyphicon glyphicon-sort"></span>
+                </th>
                 <th jh-sort-by="vendor">
                     <span>Vendor</span> <span class="glyphicon glyphicon-sort"></span>
                 </th>
@@ -32,6 +35,7 @@
             <tbody>
             <tr ng-repeat="purchase in vm.purchases track by purchase.id">
                 <td><a ui-sref="purchases.detail({id:purchase.id})">{{purchase.id}}</a></td>
+                <td>{{sale.invoiceNumber}}</td>
                 <td>{{purchase.vendor && purchase.vendor.name}}</td>
                 <td>{{purchase.grandTotal}}</td>
                 <td>{{purchase.date | date:'medium'}}</td>

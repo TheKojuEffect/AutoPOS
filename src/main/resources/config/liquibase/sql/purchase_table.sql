@@ -3,6 +3,7 @@ CREATE TABLE purchase (
   date               TIMESTAMP                            NOT NULL,
   discount           NUMERIC(10, 2) DEFAULT 0             NOT NULL,
   vendor_id          BIGINT REFERENCES vendor (id),
+  invoice_number     VARCHAR(50),
   remarks            VARCHAR(250),
 
   version            BIGINT                               NOT NULL,

@@ -5,6 +5,7 @@ CREATE TABLE sale (
   discount           NUMERIC(10, 2) DEFAULT 0             NOT NULL,
   vehicle_id         BIGINT REFERENCES vehicle (id),
   status             VARCHAR(15)                          NOT NULL,
+  invoice_number     VARCHAR(50) UNIQUE,
   remarks            VARCHAR(250),
 
   version            BIGINT                               NOT NULL,

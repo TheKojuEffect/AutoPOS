@@ -29,6 +29,11 @@ public abstract class Trade extends AuditableBaseEntity {
     @Column(name = "discount", precision = 10, scale = 2, nullable = false)
     private BigDecimal discount = BigDecimal.ZERO;
 
+    @Size(min = 1, max = 50)
+    @Column(name = "invoice_number", length = 50)
+    @JsonView(Views.Summary.class)
+    private String invoiceNumber;
+
     @Size(max = 250)
     @Column(name = "remarks", length = 250)
     private String remarks;

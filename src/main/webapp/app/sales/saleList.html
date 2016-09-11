@@ -9,6 +9,9 @@
                         <span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span>
                     </th>
                     <th>
+                        <span>Invoice #</span> <span class="glyphicon glyphicon-sort"></span>
+                    </th>
+                    <th>
                         <span>Client</span> <span class="glyphicon glyphicon-sort"></span>
                     </th>
                     <th>
@@ -26,6 +29,7 @@
             <tbody>
                 <tr ng-repeat="sale in vm.sales track by sale.id">
                     <td><a ui-sref="sales.detail({id:sale.id})">{{sale.id}}</a></td>
+                    <td>{{sale.invoiceNumber}}</td>
                     <td>{{sale.client}}</td>
                     <td>{{sale.grandTotal}}</td>
                     <td>{{sale.date | date:'medium'}}</td>
