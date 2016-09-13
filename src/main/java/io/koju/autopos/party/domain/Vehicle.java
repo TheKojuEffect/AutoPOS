@@ -25,7 +25,7 @@ public class Vehicle extends AuditableBaseEntity {
     private static final String ID_SEQ = "vehicle_id_seq";
 
     @Id
-    @SequenceGenerator(name = ID_SEQ, sequenceName = ID_SEQ, initialValue = 1)
+    @SequenceGenerator(name = ID_SEQ, sequenceName = ID_SEQ, allocationSize = 1)
     @GeneratedValue(strategy = SEQUENCE, generator = ID_SEQ)
     private Long id;
 
