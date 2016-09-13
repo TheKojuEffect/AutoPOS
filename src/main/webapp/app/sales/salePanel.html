@@ -37,6 +37,13 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="vehicle" class="col-sm-2 control-label">Vehicle</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="vehicle" ng-model="$ctrl.sale.vehicle">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-hide="$ctrl.sale.vehicle">
                         <label for="buyer" class="col-sm-2 control-label">Buyer</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="buyer" ng-model="$ctrl.sale.buyer">

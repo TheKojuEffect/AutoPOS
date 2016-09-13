@@ -6,7 +6,7 @@ import com.codahale.metrics.annotation.Timed
 import com.querydsl.core.types.Predicate
 import io.koju.autopos.kernel.api.CrudApi
 import io.koju.autopos.party.domain.Vehicle
-import io.koju.autopos.party.service.VehicleRepository
+import io.koju.autopos.party.repo.VehicleRepo
 import io.koju.autopos.web.rest.util.PaginationUtil
 import org.springframework.data.domain.Pageable
 import org.springframework.data.querydsl.binding.QuerydslPredicate
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.{GetMapping, RequestMapping, Rest
 
 @RestController
 @RequestMapping(Array("/api/vehicles"))
-class VehicleApi(vehicleRepository: VehicleRepository)
+class VehicleApi(vehicleRepository: VehicleRepo)
   extends CrudApi(vehicleRepository, "vehicle", "/api/vehicles") {
 
   @GetMapping

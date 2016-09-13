@@ -10,6 +10,7 @@ import io.koju.autopos.config.liquibase.AsyncSpringLiquibase;
 import io.koju.autopos.domain.DomainPackage;
 import io.koju.autopos.kernel.domain.AbstractEntity;
 import io.koju.autopos.party.domain.PartyDomainPackage;
+import io.koju.autopos.party.repo.PartyRepoPackage;
 import io.koju.autopos.party.service.PartyServicePackage;
 import io.koju.autopos.repository.RepositoryPackage;
 import io.koju.autopos.shared.domain.SharedDomainPackage;
@@ -52,7 +53,8 @@ import java.util.Arrays;
         PartyServicePackage.class,
         TradeServicePackage.class,
         SaleRepoPackage.class,
-        PurchaseRepoPackage.class})
+        PurchaseRepoPackage.class,
+        PartyRepoPackage.class})
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = {
         AbstractEntity.class,

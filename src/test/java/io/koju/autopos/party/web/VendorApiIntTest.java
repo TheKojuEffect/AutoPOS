@@ -3,7 +3,6 @@ package io.koju.autopos.party.web;
 import io.koju.autopos.Application;
 import io.koju.autopos.party.api.VendorApi;
 import io.koju.autopos.party.domain.Vendor;
-import io.koju.autopos.party.service.VendorRepository;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
