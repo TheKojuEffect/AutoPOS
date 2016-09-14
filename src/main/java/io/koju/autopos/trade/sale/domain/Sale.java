@@ -17,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -57,7 +59,7 @@ public class Sale extends Trade {
 
     @JsonView(Views.Summary.class)
     public String getClient() {
-        return getVehicle().map(Vehicle::getNumber).orElse(buyer);
+        return getVehicle().map(Vehicle::getTitle).orElse(buyer);
     }
 
     @JsonView(Views.Summary.class)
@@ -66,6 +68,14 @@ public class Sale extends Trade {
                     .map(SaleLine::getAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .subtract(getDiscount());
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void normalizeClient() {
+        if (vehicle != null) {
+            buyer = null;
+        }
     }
 
     public Optional<Vehicle> getVehicle() {

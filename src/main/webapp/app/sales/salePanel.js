@@ -68,7 +68,7 @@
         }
 
         get subTotal() {
-            return _.reduce(this.sale.lines, (sum, line) => line.amount + sum, 0);
+            return _.sumBy(this.sale.lines, 'amount');
         }
 
         get total() {

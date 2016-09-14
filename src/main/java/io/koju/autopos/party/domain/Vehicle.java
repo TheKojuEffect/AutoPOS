@@ -41,4 +41,11 @@ public class Vehicle extends AuditableBaseEntity {
     @ManyToOne
     private Customer owner;
 
+    public String getTitle() {
+        if (owner == null) {
+            return number;
+        }
+        return String.format("[ %s ] %s", number, owner.getName());
+    }
+
 }

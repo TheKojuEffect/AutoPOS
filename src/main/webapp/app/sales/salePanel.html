@@ -37,10 +37,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="vehicle" class="col-sm-2 control-label">Vehicle</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="vehicle" ng-model="$ctrl.sale.vehicle">
-                        </div>
+                        <label class="col-sm-2 control-label">Vehicle</label>
+                        <vehicle-select class="col-sm-6"
+                                        selected-vehicle="$ctrl.sale.vehicle"
+                        </vehicle-select>
                     </div>
 
                     <div class="form-group" ng-hide="$ctrl.sale.vehicle">
@@ -53,7 +53,8 @@
                     <div class="form-group">
                         <label for="invoiceNumber" class="col-sm-2 control-label">Invoice #</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="invoiceNumber" ng-model="$ctrl.sale.invoiceNumber">
+                            <input type="text" class="form-control" id="invoiceNumber"
+                                   ng-model="$ctrl.sale.invoiceNumber">
                         </div>
                     </div>
                 </form>
