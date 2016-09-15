@@ -6,6 +6,8 @@ import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.beans.factory.{DisposableBean, InitializingBean}
 import org.springframework.core.task.AsyncTaskExecutor
 
+import scala.util.{Failure, Success, Try}
+
 class ExceptionHandlingAsyncTaskExecutor(val executor: AsyncTaskExecutor)
   extends AsyncTaskExecutor
     with InitializingBean
@@ -23,25 +25,21 @@ class ExceptionHandlingAsyncTaskExecutor(val executor: AsyncTaskExecutor)
 
   private def createCallable[T](task: Callable[T]): Callable[T] =
     new Callable[T] {
-      override def call(): T = {
-        try {
-          task.call()
-        } catch {
-          case (ex: Exception) => {
+      override def call() =
+        Try(task.call()) match {
+          case Success(t) => t
+          case Failure(ex: Exception) =>
             handle(ex)
             throw ex
-          }
         }
-      }
     }
 
   private def createWrappedRunnable(task: Runnable): Runnable =
     new Runnable {
-      override def run(): Unit = {
-        try {
-          task.run()
-        } catch {
-          case e: Exception => handle(e);
+      override def run() {
+        Try(task.run()) match {
+          case Failure(_) => handle _
+          case _ =>
         }
       }
     }
