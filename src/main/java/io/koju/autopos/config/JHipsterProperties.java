@@ -19,8 +19,6 @@ public class JHipsterProperties {
 
     private final Http http = new Http();
 
-    private final Cache cache = new Cache();
-
     private final Mail mail = new Mail();
 
     private final Security security = new Security();
@@ -37,10 +35,6 @@ public class JHipsterProperties {
 
     public Http getHttp() {
         return http;
-    }
-
-    public Cache getCache() {
-        return cache;
     }
 
     public Mail getMail() {
@@ -114,38 +108,6 @@ public class JHipsterProperties {
 
             public void setTimeToLiveInDays(int timeToLiveInDays) {
                 this.timeToLiveInDays = timeToLiveInDays;
-            }
-        }
-    }
-
-    public static class Cache {
-
-        private int timeToLiveSeconds = 3600;
-
-        private final Ehcache ehcache = new Ehcache();
-
-        public int getTimeToLiveSeconds() {
-            return timeToLiveSeconds;
-        }
-
-        public void setTimeToLiveSeconds(int timeToLiveSeconds) {
-            this.timeToLiveSeconds = timeToLiveSeconds;
-        }
-
-        public Ehcache getEhcache() {
-            return ehcache;
-        }
-
-        public static class Ehcache {
-
-            private String maxBytesLocalHeap = "16M";
-
-            public String getMaxBytesLocalHeap() {
-                return maxBytesLocalHeap;
-            }
-
-            public void setMaxBytesLocalHeap(String maxBytesLocalHeap) {
-                this.maxBytesLocalHeap = maxBytesLocalHeap;
             }
         }
     }

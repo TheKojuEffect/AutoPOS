@@ -3,8 +3,6 @@ package io.koju.autopos.catalog.domain;
 import io.koju.autopos.kernel.domain.AuditableBaseEntity;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
@@ -32,7 +30,6 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Entity
 @Table(name = "item")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Getter
 @Setter
 public class Item extends AuditableBaseEntity {
@@ -82,7 +79,6 @@ public class Item extends AuditableBaseEntity {
     private Brand brand;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "item_tag",
             joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))

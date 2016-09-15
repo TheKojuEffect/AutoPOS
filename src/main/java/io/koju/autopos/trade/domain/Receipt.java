@@ -1,8 +1,6 @@
 package io.koju.autopos.trade.domain;
 
 import io.koju.autopos.party.domain.Customer;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +22,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "receipt")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Receipt implements Serializable {
 
     private static final long serialVersionUID = 1L;

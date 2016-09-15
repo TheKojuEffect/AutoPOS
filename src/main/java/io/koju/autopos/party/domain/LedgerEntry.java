@@ -1,8 +1,5 @@
 package io.koju.autopos.party.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +20,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "ledger_entry")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class LedgerEntry implements Serializable {
 
     private static final long serialVersionUID = 1L;

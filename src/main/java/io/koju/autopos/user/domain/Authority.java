@@ -2,8 +2,6 @@ package io.koju.autopos.user.domain;
 
 import io.koju.autopos.kernel.domain.AbstractBaseEntity;
 import io.koju.autopos.user.domain.Role.RoleConverter;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -21,7 +19,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
  */
 @Entity
 @Table(name = "authority")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Authority extends AbstractBaseEntity {
 
     @Id

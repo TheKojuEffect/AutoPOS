@@ -1,8 +1,6 @@
 package io.koju.autopos.catalog.domain;
 
 import io.koju.autopos.kernel.domain.AuditableBaseEntity;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,7 +15,6 @@ import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "brand")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Brand extends AuditableBaseEntity {
 
     @Id
