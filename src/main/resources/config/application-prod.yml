@@ -49,14 +49,14 @@ server:
         mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
 
 # ===================================================================
-# JHipster specific properties
+# AutoPOS specific properties
 # ===================================================================
 
 autopos:
     http:
         cache: # Used by the CachingHttpHeadersFilter
             timeToLiveInDays: 1461
-    mail: # specific JHipster mail property, for standard properties see MailProperties
+    mail: # specific AutoPOS mail property, for standard properties see MailProperties
         from: AutoPOS@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true

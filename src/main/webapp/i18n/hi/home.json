@@ -5,15 +5,14 @@
         "logged": {
             "message": "आप उपयोगकर्ता \"{{username}}\" के रूप में लॉग ऑन हैं "
         },
-        "question": "यदि आप JHipster पर किसी भी सवाल है:",
         "link": {
-            "homepage": "JHipster मुखपृष्ठ",
-            "stackoverflow": "JHipster स्टैक ओवरफ़्लो",
-            "bugtracker": "JHipster बग tracker",
-            "chat": "JHipster सार्वजनिक चैट रूम",
-            "follow": "@java_hipster चहचहाना पर का पालन करें"
+            "homepage": "AutoPOS मुखपृष्ठ",
+            "stackoverflow": "AutoPOS स्टैक ओवरफ़्लो",
+            "bugtracker": "AutoPOS बग tracker",
+            "chat": "AutoPOS सार्वजनिक चैट रूम",
+            "follow": "@TheKojuEffect चहचहाना पर का पालन करें"
         },
-        "like": "यदि आप JHipster की तरह, हम एक स्टार पर देने के लिए मत भूलना",
+        "like": "यदि आप AutoPOS की तरह, हम एक स्टार पर देने के लिए मत भूलना",
         "github": "GitHub"
     }
 }

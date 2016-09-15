@@ -4,7 +4,6 @@
         "browsehappy": "आप एक <strong>पुराने</strong> ब्राउज़र का उपयोग कर रहे हैं। कृपया अपने अनुभव में सुधार करने के लिए अपने <a href=\"http://browsehappy.com/?locale=en\">ब्राउज़र को अपग्रेड करें</a>",
         "menu": {
             "home": "होम",
-            "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "एंटिटीज़",
                 "bill": "Bill",
@@ -22,8 +21,7 @@
                 "receipt": "Receipt",
                 "tag": "Tag",
                 "vehicle": "Vehicle",
-                "vendor": "Vendor",
-                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+                "vendor": "Vendor"
             },
             "account": {
                 "main": "खाता",
@@ -44,8 +42,7 @@
                 "logs": "लॉग",
                 "audits": "आडिट",
                 "apidocs": "API",
-                "database": "डेटाबेस",
-                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+                "database": "डेटाबेस"
             },
             "language": "भाषा"
         },

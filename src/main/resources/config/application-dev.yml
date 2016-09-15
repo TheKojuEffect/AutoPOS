@@ -45,11 +45,11 @@ server:
     port: 8080
 
 # ===================================================================
-# JHipster specific properties
+# AutoPOS specific properties
 # ===================================================================
 
 autopos:
-    mail: # specific JHipster mail property, for standard properties see MailProperties
+    mail: # specific AutoPOS mail property, for standard properties see MailProperties
         from: AutoPOS@localhost
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true

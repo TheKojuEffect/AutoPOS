@@ -16,7 +16,7 @@
     <!--
         Added the entity LedgerEntry.
     -->
-    <changeSet id="20160209170435" author="jhipster">
+    <changeSet id="20160209170435" author="autopos">
         <createTable tableName="ledger_entry">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -46,7 +46,6 @@
             <column name="remarks" type="varchar(250)"/>
             
             <column name="ledger_id" type="bigint"/>
-            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="ledger_entry" columnName="date" columnDataType="datetime"/>
 

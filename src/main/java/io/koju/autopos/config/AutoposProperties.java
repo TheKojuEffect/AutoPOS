@@ -8,7 +8,7 @@ import org.springframework.web.cors.CorsConfiguration;
 
 
 /**
- * Properties specific to JHipster.
+ * Properties specific to AutoPOS.
  * <p>
  * <p>
  * Properties are configured in the application.yml file.

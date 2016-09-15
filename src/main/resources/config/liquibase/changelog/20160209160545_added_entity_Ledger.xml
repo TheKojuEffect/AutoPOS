@@ -16,7 +16,7 @@
     <!--
         Added the entity Ledger.
     -->
-    <changeSet id="20160209160545" author="jhipster">
+    <changeSet id="20160209160545" author="autopos">
         <createTable tableName="ledger">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -30,7 +30,6 @@
             <column name="party_id" type="bigint">
                 <constraints unique="true"/>
             </column>
-            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
         <addForeignKeyConstraint baseColumnNames="party_id"

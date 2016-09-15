@@ -1,4 +1,3 @@
-// Generated on 2016-03-24 using generator-jhipster 3.0.0
 'use strict';
 
 var gulp = require('gulp'),

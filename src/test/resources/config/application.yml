@@ -49,7 +49,7 @@ server:
     address: localhost
 
 # ===================================================================
-# JHipster specific properties
+# AutoPOS specific properties
 # ===================================================================
 
 autopos:
