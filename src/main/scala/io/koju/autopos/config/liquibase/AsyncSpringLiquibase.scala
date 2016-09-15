@@ -11,8 +11,6 @@ import org.springframework.core.env.Environment
 import org.springframework.core.task.TaskExecutor
 import org.springframework.util.StopWatch
 
-import scala.util.{Failure, Try}
-
 /**
   * Specific liquibase.integration.spring.SpringLiquibase that will update the database asynchronously.
   * <p>
@@ -55,11 +53,11 @@ class AsyncSpringLiquibase
   def initDbRunnable: Runnable = {
     new Runnable {
       override def run() {
-        Try {
+        try {
           logger.warn("Starting Liquibase asynchronously, your database might not be ready at startup!")
           initDb()
-        } match {
-          case Failure(e: LiquibaseException) =>
+        } catch {
+          case e: LiquibaseException =>
             logger.error(s"Liquibase could not start correctly, your database is NOT ready: ${e.getMessage}", e)
         }
       }
