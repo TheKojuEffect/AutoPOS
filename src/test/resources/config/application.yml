@@ -52,7 +52,7 @@ server:
 # JHipster specific properties
 # ===================================================================
 
-jhipster:
+autopos:
     async:
         corePoolSize: 2
         maxPoolSize: 50

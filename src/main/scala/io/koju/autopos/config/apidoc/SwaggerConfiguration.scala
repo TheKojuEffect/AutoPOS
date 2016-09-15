@@ -3,7 +3,7 @@ package io.koju.autopos.config.apidoc
 import java.time.{LocalDate, LocalDateTime, ZonedDateTime}
 import java.util.Date
 
-import io.koju.autopos.config.{Constants, JHipsterProperties}
+import io.koju.autopos.config.{Constants, AutoposProperties}
 import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
 import org.springframework.context.annotation.{Bean, Configuration}
@@ -42,7 +42,7 @@ class SwaggerConfiguration {
     * @return the Swagger Springfox configuration
     */
   @Bean
-  def swaggerSpringfoxDocket(jHipsterProperties: JHipsterProperties): Docket = {
+  def swaggerSpringfoxDocket(jHipsterProperties: AutoposProperties): Docket = {
     log.debug("Starting Swagger")
     val watch: StopWatch = new StopWatch
     watch.start()

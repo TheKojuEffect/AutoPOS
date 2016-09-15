@@ -25,7 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
   */
 @Configuration
 class WebConfigurer(private val env: Environment,
-                    private val jHipsterProperties: JHipsterProperties)
+                    private val jHipsterProperties: AutoposProperties)
   extends WebMvcConfigurerAdapter
     with ServletContextInitializer
     with EmbeddedServletContainerCustomizer {

@@ -1,6 +1,6 @@
 package io.koju.autopos.web.filter;
 
-import io.koju.autopos.config.JHipsterProperties;
+import io.koju.autopos.config.AutoposProperties;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,15 +22,15 @@ public class CachingHttpHeadersFilter implements Filter {
 
     private long CACHE_TIME_TO_LIVE = TimeUnit.DAYS.toMillis(1461L);
 
-    private JHipsterProperties jHipsterProperties;;
+    private AutoposProperties autoposProperties;;
 
-    public CachingHttpHeadersFilter(JHipsterProperties jHipsterProperties) {
-        this.jHipsterProperties = jHipsterProperties;
+    public CachingHttpHeadersFilter(AutoposProperties autoposProperties) {
+        this.autoposProperties = autoposProperties;
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        CACHE_TIME_TO_LIVE = TimeUnit.DAYS.toMillis(jHipsterProperties.getHttp().getCache().getTimeToLiveInDays());
+        CACHE_TIME_TO_LIVE = TimeUnit.DAYS.toMillis(autoposProperties.getHttp().getCache().getTimeToLiveInDays());
     }
 
     @Override

@@ -3,7 +3,7 @@ package io.koju.autopos
 import java.net.InetAddress
 import javax.annotation.PostConstruct
 
-import io.koju.autopos.config.{Constants, JHipsterProperties}
+import io.koju.autopos.config.{Constants, AutoposProperties}
 import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
@@ -17,7 +17,7 @@ import org.springframework.core.env.{Environment, SimpleCommandLinePropertySourc
 @ComponentScan
 @EnableAutoConfiguration(
   exclude = Array(classOf[MetricFilterAutoConfiguration], classOf[MetricRepositoryAutoConfiguration]))
-@EnableConfigurationProperties(Array(classOf[JHipsterProperties], classOf[LiquibaseProperties]))
+@EnableConfigurationProperties(Array(classOf[AutoposProperties], classOf[LiquibaseProperties]))
 class Application {
 
   private val log: Logger = LoggerFactory.getLogger(classOf[Application])

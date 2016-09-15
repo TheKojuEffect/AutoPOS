@@ -25,7 +25,7 @@ object MetricsConfiguration {
   @Configuration
   @ConditionalOnClass(Array(classOf[Graphite]))
   class GraphiteRegistry(private val metricRegistry: MetricRegistry,
-                         private val jHipsterProperties: JHipsterProperties) {
+                         private val jHipsterProperties: AutoposProperties) {
     final private val log: Logger = LoggerFactory.getLogger(classOf[MetricsConfiguration.GraphiteRegistry])
 
     @PostConstruct
@@ -46,7 +46,7 @@ object MetricsConfiguration {
   @Configuration
   @ConditionalOnClass(Array(classOf[SparkReporter]))
   class SparkRegistry(private val metricRegistry: MetricRegistry,
-                      private val jHipsterProperties: JHipsterProperties) {
+                      private val jHipsterProperties: AutoposProperties) {
     final private val log: Logger = LoggerFactory.getLogger(classOf[MetricsConfiguration.SparkRegistry])
 
     @PostConstruct
@@ -66,7 +66,7 @@ object MetricsConfiguration {
 
 @Configuration
 @EnableMetrics(proxyTargetClass = true)
-class MetricsConfiguration(private val jHipsterProperties: JHipsterProperties)
+class MetricsConfiguration(private val jHipsterProperties: AutoposProperties)
   extends MetricsConfigurerAdapter {
 
   final private val log: Logger = LoggerFactory.getLogger(classOf[MetricsConfiguration])

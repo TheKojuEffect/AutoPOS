@@ -1,6 +1,6 @@
 package io.koju.autopos.service;
 
-import io.koju.autopos.config.JHipsterProperties;
+import io.koju.autopos.config.AutoposProperties;
 import io.koju.autopos.user.domain.User;
 
 import org.apache.commons.lang.CharEncoding;
@@ -33,7 +33,7 @@ public class MailService {
     private final Logger log = LoggerFactory.getLogger(MailService.class);
 
     @Inject
-    private JHipsterProperties jHipsterProperties;
+    private AutoposProperties autoposProperties;
 
     @Inject
     private JavaMailSenderImpl javaMailSender;
@@ -59,7 +59,7 @@ public class MailService {
         try {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, CharEncoding.UTF_8);
             message.setTo(to);
-            message.setFrom(jHipsterProperties.getMail().getFrom());
+            message.setFrom(autoposProperties.getMail().getFrom());
             message.setSubject(subject);
             message.setText(content, isHtml);
             javaMailSender.send(mimeMessage);

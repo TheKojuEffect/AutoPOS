@@ -12,7 +12,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 @Configuration
 @EnableAsync
 @EnableScheduling
-class AsyncConfiguration(private val jHipsterProperties: JHipsterProperties)
+class AsyncConfiguration(private val jHipsterProperties: AutoposProperties)
   extends AsyncConfigurer {
 
   final private val log: Logger = LoggerFactory.getLogger(classOf[AsyncConfiguration])
