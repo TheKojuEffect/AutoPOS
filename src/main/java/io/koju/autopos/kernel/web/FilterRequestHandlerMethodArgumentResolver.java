@@ -37,7 +37,7 @@ public class FilterRequestHandlerMethodArgumentResolver implements HandlerMethod
                 continue;
             }
             field.setAccessible(true);
-            Class<FilterParam> filterParamType = (Class<FilterParam>) field.getType();
+            @SuppressWarnings("unchecked") Class<FilterParam> filterParamType = (Class<FilterParam>) field.getType();
             FilterParam filterParam = filterParamType.getDeclaredConstructor(String.class).newInstance(fieldValue);
             filterParam.populateWithRequestParam(fieldValue);
             field.set(filterRequest, filterParam);
