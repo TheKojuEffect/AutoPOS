@@ -70,7 +70,7 @@
                 },
                 resolve: {
                     purchase: function ($stateParams, PurchaseService) {
-                        return PurchaseService.get({id: $stateParams.id});
+                        return PurchaseService.get({id: $stateParams.id}).$promise;
                     },
                     translatePartialLoader: function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('purchaseLine');

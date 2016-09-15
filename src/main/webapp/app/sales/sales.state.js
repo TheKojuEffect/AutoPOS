@@ -124,7 +124,7 @@
                 },
                 resolve: {
                     sale: function ($stateParams, SaleService) {
-                        return SaleService.get({id: $stateParams.id});
+                        return SaleService.get({id: $stateParams.id}).$promise;
                     },
                     translatePartialLoader: function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('saleLine');
