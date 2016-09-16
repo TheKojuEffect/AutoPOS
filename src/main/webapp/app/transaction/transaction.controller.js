@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('autopos')
-    .controller('TradeController', function ($scope, $state) {
+    .controller('TransactionController', function ($scope, $state) {
         $scope.$state = $state;
     });

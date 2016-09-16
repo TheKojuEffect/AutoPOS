@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('receipt', {
-            parent: 'trade',
+            parent: 'transaction',
             url: '/receipt?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
@@ -52,7 +52,7 @@
             }
         })
         .state('receipt-detail', {
-            parent: 'trade',
+            parent: 'transaction',
             url: '/receipt/{id}',
             data: {
                 authorities: ['ROLE_USER'],

@@ -3,13 +3,13 @@
 angular.module('autopos')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('trade', {
+            .state('transaction', {
                 abstract: true,
                 parent: 'app',
                 views: {
                     'content@': {
-                        templateUrl: 'app/transaction/trade.html',
-                        controller: 'TradeController'
+                        templateUrl: 'app/transaction/transaction.html',
+                        controller: 'TransactionController'
                     }
                 }
             });

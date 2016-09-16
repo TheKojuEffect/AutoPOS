@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('payment', {
-            parent: 'trade',
+            parent: 'transaction',
             url: '/payment?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
@@ -52,7 +52,7 @@
             }
         })
         .state('payment-detail', {
-            parent: 'trade',
+            parent: 'transaction',
             url: '/payment/{id}',
             data: {
                 authorities: ['ROLE_USER'],
