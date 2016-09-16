@@ -7,6 +7,7 @@ import io.koju.autopos.party.repo.VehicleRepo;
 import io.koju.autopos.party.service.VehicleService;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -37,6 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Ignore
 public class VehicleApiIntTest {
 
     private static final String DEFAULT_NUMBER = "A";

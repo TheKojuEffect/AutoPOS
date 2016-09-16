@@ -37,7 +37,7 @@ class ItemCodeSpec extends FlatSpec with TableDrivenPropertyChecks with Matchers
 }
 
 
-@RunWith(classOf[SpringRunner])
+@RunWith(classOf[JUnitRunner])
 @DataJdbcTest
 @ContextConfiguration(classes = Array(classOf[ItemCodeDbSpec]))
 @AutoConfigureTestDatabase(replace = Replace.NONE)

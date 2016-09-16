@@ -6,6 +6,7 @@ import io.koju.autopos.party.domain.Vendor;
 import io.koju.autopos.party.repo.VendorRepo;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -36,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Ignore
 public class VendorApiIntTest {
 
     private static final String DEFAULT_NAME = "AA";
