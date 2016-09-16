@@ -8,7 +8,7 @@ angular.module('autopos')
                 parent: 'app',
                 views: {
                     'content@': {
-                        templateUrl: 'app/trade/trade.html',
+                        templateUrl: 'app/transaction/trade.html',
                         controller: 'TradeController'
                     }
                 }

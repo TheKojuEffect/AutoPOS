@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('ledger', {
+        .state('payment', {
             parent: 'trade',
-            url: '/ledger?page&sort&search',
+            url: '/payment?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.ledger.home.title'
+                pageTitle: 'autopos.payment.home.title'
             },
             views: {
                 'content-tab': {
-                    templateUrl: 'app/trade/ledger/ledgers.html',
-                    controller: 'LedgerController',
+                    templateUrl: 'app/transaction/payment/payments.html',
+                    controller: 'PaymentController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,109 +45,112 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('ledger');
+                    $translatePartialLoader.addPart('payment');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('ledger-detail', {
+        .state('payment-detail', {
             parent: 'trade',
-            url: '/ledger/{id}',
+            url: '/payment/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'autopos.ledger.detail.title'
+                pageTitle: 'autopos.payment.detail.title'
             },
             views: {
                 'content-tab': {
-                    templateUrl: 'app/trade/ledger/ledger-detail.html',
-                    controller: 'LedgerDetailController',
+                    templateUrl: 'app/transaction/payment/payment-detail.html',
+                    controller: 'PaymentDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('ledger');
+                    $translatePartialLoader.addPart('payment');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Ledger', function($stateParams, Ledger) {
-                    return Ledger.get({id : $stateParams.id});
+                entity: ['$stateParams', 'Payment', function($stateParams, Payment) {
+                    return Payment.get({id : $stateParams.id});
                 }]
             }
         })
-        .state('ledger.new', {
-            parent: 'ledger',
+        .state('payment.new', {
+            parent: 'payment',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/trade/ledger/ledger-dialog.html',
-                    controller: 'LedgerDialogController',
+                    templateUrl: 'app/transaction/payment/payment-dialog.html',
+                    controller: 'PaymentDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                balance: null,
+                                date: null,
+                                amount: null,
+                                receiptNumber: null,
+                                paidBy: null,
                                 remarks: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('ledger', null, { reload: true });
+                    $state.go('payment', null, { reload: true });
                 }, function() {
-                    $state.go('ledger');
+                    $state.go('payment');
                 });
             }]
         })
-        .state('ledger.edit', {
-            parent: 'ledger',
+        .state('payment.edit', {
+            parent: 'payment',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/trade/ledger/ledger-dialog.html',
-                    controller: 'LedgerDialogController',
+                    templateUrl: 'app/transaction/payment/payment-dialog.html',
+                    controller: 'PaymentDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Ledger', function(Ledger) {
-                            return Ledger.get({id : $stateParams.id});
+                        entity: ['Payment', function(Payment) {
+                            return Payment.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('ledger', null, { reload: true });
+                    $state.go('payment', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('ledger.delete', {
-            parent: 'ledger',
+        .state('payment.delete', {
+            parent: 'payment',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/trade/ledger/ledger-delete-dialog.html',
-                    controller: 'LedgerDeleteController',
+                    templateUrl: 'app/transaction/payment/payment-delete-dialog.html',
+                    controller: 'PaymentDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Ledger', function(Ledger) {
-                            return Ledger.get({id : $stateParams.id});
+                        entity: ['Payment', function(Payment) {
+                            return Payment.get({id : $stateParams.id});
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('ledger', null, { reload: true });
+                    $state.go('payment', null, { reload: true });
                 }, function() {
                     $state.go('^');
                 });
