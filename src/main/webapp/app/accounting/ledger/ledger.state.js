@@ -18,7 +18,7 @@
             },
             views: {
                 'content-tab': {
-                    templateUrl: 'app/transaction/ledger/ledgers.html',
+                    templateUrl: 'app/accounting/ledger/ledgers.html',
                     controller: 'LedgerController',
                     controllerAs: 'vm'
                 }
@@ -60,7 +60,7 @@
             },
             views: {
                 'content-tab': {
-                    templateUrl: 'app/transaction/ledger/ledger-detail.html',
+                    templateUrl: 'app/accounting/ledger/ledger-detail.html',
                     controller: 'LedgerDetailController',
                     controllerAs: 'vm'
                 }
@@ -83,7 +83,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/transaction/ledger/ledger-dialog.html',
+                    templateUrl: 'app/accounting/ledger/ledger-dialog.html',
                     controller: 'LedgerDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -112,7 +112,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/transaction/ledger/ledger-dialog.html',
+                    templateUrl: 'app/accounting/ledger/ledger-dialog.html',
                     controller: 'LedgerDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -137,7 +137,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/transaction/ledger/ledger-delete-dialog.html',
+                    templateUrl: 'app/accounting/ledger/ledger-delete-dialog.html',
                     controller: 'LedgerDeleteController',
                     controllerAs: 'vm',
                     size: 'md',

@@ -18,7 +18,7 @@
             },
             views: {
                 'content-tab': {
-                    templateUrl: 'app/transaction/ledger-entry/ledger-entries.html',
+                    templateUrl: 'app/accounting/ledger-entry/ledger-entries.html',
                     controller: 'LedgerEntryController',
                     controllerAs: 'vm'
                 }
@@ -60,7 +60,7 @@
             },
             views: {
                 'content-tab': {
-                    templateUrl: 'app/transaction/ledger-entry/ledger-entry-detail.html',
+                    templateUrl: 'app/accounting/ledger-entry/ledger-entry-detail.html',
                     controller: 'LedgerEntryDetailController',
                     controllerAs: 'vm'
                 }
@@ -83,7 +83,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/transaction/ledger-entry/ledger-entry-dialog.html',
+                    templateUrl: 'app/accounting/ledger-entry/ledger-entry-dialog.html',
                     controller: 'LedgerEntryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -117,7 +117,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/transaction/ledger-entry/ledger-entry-dialog.html',
+                    templateUrl: 'app/accounting/ledger-entry/ledger-entry-dialog.html',
                     controller: 'LedgerEntryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -142,7 +142,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/transaction/ledger-entry/ledger-entry-delete-dialog.html',
+                    templateUrl: 'app/accounting/ledger-entry/ledger-entry-delete-dialog.html',
                     controller: 'LedgerEntryDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
