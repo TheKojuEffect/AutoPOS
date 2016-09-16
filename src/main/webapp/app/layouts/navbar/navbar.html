@@ -60,7 +60,7 @@
                 </li>
 
 
-                <li ui-sref-active="active" ng-switch-when="true">
+                <li ng-class="{active: vm.$state.includes('accounting')}" ng-switch-when="true">
                     <a ui-sref="day-book-entry">
                         <span class="glyphicon glyphicon-book"></span>
                         <span class="hidden-sm">Accounting</span>
