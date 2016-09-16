@@ -3,18 +3,18 @@ package io.koju.autopos.party.web;
 import io.koju.autopos.Application;
 import io.koju.autopos.party.api.VehicleApi;
 import io.koju.autopos.party.domain.Vehicle;
+import io.koju.autopos.party.repo.VehicleRepo;
+import io.koju.autopos.party.service.VehicleService;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -35,15 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-/**
- * Test class for the VehicleResource REST controller.
- *
- * @see VehicleApi
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@IntegrationTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class VehicleApiIntTest {
 
     private static final String DEFAULT_NUMBER = "A";
@@ -52,7 +45,10 @@ public class VehicleApiIntTest {
     private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
-    private VehicleRepository vehicleRepository;
+    private VehicleRepo vehicleRepository;
+
+    @Inject
+    private VehicleService vehicleService;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -67,11 +63,11 @@ public class VehicleApiIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        VehicleApi vehicleApi = new VehicleApi(vehicleRepository);
+        VehicleApi vehicleApi = new VehicleApi(vehicleRepository, vehicleService);
         ReflectionTestUtils.setField(vehicleApi, "vehicleRepository", vehicleRepository);
         this.restVehicleMockMvc = MockMvcBuilders.standaloneSetup(vehicleApi)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setMessageConverters(jacksonMessageConverter).build();
+                                                 .setCustomArgumentResolvers(pageableArgumentResolver)
+                                                 .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
@@ -91,7 +87,7 @@ public class VehicleApiIntTest {
         restVehicleMockMvc.perform(post("/api/vehicles")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(vehicle)))
-                .andExpect(status().isCreated());
+                          .andExpect(status().isCreated());
 
         // Validate the Vehicle in the database
         List<Vehicle> vehicles = vehicleRepository.findAll();
@@ -113,7 +109,7 @@ public class VehicleApiIntTest {
         restVehicleMockMvc.perform(post("/api/vehicles")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(vehicle)))
-                .andExpect(status().isBadRequest());
+                          .andExpect(status().isBadRequest());
 
         List<Vehicle> vehicles = vehicleRepository.findAll();
         assertThat(vehicles).hasSize(databaseSizeBeforeTest);
@@ -127,11 +123,11 @@ public class VehicleApiIntTest {
 
         // Get all the vehicles
         restVehicleMockMvc.perform(get("/api/vehicles?sort=id,desc"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(vehicle.getId().intValue())))
-                .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.toString())))
-                .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS.toString())));
+                          .andExpect(status().isOk())
+                          .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                          .andExpect(jsonPath("$.[*].id").value(hasItem(vehicle.getId().intValue())))
+                          .andExpect(jsonPath("$.[*].number").value(hasItem(DEFAULT_NUMBER.toString())))
+                          .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS.toString())));
     }
 
     @Test
@@ -142,11 +138,11 @@ public class VehicleApiIntTest {
 
         // Get the vehicle
         restVehicleMockMvc.perform(get("/api/vehicles/{id}", vehicle.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.id").value(vehicle.getId().intValue()))
-            .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.toString()))
-            .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS.toString()));
+                          .andExpect(status().isOk())
+                          .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                          .andExpect(jsonPath("$.id").value(vehicle.getId().intValue()))
+                          .andExpect(jsonPath("$.number").value(DEFAULT_NUMBER.toString()))
+                          .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS.toString()));
     }
 
     @Test
@@ -154,7 +150,7 @@ public class VehicleApiIntTest {
     public void getNonExistingVehicle() throws Exception {
         // Get the vehicle
         restVehicleMockMvc.perform(get("/api/vehicles/{id}", Long.MAX_VALUE))
-                .andExpect(status().isNotFound());
+                          .andExpect(status().isNotFound());
     }
 
     @Test
@@ -173,7 +169,7 @@ public class VehicleApiIntTest {
         restVehicleMockMvc.perform(put("/api/vehicles")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(updatedVehicle)))
-                .andExpect(status().isOk());
+                          .andExpect(status().isOk());
 
         // Validate the Vehicle in the database
         List<Vehicle> vehicles = vehicleRepository.findAll();
@@ -193,7 +189,7 @@ public class VehicleApiIntTest {
         // Get the vehicle
         restVehicleMockMvc.perform(delete("/api/vehicles/{id}", vehicle.getId())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+                          .andExpect(status().isOk());
 
         // Validate the database is empty
         List<Vehicle> vehicles = vehicleRepository.findAll();

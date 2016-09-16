@@ -1,20 +1,18 @@
 package io.koju.autopos.party.web;
 
-import io.koju.autopos.Application;
 import io.koju.autopos.party.api.CustomerApi;
 import io.koju.autopos.party.domain.Customer;
+import io.koju.autopos.party.repo.CustomerRepo;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -35,15 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-/**
- * Test class for the CustomerResource REST controller.
- *
- * @see CustomerApi
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@IntegrationTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CustomerApiIntTest {
 
     private static final String DEFAULT_NAME = "AA";
@@ -52,7 +43,7 @@ public class CustomerApiIntTest {
     private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
-    private CustomerRepository customerRepository;
+    private CustomerRepo customerRepository;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -70,8 +61,8 @@ public class CustomerApiIntTest {
         CustomerApi customerApi = new CustomerApi(customerRepository);
         ReflectionTestUtils.setField(customerApi, "customerRepository", customerRepository);
         this.restCustomerMockMvc = MockMvcBuilders.standaloneSetup(customerApi)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setMessageConverters(jacksonMessageConverter).build();
+                                                  .setCustomArgumentResolvers(pageableArgumentResolver)
+                                                  .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
@@ -91,7 +82,7 @@ public class CustomerApiIntTest {
         restCustomerMockMvc.perform(post("/api/customers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(customer)))
-                .andExpect(status().isCreated());
+                           .andExpect(status().isCreated());
 
         // Validate the Customer in the database
         List<Customer> customers = customerRepository.findAll();
@@ -113,7 +104,7 @@ public class CustomerApiIntTest {
         restCustomerMockMvc.perform(post("/api/customers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(customer)))
-                .andExpect(status().isBadRequest());
+                           .andExpect(status().isBadRequest());
 
         List<Customer> customers = customerRepository.findAll();
         assertThat(customers).hasSize(databaseSizeBeforeTest);
@@ -127,11 +118,11 @@ public class CustomerApiIntTest {
 
         // Get all the customers
         restCustomerMockMvc.perform(get("/api/customers?sort=id,desc"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-                .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS)));
+                           .andExpect(status().isOk())
+                           .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                           .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
+                           .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+                           .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS)));
     }
 
     @Test
@@ -142,11 +133,11 @@ public class CustomerApiIntTest {
 
         // Get the customer
         restCustomerMockMvc.perform(get("/api/customers/{id}", customer.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(customer.getId().intValue()))
-                .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-                .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS));
+                           .andExpect(status().isOk())
+                           .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                           .andExpect(jsonPath("$.id").value(customer.getId().intValue()))
+                           .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+                           .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS));
     }
 
     @Test
@@ -154,7 +145,7 @@ public class CustomerApiIntTest {
     public void getNonExistingCustomer() throws Exception {
         // Get the customer
         restCustomerMockMvc.perform(get("/api/customers/{id}", Long.MAX_VALUE))
-                .andExpect(status().isNotFound());
+                           .andExpect(status().isNotFound());
     }
 
     @Test
@@ -173,7 +164,7 @@ public class CustomerApiIntTest {
         restCustomerMockMvc.perform(put("/api/customers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(updatedCustomer)))
-                .andExpect(status().isOk());
+                           .andExpect(status().isOk());
 
         // Validate the Customer in the database
         List<Customer> customers = customerRepository.findAll();
@@ -193,7 +184,7 @@ public class CustomerApiIntTest {
         // Get the customer
         restCustomerMockMvc.perform(delete("/api/customers/{id}", customer.getId())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+                           .andExpect(status().isOk());
 
         // Validate the database is empty
         List<Customer> customers = customerRepository.findAll();

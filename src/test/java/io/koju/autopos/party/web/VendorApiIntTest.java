@@ -3,18 +3,17 @@ package io.koju.autopos.party.web;
 import io.koju.autopos.Application;
 import io.koju.autopos.party.api.VendorApi;
 import io.koju.autopos.party.domain.Vendor;
+import io.koju.autopos.party.repo.VendorRepo;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -35,15 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-/**
- * Test class for the VendorResource REST controller.
- *
- * @see VendorApi
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@IntegrationTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class VendorApiIntTest {
 
     private static final String DEFAULT_NAME = "AA";
@@ -52,7 +44,7 @@ public class VendorApiIntTest {
     private static final String UPDATED_REMARKS = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
     @Inject
-    private VendorRepository vendorRepository;
+    private VendorRepo vendorRepository;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -70,8 +62,8 @@ public class VendorApiIntTest {
         VendorApi vendorApi = new VendorApi(vendorRepository);
         ReflectionTestUtils.setField(vendorApi, "vendorRepository", vendorRepository);
         this.restVendorMockMvc = MockMvcBuilders.standaloneSetup(vendorApi)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setMessageConverters(jacksonMessageConverter).build();
+                                                .setCustomArgumentResolvers(pageableArgumentResolver)
+                                                .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
@@ -91,7 +83,7 @@ public class VendorApiIntTest {
         restVendorMockMvc.perform(post("/api/vendors")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(vendor)))
-                .andExpect(status().isCreated());
+                         .andExpect(status().isCreated());
 
         // Validate the Vendor in the database
         List<Vendor> vendors = vendorRepository.findAll();
@@ -113,7 +105,7 @@ public class VendorApiIntTest {
         restVendorMockMvc.perform(post("/api/vendors")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(vendor)))
-                .andExpect(status().isBadRequest());
+                         .andExpect(status().isBadRequest());
 
         List<Vendor> vendors = vendorRepository.findAll();
         assertThat(vendors).hasSize(databaseSizeBeforeTest);
@@ -128,11 +120,11 @@ public class VendorApiIntTest {
 
         // Get all the vendors
         restVendorMockMvc.perform(get("/api/vendors?sort=id,desc"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(vendor.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-                .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS)));
+                         .andExpect(status().isOk())
+                         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                         .andExpect(jsonPath("$.[*].id").value(hasItem(vendor.getId().intValue())))
+                         .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+                         .andExpect(jsonPath("$.[*].remarks").value(hasItem(DEFAULT_REMARKS)));
     }
 
     @Test
@@ -143,11 +135,11 @@ public class VendorApiIntTest {
 
         // Get the vendor
         restVendorMockMvc.perform(get("/api/vendors/{id}", vendor.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(vendor.getId().intValue()))
-                .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-                .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS));
+                         .andExpect(status().isOk())
+                         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                         .andExpect(jsonPath("$.id").value(vendor.getId().intValue()))
+                         .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+                         .andExpect(jsonPath("$.remarks").value(DEFAULT_REMARKS));
     }
 
     @Test
@@ -155,7 +147,7 @@ public class VendorApiIntTest {
     public void getNonExistingVendor() throws Exception {
         // Get the vendor
         restVendorMockMvc.perform(get("/api/vendors/{id}", Long.MAX_VALUE))
-                .andExpect(status().isNotFound());
+                         .andExpect(status().isNotFound());
     }
 
     @Test
@@ -174,7 +166,7 @@ public class VendorApiIntTest {
         restVendorMockMvc.perform(put("/api/vendors")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(updatedVendor)))
-                .andExpect(status().isOk());
+                         .andExpect(status().isOk());
 
         // Validate the Vendor in the database
         List<Vendor> vendors = vendorRepository.findAll();
@@ -194,7 +186,7 @@ public class VendorApiIntTest {
         // Get the vendor
         restVendorMockMvc.perform(delete("/api/vendors/{id}", vendor.getId())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+                         .andExpect(status().isOk());
 
         // Validate the database is empty
         List<Vendor> vendors = vendorRepository.findAll();
