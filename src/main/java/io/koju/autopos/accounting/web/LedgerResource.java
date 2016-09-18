@@ -1,7 +1,7 @@
-package io.koju.autopos.party.web;
+package io.koju.autopos.accounting.web;
 
 import com.codahale.metrics.annotation.Timed;
-import io.koju.autopos.party.domain.Ledger;
+import io.koju.autopos.accounting.domain.Ledger;
 import io.koju.autopos.service.LedgerService;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;

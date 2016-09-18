@@ -1,8 +1,8 @@
 package io.koju.autopos.service.impl;
 
 import io.koju.autopos.service.LedgerService;
-import io.koju.autopos.party.domain.Ledger;
-import io.koju.autopos.party.service.LedgerRepository;
+import io.koju.autopos.accounting.domain.Ledger;
+import io.koju.autopos.accounting.repo.LedgerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package io.koju.autopos.party.domain;
+package io.koju.autopos.accounting.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

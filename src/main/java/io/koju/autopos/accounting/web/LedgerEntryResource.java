@@ -1,8 +1,8 @@
-package io.koju.autopos.party.web;
+package io.koju.autopos.accounting.web;
 
 import com.codahale.metrics.annotation.Timed;
-import io.koju.autopos.party.domain.LedgerEntry;
-import io.koju.autopos.party.service.LedgerEntryRepository;
+import io.koju.autopos.accounting.domain.LedgerEntry;
+import io.koju.autopos.accounting.repo.LedgerEntryRepository;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;

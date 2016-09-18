@@ -1,6 +1,6 @@
-package io.koju.autopos.party.service;
+package io.koju.autopos.accounting.repo;
 
-import io.koju.autopos.party.domain.Ledger;
+import io.koju.autopos.accounting.domain.Ledger;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -1,8 +1,9 @@
 package io.koju.autopos.party.web;
 
 import io.koju.autopos.Application;
-import io.koju.autopos.party.domain.LedgerEntry;
-import io.koju.autopos.party.service.LedgerEntryRepository;
+import io.koju.autopos.accounting.domain.LedgerEntry;
+import io.koju.autopos.accounting.web.LedgerEntryResource;
+import io.koju.autopos.accounting.repo.LedgerEntryRepository;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Ignore;
