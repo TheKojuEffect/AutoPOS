@@ -6,7 +6,7 @@ import _root_.liquibase.integration.spring.SpringLiquibase
 import com.codahale.metrics.MetricRegistry
 import com.zaxxer.hikari.HikariDataSource
 import io.koju.autopos.accounting.domain.AccountingDomainPackage
-import io.koju.autopos.accounting.service.AccountingServicePackage
+import io.koju.autopos.accounting.repo.AccountingRepoPackage
 import io.koju.autopos.catalog.domain.Item
 import io.koju.autopos.catalog.service.CatalogServicePackage
 import io.koju.autopos.config.liquibase.AsyncSpringLiquibase
@@ -47,7 +47,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[SharedServicePackage],
     classOf[CatalogServicePackage],
     classOf[UserServicePackage],
-    classOf[AccountingServicePackage],
+    classOf[AccountingRepoPackage],
     classOf[PartyServicePackage],
     classOf[TradeServicePackage],
     classOf[SaleRepoPackage],

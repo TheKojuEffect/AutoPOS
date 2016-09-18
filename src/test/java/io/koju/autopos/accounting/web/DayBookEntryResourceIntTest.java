@@ -1,8 +1,9 @@
 package io.koju.autopos.accounting.web;
 
 import io.koju.autopos.Application;
+import io.koju.autopos.accounting.api.DayBookEntryApi;
 import io.koju.autopos.accounting.domain.DayBookEntry;
-import io.koju.autopos.accounting.service.DayBookEntryRepository;
+import io.koju.autopos.accounting.repo.DayBookEntryRepo;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -40,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Ignore
-public class DayBookEntryResourceIntTest {
+public class DayBookEntryApiIntTest {
 
 
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
@@ -56,7 +57,7 @@ public class DayBookEntryResourceIntTest {
     private static final BigDecimal UPDATED_MISC_EXPENSES = new BigDecimal(1);
 
     @Inject
-    private DayBookEntryRepository dayBookEntryRepository;
+    private DayBookEntryRepo dayBookEntryRepo;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -71,9 +72,9 @@ public class DayBookEntryResourceIntTest {
     @PostConstruct
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        DayBookEntryResource dayBookEntryResource = new DayBookEntryResource();
-        ReflectionTestUtils.setField(dayBookEntryResource, "dayBookEntryRepository", dayBookEntryRepository);
-        this.restDayBookEntryMockMvc = MockMvcBuilders.standaloneSetup(dayBookEntryResource)
+        DayBookEntryApi dayBookEntryApi = new DayBookEntryApi(dayBookEntryRepo);
+        ReflectionTestUtils.setField(dayBookEntryApi, "dayBookEntryRepo", dayBookEntryRepo);
+        this.restDayBookEntryMockMvc = MockMvcBuilders.standaloneSetup(dayBookEntryApi)
                                                       .setCustomArgumentResolvers(pageableArgumentResolver)
                                                       .setMessageConverters(jacksonMessageConverter).build();
     }
@@ -90,7 +91,7 @@ public class DayBookEntryResourceIntTest {
     @Test
     @Transactional
     public void createDayBookEntry() throws Exception {
-        int databaseSizeBeforeCreate = dayBookEntryRepository.findAll().size();
+        int databaseSizeBeforeCreate = dayBookEntryRepo.findAll().size();
 
         // Create the DayBookEntry
 
@@ -100,7 +101,7 @@ public class DayBookEntryResourceIntTest {
                                .andExpect(status().isCreated());
 
         // Validate the DayBookEntry in the database
-        List<DayBookEntry> dayBookEntries = dayBookEntryRepository.findAll();
+        List<DayBookEntry> dayBookEntries = dayBookEntryRepo.findAll();
         assertThat(dayBookEntries).hasSize(databaseSizeBeforeCreate + 1);
         DayBookEntry testDayBookEntry = dayBookEntries.get(dayBookEntries.size() - 1);
         assertThat(testDayBookEntry.getDate()).isEqualTo(DEFAULT_DATE);
@@ -112,7 +113,7 @@ public class DayBookEntryResourceIntTest {
     @Test
     @Transactional
     public void checkDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = dayBookEntryRepository.findAll().size();
+        int databaseSizeBeforeTest = dayBookEntryRepo.findAll().size();
         // set the field null
         dayBookEntry.setDate(null);
 
@@ -123,14 +124,14 @@ public class DayBookEntryResourceIntTest {
                 .content(TestUtil.convertObjectToJsonBytes(dayBookEntry)))
                                .andExpect(status().isBadRequest());
 
-        List<DayBookEntry> dayBookEntries = dayBookEntryRepository.findAll();
+        List<DayBookEntry> dayBookEntries = dayBookEntryRepo.findAll();
         assertThat(dayBookEntries).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkIncomingAmountIsRequired() throws Exception {
-        int databaseSizeBeforeTest = dayBookEntryRepository.findAll().size();
+        int databaseSizeBeforeTest = dayBookEntryRepo.findAll().size();
         // set the field null
         dayBookEntry.setIncomingAmount(null);
 
@@ -141,14 +142,14 @@ public class DayBookEntryResourceIntTest {
                 .content(TestUtil.convertObjectToJsonBytes(dayBookEntry)))
                                .andExpect(status().isBadRequest());
 
-        List<DayBookEntry> dayBookEntries = dayBookEntryRepository.findAll();
+        List<DayBookEntry> dayBookEntries = dayBookEntryRepo.findAll();
         assertThat(dayBookEntries).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkOutgoingAmountIsRequired() throws Exception {
-        int databaseSizeBeforeTest = dayBookEntryRepository.findAll().size();
+        int databaseSizeBeforeTest = dayBookEntryRepo.findAll().size();
         // set the field null
         dayBookEntry.setOutgoingAmount(null);
 
@@ -159,14 +160,14 @@ public class DayBookEntryResourceIntTest {
                 .content(TestUtil.convertObjectToJsonBytes(dayBookEntry)))
                                .andExpect(status().isBadRequest());
 
-        List<DayBookEntry> dayBookEntries = dayBookEntryRepository.findAll();
+        List<DayBookEntry> dayBookEntries = dayBookEntryRepo.findAll();
         assertThat(dayBookEntries).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkMiscExpensesIsRequired() throws Exception {
-        int databaseSizeBeforeTest = dayBookEntryRepository.findAll().size();
+        int databaseSizeBeforeTest = dayBookEntryRepo.findAll().size();
         // set the field null
         dayBookEntry.setMiscExpenses(null);
 
@@ -177,7 +178,7 @@ public class DayBookEntryResourceIntTest {
                 .content(TestUtil.convertObjectToJsonBytes(dayBookEntry)))
                                .andExpect(status().isBadRequest());
 
-        List<DayBookEntry> dayBookEntries = dayBookEntryRepository.findAll();
+        List<DayBookEntry> dayBookEntries = dayBookEntryRepo.findAll();
         assertThat(dayBookEntries).hasSize(databaseSizeBeforeTest);
     }
 
@@ -185,7 +186,7 @@ public class DayBookEntryResourceIntTest {
     @Transactional
     public void getAllDayBookEntries() throws Exception {
         // Initialize the database
-        dayBookEntryRepository.saveAndFlush(dayBookEntry);
+        dayBookEntryRepo.saveAndFlush(dayBookEntry);
 
         // Get all the dayBookEntries
         restDayBookEntryMockMvc.perform(get("/api/day-book-entries?sort=id,desc"))
@@ -202,7 +203,7 @@ public class DayBookEntryResourceIntTest {
     @Transactional
     public void getDayBookEntry() throws Exception {
         // Initialize the database
-        dayBookEntryRepository.saveAndFlush(dayBookEntry);
+        dayBookEntryRepo.saveAndFlush(dayBookEntry);
 
         // Get the dayBookEntry
         restDayBookEntryMockMvc.perform(get("/api/day-book-entries/{id}", dayBookEntry.getId()))
@@ -227,8 +228,8 @@ public class DayBookEntryResourceIntTest {
     @Transactional
     public void updateDayBookEntry() throws Exception {
         // Initialize the database
-        dayBookEntryRepository.saveAndFlush(dayBookEntry);
-        int databaseSizeBeforeUpdate = dayBookEntryRepository.findAll().size();
+        dayBookEntryRepo.saveAndFlush(dayBookEntry);
+        int databaseSizeBeforeUpdate = dayBookEntryRepo.findAll().size();
 
         // Update the dayBookEntry
         DayBookEntry updatedDayBookEntry = new DayBookEntry();
@@ -244,7 +245,7 @@ public class DayBookEntryResourceIntTest {
                                .andExpect(status().isOk());
 
         // Validate the DayBookEntry in the database
-        List<DayBookEntry> dayBookEntries = dayBookEntryRepository.findAll();
+        List<DayBookEntry> dayBookEntries = dayBookEntryRepo.findAll();
         assertThat(dayBookEntries).hasSize(databaseSizeBeforeUpdate);
         DayBookEntry testDayBookEntry = dayBookEntries.get(dayBookEntries.size() - 1);
         assertThat(testDayBookEntry.getDate()).isEqualTo(UPDATED_DATE);
@@ -257,8 +258,8 @@ public class DayBookEntryResourceIntTest {
     @Transactional
     public void deleteDayBookEntry() throws Exception {
         // Initialize the database
-        dayBookEntryRepository.saveAndFlush(dayBookEntry);
-        int databaseSizeBeforeDelete = dayBookEntryRepository.findAll().size();
+        dayBookEntryRepo.saveAndFlush(dayBookEntry);
+        int databaseSizeBeforeDelete = dayBookEntryRepo.findAll().size();
 
         // Get the dayBookEntry
         restDayBookEntryMockMvc.perform(delete("/api/day-book-entries/{id}", dayBookEntry.getId())
@@ -266,7 +267,7 @@ public class DayBookEntryResourceIntTest {
                                .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<DayBookEntry> dayBookEntries = dayBookEntryRepository.findAll();
+        List<DayBookEntry> dayBookEntries = dayBookEntryRepo.findAll();
         assertThat(dayBookEntries).hasSize(databaseSizeBeforeDelete - 1);
     }
 }
