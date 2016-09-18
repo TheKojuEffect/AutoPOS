@@ -2,7 +2,7 @@ package io.koju.autopos.accounting.web;
 
 import com.codahale.metrics.annotation.Timed;
 import io.koju.autopos.accounting.domain.Ledger;
-import io.koju.autopos.service.LedgerService;
+import io.koju.autopos.accounting.service.LedgerService;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;

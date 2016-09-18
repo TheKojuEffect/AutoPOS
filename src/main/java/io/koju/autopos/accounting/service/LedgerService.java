@@ -1,4 +1,4 @@
-package io.koju.autopos.service;
+package io.koju.autopos.accounting.service;
 
 import io.koju.autopos.accounting.domain.Ledger;
 import org.springframework.data.domain.Page;

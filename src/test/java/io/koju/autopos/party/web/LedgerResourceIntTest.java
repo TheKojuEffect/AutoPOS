@@ -4,7 +4,7 @@ import io.koju.autopos.Application;
 import io.koju.autopos.accounting.domain.Ledger;
 import io.koju.autopos.accounting.web.LedgerResource;
 import io.koju.autopos.accounting.repo.LedgerRepository;
-import io.koju.autopos.service.LedgerService;
+import io.koju.autopos.accounting.service.LedgerService;
 import io.koju.autopos.web.rest.TestUtil;
 import org.junit.Before;
 import org.junit.Ignore;

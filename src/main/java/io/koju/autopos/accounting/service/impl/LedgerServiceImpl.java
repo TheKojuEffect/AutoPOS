@@ -1,6 +1,6 @@
-package io.koju.autopos.service.impl;
+package io.koju.autopos.accounting.service.impl;
 
-import io.koju.autopos.service.LedgerService;
+import io.koju.autopos.accounting.service.LedgerService;
 import io.koju.autopos.accounting.domain.Ledger;
 import io.koju.autopos.accounting.repo.LedgerRepository;
 import org.slf4j.Logger;
