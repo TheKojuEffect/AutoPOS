@@ -1,6 +1,7 @@
 package io.koju.autopos.web.rest.errors;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,9 @@ import java.util.List;
  * Controller advice to translate the server side exceptions to client-friendly json structures.
  */
 @ControllerAdvice
-@Slf4j
 public class ExceptionTranslator {
+
+    private static final Logger log = LoggerFactory.getLogger(ExceptionTranslator.class);
 
     @ExceptionHandler(ConcurrencyFailureException.class)
     @ResponseStatus(HttpStatus.CONFLICT)

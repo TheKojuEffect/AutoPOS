@@ -25,7 +25,6 @@ apply plugin: 'war'
 apply plugin: 'idea'
 
 ext {
-    lombokVersion = '1.16.10'
     awaility_version = '1.7.0'
     commons_lang_version = '2.6'
     commons_io_version = '2.5'
@@ -65,8 +64,6 @@ configurations {
 
 dependencies {
     compile "org.scala-lang:scala-library:$scalaVersion"
-
-    compile "org.projectlombok:lombok:$lombokVersion"
 
     compile group: 'io.dropwizard.metrics', name: 'metrics-core'
     compile group: 'io.dropwizard.metrics', name: 'metrics-annotation', version: dropwizard_metrics_version
