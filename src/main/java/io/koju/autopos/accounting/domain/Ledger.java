@@ -1,7 +1,5 @@
 package io.koju.autopos.accounting.domain;
 
-import io.koju.autopos.party.domain.Customer;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

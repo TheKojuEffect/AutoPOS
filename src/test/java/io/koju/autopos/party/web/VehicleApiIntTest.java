@@ -2,7 +2,6 @@ package io.koju.autopos.party.web;
 
 import io.koju.autopos.Application;
 import io.koju.autopos.party.api.VehicleApi;
-import io.koju.autopos.party.domain.Vehicle;
 import io.koju.autopos.party.repo.VehicleRepo;
 import io.koju.autopos.party.service.VehicleService;
 import io.koju.autopos.web.rest.TestUtil;
