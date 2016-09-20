@@ -1,7 +1,7 @@
 package io.koju.autopos.catalog.service
 
 import io.koju.autopos.Application
-
+import io.koju.autopos.catalog.domain.Category
 import io.koju.autopos.catalog.repo.CategoryRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase
