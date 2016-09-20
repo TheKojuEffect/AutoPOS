@@ -4,7 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 import io.koju.autopos.catalog.domain.Item;
 import io.koju.autopos.catalog.service.ItemCodeUtil;
 import io.koju.autopos.catalog.service.ItemService;
-import io.koju.autopos.catalog.struct.filter.ItemFilter;
 import io.koju.autopos.web.rest.util.HeaderUtil;
 import io.koju.autopos.web.rest.util.PaginationUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -73,10 +73,12 @@ public class ItemApi {
 
     @RequestMapping(method = GET, produces = APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<List<Item>> getAllItems(Pageable pageable, ItemFilter itemFilter)
+    public ResponseEntity<List<Item>> getAllItems(Pageable pageable,
+                                                  @RequestParam(value = "q", required = false, defaultValue = "")
+                                                          String query)
             throws URISyntaxException {
         log.debug("REST request to get a page of Items");
-        Page<Item> page = itemService.findAll(itemFilter, pageable);
+        Page<Item> page = itemService.findAll(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, API_ITEMS);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

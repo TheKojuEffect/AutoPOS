@@ -26,8 +26,7 @@
             };
 
             if (vm.filter) {
-                requestParams.name = '*' + vm.filter + '*';
-                requestParams.code = vm.filter;
+                requestParams.q = vm.filter;
             }
 
             Item.query(requestParams, onSuccess, onError);

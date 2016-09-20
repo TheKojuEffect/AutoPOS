@@ -7,17 +7,16 @@ import javax.servlet._
 import com.codahale.metrics.MetricRegistry
 import com.codahale.metrics.servlet.InstrumentedFilter
 import com.codahale.metrics.servlets.MetricsServlet
-import io.koju.autopos.kernel.web.FilterRequestHandlerMethodArgumentResolver
 import io.koju.autopos.web.filter.CachingHttpHeadersFilter
 import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.embedded.{ConfigurableEmbeddedServletContainer, EmbeddedServletContainerCustomizer, MimeMappings}
+import org.springframework.boot.context.embedded.{ConfigurableEmbeddedServletContainer,
+EmbeddedServletContainerCustomizer, MimeMappings}
 import org.springframework.boot.web.servlet.ServletContextInitializer
 import org.springframework.context.annotation.{Bean, Configuration}
 import org.springframework.core.env.Environment
 import org.springframework.web.cors.{CorsConfiguration, UrlBasedCorsConfigurationSource}
 import org.springframework.web.filter.CorsFilter
-import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
@@ -102,9 +101,6 @@ class WebConfigurer(private val env: Environment,
     metricsAdminServlet.setLoadOnStartup(2)
   }
 
-  override def addArgumentResolvers(argumentResolvers: util.List[HandlerMethodArgumentResolver]) {
-    argumentResolvers.add(new FilterRequestHandlerMethodArgumentResolver)
-  }
 
   @Bean def corsFilter: CorsFilter = {
     val source: UrlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource

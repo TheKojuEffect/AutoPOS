@@ -2,8 +2,7 @@ package io.koju.autopos.catalog.service
 
 import java.lang.Long
 
-import io.koju.autopos.catalog.domain.{Item, QItem}
-import io.koju.autopos.catalog.struct.filter.ItemFilter
+import io.koju.autopos.catalog.domain.Item
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.{Page, Pageable}
 import org.springframework.stereotype.Service
@@ -22,10 +21,14 @@ class ItemServiceImpl(private val itemRepository: ItemRepository)
   }
 
   @Transactional(readOnly = true)
-  override def findAll(itemFilter: ItemFilter, pageable: Pageable): Page[Item] = {
+  override def findAll(query: String, pageable: Pageable): Page[Item] = {
     log.debug("Request to get all Items")
-    val filterPredicate = itemFilter.toQueryDslPredicate(QItem.item)
-    itemRepository.findAll(filterPredicate, pageable)
+
+    if (query.isEmpty) {
+      itemRepository.findAll(pageable)
+    } else {
+      itemRepository.findByCodeIgnoreCaseContainingOrNameIgnoreCaseContaining(query, query, pageable)
+    }
   }
 
   @Transactional(readOnly = true)

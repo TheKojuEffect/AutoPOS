@@ -17,8 +17,7 @@
 
         searchItem(term) {
             return this.itemService.query({
-                name: '*' + term + '*',
-                code: term + '*'
+                q: term
             }).$promise;
         }
 
