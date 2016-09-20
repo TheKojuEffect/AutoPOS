@@ -1,8 +1,6 @@
 package io.koju.autopos.config;
 
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -15,7 +13,6 @@ import org.springframework.web.cors.CorsConfiguration;
  * </p>
  */
 @ConfigurationProperties(prefix = "autopos", ignoreUnknownFields = false)
-@Getter
 public class AutoposProperties {
 
     private final Async async = new Async();
@@ -32,8 +29,34 @@ public class AutoposProperties {
 
     private final CorsConfiguration cors = new CorsConfiguration();
 
-    @Getter
-    @Setter
+    public Async getAsync() {
+        return this.async;
+    }
+
+    public Http getHttp() {
+        return this.http;
+    }
+
+    public Mail getMail() {
+        return this.mail;
+    }
+
+    public Security getSecurity() {
+        return this.security;
+    }
+
+    public Swagger getSwagger() {
+        return this.swagger;
+    }
+
+    public Metrics getMetrics() {
+        return this.metrics;
+    }
+
+    public CorsConfiguration getCors() {
+        return this.cors;
+    }
+
     public static class Async {
 
         private int corePoolSize = 2;
@@ -42,42 +65,82 @@ public class AutoposProperties {
 
         private int queueCapacity = 10000;
 
+        public int getCorePoolSize() {
+            return this.corePoolSize;
+        }
+
+        public int getMaxPoolSize() {
+            return this.maxPoolSize;
+        }
+
+        public int getQueueCapacity() {
+            return this.queueCapacity;
+        }
+
+        public void setCorePoolSize(int corePoolSize) {
+            this.corePoolSize = corePoolSize;
+        }
+
+        public void setMaxPoolSize(int maxPoolSize) {
+            this.maxPoolSize = maxPoolSize;
+        }
+
+        public void setQueueCapacity(int queueCapacity) {
+            this.queueCapacity = queueCapacity;
+        }
     }
 
-    @Getter
     public static class Http {
 
         private final Cache cache = new Cache();
 
-        @Getter
-        @Setter
+        public Cache getCache() {
+            return this.cache;
+        }
+
         public static class Cache {
 
             private int timeToLiveInDays = 1461;
 
+            public int getTimeToLiveInDays() {
+                return this.timeToLiveInDays;
+            }
+
+            public void setTimeToLiveInDays(int timeToLiveInDays) {
+                this.timeToLiveInDays = timeToLiveInDays;
+            }
         }
     }
 
-    @Getter
-    @Setter
     public static class Mail {
 
         private String from = "AutoPOS@localhost";
 
+        public String getFrom() {
+            return this.from;
+        }
+
+        public void setFrom(String from) {
+            this.from = from;
+        }
     }
 
-    @Getter
     public static class Security {
 
         private final Authentication authentication = new Authentication();
 
-        @Getter
+        public Authentication getAuthentication() {
+            return this.authentication;
+        }
+
         public static class Authentication {
 
             private final Jwt jwt = new Jwt();
 
-            @Getter
-            @Setter
+            public Jwt getJwt() {
+                return this.jwt;
+            }
+
             public static class Jwt {
 
                 private String secret;
@@ -85,12 +148,33 @@ public class AutoposProperties {
                 private long tokenValidityInSeconds = 1800;
                 private long tokenValidityInSecondsForRememberMe = 2592000;
 
+                public String getSecret() {
+                    return this.secret;
+                }
+
+                public long getTokenValidityInSeconds() {
+                    return this.tokenValidityInSeconds;
+                }
+
+                public long getTokenValidityInSecondsForRememberMe() {
+                    return this.tokenValidityInSecondsForRememberMe;
+                }
+
+                public void setSecret(String secret) {
+                    this.secret = secret;
+                }
+
+                public void setTokenValidityInSeconds(long tokenValidityInSeconds) {
+                    this.tokenValidityInSeconds = tokenValidityInSeconds;
+                }
+
+                public void setTokenValidityInSecondsForRememberMe(long tokenValidityInSecondsForRememberMe) {
+                    this.tokenValidityInSecondsForRememberMe = tokenValidityInSecondsForRememberMe;
+                }
             }
         }
     }
 
-    @Getter
-    @Setter
     public static class Swagger {
 
         private String title = "AutoPOS API";
@@ -111,9 +195,79 @@ public class AutoposProperties {
 
         private String licenseUrl;
 
+        public String getTitle() {
+            return this.title;
+        }
+
+        public String getDescription() {
+            return this.description;
+        }
+
+        public String getVersion() {
+            return this.version;
+        }
+
+        public String getTermsOfServiceUrl() {
+            return this.termsOfServiceUrl;
+        }
+
+        public String getContactName() {
+            return this.contactName;
+        }
+
+        public String getContactUrl() {
+            return this.contactUrl;
+        }
+
+        public String getContactEmail() {
+            return this.contactEmail;
+        }
+
+        public String getLicense() {
+            return this.license;
+        }
+
+        public String getLicenseUrl() {
+            return this.licenseUrl;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setVersion(String version) {
+            this.version = version;
+        }
+
+        public void setTermsOfServiceUrl(String termsOfServiceUrl) {
+            this.termsOfServiceUrl = termsOfServiceUrl;
+        }
+
+        public void setContactName(String contactName) {
+            this.contactName = contactName;
+        }
+
+        public void setContactUrl(String contactUrl) {
+            this.contactUrl = contactUrl;
+        }
+
+        public void setContactEmail(String contactEmail) {
+            this.contactEmail = contactEmail;
+        }
+
+        public void setLicense(String license) {
+            this.license = license;
+        }
+
+        public void setLicenseUrl(String licenseUrl) {
+            this.licenseUrl = licenseUrl;
+        }
     }
 
-    @Getter
     public static class Metrics {
 
         private final Jmx jmx = new Jmx();
@@ -124,16 +278,35 @@ public class AutoposProperties {
 
         private final Logs logs = new Logs();
 
-        @Getter
-        @Setter
+        public Jmx getJmx() {
+            return this.jmx;
+        }
+
+        public Spark getSpark() {
+            return this.spark;
+        }
+
+        public Graphite getGraphite() {
+            return this.graphite;
+        }
+
+        public Logs getLogs() {
+            return this.logs;
+        }
+
         public static class Jmx {
 
             private boolean enabled = true;
 
+            public boolean isEnabled() {
+                return this.enabled;
+            }
+
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
         }
 
-        @Getter
-        @Setter
         public static class Spark {
 
             private boolean enabled = false;
@@ -142,10 +315,31 @@ public class AutoposProperties {
 
             private int port = 9999;
 
+            public boolean isEnabled() {
+                return this.enabled;
+            }
+
+            public String getHost() {
+                return this.host;
+            }
+
+            public int getPort() {
+                return this.port;
+            }
+
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
+
+            public void setHost(String host) {
+                this.host = host;
+            }
+
+            public void setPort(int port) {
+                this.port = port;
+            }
         }
 
-        @Getter
-        @Setter
         public static class Graphite {
 
             private boolean enabled = false;
@@ -156,16 +350,60 @@ public class AutoposProperties {
 
             private String prefix = "AutoPOS";
 
+            public boolean isEnabled() {
+                return this.enabled;
+            }
+
+            public String getHost() {
+                return this.host;
+            }
+
+            public int getPort() {
+                return this.port;
+            }
+
+            public String getPrefix() {
+                return this.prefix;
+            }
+
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
+
+            public void setHost(String host) {
+                this.host = host;
+            }
+
+            public void setPort(int port) {
+                this.port = port;
+            }
+
+            public void setPrefix(String prefix) {
+                this.prefix = prefix;
+            }
         }
 
-        @Getter
-        @Setter
         public static class Logs {
 
             private boolean enabled = false;
 
             private long reportFrequency = 60;
 
+            public boolean isEnabled() {
+                return this.enabled;
+            }
+
+            public long getReportFrequency() {
+                return this.reportFrequency;
+            }
+
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
+
+            public void setReportFrequency(long reportFrequency) {
+                this.reportFrequency = reportFrequency;
+            }
         }
     }
 }
