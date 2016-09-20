@@ -1,11 +1,9 @@
 package io.koju.autopos.kernel.api
 
-import java.lang.Long
-
 import io.koju.autopos.kernel.domain.AuditableBaseEntity
-import org.springframework.data.jpa.repository.JpaRepository
+import io.koju.autopos.kernel.service.AuditableBaseRepository
 
-abstract class CrudApi[T <: AuditableBaseEntity](override protected val repo: JpaRepository[T, Long],
+abstract class CrudApi[T <: AuditableBaseEntity](override protected val repo: AuditableBaseRepository[T],
                                                  override protected val entityName: String,
                                                  override protected val baseUrl: String)
   extends Api[T](repo, entityName, baseUrl)

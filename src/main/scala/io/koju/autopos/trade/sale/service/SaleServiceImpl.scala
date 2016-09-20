@@ -4,9 +4,9 @@ import java.time.LocalDateTime
 
 import io.koju.autopos.catalog.service.ItemService
 import io.koju.autopos.trade.sale.domain.Sale.Status
-import io.koju.autopos.trade.sale.domain.{QSale, Sale, SaleLine}
+import io.koju.autopos.trade.sale.domain.{Sale, SaleLine}
 import io.koju.autopos.trade.sale.repo.{SaleLineRepo, SaleRepo}
-import org.springframework.data.domain.{Page, Pageable}
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -17,10 +17,8 @@ class SaleServiceImpl(private val saleRepo: SaleRepo,
                       private val itemService: ItemService)
   extends SaleService {
 
-  private val qSale = QSale.sale
-
-  override def getSalesWithStatus(status: Status, pageable: Pageable): Page[Sale] =
-    saleRepo.findAll(qSale.status eq status, pageable)
+  override def getSalesWithStatus(status: Status, pageable: Pageable) =
+    saleRepo.findByStatus(status, pageable)
 
   override def createNewSale() = {
     val sale = new Sale

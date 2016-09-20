@@ -1,11 +1,9 @@
 package io.koju.autopos.kernel.api
 
-import java.lang.Long
-
 import io.koju.autopos.kernel.domain.AuditableBaseEntity
-import org.springframework.data.jpa.repository.JpaRepository
+import io.koju.autopos.kernel.service.AuditableBaseRepository
 
-abstract class Api[T <: AuditableBaseEntity](protected val repo: JpaRepository[T, Long],
+abstract class Api[T <: AuditableBaseEntity](protected val repo: AuditableBaseRepository[T],
                                              protected val entityName: String,
                                              protected val baseUrl: String) {
 }

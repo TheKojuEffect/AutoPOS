@@ -3,7 +3,7 @@ package io.koju.autopos.trade.purchase.service
 import java.time.LocalDateTime
 
 import io.koju.autopos.catalog.service.ItemService
-import io.koju.autopos.trade.purchase.domain.{Purchase, PurchaseLine, QPurchase}
+import io.koju.autopos.trade.purchase.domain.{Purchase, PurchaseLine}
 import io.koju.autopos.trade.purchase.repo.{PurchaseLineRepo, PurchaseRepo}
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service

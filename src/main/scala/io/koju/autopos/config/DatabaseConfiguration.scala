@@ -8,6 +8,7 @@ import com.zaxxer.hikari.HikariDataSource
 import io.koju.autopos.accounting.domain.AccountingDomainPackage
 import io.koju.autopos.accounting.repo.AccountingRepoPackage
 import io.koju.autopos.catalog.domain.Item
+import io.koju.autopos.catalog.repo.CatalogRepoPackage
 import io.koju.autopos.catalog.service.CatalogServicePackage
 import io.koju.autopos.config.liquibase.AsyncSpringLiquibase
 import io.koju.autopos.domain.DomainPackage
@@ -55,7 +56,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[SaleRepoPackage],
     classOf[PurchaseRepoPackage],
     classOf[PartyRepoPackage],
-    classOf[TransactionRepoPackage]))
+    classOf[TransactionRepoPackage],
+    classOf[CatalogRepoPackage]
+  ))
 @EntityScan(
   basePackageClasses = Array(
     classOf[AbstractEntity[_ <: Serializable]],
