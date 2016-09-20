@@ -35,7 +35,7 @@ class SaleServiceImpl(private val saleRepo: SaleRepo,
     saleLine.setSale(sale)
     saleLine.setId(null)
     saleLineRepo.save(saleLine)
-    itemService.substractQuantity(saleLine.getItem, saleLine.getQuantity)
+    itemService.subtractQuantity(saleLine.getItem, saleLine.getQuantity)
     saleLine
   }
 

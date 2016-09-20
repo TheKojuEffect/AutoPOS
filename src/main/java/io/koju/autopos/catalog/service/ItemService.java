@@ -20,7 +20,7 @@ public interface ItemService {
         adjustQuantity(item, number);
     }
 
-    default void substractQuantity(Item item, Integer number) {
+    default void subtractQuantity(Item item, Integer number) {
         adjustQuantity(item, -number);
     }
 
