@@ -24,6 +24,8 @@ import io.koju.autopos.trade.purchase.repo.PurchaseRepoPackage
 import io.koju.autopos.trade.sale.domain.SaleDomainPackage
 import io.koju.autopos.trade.sale.repo.SaleRepoPackage
 import io.koju.autopos.trade.service.TradeServicePackage
+import io.koju.autopos.transaction.domain.TransactionDomainPackage
+import io.koju.autopos.transaction.repo.TransactionRepoPackage
 import io.koju.autopos.user.domain.User
 import io.koju.autopos.user.service.UserServicePackage
 import org.slf4j.{Logger, LoggerFactory}
@@ -52,7 +54,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[TradeServicePackage],
     classOf[SaleRepoPackage],
     classOf[PurchaseRepoPackage],
-    classOf[PartyRepoPackage]))
+    classOf[PartyRepoPackage],
+    classOf[TransactionRepoPackage]))
 @EntityScan(
   basePackageClasses = Array(
     classOf[AbstractEntity[_ <: Serializable]],
@@ -64,7 +67,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[PartyDomainPackage],
     classOf[TradeDomainPackage],
     classOf[SaleDomainPackage],
-    classOf[PurchaseDomainPackage]))
+    classOf[PurchaseDomainPackage],
+    classOf[TransactionDomainPackage]))
 class DatabaseConfiguration(private val env: Environment) {
 
   final private val log: Logger = LoggerFactory.getLogger(classOf[DatabaseConfiguration])

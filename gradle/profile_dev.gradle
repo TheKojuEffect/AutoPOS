@@ -29,6 +29,7 @@ war {
 }
 
 task setProdProperties(dependsOn: bootRun) << {
+    dependsOn 'gulp_ngconstant:dev'
     doFirst {
         System.setProperty('spring.profiles.active', profiles)
     }
@@ -42,4 +43,4 @@ processResources {
     }
 }
 
-setProdProperties.dependsOn 'gulp_ngconstant:dev'
+//setProdProperties.dependsOn 'gulp_ngconstant:dev'

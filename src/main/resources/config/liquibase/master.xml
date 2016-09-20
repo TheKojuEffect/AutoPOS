@@ -48,10 +48,12 @@
         <sqlFile path="sql/purchase_line_table.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
     </changeSet>
 
+    <changeSet id="POS-88" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sqlFile path="sql/payment_table.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
+        <sqlFile path="sql/receipt_table.sql" relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
+    </changeSet>
 
     <include file="classpath:config/liquibase/changelog/20160209141843_added_entity_PriceHistory.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160209154002_added_entity_Receipt.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160209154439_added_entity_Payment.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209160545_added_entity_Ledger.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160209170435_added_entity_LedgerEntry.xml" relativeToChangelogFile="false"/>
 
