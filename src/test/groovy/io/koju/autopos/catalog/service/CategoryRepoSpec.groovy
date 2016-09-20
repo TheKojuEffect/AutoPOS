@@ -2,6 +2,7 @@ package io.koju.autopos.catalog.service
 
 import io.koju.autopos.Application
 import io.koju.autopos.catalog.domain.Category
+import io.koju.autopos.catalog.repo.CategoryRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,7 +17,7 @@ import spock.lang.Specification
 class CategoryRepoSpec extends Specification {
 
     @Autowired
-    CategoryRepository categoryRepo
+    CategoryRepo categoryRepo
 
     def "short name is capitalized while saving and updating"() {
 

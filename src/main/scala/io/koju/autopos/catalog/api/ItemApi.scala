@@ -5,7 +5,8 @@ import java.util
 import com.codahale.metrics.annotation.Timed
 import io.koju.autopos.kernel.api.CrudApi
 import io.koju.autopos.catalog.domain.Item
-import io.koju.autopos.catalog.service.{ItemRepository, ItemService}
+import io.koju.autopos.catalog.repo.ItemRepo
+import io.koju.autopos.catalog.service.ItemService
 import io.koju.autopos.web.rest.util.PaginationUtil
 import org.springframework.data.domain.Pageable
 import org.springframework.http.{HttpStatus, ResponseEntity}
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.{GetMapping, RequestMapping, Requ
 
 @RestController
 @RequestMapping(Array("/api/items"))
-class ItemApi(itemRepository: ItemRepository,
+class ItemApi(itemRepository: ItemRepo,
               itemService: ItemService)
   extends CrudApi(itemRepository, "item", "/api/items") {
 
