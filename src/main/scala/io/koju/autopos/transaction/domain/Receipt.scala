@@ -2,7 +2,7 @@ package io.koju.autopos.transaction.domain
 
 import java.lang.Long
 import java.math.BigDecimal
-import java.time.LocalDateTime
+import java.time.LocalDate
 import javax.persistence._
 import javax.validation.constraints.{Min, NotNull, Size}
 
@@ -22,9 +22,9 @@ class Receipt extends AuditableBaseEntity {
   var id: Long = _
 
   @NotNull
-  @Column(name = "date_time", nullable = false)
+  @Column(name = "date", nullable = false)
   @BeanProperty
-  var dateTime: LocalDateTime = _
+  var date: LocalDate = _
 
   @ManyToOne
   @JoinColumn(name = "received_from_id")

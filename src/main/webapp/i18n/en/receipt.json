@@ -20,7 +20,8 @@
             "amount": "Amount",
             "receivedBy": "ReceivedBy",
             "remarks": "Remarks",
-            "receivedFrom": "ReceivedFrom"
+            "receivedFrom": "ReceivedFrom",
+            "receiptNumber": "Receipt Number"
         }
     }
 }

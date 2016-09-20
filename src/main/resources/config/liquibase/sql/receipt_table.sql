@@ -1,9 +1,9 @@
 CREATE TABLE receipt (
   id                 BIGSERIAL PRIMARY KEY,
-  date_time          TIMESTAMP                       NOT NULL,
+  date               TIMESTAMP                       NOT NULL,
   amount             NUMERIC(10, 2)                  NOT NULL,
   receipt_number     VARCHAR(10),
-  received_by       VARCHAR(100)                    NOT NULL,
+  received_by        VARCHAR(100)                    NOT NULL,
   remarks            VARCHAR(250),
   received_from_id   BIGINT REFERENCES customer (id) NOT NULL,
 

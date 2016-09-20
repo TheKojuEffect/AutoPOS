@@ -1,6 +1,6 @@
 CREATE TABLE payment (
   id                 BIGSERIAL PRIMARY KEY,
-  date_time               TIMESTAMP                     NOT NULL,
+  date               TIMESTAMP                     NOT NULL,
   amount             NUMERIC(10, 2)                NOT NULL,
   receipt_number     VARCHAR(10),
   paid_by            VARCHAR(100)                  NOT NULL,
