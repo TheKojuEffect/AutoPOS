@@ -30,7 +30,7 @@
             <tbody>
                 <tr ng-repeat="receipt in vm.receipts track by receipt.id">
                     <td><a ui-sref="receipt-detail({id:receipt.id})">{{receipt.id}}</a></td>
-                        <td>{{receipt.date | date:'mediumDate'}}</td>
+                        <td>{{receipt.dateTime | date:'mediumDate'}}</td>
                     <td>{{receipt.amount}}</td>
                     <td>{{receipt.receivedBy}}</td>
                     <td>{{receipt.remarks}}</td>
