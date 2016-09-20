@@ -1,5 +1,6 @@
 package io.koju.autopos.accounting.domain
 
+import java.lang.Long
 import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence.GenerationType.SEQUENCE

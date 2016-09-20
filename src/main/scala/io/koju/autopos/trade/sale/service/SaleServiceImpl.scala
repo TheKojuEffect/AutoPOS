@@ -2,8 +2,8 @@ package io.koju.autopos.trade.sale.service
 
 import java.time.LocalDateTime
 
+import io.koju.autopos.catalog.domain.SaleStatus
 import io.koju.autopos.catalog.service.ItemService
-import io.koju.autopos.trade.sale.domain.Sale.Status
 import io.koju.autopos.trade.sale.domain.{Sale, SaleLine}
 import io.koju.autopos.trade.sale.repo.{SaleLineRepo, SaleRepo}
 import org.springframework.data.domain.Pageable
@@ -17,13 +17,13 @@ class SaleServiceImpl(private val saleRepo: SaleRepo,
                       private val itemService: ItemService)
   extends SaleService {
 
-  override def getSalesWithStatus(status: Status, pageable: Pageable) =
+  override def getSalesWithStatus(status: SaleStatus, pageable: Pageable) =
     saleRepo.findByStatus(status, pageable)
 
   override def createNewSale() = {
     val sale = new Sale
     sale.setDate(LocalDateTime.now())
-    sale.setStatus(Sale.Status.PENDING)
+    sale.setStatus(SaleStatus.PENDING)
     saleRepo.save(sale)
   }
 

@@ -1,12 +1,12 @@
 package io.koju.autopos.trade.sale.api
 
 import java.net.URI
-import javax.validation.Valid
 
 import com.codahale.metrics.annotation.Timed
 import com.fasterxml.jackson.annotation.JsonView
+import io.koju.autopos.catalog.domain.SaleStatus
 import io.koju.autopos.kernel.json.Views
-import io.koju.autopos.trade.sale.domain.{Sale, SaleLine}
+import io.koju.autopos.trade.sale.domain.Sale
 import io.koju.autopos.trade.sale.repo.SaleLineRepo
 import io.koju.autopos.trade.sale.service.SaleService
 import io.koju.autopos.web.rest.util.{HeaderUtil, PaginationUtil}
@@ -23,7 +23,7 @@ class SaleApi(private val saleService: SaleService,
   @GetMapping
   @Timed
   @JsonView(Array(classOf[Views.Summary]))
-  def getAllSales(@RequestParam("status") status: Sale.Status, pageable: Pageable) = {
+  def getAllSales(@RequestParam("status") status: SaleStatus, pageable: Pageable) = {
     val page = saleService.getSalesWithStatus(status, pageable)
     val headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/sales")
     new ResponseEntity(page.getContent, headers, HttpStatus.OK)
