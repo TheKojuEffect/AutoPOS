@@ -8,6 +8,4 @@ import org.springframework.web.bind.annotation.{RequestMapping, RestController}
 @RestController
 @RequestMapping(Array("/api/day-book-entries"))
 class DayBookEntryApi(private val dayBookEntryRepo: DayBookEntryRepo)
-  extends BaseApi[DayBookEntry](dayBookEntryRepo, "dayBookEntry", "/api/day-book-entries/") {
-
-}
+  extends BaseApi[DayBookEntry](dayBookEntryRepo, "dayBookEntry", "/api/day-book-entries/")
