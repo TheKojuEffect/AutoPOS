@@ -66,13 +66,3 @@ autopos:
                 secret: 6b7351dc7535673df733688a4c6920563e90178d
                 # Token is valid 24 hours
                 tokenValidityInSeconds: 86400
-    swagger:
-        title: AutoPOS API
-        description: AutoPOS API documentation
-        version: 0.0.1
-        termsOfServiceUrl:
-        contactName:
-        contactUrl:
-        contactEmail:
-        license:
-        licenseUrl:

@@ -23,8 +23,6 @@ public class AutoposProperties {
 
     private final Security security = new Security();
 
-    private final Swagger swagger = new Swagger();
-
     private final Metrics metrics = new Metrics();
 
     private final CorsConfiguration cors = new CorsConfiguration();
@@ -43,10 +41,6 @@ public class AutoposProperties {
 
     public Security getSecurity() {
         return this.security;
-    }
-
-    public Swagger getSwagger() {
-        return this.swagger;
     }
 
     public Metrics getMetrics() {
@@ -172,99 +166,6 @@ public class AutoposProperties {
                     this.tokenValidityInSecondsForRememberMe = tokenValidityInSecondsForRememberMe;
                 }
             }
-        }
-    }
-
-    public static class Swagger {
-
-        private String title = "AutoPOS API";
-
-        private String description = "AutoPOS API documentation";
-
-        private String version = "0.0.1";
-
-        private String termsOfServiceUrl;
-
-        private String contactName;
-
-        private String contactUrl;
-
-        private String contactEmail;
-
-        private String license;
-
-        private String licenseUrl;
-
-        public String getTitle() {
-            return this.title;
-        }
-
-        public String getDescription() {
-            return this.description;
-        }
-
-        public String getVersion() {
-            return this.version;
-        }
-
-        public String getTermsOfServiceUrl() {
-            return this.termsOfServiceUrl;
-        }
-
-        public String getContactName() {
-            return this.contactName;
-        }
-
-        public String getContactUrl() {
-            return this.contactUrl;
-        }
-
-        public String getContactEmail() {
-            return this.contactEmail;
-        }
-
-        public String getLicense() {
-            return this.license;
-        }
-
-        public String getLicenseUrl() {
-            return this.licenseUrl;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public void setVersion(String version) {
-            this.version = version;
-        }
-
-        public void setTermsOfServiceUrl(String termsOfServiceUrl) {
-            this.termsOfServiceUrl = termsOfServiceUrl;
-        }
-
-        public void setContactName(String contactName) {
-            this.contactName = contactName;
-        }
-
-        public void setContactUrl(String contactUrl) {
-            this.contactUrl = contactUrl;
-        }
-
-        public void setContactEmail(String contactEmail) {
-            this.contactEmail = contactEmail;
-        }
-
-        public void setLicense(String license) {
-            this.license = license;
-        }
-
-        public void setLicenseUrl(String licenseUrl) {
-            this.licenseUrl = licenseUrl;
         }
     }
 

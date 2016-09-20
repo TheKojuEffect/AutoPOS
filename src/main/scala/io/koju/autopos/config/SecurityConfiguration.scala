@@ -40,7 +40,6 @@ class SecurityConfiguration(private val authenticationEntryPoint: Http401Unautho
       .antMatchers("/bower_components/**")
       .antMatchers("/i18n/**")
       .antMatchers("/content/**")
-      .antMatchers("/swagger-ui/index.html")
       .antMatchers("/test/**")
   }
 
@@ -75,10 +74,8 @@ class SecurityConfiguration(private val authenticationEntryPoint: Http401Unautho
       .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
       .antMatchers("/mappings/**").hasAuthority(AuthoritiesConstants.ADMIN)
       .antMatchers("/liquibase/**").hasAuthority(AuthoritiesConstants.ADMIN)
-      .antMatchers("/v2/api-docs/**").permitAll
       .antMatchers("/configuration/security").permitAll
       .antMatchers("/configuration/ui").permitAll
-      .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
       .antMatchers("/protected/**").authenticated
     .and
       .apply(securityConfigurerAdapter)

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.{Bean, Configuration, EnableAspect
 class LoggingAspectConfiguration {
 
   @Bean
-  @Profile(Array(Constants.SPRING_PROFILE_DEVELOPMENT))
+  @Profile(Array("dev"))
   def loggingAspect: LoggingAspect = new LoggingAspect
 
 }

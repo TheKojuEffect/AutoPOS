@@ -18,6 +18,5 @@ Disallow: /info/
 Disallow: /autoconfig/
 Disallow: /env/
 Disallow: /trace/
-Disallow: /v2/api-docs/
 Disallow: /configuration/
 Disallow: /protected/

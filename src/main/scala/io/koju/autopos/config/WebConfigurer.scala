@@ -107,8 +107,6 @@ class WebConfigurer(private val env: Environment,
     val config: CorsConfiguration = jHipsterProperties.getCors
     if (config.getAllowedOrigins != null && !config.getAllowedOrigins.isEmpty) {
       source.registerCorsConfiguration("/api/**", config)
-      source.registerCorsConfiguration("/v2/api-docs", config)
-      source.registerCorsConfiguration("/oauth/**", config)
     }
     new CorsFilter(source)
   }
