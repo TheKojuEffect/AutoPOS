@@ -65,13 +65,3 @@ autopos:
                 tokenValidityInSeconds: 1800
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
-    swagger:
-        title: AutoPOS API
-        description: AutoPOS API documentation
-        version: 0.0.1
-        termsOfServiceUrl:
-        contactName:
-        contactUrl:
-        contactEmail:
-        license:
-        licenseUrl:
