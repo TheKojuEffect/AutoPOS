@@ -1,13 +1,13 @@
-(function() {
+(function (angular) {
     'use strict';
 
     angular
         .module('autopos')
         .controller('PaymentController', PaymentController);
 
-    PaymentController.$inject = ['$scope', '$state', 'Payment', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
+    PaymentController.$inject = ['$state', 'Payment', 'ParseLinks', 'AlertService', 'pagingParams', 'paginationConstants'];
 
-    function PaymentController ($scope, $state, Payment, ParseLinks, AlertService, pagingParams, paginationConstants) {
+    function PaymentController($state, Payment, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
         vm.loadAll = loadAll;
         vm.loadPage = loadPage;
@@ -16,12 +16,13 @@
         vm.transition = transition;
         vm.loadAll();
 
-        function loadAll () {
+        function loadAll() {
             Payment.query({
                 page: pagingParams.page - 1,
                 size: paginationConstants.itemsPerPage,
                 sort: sort()
             }, onSuccess, onError);
+
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
                 if (vm.predicate !== 'id') {
@@ -29,6 +30,7 @@
                 }
                 return result;
             }
+
             function onSuccess(data, headers) {
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
@@ -36,17 +38,18 @@
                 vm.payments = data;
                 vm.page = pagingParams.page;
             }
+
             function onError(error) {
                 AlertService.error(error.data.message);
             }
         }
 
-        function loadPage (page) {
+        function loadPage(page) {
             vm.page = page;
             vm.transition();
         }
 
-        function transition () {
+        function transition() {
             $state.transitionTo($state.$current, {
                 page: vm.page,
                 sort: vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc'),
@@ -55,4 +58,4 @@
         }
 
     }
-})();
+})(window.angular);
