@@ -16,7 +16,9 @@
         <div class="form-group">
             <label class="control-label" translate="autopos.receipt.date" for="field_date">Date</label>
             <div class="input-group">
-                    <input id="field_date" type="text" class="form-control" name="date" uib-datepicker-popup="{{dateformat}}" ng-model="vm.receipt.date" is-open="vm.datePickerOpenStatus.date"
+                <input id="field_date" type="text" class="form-control" name="date"
+                       uib-datepicker-popup="{{dateformat}}" ng-model="vm.receipt.date"
+                       is-open="vm.datePickerOpenStatus.date"
                        required/>
                 <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="vm.openCalendar('date')">
@@ -26,22 +28,30 @@
             </div>
             <div ng-show="editForm.date.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.date.$error.required" translate="entity.validation.required">
+                   ng-show="editForm.date.$error.required" translate="entity.validation.required">
                     This field is required.
                 </p>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label" translate="autopos.receipt.receiptNumber" for="field_receiptNumber">ReceiptNumber</label>
-            <input type="text" class="form-control"
-                   name="receiptNumber" id="field_receiptNumber"
+            <label class="control-label" translate="autopos.receipt.receiptNumber" for="field_receiptNumber">Receipt
+                Number</label>
+            <input type="number" class="form-control" name="receiptNumber" id="field_receiptNumber"
                    ng-model="vm.receipt.receiptNumber"
-                   ng-maxlength="10"/>
+                   required min="1" step="1"/>
             <div ng-show="editForm.receiptNumber.$invalid">
                 <p class="help-block"
-                   ng-show="editForm.receiptNumber.$error.maxlength"
-                   translate="entity.validation.maxlength" translate-value-max="10">
-                    This field cannot be longer than 10 characters.
+                   ng-show="editForm.receiptNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.receiptNumber.$error.min" translate="entity.validation.min"
+                   translate-value-min="1">
+                    This field should be more than 1.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.receiptNumber.$error.number" translate="entity.validation.number">
+                    This field should be a number.
                 </p>
             </div>
         </div>
@@ -104,10 +114,17 @@
 
         <div class="form-group">
             <label translate="autopos.receipt.receivedFrom" for="field_receivedFrom">receivedFrom</label>
-            <select class="form-control" id="field_receivedFrom" name="receivedFrom" ng-model="vm.receipt.receivedFrom"
+            <select class="form-control" id="field_receivedFrom" name="receivedFrom"
+                    ng-model="vm.receipt.receivedFrom" required
                     ng-options="customer as customer.name for customer in vm.customers track by customer.id">
                 <option value=""></option>
             </select>
+            <div ng-show="editForm.receivedFrom.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.receivedFrom.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

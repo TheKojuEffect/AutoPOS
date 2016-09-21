@@ -38,10 +38,10 @@ class Receipt extends AuditableBaseEntity {
   @BeanProperty
   var amount: BigDecimal = _
 
-  @Size(max = 10)
-  @Column(name = "receipt_number", length = 10)
+  @Min(1)
+  @Column(name = "receipt_number")
   @BeanProperty
-  var receiptNumber: String = _
+  var receiptNumber: Long = _
 
   @NotNull
   @Size(min = 2, max = 100)

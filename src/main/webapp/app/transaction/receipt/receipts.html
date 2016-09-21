@@ -18,8 +18,6 @@
         <table class="jh-table table table-striped">
             <thead>
             <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span
-                        class="glyphicon glyphicon-sort"></span></th>
                 <th jh-sort-by="receiptNumber">
                     <span translate="autopos.receipt.receiptNumber">Receipt Number</span>
                     <span class="glyphicon glyphicon-sort"></span>
@@ -41,8 +39,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="receipt in vm.receipts track by receipt.id">
-                <td><a ui-sref="receipt-detail({id:receipt.id})">{{receipt.id}}</a></td>
-                <td>{{receipt.receiptNumber}}</td>
+                <td><a ui-sref="receipt-detail({id:receipt.id})">{{receipt.receiptNumber}}</a></td>
                 <td>{{receipt.date | date:'mediumDate'}}</td>
                 <td>{{receipt.amount}}</td>
                 <td>{{receipt.receivedBy}}</td>
