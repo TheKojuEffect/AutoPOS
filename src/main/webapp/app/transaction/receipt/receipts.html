@@ -26,14 +26,21 @@
                     <span translate="autopos.receipt.date">Date</span>
                     <span class="glyphicon glyphicon-sort"></span>
                 </th>
-                <th jh-sort-by="amount"><span translate="autopos.receipt.amount">Amount</span> <span
+                <th jh-sort-by="receivedFrom.name">
+                    <span translate="autopos.receipt.receivedFrom">receivedFrom</span>
+                    <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="amount">
+                    <span translate="autopos.receipt.amount">Amount</span> <span
                         class="glyphicon glyphicon-sort"></span></th>
-                <th jh-sort-by="receivedBy"><span translate="autopos.receipt.receivedBy">ReceivedBy</span> <span
-                        class="glyphicon glyphicon-sort"></span></th>
-                <th jh-sort-by="remarks"><span translate="autopos.receipt.remarks">Remarks</span> <span
-                        class="glyphicon glyphicon-sort"></span></th>
-                <th jh-sort-by="receivedFrom.name"><span translate="autopos.receipt.receivedFrom">receivedFrom</span>
-                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="receivedBy">
+                    <span translate="autopos.receipt.receivedBy">ReceivedBy</span>
+                    <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th jh-sort-by="remarks">
+                    <span translate="autopos.receipt.remarks">Remarks</span>
+                    <span class="glyphicon glyphicon-sort"></span>
+                </th>
                 <th></th>
             </tr>
             </thead>
@@ -41,12 +48,12 @@
             <tr ng-repeat="receipt in vm.receipts track by receipt.id">
                 <td><a ui-sref="receipt-detail({id:receipt.id})">{{receipt.receiptNumber}}</a></td>
                 <td>{{receipt.date | date:'mediumDate'}}</td>
-                <td>{{receipt.amount}}</td>
-                <td>{{receipt.receivedBy}}</td>
-                <td>{{receipt.remarks}}</td>
                 <td>
                     <a ui-sref="customer-detail({id:receipt.receivedFrom.id})">{{receipt.receivedFrom.name}}</a>
                 </td>
+                <td>{{receipt.amount}}</td>
+                <td>{{receipt.receivedBy}}</td>
+                <td>{{receipt.remarks}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
