@@ -29,7 +29,7 @@
                     squash: true
                 },
                 sort: {
-                    value: 'id,asc',
+                    value: 'receiptNumber,desc',
                     squash: true
                 },
                 search: null
