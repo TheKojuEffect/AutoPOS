@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestData
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase._
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(classOf[JUnitRunner])
 class ItemCodeSpec extends FlatSpec with TableDrivenPropertyChecks with Matchers {
@@ -30,8 +29,8 @@ class ItemCodeSpec extends FlatSpec with TableDrivenPropertyChecks with Matchers
       )
 
     forAll(idCodes) { (id: Long, code: String) =>
-      ItemCodeUtil.getCode(id) should equal(code)
-      ItemCodeUtil.getId(code) should equal(id)
+      ItemCode(id) should equal(code)
+      ItemCode(code) should equal(id)
     }
   }
 }
@@ -50,7 +49,7 @@ class ItemCodeDbSpec extends FlatSpec with TestContextManagement with PropertyCh
     forAll { (id: Long) =>
       whenever(id > 0) {
         val code = jdbcTemplate.queryForObject("SELECT item_code(?);", classOf[String], id.asInstanceOf[java.lang.Long])
-        ItemCodeUtil.getCode(id) should equal(code)
+        ItemCode(id) should equal(code)
       }
     }
   }
