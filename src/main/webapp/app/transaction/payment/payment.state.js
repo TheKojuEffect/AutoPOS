@@ -11,7 +11,7 @@
         $stateProvider
         .state('payment', {
             parent: 'transaction',
-            url: '/payment?page&sort&search',
+            url: '/payments?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.payment.home.title'
@@ -53,7 +53,7 @@
         })
         .state('payment-detail', {
             parent: 'transaction',
-            url: '/payment/{id}',
+            url: '/payments/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.payment.detail.title'

@@ -11,7 +11,7 @@
         $stateProvider
         .state('receipt', {
             parent: 'transaction',
-            url: '/receipt?page&sort&search',
+            url: '/receipts?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.receipt.home.title'
@@ -53,7 +53,7 @@
         })
         .state('receipt-detail', {
             parent: 'transaction',
-            url: '/receipt/{id}',
+            url: '/receipts/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.receipt.detail.title'
