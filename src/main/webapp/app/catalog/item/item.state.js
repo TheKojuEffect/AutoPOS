@@ -11,7 +11,7 @@
         $stateProvider
         .state('item', {
             parent: 'catalog',
-            url: '/item?page&sort&search',
+            url: '/items?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.item.home.title'
@@ -53,7 +53,7 @@
         })
         .state('item-detail', {
             parent: 'catalog',
-            url: '/item/{id}',
+            url: '/items/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.item.detail.title'

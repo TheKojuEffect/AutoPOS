@@ -11,7 +11,7 @@
         $stateProvider
         .state('tag', {
             parent: 'catalog',
-            url: '/tag?page&sort&search',
+            url: '/tags?page&sort&search',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.tag.home.title'
@@ -53,7 +53,7 @@
         })
         .state('tag-detail', {
             parent: 'catalog',
-            url: '/tag/{id}',
+            url: '/tags/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'autopos.tag.detail.title'
