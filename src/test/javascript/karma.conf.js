@@ -36,6 +36,8 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/lodash/lodash.js',
             'src/main/webapp/bower_components/moment/moment.js',
             'src/main/webapp/bower_components/angular-moment/angular-moment.js',
+            'src/main/webapp/bower_components/rxjs/dist/rx.all.js',
+            'src/main/webapp/bower_components/ramda/dist/ramda.js',
             'src/main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'src/main/webapp/app/app.module.js',

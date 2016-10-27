@@ -1,5 +1,5 @@
 ext {
-    liquibase_hibernate4_version='3.5'
+    liquibase_hibernate5_version='3.6'
 }
 
 configurations {
@@ -7,7 +7,7 @@ configurations {
 }
 
 dependencies {
-    liquibase group: 'org.liquibase.ext', name: 'liquibase-hibernate4', version: liquibase_hibernate4_version
+    liquibase group: 'org.liquibase.ext', name: 'liquibase-hibernate5', version: liquibase_hibernate5_version
 }
 
 task liquibaseDiffChangelog(dependsOn: compileJava, type: JavaExec) {

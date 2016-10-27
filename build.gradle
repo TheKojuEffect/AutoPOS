@@ -42,7 +42,7 @@ ext {
     scalaCheckVersion = '1.13.2'
     scalaTestSpringVersion = '0.3.1'
 }
-ext['hibernate.version'] = '5.2.2.Final'
+ext['hibernate.version'] = '5.2.4.Final'
 
 group = 'io.koju.autopos'
 version = '0.0.1-SNAPSHOT'
