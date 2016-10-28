@@ -20,8 +20,8 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/AutoPOS
         name:
-        username: AutoPOS
-        password:
+        username: autopos
+        password: autopos_prod
     jpa:
         database-platform: io.koju.autopos.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL

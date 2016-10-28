@@ -18,7 +18,7 @@ spring:
         livereload:
             enabled: false # we use gulp + BrowserSync for livereload
     datasource:
-        url: jdbc:postgresql://localhost:5432/AutoPOS
+        url: jdbc:postgresql://localhost:5432/DevAutoPOS
         name:
         username: postgres
         password: test12
