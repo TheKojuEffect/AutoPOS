@@ -245,7 +245,8 @@ gulp.task('serve', function () {
 });
 
 gulp.task('build', ['clean'], function (cb) {
-    runSequence(['copy', 'wiredep:app', 'ngconstant:prod', 'languages'], 'inject', 'assets:prod', cb);
+    // runSequence(['copy', 'wiredep:app', 'ngconstant:prod', 'languages'], 'inject', 'assets:prod', cb);
+    runSequence(['wiredep', 'ngconstant:prod'], 'languages', 'inject', cb);
 });
 
 gulp.task('default', ['serve']);

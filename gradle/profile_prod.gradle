@@ -28,8 +28,10 @@ task gulpBuildWithOpts(type: GulpTask) {
     args = ["build", "--no-notification"]
 }
 
+
 war {
-    webAppDirName = 'build/www/'
+    webAppDirName = 'src/main/webapp/'
+//    webAppDirName = 'build/www/'
 }
 
 processResources {
