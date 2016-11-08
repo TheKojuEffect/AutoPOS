@@ -141,8 +141,8 @@ dependencies {
     testCompile 'org.spockframework:spock-core'
 
     testCompile 'org.spockframework:spock-spring'
-    testCompile "org.scalactic:scalactic_2.11:$scalaTestVersion"
-    testCompile "org.scalatest:scalatest_2.11:$scalaTestVersion"
+    testCompile "org.scalactic:scalactic_2.12:$scalaTestVersion"
+    testCompile "org.scalatest:scalatest_2.12:$scalaTestVersion"
     testCompile "org.scalacheck:scalacheck_2.12:$scalaCheckVersion"
     testCompile "com.github.scalaspring:scalatest-spring_2.11:$scalaTestSpringVersion"
 
