@@ -131,7 +131,6 @@ dependencies {
     testCompile "org.scalactic:scalactic_2.12:$scalaTestVersion"
     testCompile "org.scalatest:scalatest_2.12:$scalaTestVersion"
     testCompile "org.scalacheck:scalacheck_2.12:$scalaCheckVersion"
-    testCompile "com.github.scalaspring:scalatest-spring_2.11:$scalaTestSpringVersion"
 
     compileOnly group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
 }
