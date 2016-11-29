@@ -28,7 +28,8 @@ module.exports = {
                 prependPath: false
             }
         },
-        publicPath: '/app/dist/'
-        // hot: true
+        publicPath: '/app/dist/',
+        open: true,
+        hot: true
     }
 };
