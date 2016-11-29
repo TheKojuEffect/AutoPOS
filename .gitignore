@@ -135,3 +135,6 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+
+src/main/webapp/app/dist

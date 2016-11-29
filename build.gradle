@@ -194,3 +194,5 @@ clean {
 
 task stage(dependsOn: 'bootRepackage') {
 }
+
+processResources.dependsOn npm_run_webpack
