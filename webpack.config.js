@@ -1,10 +1,13 @@
 module.exports = {
     devtool: 'inline-source-map',
     context: __dirname + '/src/main/webapp/app',
-    entry: './app',
+    entry: {
+        lib: './lib',
+        app: './app'
+    },
     output: {
         path: __dirname + '/src/main/webapp/app/dist',
-        filename: 'bundle.js'
+        filename: '[name].bundle.js'
     },
     module: {
         loaders: [{
@@ -23,7 +26,7 @@ module.exports = {
                 secure: false,
                 // node-http-proxy option - don't add /localhost:8080/ to proxied request paths
                 prependPath: false
-            },
+            }
         },
         publicPath: '/app/dist/'
         // hot: true
