@@ -15,7 +15,6 @@
             'ui.bootstrap.datetimepicker',
             'ui.router',
             'infinite-scroll',
-            'angular-loading-bar',
             'angularMoment'
         ])
         .run(run);

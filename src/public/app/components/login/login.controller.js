@@ -1,4 +1,6 @@
-(function() {
+
+
+(function ($) {
     'use strict';
 
     angular
@@ -7,7 +9,7 @@
 
     LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance'];
 
-    function LoginController ($rootScope,$state, $timeout, Auth, $uibModalInstance) {
+    function LoginController($rootScope, $state, $timeout, Auth, $uibModalInstance) {
         var vm = this;
 
         vm.authenticationError = false;
@@ -20,9 +22,11 @@
         vm.requestResetPassword = requestResetPassword;
         vm.username = null;
 
-        $timeout(function (){angular.element('[ng-model="vm.username"]').focus();});
+        $timeout(function () {
+            $('[ng-model="vm.username"]').focus();
+        });
 
-        function cancel () {
+        function cancel() {
             vm.credentials = {
                 username: null,
                 password: null,
@@ -32,7 +36,7 @@
             $uibModalInstance.dismiss('cancel');
         }
 
-        function login (event) {
+        function login(event) {
             event.preventDefault();
             Auth.login({
                 username: vm.username,
@@ -54,14 +58,14 @@
             });
         }
 
-        function register () {
+        function register() {
             $uibModalInstance.dismiss('cancel');
             $state.go('register');
         }
 
-        function requestResetPassword () {
+        function requestResetPassword() {
             $uibModalInstance.dismiss('cancel');
             $state.go('requestReset');
         }
     }
-})();
+})(require('jquery'));

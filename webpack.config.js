@@ -40,7 +40,7 @@ module.exports = function makeWebpackConfig() {
     config.devtool = 'inline-source-map';
   }
   else {
-    config.devtool = 'eval-source-map';
+    config.devtool = 'inline-source-map';
   }
 
   /**
@@ -50,6 +50,7 @@ module.exports = function makeWebpackConfig() {
   config.entry = isTest ? {} : {
     'polyfills': './src/polyfills.ts',
     'vendor': './src/vendor.ts',
+      'ng1app': './src/public/ng1app.js',
     'app': './src/main.ts' // our angular app
   };
 
@@ -87,6 +88,11 @@ module.exports = function makeWebpackConfig() {
    */
   config.module = {
     rules: [
+        {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+        },
       // Support for .ts files.
       {
         test: /\.ts$/,
@@ -218,7 +224,7 @@ module.exports = function makeWebpackConfig() {
       // Reference: https://webpack.github.io/docs/code-splitting.html
       // Reference: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
       new CommonsChunkPlugin({
-        name: ['vendor', 'polyfills']
+        name: ['ng1app', 'vendor', 'polyfills']
       }),
 
       // Inject script and link tags into html files
@@ -267,6 +273,11 @@ module.exports = function makeWebpackConfig() {
     contentBase: './src/public',
     historyApiFallback: true,
     quiet: true,
+      proxy: {
+          '/api': {
+              target: 'http://localhost:8080'
+          }
+      },
     stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
   };
 

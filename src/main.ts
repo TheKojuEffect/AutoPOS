@@ -1,6 +1,7 @@
 import {enableProdMode} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {AppModule} from './app/app.module';
+import {UpgradeModule} from '@angular/upgrade/static';
 
 // depending on the env mode, enable prod mode or add debugging modules
 if (process.env.ENV === 'build') {
@@ -8,7 +9,10 @@ if (process.env.ENV === 'build') {
 }
 
 export function main() {
-    return platformBrowserDynamic().bootstrapModule(AppModule);
+    return platformBrowserDynamic().bootstrapModule(AppModule).then(platformRef => {
+        const upgrade = platformRef.injector.get(UpgradeModule) as UpgradeModule;
+        upgrade.bootstrap(document.body, ['autopos']);
+    });
 }
 
 if (document.readyState === 'complete') {
