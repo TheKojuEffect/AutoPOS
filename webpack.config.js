@@ -50,7 +50,7 @@ module.exports = function makeWebpackConfig() {
   config.entry = isTest ? {} : {
     'polyfills': './src/polyfills.ts',
     'vendor': './src/vendor.ts',
-      'ng1app': './src/public/ng1app.js',
+      'ng1app': './src/public/ng1app.ts',
     'app': './src/main.ts' // our angular app
   };
 
