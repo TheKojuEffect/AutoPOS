@@ -15,8 +15,6 @@
     "build": "rimraf dist && webpack --progress --profile --bail",
     "server": "webpack-dashboard -- webpack-dev-server --inline --port 9000",
     "lint": "tslint --force \"src/**/*.ts\"",
-    "e2e": "protractor",
-    "e2e-live": "protractor --elementExplorer",
     "pretest": "npm run lint",
     "ci": "npm run e2e && npm run test",
     "docs": "typedoc --options typedoc.json src/app/app.component.ts",
