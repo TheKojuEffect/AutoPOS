@@ -1,4 +1,4 @@
-import './app/app.module';
+import './app/ng1app.module';
 import './app/account/reset/request/reset.request.state';
 import './app/account/reset/request/reset.request.controller';
 import './app/account/reset/finish/reset.finish.state';
