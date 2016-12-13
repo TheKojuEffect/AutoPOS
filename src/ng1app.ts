@@ -104,7 +104,7 @@ import './app/catalog/price-history/price-history-delete-dialog.controller';
 import './app/catalog/item/item';
 import './app/catalog/item/itemSelect';
 import './app/catalog/item/item.state';
-import './app/catalog/item/item.service';
+import './app/catalog/item/item.resource';
 import './app/catalog/item/item.controller';
 import './app/catalog/item/item-dialog.controller';
 import './app/catalog/item/item-detail.controller';
