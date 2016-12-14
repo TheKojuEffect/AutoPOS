@@ -40,7 +40,7 @@ module.exports = function makeWebpackConfig() {
     config.devtool = 'inline-source-map';
   }
   else {
-    config.devtool = 'inline-source-map';
+    config.devtool = 'eval-source-map';
   }
 
   /**

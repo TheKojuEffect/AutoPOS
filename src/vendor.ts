@@ -1,5 +1,3 @@
-
-
 import 'jquery';
 import 'angular';
 import 'angular-aria';
@@ -41,4 +39,5 @@ import '@angularclass/hmr';
 // You can import js, ts, css, sass, ...
 
 
+import 'ng2-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';

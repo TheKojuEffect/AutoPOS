@@ -1,3 +1,7 @@
+import { downgradeComponent } from '@angular/upgrade/static';
+import { ItemSearchComponent } from './catalog/item/item-search.component';
+import * as angular from 'angular';
+
 angular
     .module('autopos', [
         'ngStorage',
@@ -14,6 +18,7 @@ angular
         'infinite-scroll',
         'angularMoment'
     ])
+    .directive('aposItemSearch', downgradeComponent({component: ItemSearchComponent}) as angular.IDirectiveFactory)
     .run(run);
 
 run.$inject = ['stateHandler', 'translationHandler', 'moment'];

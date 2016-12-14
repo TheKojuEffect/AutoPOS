@@ -1,0 +1,20 @@
+<div>
+    <input [(ngModel)]="searchTerm"
+           [typeahead]="items"
+           (typeaheadLoading)="loading = $event"
+           (typeaheadNoResults)="noResults = $event"
+           (typeaheadOnSelect)="itemSelected($event)"
+           [typeaheadOptionsLimit]="10"
+           [typeaheadMinLength]="2"
+           [typeaheadWaitMs]="20"
+           [typeaheadOptionField]="'name'"
+           placeholder="Search Item"
+           class="form-control">
+
+    <div *ngIf="loading===true">
+        <i class="glyphicon glyphicon-refresh"></i>
+    </div>
+    <div *ngIf="noResults===true">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+</div>
