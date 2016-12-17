@@ -18,10 +18,10 @@
             },
             "date": "Date",
             "amount": "Amount",
-            "receiptNumber": "ReceiptNumber",
-            "paidBy": "PaidBy",
+            "receiptNumber": "Receipt Number",
+            "paidBy": "Paid By",
             "remarks": "Remarks",
-            "paidTo": "PaidTo"
+            "paidTo": "Paid To"
         }
     }
 }

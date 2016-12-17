@@ -18,9 +18,9 @@
             },
             "date": "Date",
             "amount": "Amount",
-            "receivedBy": "ReceivedBy",
+            "receivedBy": "Received By",
             "remarks": "Remarks",
-            "receivedFrom": "ReceivedFrom"
+            "receivedFrom": "Received From"
         }
     }
 }
