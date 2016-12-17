@@ -67,6 +67,11 @@
             this.saleLineEntryApi.setSaleLine(saleLine);
         }
 
+        gotoSaleList() {
+            this.$state.go('sales.pending')
+        }
+
+
         get subTotal() {
             return _.sumBy(this.sale.lines, 'amount');
         }

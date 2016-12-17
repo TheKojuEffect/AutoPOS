@@ -69,6 +69,10 @@
             this.purchaseLineEntryApi.setPurchaseLine(purchaseLine);
         }
 
+        gotoPurchaseList() {
+            this.$state.go('purchases.list')
+        }
+
         get subTotal() {
             return _.reduce(this.purchase.lines, (sum, line) => line.amount + sum, 0);
         }
@@ -77,7 +81,6 @@
             return this.subTotal - this.purchase.discount;
         }
     }
-
 
     angular.module('autopos')
         .component('purchasePanel', {
