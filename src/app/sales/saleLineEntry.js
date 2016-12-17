@@ -1,3 +1,5 @@
+import {SaleLine} from './saleLine'
+
 (function () {
     'use strict';
 

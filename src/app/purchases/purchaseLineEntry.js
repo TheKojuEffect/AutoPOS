@@ -1,3 +1,5 @@
+import {PurchaseLine} from './purchaseLine'
+
 (function () {
     'use strict';
 
