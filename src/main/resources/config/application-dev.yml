@@ -23,7 +23,7 @@ spring:
         username: postgres
         password: test12
     jpa:
-        database-platform: io.koju.autopos.domain.util.FixedPostgreSQL82Dialect
+        database-platform: com.kapilkoju.autopos.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
         show_sql: true
         properties:

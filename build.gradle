@@ -139,7 +139,7 @@ dependencies {
 defaultTasks 'bootRun'
 
 bootRepackage {
-    mainClass = 'io.koju.autopos.Application'
+    mainClass = 'com.kapilkoju.autopos.Application'
 }
 
 war {
@@ -147,7 +147,7 @@ war {
 }
 
 springBoot {
-    mainClass = 'io.koju.autopos.Application'
+    mainClass = 'com.kapilkoju.autopos.Application'
     executable = true
 }
 
