@@ -39,7 +39,7 @@ class Vehicle extends AuditableBaseEntity {
     if (owner == null) {
       number
     } else {
-      s"[ $number ] %${owner.getName}"
+      s"[ $number ] ${owner.getName}"
     }
   }
 }
