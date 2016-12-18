@@ -1,8 +1,7 @@
 package com.kapilkoju.autopos.catalog.domain
 
 import java.lang.Long
-import javax.persistence.GenerationType.SEQUENCE
-import javax.persistence._
+import javax.persistence.{GeneratedValue, _}
 import javax.validation.constraints.{NotNull, Size}
 
 import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
@@ -14,8 +13,7 @@ import scala.beans.BeanProperty
 class Category extends AuditableBaseEntity {
 
   @Id
-  @SequenceGenerator(name = "category_id_seq", sequenceName = "category_id_seq", allocationSize = 1)
-  @GeneratedValue(strategy = SEQUENCE, generator = "category_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

@@ -1,8 +1,7 @@
 package com.kapilkoju.autopos.party.domain
 
 import java.lang.Long
-import javax.persistence.GenerationType.SEQUENCE
-import javax.persistence._
+import javax.persistence.{GeneratedValue, _}
 import javax.validation.constraints.{NotNull, Size}
 
 import com.fasterxml.jackson.annotation.JsonView
@@ -16,8 +15,7 @@ import scala.beans.BeanProperty
 class Vendor extends AuditableBaseEntity {
 
   @Id
-  @SequenceGenerator(name = "vendor_id_seq", sequenceName = "vendor_id_seq", allocationSize = 1)
-  @GeneratedValue(strategy = SEQUENCE, generator = "vendor_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

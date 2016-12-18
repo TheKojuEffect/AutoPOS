@@ -1,6 +1,5 @@
 package com.kapilkoju.autopos.accounting.domain
 
-import java.io.Serializable
 import java.lang.Long
 import java.math.BigDecimal
 import javax.persistence._
@@ -14,8 +13,9 @@ import scala.beans.BeanProperty
 @Entity
 @Table(name = "ledger")
 class Ledger extends AuditableBaseEntity {
+
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

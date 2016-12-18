@@ -3,12 +3,11 @@ package com.kapilkoju.autopos.trade.purchase.domain
 import java.lang.Long
 import java.math.BigDecimal
 import java.util
-import javax.persistence.GenerationType.SEQUENCE
 import javax.persistence._
 
 import com.fasterxml.jackson.annotation.{JsonManagedReference, JsonView}
-import com.kapilkoju.autopos.kernel.json.Views.Summary
 import com.kapilkoju.autopos.kernel.json.Views
+import com.kapilkoju.autopos.kernel.json.Views.Summary
 import com.kapilkoju.autopos.party.domain.Vendor
 import com.kapilkoju.autopos.trade.domain.Trade
 
@@ -21,8 +20,7 @@ import scala.collection.JavaConverters._
 class Purchase extends Trade {
 
   @Id
-  @SequenceGenerator(name = "purchase_id_seq", sequenceName = "purchase_id_seq", allocationSize = 1)
-  @GeneratedValue(strategy = SEQUENCE, generator = "purchase_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

@@ -3,7 +3,7 @@ package com.kapilkoju.autopos.transaction.domain
 import java.lang.Long
 import java.math.BigDecimal
 import java.time.LocalDate
-import javax.persistence._
+import javax.persistence.{GeneratedValue, _}
 import javax.validation.constraints.{Min, NotNull, Size}
 
 import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
@@ -16,8 +16,7 @@ import scala.beans.BeanProperty
 class Receipt extends AuditableBaseEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "receipt_id_seq")
-  @SequenceGenerator(name = "receipt_id_seq", sequenceName = "receipt_id_seq", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

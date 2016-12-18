@@ -3,7 +3,6 @@ package com.kapilkoju.autopos.accounting.domain
 import java.lang.Long
 import java.math.BigDecimal
 import java.time.LocalDate
-import javax.persistence.GenerationType.SEQUENCE
 import javax.persistence._
 import javax.validation.constraints.{Min, NotNull, Size}
 
@@ -16,8 +15,7 @@ import scala.beans.BeanProperty
 class DayBookEntry extends AuditableBaseEntity {
 
   @Id
-  @SequenceGenerator(name = "day_book_entry_id_seq", sequenceName = "day_book_entry_id_seq", allocationSize = 1)
-  @GeneratedValue(strategy = SEQUENCE, generator = "day_book_entry_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

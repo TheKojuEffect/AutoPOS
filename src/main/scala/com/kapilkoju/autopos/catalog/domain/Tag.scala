@@ -1,11 +1,9 @@
 package com.kapilkoju.autopos.catalog.domain
 
 import java.lang.Long
-import javax.persistence.GenerationType.SEQUENCE
 import javax.persistence._
 import javax.validation.constraints.{NotNull, Size}
 
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
 import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
 
 import scala.beans.BeanProperty
@@ -15,8 +13,7 @@ import scala.beans.BeanProperty
 class Tag extends AuditableBaseEntity {
 
   @Id
-  @SequenceGenerator(name = "tag_id_seq", sequenceName = "tag_id_seq", allocationSize = 1)
-  @GeneratedValue(strategy = SEQUENCE, generator = "tag_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

@@ -1,19 +1,10 @@
 package com.kapilkoju.autopos.user.domain;
 
 import com.kapilkoju.autopos.kernel.domain.AbstractBaseEntity;
-import com.kapilkoju.autopos.kernel.domain.AbstractBaseEntity;
 import com.kapilkoju.autopos.user.domain.Role.RoleConverter;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import static javax.persistence.GenerationType.SEQUENCE;
 
 /**
  * An authority (a security role) used by Spring Security.
@@ -23,8 +14,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class Authority extends AbstractBaseEntity {
 
     @Id
-    @SequenceGenerator(name = "authority_id_seq", sequenceName = "authority_id_seq", initialValue = 1)
-    @GeneratedValue(strategy = SEQUENCE, generator = "authority_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

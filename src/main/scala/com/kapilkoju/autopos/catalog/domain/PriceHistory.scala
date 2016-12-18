@@ -3,7 +3,7 @@ package com.kapilkoju.autopos.catalog.domain
 import java.io.Serializable
 import java.math.BigDecimal
 import java.time.ZonedDateTime
-import javax.persistence._
+import javax.persistence.{GeneratedValue, _}
 import javax.validation.constraints.{Min, NotNull, Size}
 
 import scala.beans.BeanProperty
@@ -12,7 +12,7 @@ import scala.beans.BeanProperty
 @Table(name = "price_history") class PriceHistory extends Serializable {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

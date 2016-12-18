@@ -1,8 +1,7 @@
 package com.kapilkoju.autopos.party.domain
 
 import java.lang.Long
-import javax.persistence.GenerationType.SEQUENCE
-import javax.persistence._
+import javax.persistence.{GeneratedValue, _}
 import javax.validation.constraints.{NotNull, Size}
 
 import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
@@ -15,8 +14,7 @@ import scala.beans.BeanProperty
 class Vehicle extends AuditableBaseEntity {
 
   @Id
-  @SequenceGenerator(name = "vehicle_id_seq", sequenceName = "vehicle_id_seq", allocationSize = 1)
-  @GeneratedValue(strategy = SEQUENCE, generator = "vehicle_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

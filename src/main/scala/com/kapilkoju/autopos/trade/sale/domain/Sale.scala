@@ -3,8 +3,7 @@ package com.kapilkoju.autopos.trade.sale.domain
 import java.lang.Long
 import java.math.BigDecimal
 import java.util
-import javax.persistence.GenerationType.SEQUENCE
-import javax.persistence._
+import javax.persistence.{GeneratedValue, _}
 
 import com.fasterxml.jackson.annotation.{JsonManagedReference, JsonView}
 import com.kapilkoju.autopos.catalog.domain.SaleStatus
@@ -21,8 +20,7 @@ import scala.collection.JavaConverters._
 class Sale extends Trade {
 
   @Id
-  @SequenceGenerator(name = "sale_id_seq", sequenceName = "sale_id_seq", allocationSize = 1)
-  @GeneratedValue(strategy = SEQUENCE, generator = "sale_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

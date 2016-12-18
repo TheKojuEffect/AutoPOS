@@ -3,7 +3,6 @@ package com.kapilkoju.autopos.catalog.domain
 import java.lang.Long
 import java.math.BigDecimal
 import java.util
-import javax.persistence.GenerationType.SEQUENCE
 import javax.persistence._
 import javax.validation.constraints.{Min, NotNull, Size}
 
@@ -17,8 +16,7 @@ import scala.beans.BeanProperty
 class Item extends AuditableBaseEntity {
 
   @Id
-  @SequenceGenerator(name = "item_id_seq", sequenceName = "item_id_seq", allocationSize = 1)
-  @GeneratedValue(strategy = SEQUENCE, generator = "item_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 

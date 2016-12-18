@@ -15,8 +15,9 @@ import scala.beans.BeanProperty
 class LedgerEntry extends AuditableBaseEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty var id: Long = _
+
   @NotNull
   @Column(name = "date", nullable = false)
   @BeanProperty var date: ZonedDateTime = _

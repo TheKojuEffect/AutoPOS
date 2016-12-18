@@ -2,7 +2,6 @@ package com.kapilkoju.autopos.trade.purchase.domain
 
 import java.lang.Long
 import java.math.BigDecimal
-import javax.persistence.GenerationType.SEQUENCE
 import javax.persistence._
 import javax.validation.constraints.{Min, NotNull}
 
@@ -16,8 +15,7 @@ import scala.beans.BeanProperty
 class PurchaseLine extends LineItem {
 
   @Id
-  @SequenceGenerator(name = "purchase_line_id_seq", sequenceName = "purchase_line_id_seq", allocationSize = 1)
-  @GeneratedValue(strategy = SEQUENCE, generator = "purchase_line_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @BeanProperty
   var id: Long = _
 
