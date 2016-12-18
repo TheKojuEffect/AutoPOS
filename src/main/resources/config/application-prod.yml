@@ -18,10 +18,10 @@ spring:
         livereload:
             enabled: false
     datasource:
-        url: jdbc:postgresql://localhost:5432/AutoPOS
+        url: jdbc:postgresql://localhost:5432/autopos
         name:
         username: autopos
-        password: autopos_prod
+        password: pointofsale
     jpa:
         database-platform: com.kapilkoju.autopos.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
