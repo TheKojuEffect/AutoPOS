@@ -194,3 +194,5 @@ __build__/**
 # IDE #
 .idea/
 *.swp
+
+src/main/resources/public/
