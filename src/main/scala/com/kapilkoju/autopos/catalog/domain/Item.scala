@@ -43,7 +43,7 @@ class Item extends AuditableBaseEntity {
 
   @Min(0)
   @Column(name = "quantity", nullable = false)
-  @BeanProperty var quantity: Integer = _
+  @BeanProperty var quantity: Integer = 0
 
   @Size(max = 250)
   @Column(name = "remarks", length = 250)

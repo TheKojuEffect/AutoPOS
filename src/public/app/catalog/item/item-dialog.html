@@ -81,7 +81,7 @@
             <label class="control-label" for="field_quantity">Quantity</label>
             <input type="number" class="form-control" name="quantity" id="field_quantity"
                    ng-model="vm.item.quantity"
-                   required min="1" step="1"/>
+                   required min="0" step="1"/>
             <div ng-show="editForm.quantity.$invalid">
                 <p class="help-block"
                    ng-show="editForm.quantity.$error.required" translate="entity.validation.required">
