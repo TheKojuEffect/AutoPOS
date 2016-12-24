@@ -31,6 +31,7 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="code"><span translate="autopos.item.code">Code</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span translate="autopos.item.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="partNumber"><span translate="autopos.item.partNumber">Part Number</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="category.shortName"><span translate="autopos.item.category">category</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="brand.name"><span translate="autopos.item.brand">brand</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="markedPrice"><span>Marked Price</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -43,6 +44,7 @@
                 <tr ng-repeat="item in vm.items track by item.id">
                     <td><a ui-sref="item-detail({id:item.id})">{{item.code}}</a></td>
                     <td>{{item.name}}</td>
+                    <td>{{item.partNumber}}</td>
                     <td>
                         <a ui-sref="category-detail({id:item.category.id})">{{item.category.shortName}}</a>
                     </td>

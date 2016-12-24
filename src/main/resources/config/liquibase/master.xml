@@ -65,4 +65,11 @@
         </sql>
     </changeSet>
 
+    <changeSet id="POS-113" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sql>
+            ALTER TABLE item
+            ADD COLUMN part_number CHARACTER VARYING(50);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

@@ -40,6 +40,20 @@
         </div>
 
         <div class="form-group">
+            <label class="control-label" translate="autopos.item.partNumber"
+                   for="field_part_number">Part Number</label>
+            <input type="text" class="form-control" name="partNumber" id="field_part_number"
+                   ng-model="vm.item.partNumber" ng-maxlength="50"/>
+            <div ng-show="editForm.partNumber.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.partNumber.$error.maxlength" translate="entity.validation.maxlength"
+                   translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label translate="autopos.item.category" for="field_category">category</label>
             <select class="form-control" id="field_category" name="category" ng-model="vm.item.category"
                     ng-options="category as category.shortName for category in vm.categories track by category.id">
@@ -75,7 +89,6 @@
                 </p>
             </div>
         </div>
-
 
         <div class="form-group">
             <label class="control-label" for="field_quantity">Quantity</label>

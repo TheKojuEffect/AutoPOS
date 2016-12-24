@@ -31,6 +31,11 @@ class Item extends AuditableBaseEntity {
   @BeanProperty
   var name: String = _
 
+  @Size(max = 50)
+  @Column(name = "part_number", length = 50)
+  @BeanProperty
+  var partNumber: String = _
+
   @Size(max = 250)
   @Column(name = "description", length = 250)
   @BeanProperty
