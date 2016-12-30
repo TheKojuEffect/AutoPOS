@@ -31,6 +31,30 @@
                 </p>
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="autopos.customer.phoneNumbers" for="field_phone_numbers">
+                Phone Numbers
+            </label>
+
+            <input type="text" class="form-control" name="phoneNumbers" id="field_phone_numbers"
+                   ng-model="vm.customer.phoneNumbers" ng-list placeholder="Comma separated list"
+                   ng-minlength="7" ng-maxlength="100"/>
+
+            <div ng-show="editForm.phoneNumbers.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.phoneNumbers.$error.minlength" translate="entity.validation.minlength"
+                   translate-value-min="7">
+                    This field is required to be at least 7 characters.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.phoneNumbers.$error.maxlength" translate="entity.validation.maxlength"
+                   translate-value-max="100">
+                    This field cannot be longer than 100 characters.
+                </p>
+            </div>
+        </div>
+
         <div class="form-group">
             <label class="control-label" translate="autopos.customer.remarks" for="field_remarks">Remarks</label>
             <textarea type="text" class="form-control" name="remarks" id="field_remarks"

@@ -8,16 +8,21 @@
         <dd>
             <span>{{vm.vendor.name}}</span>
         </dd>
-        <hr/>
-
-
+        <hr>
+        <dt>
+            <span translate="autopos.vendor.phoneNumbers">Phone Numbers</span>
+        </dt>
+        <dd>
+            <span>{{vm.vendor.phoneNumbers.join(', ')}}</span>
+        </dd>
+        <hr>
         <dt>
             <span translate="autopos.vendor.remarks">Remarks</span>
         </dt>
         <dd>
             <span>{{vm.vendor.remarks}}</span>
         </dd>
-        <hr/>
+        <hr>
     </dl>
 
     <button type="submit"
