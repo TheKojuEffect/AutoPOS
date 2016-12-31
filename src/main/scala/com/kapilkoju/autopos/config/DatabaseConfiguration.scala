@@ -7,31 +7,12 @@ import com.codahale.metrics.MetricRegistry
 import com.kapilkoju.autopos.accounting.domain.AccountingDomainPackage
 import com.kapilkoju.autopos.accounting.repo.AccountingRepoPackage
 import com.kapilkoju.autopos.catalog.domain.Item
-import com.kapilkoju.autopos.domain.DomainPackage
-import com.kapilkoju.autopos.kernel.domain.AbstractEntity
-import com.kapilkoju.autopos.party.domain.PartyDomainPackage
-import com.kapilkoju.autopos.repository.RepositoryPackage
-import com.kapilkoju.autopos.shared.domain.SharedDomainPackage
-import com.kapilkoju.autopos.shared.service.SharedServicePackage
-import com.kapilkoju.autopos.trade.domain.TradeDomainPackage
-import com.kapilkoju.autopos.trade.purchase.domain.PurchaseDomainPackage
-import com.kapilkoju.autopos.trade.sale.domain.SaleDomainPackage
-import com.kapilkoju.autopos.trade.sale.repo.SaleRepoPackage
-import com.kapilkoju.autopos.trade.service.TradeServicePackage
-import com.kapilkoju.autopos.transaction.domain.TransactionDomainPackage
-import com.kapilkoju.autopos.transaction.repo.TransactionRepoPackage
-import com.kapilkoju.autopos.user.service.UserServicePackage
-import com.zaxxer.hikari.HikariDataSource
-import com.kapilkoju.autopos.accounting.domain.AccountingDomainPackage
-import com.kapilkoju.autopos.accounting.repo.AccountingRepoPackage
-import com.kapilkoju.autopos.catalog.domain.Item
 import com.kapilkoju.autopos.catalog.repo.CatalogRepoPackage
 import com.kapilkoju.autopos.catalog.service.CatalogServicePackage
 import com.kapilkoju.autopos.config.liquibase.AsyncSpringLiquibase
 import com.kapilkoju.autopos.domain.DomainPackage
 import com.kapilkoju.autopos.kernel.domain.AbstractEntity
 import com.kapilkoju.autopos.party.domain.PartyDomainPackage
-import com.kapilkoju.autopos.party.repo.PartyRepoPackage
 import com.kapilkoju.autopos.party.service.PartyServicePackage
 import com.kapilkoju.autopos.repository.RepositoryPackage
 import com.kapilkoju.autopos.shared.domain.SharedDomainPackage
@@ -43,9 +24,10 @@ import com.kapilkoju.autopos.trade.sale.domain.SaleDomainPackage
 import com.kapilkoju.autopos.trade.sale.repo.SaleRepoPackage
 import com.kapilkoju.autopos.trade.service.TradeServicePackage
 import com.kapilkoju.autopos.transaction.domain.TransactionDomainPackage
-import com.kapilkoju.autopos.transaction.repo.TransactionRepoPackage
+import com.kapilkoju.autopos.transaction.service.TransactionServicePackage
 import com.kapilkoju.autopos.user.domain.User
 import com.kapilkoju.autopos.user.service.UserServicePackage
+import com.zaxxer.hikari.HikariDataSource
 import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.domain.EntityScan
@@ -72,8 +54,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[TradeServicePackage],
     classOf[SaleRepoPackage],
     classOf[PurchaseRepoPackage],
-    classOf[PartyRepoPackage],
-    classOf[TransactionRepoPackage],
+    classOf[TransactionServicePackage],
     classOf[CatalogRepoPackage]
   ))
 @EntityScan(
