@@ -10,11 +10,11 @@ object ItemCode {
 
   private val firstChar = alpha.charAt(0)
 
-  def apply(code: String) = decode(code)
+  def apply(code: String): Long = decode(code)
 
-  def apply(id: Long) = encode(id)
+  def apply(id: Long): String = encode(id)
 
-  def encode(id: Long) = {
+  def encode(id: Long): String = {
 
     @tailrec
     def enc(in: Long, acc: String): String =

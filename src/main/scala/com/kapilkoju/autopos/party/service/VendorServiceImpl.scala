@@ -1,13 +1,8 @@
-package com.kapilkoju.autopos.party
+package com.kapilkoju.autopos.party.service
 
 import com.kapilkoju.autopos.party.domain.Vendor
-import com.kapilkoju.autopos.party.repo.VendorRepo
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-
-trait VendorService {
-  def getVendor(id: Long): Option[Vendor]
-}
 
 
 @Service

@@ -1,4 +1,4 @@
-package com.kapilkoju.autopos.party.repo
+package com.kapilkoju.autopos.party.service
 
 import com.kapilkoju.autopos.kernel.service.AuditableBaseRepository
 import com.kapilkoju.autopos.party.domain.Customer

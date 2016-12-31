@@ -1,13 +1,8 @@
-package com.kapilkoju.autopos.party
+package com.kapilkoju.autopos.party.service
 
 import com.kapilkoju.autopos.party.domain.Customer
-import com.kapilkoju.autopos.party.repo.CustomerRepo
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-
-trait CustomerService {
-  def getCustomer(id: Long): Option[Customer]
-}
 
 
 @Service

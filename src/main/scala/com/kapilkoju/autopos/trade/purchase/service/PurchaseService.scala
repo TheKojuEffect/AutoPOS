@@ -1,6 +1,5 @@
 package com.kapilkoju.autopos.trade.purchase.service
 
-import com.kapilkoju.autopos.trade.purchase.domain.PurchaseLine
 import com.kapilkoju.autopos.trade.purchase.domain.{Purchase, PurchaseLine}
 import org.springframework.data.domain.{Page, Pageable}
 

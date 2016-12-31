@@ -3,11 +3,9 @@ package com.kapilkoju.autopos.party.api
 import java.util
 
 import com.codahale.metrics.annotation.Timed
-import com.kapilkoju.autopos.web.rest.util.PaginationUtil
 import com.kapilkoju.autopos.kernel.api.CrudApi
 import com.kapilkoju.autopos.party.domain.Vehicle
-import com.kapilkoju.autopos.party.repo.VehicleRepo
-import com.kapilkoju.autopos.party.service.VehicleService
+import com.kapilkoju.autopos.party.service.{VehicleRepo, VehicleService}
 import com.kapilkoju.autopos.web.rest.util.PaginationUtil
 import org.springframework.data.domain.Pageable
 import org.springframework.http.{HttpStatus, ResponseEntity}

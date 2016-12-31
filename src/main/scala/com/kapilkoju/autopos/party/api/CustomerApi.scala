@@ -4,10 +4,9 @@ import java.util
 import javax.validation.Valid
 
 import com.codahale.metrics.annotation.Timed
-import com.kapilkoju.autopos.party.CustomerService
 import com.kapilkoju.autopos.party.api.CustomerApi.baseUrl
 import com.kapilkoju.autopos.party.domain.Customer
-import com.kapilkoju.autopos.party.repo.CustomerRepo
+import com.kapilkoju.autopos.party.service.{CustomerRepo, CustomerService}
 import com.kapilkoju.autopos.web.rest.util.{HeaderUtil, PaginationUtil}
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus.{NOT_FOUND, OK}
