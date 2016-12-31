@@ -5,12 +5,7 @@ import javax.validation.Valid
 
 import com.codahale.metrics.annotation.Timed
 import com.kapilkoju.autopos.trade.purchase.domain.{Purchase, PurchaseLine}
-import com.kapilkoju.autopos.trade.purchase.repo.PurchaseLineRepo
-import com.kapilkoju.autopos.trade.purchase.service.PurchaseService
-import com.kapilkoju.autopos.web.rest.util.HeaderUtil
-import com.kapilkoju.autopos.trade.purchase.domain.{Purchase, PurchaseLine}
-import com.kapilkoju.autopos.trade.purchase.repo.PurchaseLineRepo
-import com.kapilkoju.autopos.trade.purchase.service.PurchaseService
+import com.kapilkoju.autopos.trade.purchase.service.{PurchaseLineRepo, PurchaseService}
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil
 import org.springframework.http.{HttpStatus, ResponseEntity}
 import org.springframework.web.bind.annotation._

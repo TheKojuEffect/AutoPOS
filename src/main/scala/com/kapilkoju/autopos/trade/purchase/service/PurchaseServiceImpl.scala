@@ -4,7 +4,6 @@ import java.time.LocalDateTime
 
 import com.kapilkoju.autopos.catalog.service.ItemService
 import com.kapilkoju.autopos.trade.purchase.domain.{Purchase, PurchaseLine}
-import com.kapilkoju.autopos.trade.purchase.repo.{PurchaseLineRepo, PurchaseRepo}
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

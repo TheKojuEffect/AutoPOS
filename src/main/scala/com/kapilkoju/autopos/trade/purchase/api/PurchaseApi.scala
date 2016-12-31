@@ -6,8 +6,7 @@ import com.codahale.metrics.annotation.Timed
 import com.fasterxml.jackson.annotation.JsonView
 import com.kapilkoju.autopos.kernel.json.Views
 import com.kapilkoju.autopos.trade.purchase.domain.Purchase
-import com.kapilkoju.autopos.trade.purchase.repo.PurchaseLineRepo
-import com.kapilkoju.autopos.trade.purchase.service.PurchaseService
+import com.kapilkoju.autopos.trade.purchase.service.{PurchaseLineRepo, PurchaseService}
 import com.kapilkoju.autopos.web.rest.util.{HeaderUtil, PaginationUtil}
 import org.springframework.data.domain.Pageable
 import org.springframework.http.{HttpStatus, ResponseEntity}

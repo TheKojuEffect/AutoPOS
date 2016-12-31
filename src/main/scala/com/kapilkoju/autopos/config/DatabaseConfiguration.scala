@@ -19,7 +19,7 @@ import com.kapilkoju.autopos.shared.domain.SharedDomainPackage
 import com.kapilkoju.autopos.shared.service.SharedServicePackage
 import com.kapilkoju.autopos.trade.domain.TradeDomainPackage
 import com.kapilkoju.autopos.trade.purchase.domain.PurchaseDomainPackage
-import com.kapilkoju.autopos.trade.purchase.repo.PurchaseRepoPackage
+import com.kapilkoju.autopos.trade.purchase.service.PurchaseServicePackage
 import com.kapilkoju.autopos.trade.sale.domain.SaleDomainPackage
 import com.kapilkoju.autopos.trade.sale.repo.SaleRepoPackage
 import com.kapilkoju.autopos.trade.service.TradeServicePackage
@@ -53,7 +53,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[PartyServicePackage],
     classOf[TradeServicePackage],
     classOf[SaleRepoPackage],
-    classOf[PurchaseRepoPackage],
+    classOf[PurchaseServicePackage],
     classOf[TransactionServicePackage],
     classOf[CatalogRepoPackage]
   ))
