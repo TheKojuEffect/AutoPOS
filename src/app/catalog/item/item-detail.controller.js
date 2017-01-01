@@ -28,6 +28,7 @@
         function showCostPrices() {
             $uibModal.open({
                 component: 'costPricesComponent',
+                size: 'lg',
                 resolve: {
                     item: function() {
                         return vm.item;
