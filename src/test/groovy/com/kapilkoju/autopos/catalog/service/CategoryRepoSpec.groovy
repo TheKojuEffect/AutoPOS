@@ -2,7 +2,6 @@ package com.kapilkoju.autopos.catalog.service
 
 import com.kapilkoju.autopos.Application
 import com.kapilkoju.autopos.catalog.domain.Category
-import com.kapilkoju.autopos.catalog.repo.CategoryRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest

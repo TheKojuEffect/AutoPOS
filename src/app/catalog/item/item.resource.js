@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
     angular
         .module('autopos')
@@ -6,11 +6,11 @@
 
     Item.$inject = ['$resource'];
 
-    function Item ($resource) {
-        var resourceUrl =  'api/items/:id';
+    function Item($resource) {
+        const resourceUrl = 'api/items/:id';
 
         return $resource(resourceUrl, {}, {
-            'query': { method: 'GET', isArray: true},
+            'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
@@ -18,7 +18,8 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': {method: 'PUT'},
+            costPrices: {url: 'api/items/:id/costPrices', method: 'GET', isArray: true}
         });
     }
 })();

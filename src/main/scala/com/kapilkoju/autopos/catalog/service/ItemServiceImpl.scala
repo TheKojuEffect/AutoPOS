@@ -3,7 +3,6 @@ package com.kapilkoju.autopos.catalog.service
 import java.lang.Long
 
 import com.kapilkoju.autopos.catalog.domain.Item
-import com.kapilkoju.autopos.catalog.repo.ItemRepo
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.{Page, Pageable}
 import org.springframework.stereotype.Service

@@ -70,7 +70,7 @@
                     $translatePartialLoader.addPart('item');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Item', function($stateParams, Item) {
+                item: ['$stateParams', 'Item', function($stateParams, Item) {
                     return Item.get({id : $stateParams.id});
                 }]
             }

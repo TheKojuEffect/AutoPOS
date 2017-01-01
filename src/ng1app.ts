@@ -108,6 +108,7 @@ import './app/catalog/item/item.resource';
 import './app/catalog/item/item.controller';
 import './app/catalog/item/item-dialog.controller';
 import './app/catalog/item/item-detail.controller';
+import './app/catalog/item/item-cost-prices.component';
 import './app/catalog/item/item-delete-dialog.controller';
 import './app/catalog/category/category.state';
 import './app/catalog/category/category.service';

@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.catalog.api
 
-import com.kapilkoju.autopos.catalog.repo.TagRepo
+import com.kapilkoju.autopos.catalog.service.TagRepo
 import com.kapilkoju.autopos.kernel.api.BaseApi
 import org.springframework.web.bind.annotation.{RequestMapping, RestController}
 

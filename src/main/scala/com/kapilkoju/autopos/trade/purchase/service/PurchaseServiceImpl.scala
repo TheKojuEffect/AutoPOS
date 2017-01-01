@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+import scala.collection.JavaConverters._
+
 @Service
 @Transactional
 class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
@@ -51,4 +53,8 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
     purchaseLineRepo.delete(purchaseLine)
     itemService.addQuantity(purchaseLine.getItem, purchaseLine.getQuantity)
   }
+
+  override def getPurchaseLines(itemId: Long): List[PurchaseLine] =
+    purchaseLineRepo.findByItemIdOrderByPurchaseDateDesc(itemId).asScala.toList
+
 }

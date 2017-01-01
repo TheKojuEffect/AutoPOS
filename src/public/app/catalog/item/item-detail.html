@@ -32,6 +32,14 @@
             <span>{{vm.item.markedPrice}}</span>
         </dd>
         <hr>
+
+        <dt><span translate="autopos.item.costPrice">Cost Price</span></dt>
+        </dt>
+        <dd>
+            <button class="btn btn-info" ng-click="vm.showCostPrices()">Show Cost Prices</button>
+        </dd>
+        <hr>
+
         <dt><span translate="autopos.item.quantity">Quantity</span></dt>
         </dt>
         <dd>
@@ -57,7 +65,6 @@
         <dd>
             <span>{{vm.item.remarks}}</span>
         </dd>
-
 
         <hr>
         <dt><span translate="autopos.item.tag">tag</span></dt>

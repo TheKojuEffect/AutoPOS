@@ -1,7 +1,5 @@
-package com.kapilkoju.autopos.catalog.repo
+package com.kapilkoju.autopos.catalog.service
 
-import com.kapilkoju.autopos.catalog.domain.Item
-import com.kapilkoju.autopos.kernel.service.AuditableBaseRepository
 import com.kapilkoju.autopos.catalog.domain.Item
 import com.kapilkoju.autopos.kernel.service.AuditableBaseRepository
 import org.springframework.data.domain.{Page, Pageable}

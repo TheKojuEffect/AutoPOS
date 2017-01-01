@@ -7,7 +7,6 @@ import com.codahale.metrics.MetricRegistry
 import com.kapilkoju.autopos.accounting.domain.AccountingDomainPackage
 import com.kapilkoju.autopos.accounting.repo.AccountingRepoPackage
 import com.kapilkoju.autopos.catalog.domain.Item
-import com.kapilkoju.autopos.catalog.repo.CatalogRepoPackage
 import com.kapilkoju.autopos.catalog.service.CatalogServicePackage
 import com.kapilkoju.autopos.config.liquibase.AsyncSpringLiquibase
 import com.kapilkoju.autopos.domain.DomainPackage
@@ -55,7 +54,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[SaleRepoPackage],
     classOf[PurchaseServicePackage],
     classOf[TransactionServicePackage],
-    classOf[CatalogRepoPackage]
+    classOf[CatalogServicePackage]
   ))
 @EntityScan(
   basePackageClasses = Array(

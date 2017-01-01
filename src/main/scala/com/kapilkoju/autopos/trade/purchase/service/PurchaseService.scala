@@ -17,4 +17,6 @@ trait PurchaseService {
 
   def deletePurchaseLine(purchaseLine: PurchaseLine): Unit
 
+  def getPurchaseLines(itemId: Long): List[PurchaseLine]
+
 }
