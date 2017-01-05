@@ -8,7 +8,8 @@
       "date": "Date",
       "buyer": "Buyer",
       "remarks": "Remarks",
-      "updated": "Sale Line is updated with identifier {{ param }}"
+      "updated": "Sale Line is updated with identifier {{ param }}",
+      "deleted": "Sale Line is deleted with identifier {{ param }}"
     }
   }
 }
