@@ -63,8 +63,9 @@ class SaleLineApi(private val saleService: SaleService,
         if saleLine.getSale.getId == saleId => {
 
         saleService.deleteSaleLine(saleLine)
-        ResponseEntity.ok
-          .headers(HeaderUtil.createEntityDeletionAlert("saleLine", saleLine.getId.toString)).build
+
+        val headers = HeaderUtil.createEntityDeletionAlert("saleLine", saleLine.getId.toString)
+        new ResponseEntity[Void](headers, HttpStatus.OK)
       }
       case _ => new ResponseEntity[Void](HttpStatus.NOT_FOUND)
     }

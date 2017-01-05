@@ -62,8 +62,9 @@ class PurchaseLineApi(private val purchaseService: PurchaseService,
         if purchaseLine.getPurchase.getId == purchaseId => {
 
         purchaseService.deletePurchaseLine(purchaseLine)
-        ResponseEntity.ok
-          .headers(HeaderUtil.createEntityDeletionAlert("purchaseLine", purchaseLine.getId.toString)).build
+
+        val headers = HeaderUtil.createEntityDeletionAlert("purchaseLine", purchaseLine.getId.toString)
+        new ResponseEntity[Void](headers, HttpStatus.OK)
       }
       case _ => new ResponseEntity[Void](HttpStatus.NOT_FOUND)
     }
