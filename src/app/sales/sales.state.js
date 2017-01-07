@@ -128,6 +128,7 @@
                     },
                     translatePartialLoader: function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('saleLine');
+                        $translatePartialLoader.addPart('item');
                         return $translate.refresh();
                     }
                 }

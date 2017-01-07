@@ -5,11 +5,11 @@
         .module('autopos')
         .controller('ItemDialogController', ItemDialogController);
 
-    ItemDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Item', 'Category', 'Brand', 'Tag'];
+    ItemDialogController.$inject = ['$scope', '$uibModalInstance', 'item', 'Item', 'Category', 'Brand', 'Tag'];
 
-    function ItemDialogController ($scope, $stateParams, $uibModalInstance, entity, Item, Category, Brand, Tag) {
-        var vm = this;
-        vm.item = entity;
+    function ItemDialogController ($scope, $uibModalInstance, item, Item, Category, Brand, Tag) {
+        const vm = this;
+        vm.item = item;
         vm.categories = Category.query();
         vm.brands = Brand.query();
         vm.tags = Tag.query();

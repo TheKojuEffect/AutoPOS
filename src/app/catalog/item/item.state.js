@@ -89,7 +89,7 @@
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: function () {
+                        item: function () {
                             return {
                                 code: null,
                                 name: null,
@@ -121,7 +121,7 @@
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Item', function(Item) {
+                        item: ['Item', function(Item) {
                             return Item.get({id : $stateParams.id});
                         }]
                     }

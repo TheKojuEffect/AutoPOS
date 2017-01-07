@@ -74,6 +74,7 @@
                     },
                     translatePartialLoader: function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('purchaseLine');
+                        $translatePartialLoader.addPart('item');
                         return $translate.refresh();
                     }
                 }

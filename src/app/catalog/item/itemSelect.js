@@ -3,11 +3,11 @@
 
     class ItemSelectController {
 
-        constructor(Item) {
+        constructor(Item, $uibModal) {
             this.itemService = Item;
             this.selectedItem = null;
             this.setSelectedItem = (item) => this.selectedItem = item;
-
+            this.$uibModal = $uibModal;
         }
 
         $onInit() {
@@ -29,6 +29,28 @@
             if (angular.isObject(item)) {
                 return '[' + item.code + '] ' + item.name;
             }
+        }
+
+        createNewItem() {
+            this.$uibModal.open({
+                templateUrl: 'app/catalog/item/item-dialog.html',
+                controller: 'ItemDialogController',
+                controllerAs: 'vm',
+                backdrop: 'static',
+                size: 'lg',
+                resolve: {
+                    item: function () {
+                        return {
+                            code: null,
+                            name: null,
+                            description: null,
+                            remarks: null,
+                            markedPrice: null,
+                            id: null
+                        };
+                    }
+                }
+            });
         }
     }
 
