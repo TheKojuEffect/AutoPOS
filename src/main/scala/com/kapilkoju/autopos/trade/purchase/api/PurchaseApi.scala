@@ -1,6 +1,7 @@
 package com.kapilkoju.autopos.trade.purchase.api
 
 import java.net.URI
+import java.util
 
 import com.codahale.metrics.annotation.Timed
 import com.fasterxml.jackson.annotation.JsonView
@@ -21,7 +22,7 @@ class PurchaseApi(private val purchaseService: PurchaseService,
   @GetMapping
   @Timed
   @JsonView(Array(classOf[Views.Summary]))
-  def getAllPurchases(pageable: Pageable) = {
+  def getAllPurchases(pageable: Pageable): ResponseEntity[util.List[Purchase]] = {
     val page = purchaseService.getPurchases(pageable)
     val headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/purchases")
     new ResponseEntity(page.getContent, headers, HttpStatus.OK)
