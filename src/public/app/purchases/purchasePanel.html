@@ -3,10 +3,10 @@
     <jhi-alert></jhi-alert>
 
     <purchase-line-entry class="col-md-4"
-                     api="$ctrl.purchaseLineEntryApi"
-                     purchase-id="$ctrl.purchase.id"
-                     on-accept="$ctrl.acceptPurchaseLine(purchaseLine)"
-                     on-delete="$ctrl.deletePurchaseLine(purchaseLine)">
+                         api="$ctrl.purchaseLineEntryApi"
+                         purchase-id="$ctrl.purchase.id"
+                         on-accept="$ctrl.acceptPurchaseLine(purchaseLine)"
+                         on-delete="$ctrl.deletePurchaseLine(purchaseLine)">
     </purchase-line-entry>
 
     <div class="col-md-8">
@@ -54,7 +54,8 @@
                     <div class="form-group">
                         <label for="invoiceNumber" class="col-sm-2 control-label">Invoice #</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="invoiceNumber" ng-model="$ctrl.purchase.invoiceNumber">
+                            <input type="text" class="form-control" id="invoiceNumber"
+                                   ng-model="$ctrl.purchase.invoiceNumber">
                         </div>
                     </div>
                 </form>
@@ -108,7 +109,17 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-offset-6 col-md-6">
+                    <div class="col-md-6">
+                        <div class="form-group pull-left">
+                            <button type="reset" class="btn btn-danger"
+                                    ng-disabled="$ctrl.hasLines"
+                                    ng-attr-title="{{$ctrl.hasLines ? 'Cannot delete purchase with purchase lines': 'Delete Purchase'}}"
+                                    ng-click="$ctrl.deletePurchase()">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Delete</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <div class="pull-right">
                                 <button type="reset" class="btn btn-default" ng-click="$ctrl.gotoPurchaseList()">

@@ -3,8 +3,10 @@
 
     class PurchasePanelController {
 
-        constructor($state, PurchaseService, PurchaseLineService, Vendor) {
+        constructor($state, $stateParams, $uibModal, PurchaseService, PurchaseLineService, Vendor) {
             this.$state = $state;
+            this.$stateParams = $stateParams;
+            this.$uibModal = $uibModal;
             this.purchaseService = PurchaseService;
             this.purchaseLineService = PurchaseLineService;
             this.datePickerOptions = {
@@ -73,12 +75,33 @@
             this.$state.go('purchases.list')
         }
 
+        deletePurchase() {
+            this.$uibModal.open({
+                templateUrl: 'app/purchases/purchase-delete-dialog.html',
+                controller: 'PurchaseDeleteController',
+                controllerAs: 'vm',
+                bindToController: true,
+                size: 'md',
+                resolve: {
+                    purchase: ['PurchaseService', '$stateParams', function (PurchaseService, $stateParams) {
+                        return PurchaseService.get({id: $stateParams.id});
+                    }]
+                }
+            }).result.then(
+                () => this.$state.go('purchases.list'),
+                () => {});
+        }
+
         get subTotal() {
             return _.reduce(this.purchase.lines, (sum, line) => line.amount + sum, 0);
         }
 
         get total() {
             return this.subTotal - this.purchase.discount;
+        }
+
+        get hasLines() {
+            return this.purchase.lines && this.purchase.lines.length > 0;
         }
     }
 

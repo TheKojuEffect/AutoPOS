@@ -57,4 +57,8 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
   override def getPurchaseLines(itemId: Long): List[PurchaseLine] =
     purchaseLineRepo.findByItemIdOrderByPurchaseDateDesc(itemId).asScala.toList
 
+
+  def deletePurchase(purchase: Purchase): Unit =
+    purchaseRepo.delete(purchase)
+
 }

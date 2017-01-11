@@ -55,4 +55,18 @@ class PurchaseApi(private val purchaseService: PurchaseService,
       case None => new ResponseEntity[Purchase](HttpStatus.NOT_FOUND)
     }
   }
+
+  @DeleteMapping(Array("/{id}"))
+  @Timed
+  def deletePurchase(@PathVariable("id") purchaseOp: Purchase): ResponseEntity[Void] = {
+    Option(purchaseOp) match {
+      case Some(purchase) =>
+        purchaseService.deletePurchase(purchase)
+        val headers = HeaderUtil.createEntityDeletionAlert("purchase", purchase.getId.toString)
+        new ResponseEntity[Void](headers, HttpStatus.OK)
+
+      case _ => new ResponseEntity[Void](HttpStatus.NOT_FOUND)
+    }
+  }
+
 }

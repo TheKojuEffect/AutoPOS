@@ -4,7 +4,11 @@
       "purchases": "Purchases",
       "newPurchase": "New Purchase",
       "purchaseDetail": "Purchase Detail",
-      "updated": "Purchase is updated with identifier {{ param }}"
+      "updated": "Purchase is updated with identifier {{ param }}",
+      "deleted": "A Purchase is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Purchase {{ id }}?"
+      }
     }
   }
 }

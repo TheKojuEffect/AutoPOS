@@ -186,6 +186,7 @@ import './app/purchases/purchaseLineEntry';
 import './app/purchases/purchase.service';
 import './app/purchases/purchaseLine.service';
 import './app/purchases/purchase-list.ctrl';
+import './app/purchases/purchase-delete-dialog.controller';
 import './app/party/party';
 import './app/party/party.controller';
 import './app/home/home.state';

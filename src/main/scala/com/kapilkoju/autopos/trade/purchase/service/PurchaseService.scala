@@ -11,6 +11,8 @@ trait PurchaseService {
 
   def updatePurchase(purchase: Purchase): Purchase
 
+  def deletePurchase(purchase: Purchase): Unit
+
   def addPurchaseLine(purchase: Purchase, purchaseLine: PurchaseLine): PurchaseLine
 
   def updatePurchaseLine(purchase: Purchase, purchaseLine: PurchaseLine): PurchaseLine
