@@ -54,4 +54,7 @@ class SaleServiceImpl(private val saleRepo: SaleRepo,
     saleLineRepo.delete(saleLine)
     itemService.addQuantity(saleLine.getItem, saleLine.getQuantity)
   }
+
+  def deleteSale(sale: Sale): Unit =
+    saleRepo.delete(sale)
 }

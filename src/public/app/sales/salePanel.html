@@ -122,7 +122,17 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-offset-6 col-md-6">
+                    <div class="col-md-6">
+                        <div class="form-group pull-left">
+                            <button type="reset" class="btn btn-danger"
+                                    ng-disabled="$ctrl.hasLines"
+                                    ng-attr-title="{{$ctrl.hasLines ? 'Cannot delete sale with sale items': 'Delete Sale'}}"
+                                    ng-click="$ctrl.deleteSale()">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Delete</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <div class="pull-right">
                                 <button type="reset" class="btn btn-default" ng-click="$ctrl.gotoSaleList()">

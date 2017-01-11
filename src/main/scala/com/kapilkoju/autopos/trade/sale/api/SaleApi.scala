@@ -6,6 +6,7 @@ import com.codahale.metrics.annotation.Timed
 import com.fasterxml.jackson.annotation.JsonView
 import com.kapilkoju.autopos.catalog.domain.SaleStatus
 import com.kapilkoju.autopos.kernel.json.Views
+import com.kapilkoju.autopos.trade.purchase.domain.Purchase
 import com.kapilkoju.autopos.trade.sale.domain.Sale
 import com.kapilkoju.autopos.trade.sale.repo.SaleLineRepo
 import com.kapilkoju.autopos.trade.sale.service.SaleService
@@ -54,6 +55,19 @@ class SaleApi(private val saleService: SaleService,
     Option(saleOp) match {
       case Some(sale) => ResponseEntity.ok(sale)
       case None => new ResponseEntity[Sale](HttpStatus.NOT_FOUND)
+    }
+  }
+
+  @DeleteMapping(Array("/{id}"))
+  @Timed
+  def deleteSale(@PathVariable("id") saleOp: Sale): ResponseEntity[Void] = {
+    Option(saleOp) match {
+      case Some(sale) =>
+        saleService.deleteSale(sale)
+        val headers = HeaderUtil.createEntityDeletionAlert("sale", sale.getId.toString)
+        new ResponseEntity[Void](headers, HttpStatus.OK)
+
+      case _ => new ResponseEntity[Void](HttpStatus.NOT_FOUND)
     }
   }
 

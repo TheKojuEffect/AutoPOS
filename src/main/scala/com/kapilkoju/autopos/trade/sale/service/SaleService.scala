@@ -12,6 +12,8 @@ trait SaleService {
 
   def updateSale(sale: Sale): Sale
 
+  def deleteSale(sale: Sale): Unit
+
   def addSaleLine(sale: Sale, saleLine: SaleLine): SaleLine
 
   def updateSaleLine(sale: Sale, saleLine: SaleLine): SaleLine
