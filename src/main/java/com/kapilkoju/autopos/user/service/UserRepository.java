@@ -2,6 +2,8 @@ package com.kapilkoju.autopos.user.service;
 
 import com.kapilkoju.autopos.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +22,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findOneByEmail(String email);
 
-    Optional<User> findOneByLogin(String login);
+    @Query("SELECT user from User user join fetch user.authorities where user.login = :login")
+    Optional<User> findOneByLogin(@Param("login") String login);
 
     Optional<User> findOneById(Long userId);
 
