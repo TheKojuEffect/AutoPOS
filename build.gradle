@@ -30,7 +30,7 @@ ext['hibernate.version'] = '5.2.6.Final'
 ext['tomcat.version'] = '8.5.9' // https://github.com/spring-projects/spring-boot/issues/7360#issuecomment-267638569
 
 group = 'io.koju.autopos'
-version = '17.01.01'
+version = '17.01.15'
 
 description = 'Auto Point of Sale'
 
