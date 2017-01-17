@@ -13,6 +13,13 @@ import scala.beans.BeanProperty
 
 @Entity
 @Table(name = "item")
+@NamedEntityGraph(
+  name = Item.Graph.detail,
+  attributeNodes = Array(
+    new NamedAttributeNode("category"),
+    new NamedAttributeNode("brand"),
+    new NamedAttributeNode("tags"))
+)
 class Item extends AuditableBaseEntity {
 
   @Id
@@ -71,12 +78,21 @@ class Item extends AuditableBaseEntity {
   @BeanProperty
   var brand: Brand = _
 
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany
   @JoinTable(
     name = "item_tag",
     joinColumns = Array(new JoinColumn(name = "item_id", referencedColumnName = "id")),
     inverseJoinColumns = Array(new JoinColumn(name = "tag_id", referencedColumnName = "id")))
   @BeanProperty
   var tags: java.util.Set[Tag] = new util.HashSet[Tag]
+
+}
+
+
+object Item {
+
+  object Graph {
+    final val detail = "Item.detail"
+  }
 
 }

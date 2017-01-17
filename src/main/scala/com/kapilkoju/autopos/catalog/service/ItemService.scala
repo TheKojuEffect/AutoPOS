@@ -11,7 +11,9 @@ trait ItemService {
 
   def findAll(queryTerm: String, pageable: Pageable): Page[Item]
 
-  def findOne(id: Long): Item
+  def getItem(id: Long): Option[Item]
+
+  def getItemWithDetail(id: Long): Option[Item]
 
   def delete(id: Long)
 

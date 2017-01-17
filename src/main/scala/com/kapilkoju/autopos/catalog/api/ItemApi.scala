@@ -6,20 +6,38 @@ import com.codahale.metrics.annotation.Timed
 import com.kapilkoju.autopos.catalog.domain.Item
 import com.kapilkoju.autopos.catalog.model.CostPriceInfo
 import com.kapilkoju.autopos.catalog.service.{ItemRepo, ItemService}
-import com.kapilkoju.autopos.kernel.api.CrudApi
+import com.kapilkoju.autopos.kernel.api.CudApi
 import com.kapilkoju.autopos.trade.purchase.service.PurchaseService
 import com.kapilkoju.autopos.web.rest.util.PaginationUtil
 import org.springframework.data.domain.Pageable
+import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.{HttpStatus, ResponseEntity}
 import org.springframework.web.bind.annotation._
 
 
 @RestController
 @RequestMapping(Array(ItemApi.baseUrl))
-class ItemApi(itemRepository: ItemRepo,
+class ItemApi(itemRepo: ItemRepo,
               itemService: ItemService,
               purchaseService: PurchaseService)
-  extends CrudApi(itemRepository, "item", ItemApi.baseUrl) {
+  extends CudApi(itemRepo, "item", ItemApi.baseUrl) {
+
+  @GetMapping(value = Array("/{id}"))
+  @Timed
+  def get(@PathVariable("id") itemId: Long,
+          @RequestParam(value = "detail", required = false) detail: Boolean): ResponseEntity[Item] = {
+
+    val itemOp =
+      if (detail)
+        itemService.getItemWithDetail(itemId)
+      else
+        itemService.getItem(itemId)
+
+    itemOp match {
+      case Some(item) => ResponseEntity.ok(item)
+      case None => new ResponseEntity(NOT_FOUND)
+    }
+  }
 
   @GetMapping
   @Timed

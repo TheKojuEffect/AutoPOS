@@ -71,7 +71,7 @@
                     return $translate.refresh();
                 }],
                 item: ['$stateParams', 'Item', function($stateParams, Item) {
-                    return Item.get({id : $stateParams.id});
+                    return Item.getWithDetail({id : $stateParams.id});
                 }]
             }
         })

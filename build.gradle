@@ -50,6 +50,8 @@ configurations {
 dependencies {
     compile "org.scala-lang:scala-library:$scalaVersion"
 
+    compile group: 'org.scala-lang.modules', name: 'scala-java8-compat_2.12', version: '0.8.0'
+
     compile group: 'io.dropwizard.metrics', name: 'metrics-core'
     compile group: 'io.dropwizard.metrics', name: 'metrics-annotation', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-graphite'

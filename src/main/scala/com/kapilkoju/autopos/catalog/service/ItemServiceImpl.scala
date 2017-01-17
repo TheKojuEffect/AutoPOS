@@ -8,6 +8,9 @@ import org.springframework.data.domain.{Page, Pageable}
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+import scala.compat.java8.OptionConverters._
+
+
 @Service
 @Transactional
 class ItemServiceImpl(private val itemRepo: ItemRepo)
@@ -15,10 +18,12 @@ class ItemServiceImpl(private val itemRepo: ItemRepo)
 
   private val log = LoggerFactory.getLogger(classOf[ItemServiceImpl])
 
+
   override def save(item: Item): Item = {
     log.debug("Request to save Item : {}", item)
     itemRepo.save(item)
   }
+
 
   @Transactional(readOnly = true)
   override def findAll(query: String, pageable: Pageable): Page[Item] = {
@@ -31,20 +36,27 @@ class ItemServiceImpl(private val itemRepo: ItemRepo)
     }
   }
 
+
   @Transactional(readOnly = true)
-  override def findOne(id: Long): Item = {
-    log.debug("Request to get Item : {}", id)
-    itemRepo.findOneWithEagerRelationships(id)
-  }
+  override def getItem(id: Long): Option[Item] =
+    Option(itemRepo.findOne(id))
+
+
+  @Transactional(readOnly = true)
+  override def getItemWithDetail(id: Long): Option[Item] =
+    itemRepo.findById(id).asScala
+
 
   override def delete(id: Long): Unit = {
     log.debug("Request to delete Item : {}", id)
     itemRepo.delete(id)
   }
 
+
   override def adjustQuantity(item: Item, number: Integer): Unit = {
     val dbItem = itemRepo.findOne(item.getId)
     dbItem.setQuantity(dbItem.getQuantity + number)
     itemRepo.save(dbItem)
   }
+
 }

@@ -10,15 +10,25 @@
         const resourceUrl = 'api/items/:id';
 
         return $resource(resourceUrl, {}, {
-            'query': {method: 'GET', isArray: true},
-            'get': {
+            query: {method: 'GET', isArray: true},
+            get: {
                 method: 'GET',
                 transformResponse: function (data) {
                     data = angular.fromJson(data);
                     return data;
                 }
             },
-            'update': {method: 'PUT'},
+            getWithDetail: {
+                method: 'GET',
+                params: {
+                    detail: true
+                },
+                transformResponse: function (data) {
+                    data = angular.fromJson(data);
+                    return data;
+                }
+            },
+            update: {method: 'PUT'},
             costPrices: {url: 'api/items/:id/costPrices', method: 'GET', isArray: true}
         });
     }
