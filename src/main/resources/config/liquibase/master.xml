@@ -98,4 +98,11 @@
                  relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
     </changeSet>
 
+    <changeSet id="POS-112" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sql>
+            CREATE UNIQUE INDEX item_name_category_branch_key
+            ON item (name, coalesce(category_id, -1), coalesce(brand_id, -1));
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
