@@ -28,6 +28,7 @@ ext {
 }
 ext['hibernate.version'] = '5.2.6.Final'
 ext['tomcat.version'] = '8.5.9' // https://github.com/spring-projects/spring-boot/issues/7360#issuecomment-267638569
+ext['spock.version'] = '1.1-groovy-2.4-rc-3'
 
 group = 'io.koju.autopos'
 version = '17.01.15'

@@ -1,19 +1,10 @@
 package com.kapilkoju.autopos.catalog.service
 
-import com.kapilkoju.autopos.Application
 import com.kapilkoju.autopos.catalog.domain.Category
+import com.kapilkoju.autopos.kernel.service.RepoSpecification
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.security.test.context.support.WithUserDetails
-import org.springframework.test.context.ContextConfiguration
-import spock.lang.Specification
 
-@SpringBootTest
-@ContextConfiguration(classes = Application)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@WithUserDetails("admin")
-class CategoryRepoSpec extends Specification {
+class CategoryRepoSpec extends RepoSpecification {
 
     @Autowired
     CategoryRepo categoryRepo
