@@ -52,6 +52,7 @@ public class CacheConfiguration {
             cm.createCache(com.kapilkoju.autopos.domain.Customer.class.getName(), jcacheConfiguration);
             cm.createCache(com.kapilkoju.autopos.domain.Customer.class.getName() + ".phones", jcacheConfiguration);
             cm.createCache(com.kapilkoju.autopos.domain.Vehicle.class.getName(), jcacheConfiguration);
+            cm.createCache(com.kapilkoju.autopos.domain.DayBookEntry.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

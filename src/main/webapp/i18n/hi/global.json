@@ -16,6 +16,7 @@
                 "vendor": "Vendor",
                 "customer": "Customer",
                 "vehicle": "Vehicle",
+                "dayBookEntry": "Day Book Entry",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

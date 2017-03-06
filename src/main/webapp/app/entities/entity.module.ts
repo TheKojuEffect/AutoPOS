@@ -9,6 +9,7 @@ import { AutoPosPhoneModule } from './phone/phone.module';
 import { AutoPosVendorModule } from './vendor/vendor.module';
 import { AutoPosCustomerModule } from './customer/customer.module';
 import { AutoPosVehicleModule } from './vehicle/vehicle.module';
+import { AutoPosDayBookEntryModule } from './day-book-entry/day-book-entry.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -22,6 +23,7 @@ import { AutoPosVehicleModule } from './vehicle/vehicle.module';
         AutoPosVendorModule,
         AutoPosCustomerModule,
         AutoPosVehicleModule,
+        AutoPosDayBookEntryModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
