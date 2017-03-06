@@ -1,0 +1,47 @@
+
+<div *ngIf="receipt">
+    <h2><span jhiTranslate="autoPosApp.receipt.detail.title">Receipt</span> {{receipt.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="autoPosApp.receipt.date">Date</span></dt>
+        <dd>
+            <span>{{receipt.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.receipt.amount">Amount</span></dt>
+        <dd>
+            <span>{{receipt.amount}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.receipt.receiptNumber">Receipt Number</span></dt>
+        <dd>
+            <span>{{receipt.receiptNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.receipt.receivedBy">Received By</span></dt>
+        <dd>
+            <span>{{receipt.receivedBy}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.receipt.remarks">Remarks</span></dt>
+        <dd>
+            <span>{{receipt.remarks}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.receipt.receivedFrom">Received From</span></dt>
+        <dd>
+            <div *ngIf="receipt.receivedFrom">
+                <a [routerLink]="['/customer', receipt.receivedFrom?.id]">{{receipt.receivedFrom?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'receipt/'+ receipt.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,120 @@
+
+
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myReceiptLabel" jhiTranslate="autoPosApp.receipt.home.createOrEditLabel">Create or edit a Receipt</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!receipt.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="receipt.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="autoPosApp.receipt.date" for="field_date">Date</label>
+            <div class="input-group">
+                <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" [(ngModel)]="receipt.date"
+                required/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="dateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="autoPosApp.receipt.amount" for="field_amount">Amount</label>
+            <input type="number" class="form-control" name="amount" id="field_amount"
+                [(ngModel)]="receipt.amount"
+            required min="0" />
+            <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.amount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.amount?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.amount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="autoPosApp.receipt.receiptNumber" for="field_receiptNumber">Receipt Number</label>
+            <input type="text" class="form-control" name="receiptNumber" id="field_receiptNumber"
+                [(ngModel)]="receipt.receiptNumber"
+            maxlength="10" />
+            <div [hidden]="!(editForm.controls.receiptNumber?.dirty && editForm.controls.receiptNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.receiptNumber?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 10 }">
+                   This field cannot be longer than 10 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="autoPosApp.receipt.receivedBy" for="field_receivedBy">Received By</label>
+            <input type="text" class="form-control" name="receivedBy" id="field_receivedBy"
+                [(ngModel)]="receipt.receivedBy"
+            required minlength="2" maxlength="100" />
+            <div [hidden]="!(editForm.controls.receivedBy?.dirty && editForm.controls.receivedBy?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.receivedBy?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.receivedBy?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
+                   This field is required to be at least 2 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.receivedBy?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="autoPosApp.receipt.remarks" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                [(ngModel)]="receipt.remarks"
+            maxlength="250" />
+            <div [hidden]="!(editForm.controls.remarks?.dirty && editForm.controls.remarks?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.remarks?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 250 }">
+                   This field cannot be longer than 250 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="autoPosApp.receipt.receivedFrom" for="field_receivedFrom">Received From</label>
+            <select class="form-control" id="field_receivedFrom" name="receivedFrom" [(ngModel)]="receipt.receivedFrom"  required>
+                <option [ngValue]="null"></option>
+                <option [ngValue]="customerOption.id === receipt.receivedFrom?.id ? receipt.receivedFrom : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.receivedFrom?.dirty && editForm.controls.receivedFrom?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.receivedFrom?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -59,6 +59,8 @@ public class CacheConfiguration {
             cm.createCache(com.kapilkoju.autopos.domain.SaleLine.class.getName(), jcacheConfiguration);
             cm.createCache(com.kapilkoju.autopos.domain.Sale.class.getName(), jcacheConfiguration);
             cm.createCache(com.kapilkoju.autopos.domain.Sale.class.getName() + ".saleLines", jcacheConfiguration);
+            cm.createCache(com.kapilkoju.autopos.domain.Payment.class.getName(), jcacheConfiguration);
+            cm.createCache(com.kapilkoju.autopos.domain.Receipt.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

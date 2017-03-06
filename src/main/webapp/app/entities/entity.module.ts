@@ -14,6 +14,8 @@ import { AutoPosPurchaseModule } from './purchase/purchase.module';
 import { AutoPosPurchaseLineModule } from './purchase-line/purchase-line.module';
 import { AutoPosSaleLineModule } from './sale-line/sale-line.module';
 import { AutoPosSaleModule } from './sale/sale.module';
+import { AutoPosPaymentModule } from './payment/payment.module';
+import { AutoPosReceiptModule } from './receipt/receipt.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -32,6 +34,8 @@ import { AutoPosSaleModule } from './sale/sale.module';
         AutoPosPurchaseLineModule,
         AutoPosSaleLineModule,
         AutoPosSaleModule,
+        AutoPosPaymentModule,
+        AutoPosReceiptModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

@@ -21,6 +21,8 @@
                 "purchaseLine": "Purchase Line",
                 "saleLine": "Sale Line",
                 "sale": "Sale",
+                "payment": "Payment",
+                "receipt": "Receipt",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

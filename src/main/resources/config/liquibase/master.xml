@@ -19,6 +19,8 @@
     <include file="classpath:config/liquibase/changelog/20170306021040_added_entity_PurchaseLine.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170306021040_added_entity_SaleLine.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170306020523_added_entity_Sale.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170306022231_added_entity_Payment.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170306022231_added_entity_Receipt.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20170306003212_added_entity_constraints_Item.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170306003546_added_entity_constraints_PriceHistory.xml" relativeToChangelogFile="false"/>
@@ -27,5 +29,7 @@
     <include file="classpath:config/liquibase/changelog/20170306021040_added_entity_constraints_PurchaseLine.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170306021040_added_entity_constraints_SaleLine.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170306020523_added_entity_constraints_Sale.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170306022231_added_entity_constraints_Payment.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170306022231_added_entity_constraints_Receipt.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>
