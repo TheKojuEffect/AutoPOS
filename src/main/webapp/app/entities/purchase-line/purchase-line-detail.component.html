@@ -1,0 +1,45 @@
+
+<div *ngIf="purchaseLine">
+    <h2><span jhiTranslate="autoPosApp.purchaseLine.detail.title">Purchase Line</span> {{purchaseLine.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="autoPosApp.purchaseLine.quantity">Quantity</span></dt>
+        <dd>
+            <span>{{purchaseLine.quantity}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.purchaseLine.rate">Rate</span></dt>
+        <dd>
+            <span>{{purchaseLine.rate}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.purchaseLine.remarks">Remarks</span></dt>
+        <dd>
+            <span>{{purchaseLine.remarks}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.purchaseLine.purchase">Purchase</span></dt>
+        <dd>
+            <div *ngIf="purchaseLine.purchase">
+                <a [routerLink]="['/purchase', purchaseLine.purchase?.id]">{{purchaseLine.purchase?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.purchaseLine.item">Item</span></dt>
+        <dd>
+            <div *ngIf="purchaseLine.item">
+                <a [routerLink]="['/item', purchaseLine.item?.id]">{{purchaseLine.item?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'purchase-line/'+ purchaseLine.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

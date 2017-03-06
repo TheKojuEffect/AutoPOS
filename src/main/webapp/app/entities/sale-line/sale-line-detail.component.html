@@ -1,0 +1,49 @@
+
+<div *ngIf="saleLine">
+    <h2><span jhiTranslate="autoPosApp.saleLine.detail.title">Sale Line</span> {{saleLine.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="autoPosApp.saleLine.buyer">Buyer</span></dt>
+        <dd>
+            <span>{{saleLine.buyer}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.saleLine.quantity">Quantity</span></dt>
+        <dd>
+            <span>{{saleLine.quantity}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.saleLine.rate">Rate</span></dt>
+        <dd>
+            <span>{{saleLine.rate}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.saleLine.remarks">Remarks</span></dt>
+        <dd>
+            <span>{{saleLine.remarks}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.saleLine.sale">Sale</span></dt>
+        <dd>
+            <div *ngIf="saleLine.sale">
+                <a [routerLink]="['/sale', saleLine.sale?.id]">{{saleLine.sale?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.saleLine.item">Item</span></dt>
+        <dd>
+            <div *ngIf="saleLine.item">
+                <a [routerLink]="['/item', saleLine.item?.id]">{{saleLine.item?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'sale-line/'+ saleLine.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

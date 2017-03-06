@@ -1,0 +1,105 @@
+
+
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPurchaseLineLabel" jhiTranslate="autoPosApp.purchaseLine.home.createOrEditLabel">Create or edit a Purchase Line</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!purchaseLine.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="purchaseLine.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="autoPosApp.purchaseLine.quantity" for="field_quantity">Quantity</label>
+            <input type="number" class="form-control" name="quantity" id="field_quantity"
+                [(ngModel)]="purchaseLine.quantity"
+            required min="1" />
+            <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.quantity?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.quantity?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 1 }">
+                    This field should be at least 1.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="autoPosApp.purchaseLine.rate" for="field_rate">Rate</label>
+            <input type="number" class="form-control" name="rate" id="field_rate"
+                [(ngModel)]="purchaseLine.rate"
+            required min="0" />
+            <div [hidden]="!(editForm.controls.rate?.dirty && editForm.controls.rate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.rate?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.rate?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                    This field should be at least 0.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.rate?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="autoPosApp.purchaseLine.remarks" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                [(ngModel)]="purchaseLine.remarks"
+            maxlength="250" />
+            <div [hidden]="!(editForm.controls.remarks?.dirty && editForm.controls.remarks?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.remarks?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 250 }">
+                   This field cannot be longer than 250 characters.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="autoPosApp.purchaseLine.purchase" for="field_purchase">Purchase</label>
+            <select class="form-control" id="field_purchase" name="purchase" [(ngModel)]="purchaseLine.purchase"  required>
+                <option [ngValue]="null"></option>
+                <option [ngValue]="purchaseOption.id === purchaseLine.purchase?.id ? purchaseLine.purchase : purchaseOption" *ngFor="let purchaseOption of purchases; trackBy: trackPurchaseById">{{purchaseOption.id}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.purchase?.dirty && editForm.controls.purchase?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.purchase?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="autoPosApp.purchaseLine.item" for="field_item">Item</label>
+            <select class="form-control" id="field_item" name="item" [(ngModel)]="purchaseLine.item"  required>
+                <option [ngValue]="null"></option>
+                <option [ngValue]="itemOption.id === purchaseLine.item?.id ? purchaseLine.item : itemOption" *ngFor="let itemOption of items; trackBy: trackItemById">{{itemOption.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.item?.dirty && editForm.controls.item?.invalid)">
+            <small class="form-text text-danger"
+                [hidden]="!editForm.controls.item?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

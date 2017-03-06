@@ -1,0 +1,29 @@
+{
+    "autoPosApp": {
+        "sale" : {
+            "home": {
+                "title": "Sales",
+                "createLabel": "Create a new Sale",
+                "createOrEditLabel": "Create or edit a Sale"
+            },
+            "created": "A new Sale is created with identifier {{ param }}",
+            "updated": "A Sale is updated with identifier {{ param }}",
+            "deleted": "A Sale is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Sale {{ id }}?"
+            },
+            "detail": {
+                "title": "Sale"
+            },
+            "date": "Date",
+            "invoiceNumber": "Invoice Number",
+            "discount": "Discount",
+            "remarks": "Remarks",
+            "buyer": "Buyer",
+            "status": "Status",
+            "customer": "Customer",
+            "saleLine": "Sale Line",
+            "vehicle": "Vehicle"
+        }
+    }
+}

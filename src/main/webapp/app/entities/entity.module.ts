@@ -10,6 +10,10 @@ import { AutoPosVendorModule } from './vendor/vendor.module';
 import { AutoPosCustomerModule } from './customer/customer.module';
 import { AutoPosVehicleModule } from './vehicle/vehicle.module';
 import { AutoPosDayBookEntryModule } from './day-book-entry/day-book-entry.module';
+import { AutoPosPurchaseModule } from './purchase/purchase.module';
+import { AutoPosPurchaseLineModule } from './purchase-line/purchase-line.module';
+import { AutoPosSaleLineModule } from './sale-line/sale-line.module';
+import { AutoPosSaleModule } from './sale/sale.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -24,6 +28,10 @@ import { AutoPosDayBookEntryModule } from './day-book-entry/day-book-entry.modul
         AutoPosCustomerModule,
         AutoPosVehicleModule,
         AutoPosDayBookEntryModule,
+        AutoPosPurchaseModule,
+        AutoPosPurchaseLineModule,
+        AutoPosSaleLineModule,
+        AutoPosSaleModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
