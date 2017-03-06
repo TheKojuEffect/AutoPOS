@@ -1,0 +1,23 @@
+{
+    "autoPosApp": {
+        "customer" : {
+            "home": {
+                "title": "Customers",
+                "createLabel": "नया Customer बनाएँ",
+                "createOrEditLabel": "Customer बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Customer [identifier: {{ param }}] तैयार है",
+            "updated": "एक Customer [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Customer [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Customer [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Customer"
+            },
+            "name": "Name",
+            "remarks": "Remarks",
+            "phone": "Phone"
+        }
+    }
+}

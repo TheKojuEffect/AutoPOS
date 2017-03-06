@@ -46,6 +46,12 @@ public class CacheConfiguration {
             cm.createCache(com.kapilkoju.autopos.domain.Item.class.getName(), jcacheConfiguration);
             cm.createCache(com.kapilkoju.autopos.domain.Item.class.getName() + ".tags", jcacheConfiguration);
             cm.createCache(com.kapilkoju.autopos.domain.PriceHistory.class.getName(), jcacheConfiguration);
+            cm.createCache(com.kapilkoju.autopos.domain.Phone.class.getName(), jcacheConfiguration);
+            cm.createCache(com.kapilkoju.autopos.domain.Vendor.class.getName(), jcacheConfiguration);
+            cm.createCache(com.kapilkoju.autopos.domain.Vendor.class.getName() + ".phones", jcacheConfiguration);
+            cm.createCache(com.kapilkoju.autopos.domain.Customer.class.getName(), jcacheConfiguration);
+            cm.createCache(com.kapilkoju.autopos.domain.Customer.class.getName() + ".phones", jcacheConfiguration);
+            cm.createCache(com.kapilkoju.autopos.domain.Vehicle.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

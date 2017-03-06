@@ -12,6 +12,10 @@
                 "tag": "Tag",
                 "item": "Item",
                 "priceHistory": "Price History",
+                "phone": "Phone",
+                "vendor": "Vendor",
+                "customer": "Customer",
+                "vehicle": "Vehicle",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
