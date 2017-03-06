@@ -1,0 +1,71 @@
+
+<div *ngIf="item">
+    <h2><span jhiTranslate="autoPosApp.item.detail.title">Item</span> {{item.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="autoPosApp.item.code">Code</span></dt>
+        <dd>
+            <span>{{item.code}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.name">Name</span></dt>
+        <dd>
+            <span>{{item.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.partNumber">Part Number</span></dt>
+        <dd>
+            <span>{{item.partNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.markedPrice">Marked Price</span></dt>
+        <dd>
+            <span>{{item.markedPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.quantity">Quantity</span></dt>
+        <dd>
+            <span>{{item.quantity}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.description">Description</span></dt>
+        <dd>
+            <span>{{item.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.location">Location</span></dt>
+        <dd>
+            <span>{{item.location}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.remarks">Remarks</span></dt>
+        <dd>
+            <span>{{item.remarks}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.category">Category</span></dt>
+        <dd>
+            <div *ngIf="item.category">
+                <a [routerLink]="['/category', item.category?.id]">{{item.category?.shortName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.brand">Brand</span></dt>
+        <dd>
+            <div *ngIf="item.brand">
+                <a [routerLink]="['/brand', item.brand?.id]">{{item.brand?.name}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.tag">Tag</span></dt>
+        <dd>
+            <span *ngFor="let tag of item.tags; let last = last">
+                <a [routerLink]="['/tag', tag?.id ]">{{tag.name}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'item/'+ item.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

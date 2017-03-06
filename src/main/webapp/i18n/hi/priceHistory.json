@@ -1,0 +1,24 @@
+{
+    "autoPosApp": {
+        "priceHistory" : {
+            "home": {
+                "title": "PriceHistories",
+                "createLabel": "नया Price History बनाएँ",
+                "createOrEditLabel": "Price History बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Price History [identifier: {{ param }}] तैयार है",
+            "updated": "एक Price History [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Price History [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Price History [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Price History"
+            },
+            "date": "Date",
+            "markedPrice": "Marked Price",
+            "remarks": "Remarks",
+            "item": "Item"
+        }
+    }
+}
