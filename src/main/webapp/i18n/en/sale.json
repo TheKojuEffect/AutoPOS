@@ -22,7 +22,7 @@
             "buyer": "Buyer",
             "status": "Status",
             "customer": "Customer",
-            "saleLine": "Sale Line",
+            "line": "Line",
             "vehicle": "Vehicle"
         }
     }

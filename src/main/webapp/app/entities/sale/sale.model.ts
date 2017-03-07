@@ -17,7 +17,7 @@ export class Sale {
         public buyer?: string,
         public status?: SaleStatus,
         public customer?: Customer,
-        public saleLine?: SaleLine,
+        public line?: SaleLine,
         public vehicle?: Vehicle,
     ) {
     }

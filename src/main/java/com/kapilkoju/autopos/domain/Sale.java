@@ -1,19 +1,31 @@
 package com.kapilkoju.autopos.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kapilkoju.autopos.domain.enumeration.SaleStatus;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Sale.
@@ -62,7 +74,7 @@ public class Sale implements Serializable {
     @OneToMany(mappedBy = "sale")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<SaleLine> saleLines = new HashSet<>();
+    private Set<SaleLine> lines = new HashSet<>();
 
     @ManyToOne
     private Vehicle vehicle;
@@ -166,29 +178,29 @@ public class Sale implements Serializable {
         this.customer = customer;
     }
 
-    public Set<SaleLine> getSaleLines() {
-        return saleLines;
+    public Set<SaleLine> getLines() {
+        return lines;
     }
 
-    public Sale saleLines(Set<SaleLine> saleLines) {
-        this.saleLines = saleLines;
+    public Sale lines(Set<SaleLine> saleLines) {
+        this.lines = saleLines;
         return this;
     }
 
-    public Sale addSaleLine(SaleLine saleLine) {
-        this.saleLines.add(saleLine);
+    public Sale addLine(SaleLine saleLine) {
+        this.lines.add(saleLine);
         saleLine.setSale(this);
         return this;
     }
 
-    public Sale removeSaleLine(SaleLine saleLine) {
-        this.saleLines.remove(saleLine);
+    public Sale removeLine(SaleLine saleLine) {
+        this.lines.remove(saleLine);
         saleLine.setSale(null);
         return this;
     }
 
-    public void setSaleLines(Set<SaleLine> saleLines) {
-        this.saleLines = saleLines;
+    public void setLines(Set<SaleLine> saleLines) {
+        this.lines = saleLines;
     }
 
     public Vehicle getVehicle() {

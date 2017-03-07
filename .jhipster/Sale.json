@@ -9,7 +9,7 @@
             "otherEntityField": "name"
         },
         {
-            "relationshipName": "saleLine",
+            "relationshipName": "line",
             "otherEntityName": "saleLine",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "sale"

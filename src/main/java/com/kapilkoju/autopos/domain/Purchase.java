@@ -51,7 +51,7 @@ public class Purchase implements Serializable {
     @OneToMany(mappedBy = "purchase")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<PurchaseLine> purchaseLines = new HashSet<>();
+    private Set<PurchaseLine> lines = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -126,29 +126,29 @@ public class Purchase implements Serializable {
         this.vendor = vendor;
     }
 
-    public Set<PurchaseLine> getPurchaseLines() {
-        return purchaseLines;
+    public Set<PurchaseLine> getLines() {
+        return lines;
     }
 
-    public Purchase purchaseLines(Set<PurchaseLine> purchaseLines) {
-        this.purchaseLines = purchaseLines;
+    public Purchase lines(Set<PurchaseLine> purchaseLines) {
+        this.lines = purchaseLines;
         return this;
     }
 
-    public Purchase addPurchaseLine(PurchaseLine purchaseLine) {
-        this.purchaseLines.add(purchaseLine);
+    public Purchase addLine(PurchaseLine purchaseLine) {
+        this.lines.add(purchaseLine);
         purchaseLine.setPurchase(this);
         return this;
     }
 
-    public Purchase removePurchaseLine(PurchaseLine purchaseLine) {
-        this.purchaseLines.remove(purchaseLine);
+    public Purchase removeLine(PurchaseLine purchaseLine) {
+        this.lines.remove(purchaseLine);
         purchaseLine.setPurchase(null);
         return this;
     }
 
-    public void setPurchaseLines(Set<PurchaseLine> purchaseLines) {
-        this.purchaseLines = purchaseLines;
+    public void setLines(Set<PurchaseLine> purchaseLines) {
+        this.lines = purchaseLines;
     }
 
     @Override

@@ -20,7 +20,7 @@
             "discount": "Discount",
             "remarks": "Remarks",
             "vendor": "Vendor",
-            "purchaseLine": "Purchase Line"
+            "line": "Line"
         }
     }
 }
