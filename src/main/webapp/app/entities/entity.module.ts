@@ -10,10 +10,10 @@ import { AutoPosVendorModule } from './vendor/vendor.module';
 import { AutoPosCustomerModule } from './customer/customer.module';
 import { AutoPosVehicleModule } from './vehicle/vehicle.module';
 import { AutoPosDayBookEntryModule } from './day-book-entry/day-book-entry.module';
+import { AutoPosSaleModule } from './sale/sale.module';
 import { AutoPosPurchaseModule } from './purchase/purchase.module';
 import { AutoPosPurchaseLineModule } from './purchase-line/purchase-line.module';
 import { AutoPosSaleLineModule } from './sale-line/sale-line.module';
-import { AutoPosSaleModule } from './sale/sale.module';
 import { AutoPosPaymentModule } from './payment/payment.module';
 import { AutoPosReceiptModule } from './receipt/receipt.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
@@ -30,10 +30,10 @@ import { AutoPosReceiptModule } from './receipt/receipt.module';
         AutoPosCustomerModule,
         AutoPosVehicleModule,
         AutoPosDayBookEntryModule,
+        AutoPosSaleModule,
         AutoPosPurchaseModule,
         AutoPosPurchaseLineModule,
         AutoPosSaleLineModule,
-        AutoPosSaleModule,
         AutoPosPaymentModule,
         AutoPosReceiptModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */

@@ -24,15 +24,12 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kapilkoju.autopos.domain.enumeration.SaleStatus;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Sale.
  */
 @Entity
 @Table(name = "sale")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Sale implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -73,7 +70,6 @@ public class Sale implements Serializable {
 
     @OneToMany(mappedBy = "sale")
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<SaleLine> lines = new HashSet<>();
 
     @ManyToOne
