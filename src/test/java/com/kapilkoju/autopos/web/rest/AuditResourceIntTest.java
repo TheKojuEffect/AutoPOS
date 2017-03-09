@@ -1,17 +1,18 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.Application;
+import com.kapilkoju.autopos.AutoPosApp;
 import com.kapilkoju.autopos.config.audit.AuditEventConverter;
 import com.kapilkoju.autopos.domain.PersistentAuditEvent;
 import com.kapilkoju.autopos.repository.PersistenceAuditEventRepository;
 import com.kapilkoju.autopos.service.AuditEventService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -19,20 +20,20 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * Test class for the AuditResource REST controller.
+ *
+ * @see AuditResource
+ */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Ignore
+@SpringBootTest(classes = AutoPosApp.class)
 @Transactional
 public class AuditResourceIntTest {
 
@@ -41,16 +42,19 @@ public class AuditResourceIntTest {
     private static final LocalDateTime SAMPLE_TIMESTAMP = LocalDateTime.parse("2015-08-04T10:11:30");
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    @Inject
+    @Autowired
     private PersistenceAuditEventRepository auditEventRepository;
 
-    @Inject
+    @Autowired
     private AuditEventConverter auditEventConverter;
 
-    @Inject
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
-    @Inject
+    @Autowired
+    private FormattingConversionService formattingConversionService;
+
+    @Autowired
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
 
     private PersistentAuditEvent auditEvent;
@@ -61,11 +65,12 @@ public class AuditResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         AuditEventService auditEventService =
-                new AuditEventService(auditEventRepository, auditEventConverter);
+            new AuditEventService(auditEventRepository, auditEventConverter);
         AuditResource auditResource = new AuditResource(auditEventService);
         this.restAuditMockMvc = MockMvcBuilders.standaloneSetup(auditResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setMessageConverters(jacksonMessageConverter).build();;
+            .setConversionService(formattingConversionService)
+            .setMessageConverters(jacksonMessageConverter).build();
     }
 
     @Before
@@ -83,10 +88,10 @@ public class AuditResourceIntTest {
         auditEventRepository.save(auditEvent);
 
         // Get all the audits
-        restAuditMockMvc.perform(get("/api/audits"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.[*].principal").value(hasItem(SAMPLE_PRINCIPAL)));
+        restAuditMockMvc.perform(get("/management/audits"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].principal").value(hasItem(SAMPLE_PRINCIPAL)));
     }
 
     @Test
@@ -95,10 +100,10 @@ public class AuditResourceIntTest {
         auditEventRepository.save(auditEvent);
 
         // Get the audit
-        restAuditMockMvc.perform(get("/api/audits/{id}", auditEvent.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.principal").value(SAMPLE_PRINCIPAL));
+        restAuditMockMvc.perform(get("/management/audits/{id}", auditEvent.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.principal").value(SAMPLE_PRINCIPAL));
     }
 
     @Test
@@ -111,9 +116,9 @@ public class AuditResourceIntTest {
         String toDate = SAMPLE_TIMESTAMP.plusDays(1).format(FORMATTER);
 
         // Get the audit
-        restAuditMockMvc.perform(get("/api/audits?fromDate="+fromDate+"&toDate="+toDate))
+        restAuditMockMvc.perform(get("/management/audits?fromDate="+fromDate+"&toDate="+toDate))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].principal").value(hasItem(SAMPLE_PRINCIPAL)));
     }
 
@@ -127,17 +132,16 @@ public class AuditResourceIntTest {
         String toDate = SAMPLE_TIMESTAMP.minusDays(1).format(FORMATTER);
 
         // Query audits but expect no results
-        restAuditMockMvc.perform(get("/api/audits?fromDate=" + fromDate + "&toDate=" + toDate))
+        restAuditMockMvc.perform(get("/management/audits?fromDate=" + fromDate + "&toDate=" + toDate))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(header().string("X-Total-Count", "0"));
     }
 
     @Test
     public void getNonExistingAudit() throws Exception {
         // Get the audit
-        restAuditMockMvc.perform(get("/api/audits/{id}", Long.MAX_VALUE))
-                .andExpect(status().isNotFound());
+        restAuditMockMvc.perform(get("/management/audits/{id}", Long.MAX_VALUE))
+            .andExpect(status().isNotFound());
     }
-
 }

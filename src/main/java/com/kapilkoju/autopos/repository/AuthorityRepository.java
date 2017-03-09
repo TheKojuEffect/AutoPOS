@@ -4,7 +4,6 @@ import com.kapilkoju.autopos.user.domain.Authority;
 import com.kapilkoju.autopos.user.domain.Role;
 import com.kapilkoju.autopos.user.domain.Authority;
 
-import com.kapilkoju.autopos.user.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

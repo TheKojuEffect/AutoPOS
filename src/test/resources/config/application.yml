@@ -2,6 +2,9 @@
 # Spring Boot configuration.
 #
 # This configuration is used for unit/integration tests.
+#
+# More information on profiles: https://jhipster.github.io/profiles/
+# More information on configuration properties: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
 # ===================================================================
@@ -10,26 +13,38 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+
 spring:
+    application:
+        name: AutoPOS
+    jackson:
+        serialization.write_dates_as_timestamps: false
     datasource:
-        url: jdbc:postgresql://localhost:5432/TestAutoPOS
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:h2:mem:AutoPOS;DB_CLOSE_DELAY=-1
         name:
-        username: testautopos
-        password: test12
+        username:
+        password:
     jpa:
-        database: postgresql
+        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+        database: H2
         open-in-view: false
-        show_sql: true
+        show-sql: true
         hibernate:
             ddl-auto: none
-            use-new-id-generator-mappings: true
+            naming:
+                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         properties:
+            hibernate.id.new_generator_mappings: true
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
-            hibernate.hbm2ddl.auto: none
+            hibernate.hbm2ddl.auto: validate
     mail:
         host: localhost
+    messages:
+        basename: i18n/messages
     mvc:
         favicon:
             enabled: false
@@ -37,7 +52,6 @@ spring:
         mode: XHTML
 
 liquibase:
-    change-log: classpath:/config/liquibase/master.xml
     contexts: test
 
 security:
@@ -49,19 +63,32 @@ server:
     address: localhost
 
 # ===================================================================
-# AutoPOS specific properties
+# JHipster specific properties
+#
+# Full reference is available at: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
-autopos:
+jhipster:
     async:
-        corePoolSize: 2
-        maxPoolSize: 50
-        queueCapacity: 10000
+        core-pool-size: 2
+        max-pool-size: 50
+        queue-capacity: 10000
     security:
         authentication:
             jwt:
-                secret: jwt-secret-key
-                # Token is valid 30 minutes
-                tokenValidityInSeconds: 1800
+                secret: f739922f61084434c7f9b577b96af3b75ecb584a
+                # Token is valid 24 hours
+                token-validity-in-seconds: 86400
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
+
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://jhipster.github.io/common-application-properties/
+# ===================================================================
+
+application:

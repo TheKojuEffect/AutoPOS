@@ -1,0 +1,83 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "customer",
+            "otherEntityName": "customer",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [],
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "line",
+            "otherEntityName": "saleLine",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "sale"
+        },
+        {
+            "relationshipName": "vehicle",
+            "otherEntityName": "vehicle",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "number"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "invoiceNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "1",
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "discount",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "remarks",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "250"
+        },
+        {
+            "fieldName": "buyer",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "2",
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "SaleStatus",
+            "fieldValues": "PENDING,COMPLETED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170306020523",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "sale",
+    "pagination": "pagination"
+}

@@ -2,14 +2,13 @@ package com.kapilkoju.autopos.service;
 
 import com.kapilkoju.autopos.config.audit.AuditEventConverter;
 import com.kapilkoju.autopos.repository.PersistenceAuditEventRepository;
+import java.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -22,14 +21,13 @@ import java.util.Optional;
 @Transactional
 public class AuditEventService {
 
-    private PersistenceAuditEventRepository persistenceAuditEventRepository;
+    private final PersistenceAuditEventRepository persistenceAuditEventRepository;
 
-    private AuditEventConverter auditEventConverter;
+    private final AuditEventConverter auditEventConverter;
 
-    @Inject
     public AuditEventService(
-        PersistenceAuditEventRepository persistenceAuditEventRepository,
-        AuditEventConverter auditEventConverter) {
+            PersistenceAuditEventRepository persistenceAuditEventRepository,
+            AuditEventConverter auditEventConverter) {
 
         this.persistenceAuditEventRepository = persistenceAuditEventRepository;
         this.auditEventConverter = auditEventConverter;
@@ -37,16 +35,16 @@ public class AuditEventService {
 
     public Page<AuditEvent> findAll(Pageable pageable) {
         return persistenceAuditEventRepository.findAll(pageable)
-            .map(persistentAuditEvents -> auditEventConverter.convertToAuditEvent(persistentAuditEvents));
+                .map(auditEventConverter::convertToAuditEvent);
     }
 
     public Page<AuditEvent> findByDates(LocalDateTime fromDate, LocalDateTime toDate, Pageable pageable) {
         return persistenceAuditEventRepository.findAllByAuditEventDateBetween(fromDate, toDate, pageable)
-            .map(persistentAuditEvents -> auditEventConverter.convertToAuditEvent(persistentAuditEvents));
+                .map(auditEventConverter::convertToAuditEvent);
     }
 
     public Optional<AuditEvent> find(Long id) {
         return Optional.ofNullable(persistenceAuditEventRepository.findOne(id)).map
-            (auditEventConverter::convertToAuditEvent);
+                (auditEventConverter::convertToAuditEvent);
     }
 }

@@ -1,0 +1,29 @@
+{
+    "autoPosApp": {
+        "sale" : {
+            "home": {
+                "title": "Sales",
+                "createLabel": "नया Sale बनाएँ",
+                "createOrEditLabel": "Sale बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Sale [identifier: {{ param }}] तैयार है",
+            "updated": "एक Sale [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Sale [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Sale [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Sale"
+            },
+            "date": "Date",
+            "invoiceNumber": "Invoice Number",
+            "discount": "Discount",
+            "remarks": "Remarks",
+            "buyer": "Buyer",
+            "status": "Status",
+            "customer": "Customer",
+            "line": "Line",
+            "vehicle": "Vehicle"
+        }
+    }
+}

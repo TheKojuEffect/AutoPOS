@@ -1,22 +1,21 @@
 package com.kapilkoju.autopos.security.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
-import com.kapilkoju.autopos.config.AutoposProperties;
+import io.github.jhipster.config.JHipsterProperties;
+
+import java.util.*;
+import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.util.Date;
-import java.util.stream.Collectors;
+import io.jsonwebtoken.*;
 
 @Component
 public class TokenProvider {
@@ -27,38 +26,38 @@ public class TokenProvider {
 
     private String secretKey;
 
-    private long tokenValidityInSeconds;
+    private long tokenValidityInMilliseconds;
 
-    private long tokenValidityInSecondsForRememberMe;
+    private long tokenValidityInMillisecondsForRememberMe;
 
-    @Inject
-    private AutoposProperties autoposProperties;
+    private final JHipsterProperties jHipsterProperties;
 
-    @Inject
-    private UserDetailsService userDetailsService;
+    public TokenProvider(JHipsterProperties jHipsterProperties) {
+        this.jHipsterProperties = jHipsterProperties;
+    }
 
     @PostConstruct
     public void init() {
         this.secretKey =
-            autoposProperties.getSecurity().getAuthentication().getJwt().getSecret();
+            jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret();
 
-        this.tokenValidityInSeconds =
-            1000 * autoposProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSeconds();
-        this.tokenValidityInSecondsForRememberMe =
-            1000 * autoposProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSecondsForRememberMe();
+        this.tokenValidityInMilliseconds =
+            1000 * jHipsterProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSeconds();
+        this.tokenValidityInMillisecondsForRememberMe =
+            1000 * jHipsterProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSecondsForRememberMe();
     }
 
     public String createToken(Authentication authentication, Boolean rememberMe) {
         String authorities = authentication.getAuthorities().stream()
-            .map(authority -> authority.getAuthority())
+            .map(GrantedAuthority::getAuthority)
             .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
         Date validity;
         if (rememberMe) {
-            validity = new Date(now + this.tokenValidityInSecondsForRememberMe);
+            validity = new Date(now + this.tokenValidityInMillisecondsForRememberMe);
         } else {
-            validity = new Date(now + this.tokenValidityInSeconds);
+            validity = new Date(now + this.tokenValidityInMilliseconds);
         }
 
         return Jwts.builder()
@@ -75,11 +74,14 @@ public class TokenProvider {
             .parseClaimsJws(token)
             .getBody();
 
-        String principal = claims.getSubject();
+        Collection<? extends GrantedAuthority> authorities =
+            Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(principal);
+        User principal = new User(claims.getSubject(), "", authorities);
 
-        return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 
     public boolean validateToken(String authToken) {
@@ -87,8 +89,21 @@ public class TokenProvider {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
-            log.info("Invalid JWT signature: " + e.getMessage());
-            return false;
+            log.info("Invalid JWT signature.");
+            log.trace("Invalid JWT signature trace: {}", e);
+        } catch (MalformedJwtException e) {
+            log.info("Invalid JWT token.");
+            log.trace("Invalid JWT token trace: {}", e);
+        } catch (ExpiredJwtException e) {
+            log.info("Expired JWT token.");
+            log.trace("Expired JWT token trace: {}", e);
+        } catch (UnsupportedJwtException e) {
+            log.info("Unsupported JWT token.");
+            log.trace("Unsupported JWT token trace: {}", e);
+        } catch (IllegalArgumentException e) {
+            log.info("JWT token compact of handler are invalid.");
+            log.trace("JWT token compact of handler are invalid trace: {}", e);
         }
+        return false;
     }
 }

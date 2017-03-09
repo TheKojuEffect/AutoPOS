@@ -1,12 +1,14 @@
+import org.gradle.internal.os.OperatingSystem
+
 apply plugin: 'org.springframework.boot'
+apply plugin: 'com.moowork.node'
 
 ext {
     logbackLoglevel = "DEBUG"
 }
 
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-devtools'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat'
+    compile "org.springframework.boot:spring-boot-devtools"
 }
 
 def profiles = 'dev'
@@ -14,31 +16,33 @@ if (project.hasProperty('no-liquibase')) {
     profiles += ',no-liquibase'
 }
 
-if (project.hasProperty('no-cache')) {
-    profiles += ',no-cache'
+bootRun {
+    args = []
 }
 
-bootRun {
-    args = ["--spring.profiles.active=" + profiles]
+task webpackBuildDev(type: YarnTask) {
+    args = ["run", "webpack:build:dev"]
 }
 
 war {
     webAppDirName = 'src/main/webapp/'
 }
 
-task setProdProperties(dependsOn: bootRun) << {
-    dependsOn 'gulp_ngconstant:dev'
-    doFirst {
-        System.setProperty('spring.profiles.active', profiles)
-    }
-}
-
 processResources {
     filesMatching('**/logback-spring.xml') {
         filter {
-            it.replace('@logback.loglevel@', logbackLoglevel)
+            it.replace('#logback.loglevel#', logbackLoglevel)
+        }
+    }
+    filesMatching('**/application.yml') {
+        filter {
+            it.replace('#spring.profiles.active#', profiles)
+        }
+        filter {
+            it.replace('#project.version#', version)
         }
     }
 }
 
-//setProdProperties.dependsOn 'gulp_ngconstant:dev'
+processResources.dependsOn webpackBuildDev
+webpackBuildDev.onlyIf { project.hasProperty('webpack') }

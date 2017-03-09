@@ -3,7 +3,8 @@
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <logger name="io.koju.autopos" level="DEBUG"/>
+    <logger name="com.kapilkoju.autopos" level="DEBUG"/>
+    <logger name="org.hibernate" level="WARN"/>
     <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
     <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
 

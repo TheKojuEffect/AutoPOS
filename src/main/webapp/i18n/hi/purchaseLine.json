@@ -1,0 +1,25 @@
+{
+    "autoPosApp": {
+        "purchaseLine" : {
+            "home": {
+                "title": "PurchaseLines",
+                "createLabel": "नया Purchase Line बनाएँ",
+                "createOrEditLabel": "Purchase Line बनाएँ या संपादित करें"
+            },
+            "created": "एक नया Purchase Line [identifier: {{ param }}] तैयार है",
+            "updated": "एक Purchase Line [identifier: {{ param }}] का अद्यतन हुआ है",
+            "deleted": "Purchase Line [identifier: {{ param }}] हटा दिया है",
+            "delete": {
+                "question": "Purchase Line [id: {{ id }}] हटाने की पुष्टि करें"
+            },
+            "detail": {
+                "title": "Purchase Line"
+            },
+            "quantity": "Quantity",
+            "rate": "Rate",
+            "remarks": "Remarks",
+            "purchase": "Purchase",
+            "item": "Item"
+        }
+    }
+}
