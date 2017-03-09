@@ -3,9 +3,9 @@ package com.kapilkoju.autopos.web.rest;
 import com.kapilkoju.autopos.AutoPosApp;
 import com.kapilkoju.autopos.domain.User;
 import com.kapilkoju.autopos.repository.UserRepository;
-import com.kapilkoju.autopos.service.UserService;
 import com.kapilkoju.autopos.service.MailService;
-
+import com.kapilkoju.autopos.service.UserService;
+import com.kapilkoju.autopos.user.web.UserResource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 import javax.persistence.EntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
