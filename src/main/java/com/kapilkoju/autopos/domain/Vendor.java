@@ -17,15 +17,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Vendor.
  */
 @Entity
 @Table(name = "vendor")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Vendor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,9 +41,8 @@ public class Vendor implements Serializable {
     @Column(name = "remarks", length = 250)
     private String remarks;
 
-    @OneToMany
+    @OneToMany(mappedBy = "vendor")
     @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Phone> phones = new HashSet<>();
 
     public Long getId() {

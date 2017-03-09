@@ -1,22 +1,33 @@
 package com.kapilkoju.autopos.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * A Item.
  */
 @Entity
 @Table(name = "item")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,7 +80,6 @@ public class Item implements Serializable {
     private Brand brand;
 
     @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "item_tag",
                joinColumns = @JoinColumn(name="items_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="tags_id", referencedColumnName="id"))

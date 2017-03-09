@@ -1,5 +1,6 @@
 package com.kapilkoju.autopos.domain;
 
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,15 +14,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 /**
  * A Tag.
  */
 @Entity
 @Table(name = "tag")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;

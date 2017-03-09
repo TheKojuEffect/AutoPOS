@@ -1,7 +1,5 @@
 package com.kapilkoju.autopos.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -13,7 +11,6 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "vehicle")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Vehicle implements Serializable {
 
     private static final long serialVersionUID = 1L;
