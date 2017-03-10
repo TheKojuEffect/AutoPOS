@@ -2,12 +2,12 @@ package com.kapilkoju.autopos.user.web;
 
 import com.codahale.metrics.annotation.Timed;
 import com.kapilkoju.autopos.config.Constants;
-import com.kapilkoju.autopos.domain.User;
-import com.kapilkoju.autopos.repository.UserRepository;
 import com.kapilkoju.autopos.security.AuthoritiesConstants;
 import com.kapilkoju.autopos.service.MailService;
-import com.kapilkoju.autopos.service.UserService;
-import com.kapilkoju.autopos.service.dto.UserDTO;
+import com.kapilkoju.autopos.user.domain.User;
+import com.kapilkoju.autopos.user.service.UserRepository;
+import com.kapilkoju.autopos.user.service.UserService;
+import com.kapilkoju.autopos.web.rest.dto.UserDTO;
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil;
 import com.kapilkoju.autopos.web.rest.util.PaginationUtil;
 import com.kapilkoju.autopos.web.rest.vm.ManagedUserVM;

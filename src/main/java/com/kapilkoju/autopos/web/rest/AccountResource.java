@@ -1,17 +1,15 @@
 package com.kapilkoju.autopos.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-
-import com.kapilkoju.autopos.domain.User;
-import com.kapilkoju.autopos.repository.UserRepository;
 import com.kapilkoju.autopos.security.SecurityUtils;
 import com.kapilkoju.autopos.service.MailService;
-import com.kapilkoju.autopos.service.UserService;
-import com.kapilkoju.autopos.service.dto.UserDTO;
+import com.kapilkoju.autopos.user.domain.User;
+import com.kapilkoju.autopos.user.service.UserRepository;
+import com.kapilkoju.autopos.user.service.UserService;
+import com.kapilkoju.autopos.web.rest.dto.UserDTO;
+import com.kapilkoju.autopos.web.rest.util.HeaderUtil;
 import com.kapilkoju.autopos.web.rest.vm.KeyAndPasswordVM;
 import com.kapilkoju.autopos.web.rest.vm.ManagedUserVM;
-import com.kapilkoju.autopos.web.rest.util.HeaderUtil;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Optional;
 
 /**
  * REST controller for managing the current user's account.
@@ -55,7 +53,7 @@ public class AccountResource {
      * @return the ResponseEntity with status 201 (Created) if the user is registered or 400 (Bad Request) if the login or e-mail is already in use
      */
     @PostMapping(path = "/register",
-            produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
     @Timed
     public ResponseEntity registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
 
@@ -70,7 +68,7 @@ public class AccountResource {
                             User user = userService
                                     .createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
                                             managedUserVM.getFirstName(), managedUserVM.getLastName(),
-                                            managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl(), managedUserVM.getLangKey());
+                                            managedUserVM.getEmail().toLowerCase(), managedUserVM.getLangKey());
 
                             mailService.sendActivationEmail(user);
                             return new ResponseEntity<>(HttpStatus.CREATED);

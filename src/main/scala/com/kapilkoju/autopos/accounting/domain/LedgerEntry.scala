@@ -2,7 +2,7 @@ package com.kapilkoju.autopos.accounting.domain
 
 import java.lang.Long
 import java.math.BigDecimal
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 import javax.persistence._
 import javax.validation.constraints.{Min, NotNull, Size}
 
@@ -20,7 +20,7 @@ class LedgerEntry extends AuditableBaseEntity {
 
   @NotNull
   @Column(name = "date", nullable = false)
-  @BeanProperty var date: ZonedDateTime = _
+  @BeanProperty var date: LocalDateTime = _
 
   @NotNull
   @Size(min = 2, max = 150)

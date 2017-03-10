@@ -1,7 +1,7 @@
 package com.kapilkoju.autopos.security;
 
-import com.kapilkoju.autopos.domain.User;
-import com.kapilkoju.autopos.repository.UserRepository;
+import com.kapilkoju.autopos.user.domain.User;
+import com.kapilkoju.autopos.user.service.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,7 +39,7 @@ public class DomainUserDetailsService implements UserDetailsService {
             if (!user.getActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
             }
-            List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
+            List<GrantedAuthority> grantedAuthorities = user.getUserAuthorities().stream()
                     .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                 .collect(Collectors.toList());
             return new org.springframework.security.core.userdetails.User(lowercaseLogin,

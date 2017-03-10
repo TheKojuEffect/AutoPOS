@@ -1,6 +1,9 @@
 package com.kapilkoju.autopos.user.service;
 
 import com.kapilkoju.autopos.user.domain.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,5 +32,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     void delete(User t);
+
+    @EntityGraph(attributePaths = "authorities")
+    User findOneWithAuthoritiesById(Long id);
+
+    @EntityGraph(attributePaths = "authorities")
+    Optional<User> findOneWithAuthoritiesByLogin(String login);
+
+    Page<User> findAllByLoginNot(Pageable pageable, String login);
 
 }

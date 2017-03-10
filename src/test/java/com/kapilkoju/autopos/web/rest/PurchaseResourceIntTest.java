@@ -1,12 +1,10 @@
 package com.kapilkoju.autopos.web.rest;
 
 import com.kapilkoju.autopos.AutoPosApp;
-
 import com.kapilkoju.autopos.domain.Purchase;
 import com.kapilkoju.autopos.repository.PurchaseRepository;
 import com.kapilkoju.autopos.service.PurchaseService;
 import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +20,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.ZoneId;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static com.kapilkoju.autopos.web.rest.TestUtil.sameInstant;
@@ -44,8 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AutoPosApp.class)
 public class PurchaseResourceIntTest {
 
-    private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final LocalDateTime DEFAULT_DATE = LocalDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final LocalDateTime UPDATED_DATE = LocalDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     private static final String DEFAULT_INVOICE_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_INVOICE_NUMBER = "BBBBBBBBBB";

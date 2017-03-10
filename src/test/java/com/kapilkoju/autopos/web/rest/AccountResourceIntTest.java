@@ -1,14 +1,15 @@
 package com.kapilkoju.autopos.web.rest;
 
 import com.kapilkoju.autopos.AutoPosApp;
-import com.kapilkoju.autopos.domain.Authority;
-import com.kapilkoju.autopos.domain.User;
 import com.kapilkoju.autopos.repository.AuthorityRepository;
-import com.kapilkoju.autopos.repository.UserRepository;
 import com.kapilkoju.autopos.security.AuthoritiesConstants;
 import com.kapilkoju.autopos.service.MailService;
-import com.kapilkoju.autopos.service.UserService;
-import com.kapilkoju.autopos.service.dto.UserDTO;
+import com.kapilkoju.autopos.user.domain.Authority;
+import com.kapilkoju.autopos.user.domain.Role;
+import com.kapilkoju.autopos.user.domain.User;
+import com.kapilkoju.autopos.user.service.UserRepository;
+import com.kapilkoju.autopos.user.service.UserService;
+import com.kapilkoju.autopos.web.rest.dto.UserDTO;
 import com.kapilkoju.autopos.web.rest.vm.ManagedUserVM;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyObject;
@@ -100,7 +104,7 @@ public class AccountResourceIntTest {
     public void testGetExistingAccount() throws Exception {
         Set<Authority> authorities = new HashSet<>();
         Authority authority = new Authority();
-        authority.setName(AuthoritiesConstants.ADMIN);
+        authority.setRole(Role.ADMIN);
         authorities.add(authority);
 
         User user = new User();
@@ -108,7 +112,6 @@ public class AccountResourceIntTest {
         user.setFirstName("john");
         user.setLastName("doe");
         user.setEmail("john.doe@jhipster.com");
-        user.setImageUrl("http://placehold.it/50x50");
         user.setAuthorities(authorities);
         when(mockUserService.getUserWithAuthorities()).thenReturn(user);
 
@@ -144,7 +147,6 @@ public class AccountResourceIntTest {
                 "Shmoe",                // lastName
                 "joe@example.com",      // e-mail
                 true,                   // activated
-                "http://placehold.it/50x50", //imageUrl
                 "en",                   // langKey
                 null,                   // createdBy
                 null,                   // createdDate
@@ -173,7 +175,6 @@ public class AccountResourceIntTest {
                 "One",                  // lastName
                 "funky@example.com",    // e-mail
                 true,                   // activated
-                "http://placehold.it/50x50", //imageUrl
                 "en",                   // langKey
                 null,                   // createdBy
                 null,                   // createdDate
@@ -202,7 +203,6 @@ public class AccountResourceIntTest {
                 "Green",            // lastName
                 "invalid",          // e-mail <-- invalid
                 true,               // activated
-                "http://placehold.it/50x50", //imageUrl
                 "en",                   // langKey
                 null,                   // createdBy
                 null,                   // createdDate
@@ -231,7 +231,6 @@ public class AccountResourceIntTest {
                 "Green",            // lastName
                 "bob@example.com",  // e-mail
                 true,               // activated
-                "http://placehold.it/50x50", //imageUrl
                 "en",                   // langKey
                 null,                   // createdBy
                 null,                   // createdDate
@@ -261,7 +260,6 @@ public class AccountResourceIntTest {
                 "Something",            // lastName
                 "alice@example.com",    // e-mail
                 true,                   // activated
-                "http://placehold.it/50x50", //imageUrl
                 "en",                   // langKey
                 null,                   // createdBy
                 null,                   // createdDate
@@ -271,7 +269,7 @@ public class AccountResourceIntTest {
 
         // Duplicate login, different e-mail
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), validUser.getLogin(), validUser.getPassword(), validUser.getLogin(), validUser.getLastName(),
-                "alicejr@example.com", true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities());
+                "alicejr@example.com", true, validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities());
 
         // Good user
         restMvc.perform(
@@ -303,7 +301,6 @@ public class AccountResourceIntTest {
                 "Doe",                  // lastName
                 "john@example.com",     // e-mail
                 true,                   // activated
-                "http://placehold.it/50x50", //imageUrl
                 "en",                   // langKey
                 null,                   // createdBy
                 null,                   // createdDate
@@ -313,7 +310,7 @@ public class AccountResourceIntTest {
 
         // Duplicate e-mail, different login
         ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), "johnjr", validUser.getPassword(), validUser.getLogin(), validUser.getLastName(),
-                validUser.getEmail(), true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities());
+                validUser.getEmail(), true, validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities());
 
         // Good user
         restMvc.perform(
@@ -344,7 +341,6 @@ public class AccountResourceIntTest {
                 "Guy",                  // lastName
                 "badguy@example.com",   // e-mail
                 true,                   // activated
-                "http://placehold.it/50x50", //imageUrl
                 "en",                   // langKey
                 null,                   // createdBy
                 null,                   // createdDate
@@ -360,8 +356,8 @@ public class AccountResourceIntTest {
 
         Optional<User> userDup = userRepository.findOneByLogin("badguy");
         assertThat(userDup.isPresent()).isTrue();
-        assertThat(userDup.get().getAuthorities()).hasSize(1)
-                .containsExactly(authorityRepository.findOne(AuthoritiesConstants.USER));
+        assertThat(userDup.get().getUserAuthorities()).hasSize(1)
+                .containsExactly(authorityRepository.findByRole(Role.USER));
     }
 
     @Test
@@ -374,7 +370,6 @@ public class AccountResourceIntTest {
                 "One",                  // lastName
                 "funky@example.com",    // e-mail
                 true,                   // activated
-                "http://placehold.it/50x50", //imageUrl
                 "en",                   // langKey
                 null,                   // createdBy
                 null,                   // createdDate

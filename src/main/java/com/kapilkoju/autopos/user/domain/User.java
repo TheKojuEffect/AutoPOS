@@ -1,6 +1,7 @@
 package com.kapilkoju.autopos.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kapilkoju.autopos.config.Constants;
 import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,7 +30,7 @@ public class User
     private Long id;
 
     @NotNull
-    @Pattern(regexp = "^[a-z0-9]*$|(anonymousUser)")
+    @Pattern(regexp = Constants.LOGIN_REGEX)
     @Size(min = 3, max = 50)
     @Column(name = "login", length = 50, unique = true, nullable = false)
     private String login;
@@ -85,6 +86,10 @@ public class User
         return authorities.stream()
             .map(authority -> new SimpleGrantedAuthority(authority.getRole().getName()))
             .collect(toList());
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

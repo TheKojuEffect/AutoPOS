@@ -1,9 +1,9 @@
 package com.kapilkoju.autopos.web.rest.vm;
 
-import com.kapilkoju.autopos.service.dto.UserDTO;
-import javax.validation.constraints.Size;
+import com.kapilkoju.autopos.web.rest.dto.UserDTO;
 
-import java.time.ZonedDateTime;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -23,12 +23,12 @@ public class ManagedUserVM extends UserDTO {
     }
 
     public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
-                         String email, boolean activated, String imageUrl, String langKey,
-                         String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate,
-                        Set<String> authorities) {
+                         String email, boolean activated, String langKey,
+                         String createdBy, LocalDateTime createdDate, String lastModifiedBy, LocalDateTime lastModifiedDate,
+                         Set<String> authorities) {
 
-        super(id, login, firstName, lastName, email, activated,  imageUrl, langKey,
-            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities);
+        super(id, login, firstName, lastName, email, activated, langKey,
+                createdBy, createdDate, lastModifiedBy, lastModifiedDate, authorities);
 
         this.password = password;
     }
@@ -40,6 +40,6 @@ public class ManagedUserVM extends UserDTO {
     @Override
     public String toString() {
         return "ManagedUserVM{" +
-            "} " + super.toString();
+                "} " + super.toString();
     }
 }

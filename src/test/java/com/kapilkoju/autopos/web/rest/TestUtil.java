@@ -5,12 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.MediaType;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,25 +61,25 @@ public class TestUtil {
     /**
      * A matcher that tests that the examined string represents the same instant as the reference datetime.
      */
-    public static class ZonedDateTimeMatcher extends TypeSafeDiagnosingMatcher<String> {
+    public static class LocalDateTimeMatcher extends TypeSafeDiagnosingMatcher<String> {
 
-        private final ZonedDateTime date;
+        private final LocalDateTime date;
 
-        public ZonedDateTimeMatcher(ZonedDateTime date) {
+        public LocalDateTimeMatcher(LocalDateTime date) {
             this.date = date;
         }
 
         @Override
         protected boolean matchesSafely(String item, Description mismatchDescription) {
             try {
-                if (!date.isEqual(ZonedDateTime.parse(item))) {
+                if (!date.isEqual(LocalDateTime.parse(item))) {
                     mismatchDescription.appendText("was ").appendValue(item);
                     return false;
                 }
                 return true;
             } catch (DateTimeParseException e) {
                 mismatchDescription.appendText("was ").appendValue(item)
-                    .appendText(", which could not be parsed as a ZonedDateTime");
+                    .appendText(", which could not be parsed as a LocalDateTime");
                 return false;
             }
 
@@ -96,8 +95,8 @@ public class TestUtil {
      * Creates a matcher that matches when the examined string reprensents the same instant as the reference datetime
      * @param date the reference datetime against which the examined string is checked
      */
-    public static ZonedDateTimeMatcher sameInstant(ZonedDateTime date) {
-        return new ZonedDateTimeMatcher(date);
+    public static LocalDateTimeMatcher sameInstant(LocalDateTime date) {
+        return new LocalDateTimeMatcher(date);
     }
 
     /**

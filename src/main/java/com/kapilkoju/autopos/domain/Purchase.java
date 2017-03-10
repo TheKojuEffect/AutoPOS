@@ -1,26 +1,17 @@
 package com.kapilkoju.autopos.domain;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Purchase.
@@ -38,7 +29,7 @@ public class Purchase implements Serializable {
 
     @NotNull
     @Column(name = "date", nullable = false)
-    private ZonedDateTime date;
+    private LocalDateTime date;
 
     @Size(min = 1, max = 50)
     @Column(name = "invoice_number", length = 50)
@@ -68,16 +59,16 @@ public class Purchase implements Serializable {
         this.id = id;
     }
 
-    public ZonedDateTime getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public Purchase date(ZonedDateTime date) {
+    public Purchase date(LocalDateTime date) {
         this.date = date;
         return this;
     }
 
-    public void setDate(ZonedDateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
