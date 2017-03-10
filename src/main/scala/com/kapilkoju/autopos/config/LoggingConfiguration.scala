@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class LoggingConfiguration(val jHipsterProperties: JHipsterProperties) {
 
+  private val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
+
   if (jHipsterProperties.getLogging.getLogstash.isEnabled) {
     addLogstashAppender(context)
     // Add context listener
@@ -23,7 +25,6 @@ class LoggingConfiguration(val jHipsterProperties: JHipsterProperties) {
 
   final private val log: Logger = LoggerFactory.getLogger(classOf[LoggingConfiguration])
 
-  private val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
 
   @Value("${spring.application.name}")
   private val appName: String = null
