@@ -90,8 +90,7 @@ public class CategoryResource {
      */
     @GetMapping("/categories")
     @Timed
-    public ResponseEntity<List<Category>> getAllCategories(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<Category>> getAllCategories(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Categories");
         Page<Category> page = categoryService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/categories");

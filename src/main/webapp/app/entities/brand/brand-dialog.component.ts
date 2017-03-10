@@ -39,10 +39,12 @@ export class BrandDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.brand.id !== undefined) {
             this.brandService.update(this.brand)
-                .subscribe((res: Brand) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Brand) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.brandService.create(this.brand)
-                .subscribe((res: Brand) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Brand) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

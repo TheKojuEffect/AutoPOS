@@ -103,14 +103,14 @@ public class ItemResourceIntTest {
      */
     public static Item createEntity(EntityManager em) {
         Item item = new Item()
-                .code(DEFAULT_CODE)
-                .name(DEFAULT_NAME)
-                .partNumber(DEFAULT_PART_NUMBER)
-                .markedPrice(DEFAULT_MARKED_PRICE)
-                .quantity(DEFAULT_QUANTITY)
-                .description(DEFAULT_DESCRIPTION)
-                .location(DEFAULT_LOCATION)
-                .remarks(DEFAULT_REMARKS);
+            .code(DEFAULT_CODE)
+            .name(DEFAULT_NAME)
+            .partNumber(DEFAULT_PART_NUMBER)
+            .markedPrice(DEFAULT_MARKED_PRICE)
+            .quantity(DEFAULT_QUANTITY)
+            .description(DEFAULT_DESCRIPTION)
+            .location(DEFAULT_LOCATION)
+            .remarks(DEFAULT_REMARKS);
         return item;
     }
 
@@ -125,7 +125,6 @@ public class ItemResourceIntTest {
         int databaseSizeBeforeCreate = itemRepository.findAll().size();
 
         // Create the Item
-
         restItemMockMvc.perform(post("/api/items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(item)))
@@ -151,13 +150,12 @@ public class ItemResourceIntTest {
         int databaseSizeBeforeCreate = itemRepository.findAll().size();
 
         // Create the Item with an existing ID
-        Item existingItem = new Item();
-        existingItem.setId(1L);
+        item.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restItemMockMvc.perform(post("/api/items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingItem)))
+            .content(TestUtil.convertObjectToJsonBytes(item)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -298,14 +296,14 @@ public class ItemResourceIntTest {
         // Update the item
         Item updatedItem = itemRepository.findOne(item.getId());
         updatedItem
-                .code(UPDATED_CODE)
-                .name(UPDATED_NAME)
-                .partNumber(UPDATED_PART_NUMBER)
-                .markedPrice(UPDATED_MARKED_PRICE)
-                .quantity(UPDATED_QUANTITY)
-                .description(UPDATED_DESCRIPTION)
-                .location(UPDATED_LOCATION)
-                .remarks(UPDATED_REMARKS);
+            .code(UPDATED_CODE)
+            .name(UPDATED_NAME)
+            .partNumber(UPDATED_PART_NUMBER)
+            .markedPrice(UPDATED_MARKED_PRICE)
+            .quantity(UPDATED_QUANTITY)
+            .description(UPDATED_DESCRIPTION)
+            .location(UPDATED_LOCATION)
+            .remarks(UPDATED_REMARKS);
 
         restItemMockMvc.perform(put("/api/items")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -363,6 +361,7 @@ public class ItemResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Item.class);
     }

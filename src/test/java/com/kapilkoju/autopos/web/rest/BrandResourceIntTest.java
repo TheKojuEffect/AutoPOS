@@ -1,16 +1,19 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.kapilkoju.autopos.domain.Brand;
-import com.kapilkoju.autopos.repository.BrandRepository;
-import com.kapilkoju.autopos.service.BrandService;
-import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -21,13 +24,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.domain.Brand;
+import com.kapilkoju.autopos.repository.BrandRepository;
+import com.kapilkoju.autopos.service.BrandService;
+import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Test class for the BrandResource REST controller.
@@ -81,7 +86,7 @@ public class BrandResourceIntTest {
      */
     public static Brand createEntity(EntityManager em) {
         Brand brand = new Brand()
-                .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME);
         return brand;
     }
 
@@ -96,7 +101,6 @@ public class BrandResourceIntTest {
         int databaseSizeBeforeCreate = brandRepository.findAll().size();
 
         // Create the Brand
-
         restBrandMockMvc.perform(post("/api/brands")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(brand)))
@@ -115,13 +119,12 @@ public class BrandResourceIntTest {
         int databaseSizeBeforeCreate = brandRepository.findAll().size();
 
         // Create the Brand with an existing ID
-        Brand existingBrand = new Brand();
-        existingBrand.setId(1L);
+        brand.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBrandMockMvc.perform(post("/api/brands")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingBrand)))
+            .content(TestUtil.convertObjectToJsonBytes(brand)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -194,7 +197,7 @@ public class BrandResourceIntTest {
         // Update the brand
         Brand updatedBrand = brandRepository.findOne(brand.getId());
         updatedBrand
-                .name(UPDATED_NAME);
+            .name(UPDATED_NAME);
 
         restBrandMockMvc.perform(put("/api/brands")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -245,6 +248,7 @@ public class BrandResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Brand.class);
     }

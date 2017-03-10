@@ -84,8 +84,8 @@ public class VehicleResourceIntTest {
      */
     public static Vehicle createEntity(EntityManager em) {
         Vehicle vehicle = new Vehicle()
-                .number(DEFAULT_NUMBER)
-                .remarks(DEFAULT_REMARKS);
+            .number(DEFAULT_NUMBER)
+            .remarks(DEFAULT_REMARKS);
         return vehicle;
     }
 
@@ -100,7 +100,6 @@ public class VehicleResourceIntTest {
         int databaseSizeBeforeCreate = vehicleRepository.findAll().size();
 
         // Create the Vehicle
-
         restVehicleMockMvc.perform(post("/api/vehicles")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(vehicle)))
@@ -120,13 +119,12 @@ public class VehicleResourceIntTest {
         int databaseSizeBeforeCreate = vehicleRepository.findAll().size();
 
         // Create the Vehicle with an existing ID
-        Vehicle existingVehicle = new Vehicle();
-        existingVehicle.setId(1L);
+        vehicle.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restVehicleMockMvc.perform(post("/api/vehicles")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingVehicle)))
+            .content(TestUtil.convertObjectToJsonBytes(vehicle)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -201,8 +199,8 @@ public class VehicleResourceIntTest {
         // Update the vehicle
         Vehicle updatedVehicle = vehicleRepository.findOne(vehicle.getId());
         updatedVehicle
-                .number(UPDATED_NUMBER)
-                .remarks(UPDATED_REMARKS);
+            .number(UPDATED_NUMBER)
+            .remarks(UPDATED_REMARKS);
 
         restVehicleMockMvc.perform(put("/api/vehicles")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -254,6 +252,7 @@ public class VehicleResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Vehicle.class);
     }

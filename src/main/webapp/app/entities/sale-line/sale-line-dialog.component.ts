@@ -51,10 +51,12 @@ export class SaleLineDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.saleLine.id !== undefined) {
             this.saleLineService.update(this.saleLine)
-                .subscribe((res: SaleLine) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: SaleLine) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.saleLineService.create(this.saleLine)
-                .subscribe((res: SaleLine) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: SaleLine) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

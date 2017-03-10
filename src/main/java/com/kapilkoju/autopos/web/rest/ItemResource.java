@@ -90,8 +90,7 @@ public class ItemResource {
      */
     @GetMapping("/items")
     @Timed
-    public ResponseEntity<List<Item>> getAllItems(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<Item>> getAllItems(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Items");
         Page<Item> page = itemService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/items");

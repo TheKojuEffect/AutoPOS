@@ -1,16 +1,19 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.kapilkoju.autopos.domain.Phone;
-import com.kapilkoju.autopos.repository.PhoneRepository;
-import com.kapilkoju.autopos.service.PhoneService;
-import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -21,13 +24,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.domain.Phone;
+import com.kapilkoju.autopos.repository.PhoneRepository;
+import com.kapilkoju.autopos.service.PhoneService;
+import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Test class for the PhoneResource REST controller.
@@ -81,7 +86,7 @@ public class PhoneResourceIntTest {
      */
     public static Phone createEntity(EntityManager em) {
         Phone phone = new Phone()
-                .number(DEFAULT_NUMBER);
+            .number(DEFAULT_NUMBER);
         return phone;
     }
 
@@ -96,7 +101,6 @@ public class PhoneResourceIntTest {
         int databaseSizeBeforeCreate = phoneRepository.findAll().size();
 
         // Create the Phone
-
         restPhoneMockMvc.perform(post("/api/phones")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(phone)))
@@ -115,13 +119,12 @@ public class PhoneResourceIntTest {
         int databaseSizeBeforeCreate = phoneRepository.findAll().size();
 
         // Create the Phone with an existing ID
-        Phone existingPhone = new Phone();
-        existingPhone.setId(1L);
+        phone.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPhoneMockMvc.perform(post("/api/phones")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingPhone)))
+            .content(TestUtil.convertObjectToJsonBytes(phone)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -194,7 +197,7 @@ public class PhoneResourceIntTest {
         // Update the phone
         Phone updatedPhone = phoneRepository.findOne(phone.getId());
         updatedPhone
-                .number(UPDATED_NUMBER);
+            .number(UPDATED_NUMBER);
 
         restPhoneMockMvc.perform(put("/api/phones")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -245,6 +248,7 @@ public class PhoneResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Phone.class);
     }

@@ -1,16 +1,19 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.kapilkoju.autopos.domain.Category;
-import com.kapilkoju.autopos.repository.CategoryRepository;
-import com.kapilkoju.autopos.service.CategoryService;
-import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -21,13 +24,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.domain.Category;
+import com.kapilkoju.autopos.repository.CategoryRepository;
+import com.kapilkoju.autopos.service.CategoryService;
+import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Test class for the CategoryResource REST controller.
@@ -84,8 +89,8 @@ public class CategoryResourceIntTest {
      */
     public static Category createEntity(EntityManager em) {
         Category category = new Category()
-                .shortName(DEFAULT_SHORT_NAME)
-                .name(DEFAULT_NAME);
+            .shortName(DEFAULT_SHORT_NAME)
+            .name(DEFAULT_NAME);
         return category;
     }
 
@@ -100,7 +105,6 @@ public class CategoryResourceIntTest {
         int databaseSizeBeforeCreate = categoryRepository.findAll().size();
 
         // Create the Category
-
         restCategoryMockMvc.perform(post("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(category)))
@@ -120,13 +124,12 @@ public class CategoryResourceIntTest {
         int databaseSizeBeforeCreate = categoryRepository.findAll().size();
 
         // Create the Category with an existing ID
-        Category existingCategory = new Category();
-        existingCategory.setId(1L);
+        category.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCategoryMockMvc.perform(post("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingCategory)))
+            .content(TestUtil.convertObjectToJsonBytes(category)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -219,8 +222,8 @@ public class CategoryResourceIntTest {
         // Update the category
         Category updatedCategory = categoryRepository.findOne(category.getId());
         updatedCategory
-                .shortName(UPDATED_SHORT_NAME)
-                .name(UPDATED_NAME);
+            .shortName(UPDATED_SHORT_NAME)
+            .name(UPDATED_NAME);
 
         restCategoryMockMvc.perform(put("/api/categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -272,6 +275,7 @@ public class CategoryResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Category.class);
     }

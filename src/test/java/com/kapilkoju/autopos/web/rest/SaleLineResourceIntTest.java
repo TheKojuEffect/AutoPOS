@@ -93,10 +93,10 @@ public class SaleLineResourceIntTest {
      */
     public static SaleLine createEntity(EntityManager em) {
         SaleLine saleLine = new SaleLine()
-                .buyer(DEFAULT_BUYER)
-                .quantity(DEFAULT_QUANTITY)
-                .rate(DEFAULT_RATE)
-                .remarks(DEFAULT_REMARKS);
+            .buyer(DEFAULT_BUYER)
+            .quantity(DEFAULT_QUANTITY)
+            .rate(DEFAULT_RATE)
+            .remarks(DEFAULT_REMARKS);
         // Add required entity
         Sale sale = SaleResourceIntTest.createEntity(em);
         em.persist(sale);
@@ -121,7 +121,6 @@ public class SaleLineResourceIntTest {
         int databaseSizeBeforeCreate = saleLineRepository.findAll().size();
 
         // Create the SaleLine
-
         restSaleLineMockMvc.perform(post("/api/sale-lines")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(saleLine)))
@@ -143,13 +142,12 @@ public class SaleLineResourceIntTest {
         int databaseSizeBeforeCreate = saleLineRepository.findAll().size();
 
         // Create the SaleLine with an existing ID
-        SaleLine existingSaleLine = new SaleLine();
-        existingSaleLine.setId(1L);
+        saleLine.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSaleLineMockMvc.perform(post("/api/sale-lines")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingSaleLine)))
+            .content(TestUtil.convertObjectToJsonBytes(saleLine)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -264,10 +262,10 @@ public class SaleLineResourceIntTest {
         // Update the saleLine
         SaleLine updatedSaleLine = saleLineRepository.findOne(saleLine.getId());
         updatedSaleLine
-                .buyer(UPDATED_BUYER)
-                .quantity(UPDATED_QUANTITY)
-                .rate(UPDATED_RATE)
-                .remarks(UPDATED_REMARKS);
+            .buyer(UPDATED_BUYER)
+            .quantity(UPDATED_QUANTITY)
+            .rate(UPDATED_RATE)
+            .remarks(UPDATED_REMARKS);
 
         restSaleLineMockMvc.perform(put("/api/sale-lines")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -321,6 +319,7 @@ public class SaleLineResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(SaleLine.class);
     }

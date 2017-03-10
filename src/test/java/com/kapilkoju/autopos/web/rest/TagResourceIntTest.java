@@ -81,7 +81,7 @@ public class TagResourceIntTest {
      */
     public static Tag createEntity(EntityManager em) {
         Tag tag = new Tag()
-                .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME);
         return tag;
     }
 
@@ -96,7 +96,6 @@ public class TagResourceIntTest {
         int databaseSizeBeforeCreate = tagRepository.findAll().size();
 
         // Create the Tag
-
         restTagMockMvc.perform(post("/api/tags")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(tag)))
@@ -115,13 +114,12 @@ public class TagResourceIntTest {
         int databaseSizeBeforeCreate = tagRepository.findAll().size();
 
         // Create the Tag with an existing ID
-        Tag existingTag = new Tag();
-        existingTag.setId(1L);
+        tag.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restTagMockMvc.perform(post("/api/tags")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingTag)))
+            .content(TestUtil.convertObjectToJsonBytes(tag)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -194,7 +192,7 @@ public class TagResourceIntTest {
         // Update the tag
         Tag updatedTag = tagRepository.findOne(tag.getId());
         updatedTag
-                .name(UPDATED_NAME);
+            .name(UPDATED_NAME);
 
         restTagMockMvc.perform(put("/api/tags")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -245,6 +243,7 @@ public class TagResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Tag.class);
     }

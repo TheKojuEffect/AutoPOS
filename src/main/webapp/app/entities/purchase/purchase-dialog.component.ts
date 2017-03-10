@@ -51,10 +51,12 @@ export class PurchaseDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.purchase.id !== undefined) {
             this.purchaseService.update(this.purchase)
-                .subscribe((res: Purchase) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Purchase) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.purchaseService.create(this.purchase)
-                .subscribe((res: Purchase) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Purchase) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

@@ -100,12 +100,12 @@ public class SaleResourceIntTest {
      */
     public static Sale createEntity(EntityManager em) {
         Sale sale = new Sale()
-                .date(DEFAULT_DATE)
-                .invoiceNumber(DEFAULT_INVOICE_NUMBER)
-                .discount(DEFAULT_DISCOUNT)
-                .remarks(DEFAULT_REMARKS)
-                .buyer(DEFAULT_BUYER)
-                .status(DEFAULT_STATUS);
+            .date(DEFAULT_DATE)
+            .invoiceNumber(DEFAULT_INVOICE_NUMBER)
+            .discount(DEFAULT_DISCOUNT)
+            .remarks(DEFAULT_REMARKS)
+            .buyer(DEFAULT_BUYER)
+            .status(DEFAULT_STATUS);
         return sale;
     }
 
@@ -120,7 +120,6 @@ public class SaleResourceIntTest {
         int databaseSizeBeforeCreate = saleRepository.findAll().size();
 
         // Create the Sale
-
         restSaleMockMvc.perform(post("/api/sales")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(sale)))
@@ -144,13 +143,12 @@ public class SaleResourceIntTest {
         int databaseSizeBeforeCreate = saleRepository.findAll().size();
 
         // Create the Sale with an existing ID
-        Sale existingSale = new Sale();
-        existingSale.setId(1L);
+        sale.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSaleMockMvc.perform(post("/api/sales")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingSale)))
+            .content(TestUtil.convertObjectToJsonBytes(sale)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -269,12 +267,12 @@ public class SaleResourceIntTest {
         // Update the sale
         Sale updatedSale = saleRepository.findOne(sale.getId());
         updatedSale
-                .date(UPDATED_DATE)
-                .invoiceNumber(UPDATED_INVOICE_NUMBER)
-                .discount(UPDATED_DISCOUNT)
-                .remarks(UPDATED_REMARKS)
-                .buyer(UPDATED_BUYER)
-                .status(UPDATED_STATUS);
+            .date(UPDATED_DATE)
+            .invoiceNumber(UPDATED_INVOICE_NUMBER)
+            .discount(UPDATED_DISCOUNT)
+            .remarks(UPDATED_REMARKS)
+            .buyer(UPDATED_BUYER)
+            .status(UPDATED_STATUS);
 
         restSaleMockMvc.perform(put("/api/sales")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -330,6 +328,7 @@ public class SaleResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Sale.class);
     }

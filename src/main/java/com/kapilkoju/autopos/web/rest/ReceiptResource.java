@@ -90,8 +90,7 @@ public class ReceiptResource {
      */
     @GetMapping("/receipts")
     @Timed
-    public ResponseEntity<List<Receipt>> getAllReceipts(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<Receipt>> getAllReceipts(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Receipts");
         Page<Receipt> page = receiptService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/receipts");

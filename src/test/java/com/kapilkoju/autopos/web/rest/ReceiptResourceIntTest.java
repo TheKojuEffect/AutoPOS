@@ -97,11 +97,11 @@ public class ReceiptResourceIntTest {
      */
     public static Receipt createEntity(EntityManager em) {
         Receipt receipt = new Receipt()
-                .date(DEFAULT_DATE)
-                .amount(DEFAULT_AMOUNT)
-                .receiptNumber(DEFAULT_RECEIPT_NUMBER)
-                .receivedBy(DEFAULT_RECEIVED_BY)
-                .remarks(DEFAULT_REMARKS);
+            .date(DEFAULT_DATE)
+            .amount(DEFAULT_AMOUNT)
+            .receiptNumber(DEFAULT_RECEIPT_NUMBER)
+            .receivedBy(DEFAULT_RECEIVED_BY)
+            .remarks(DEFAULT_REMARKS);
         // Add required entity
         Customer receivedFrom = CustomerResourceIntTest.createEntity(em);
         em.persist(receivedFrom);
@@ -121,7 +121,6 @@ public class ReceiptResourceIntTest {
         int databaseSizeBeforeCreate = receiptRepository.findAll().size();
 
         // Create the Receipt
-
         restReceiptMockMvc.perform(post("/api/receipts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(receipt)))
@@ -144,13 +143,12 @@ public class ReceiptResourceIntTest {
         int databaseSizeBeforeCreate = receiptRepository.findAll().size();
 
         // Create the Receipt with an existing ID
-        Receipt existingReceipt = new Receipt();
-        existingReceipt.setId(1L);
+        receipt.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restReceiptMockMvc.perform(post("/api/receipts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingReceipt)))
+            .content(TestUtil.convertObjectToJsonBytes(receipt)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -267,11 +265,11 @@ public class ReceiptResourceIntTest {
         // Update the receipt
         Receipt updatedReceipt = receiptRepository.findOne(receipt.getId());
         updatedReceipt
-                .date(UPDATED_DATE)
-                .amount(UPDATED_AMOUNT)
-                .receiptNumber(UPDATED_RECEIPT_NUMBER)
-                .receivedBy(UPDATED_RECEIVED_BY)
-                .remarks(UPDATED_REMARKS);
+            .date(UPDATED_DATE)
+            .amount(UPDATED_AMOUNT)
+            .receiptNumber(UPDATED_RECEIPT_NUMBER)
+            .receivedBy(UPDATED_RECEIVED_BY)
+            .remarks(UPDATED_REMARKS);
 
         restReceiptMockMvc.perform(put("/api/receipts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -326,6 +324,7 @@ public class ReceiptResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Receipt.class);
     }

@@ -97,11 +97,11 @@ public class PaymentResourceIntTest {
      */
     public static Payment createEntity(EntityManager em) {
         Payment payment = new Payment()
-                .date(DEFAULT_DATE)
-                .amount(DEFAULT_AMOUNT)
-                .receiptNumber(DEFAULT_RECEIPT_NUMBER)
-                .paidBy(DEFAULT_PAID_BY)
-                .remarks(DEFAULT_REMARKS);
+            .date(DEFAULT_DATE)
+            .amount(DEFAULT_AMOUNT)
+            .receiptNumber(DEFAULT_RECEIPT_NUMBER)
+            .paidBy(DEFAULT_PAID_BY)
+            .remarks(DEFAULT_REMARKS);
         // Add required entity
         Vendor paidTo = VendorResourceIntTest.createEntity(em);
         em.persist(paidTo);
@@ -121,7 +121,6 @@ public class PaymentResourceIntTest {
         int databaseSizeBeforeCreate = paymentRepository.findAll().size();
 
         // Create the Payment
-
         restPaymentMockMvc.perform(post("/api/payments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(payment)))
@@ -144,13 +143,12 @@ public class PaymentResourceIntTest {
         int databaseSizeBeforeCreate = paymentRepository.findAll().size();
 
         // Create the Payment with an existing ID
-        Payment existingPayment = new Payment();
-        existingPayment.setId(1L);
+        payment.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPaymentMockMvc.perform(post("/api/payments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingPayment)))
+            .content(TestUtil.convertObjectToJsonBytes(payment)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -267,11 +265,11 @@ public class PaymentResourceIntTest {
         // Update the payment
         Payment updatedPayment = paymentRepository.findOne(payment.getId());
         updatedPayment
-                .date(UPDATED_DATE)
-                .amount(UPDATED_AMOUNT)
-                .receiptNumber(UPDATED_RECEIPT_NUMBER)
-                .paidBy(UPDATED_PAID_BY)
-                .remarks(UPDATED_REMARKS);
+            .date(UPDATED_DATE)
+            .amount(UPDATED_AMOUNT)
+            .receiptNumber(UPDATED_RECEIPT_NUMBER)
+            .paidBy(UPDATED_PAID_BY)
+            .remarks(UPDATED_REMARKS);
 
         restPaymentMockMvc.perform(put("/api/payments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -326,6 +324,7 @@ public class PaymentResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Payment.class);
     }

@@ -51,10 +51,12 @@ export class PurchaseLineDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.purchaseLine.id !== undefined) {
             this.purchaseLineService.update(this.purchaseLine)
-                .subscribe((res: PurchaseLine) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: PurchaseLine) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.purchaseLineService.create(this.purchaseLine)
-                .subscribe((res: PurchaseLine) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: PurchaseLine) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

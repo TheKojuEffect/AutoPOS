@@ -90,9 +90,9 @@ public class PurchaseLineResourceIntTest {
      */
     public static PurchaseLine createEntity(EntityManager em) {
         PurchaseLine purchaseLine = new PurchaseLine()
-                .quantity(DEFAULT_QUANTITY)
-                .rate(DEFAULT_RATE)
-                .remarks(DEFAULT_REMARKS);
+            .quantity(DEFAULT_QUANTITY)
+            .rate(DEFAULT_RATE)
+            .remarks(DEFAULT_REMARKS);
         // Add required entity
         Purchase purchase = PurchaseResourceIntTest.createEntity(em);
         em.persist(purchase);
@@ -117,7 +117,6 @@ public class PurchaseLineResourceIntTest {
         int databaseSizeBeforeCreate = purchaseLineRepository.findAll().size();
 
         // Create the PurchaseLine
-
         restPurchaseLineMockMvc.perform(post("/api/purchase-lines")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(purchaseLine)))
@@ -138,13 +137,12 @@ public class PurchaseLineResourceIntTest {
         int databaseSizeBeforeCreate = purchaseLineRepository.findAll().size();
 
         // Create the PurchaseLine with an existing ID
-        PurchaseLine existingPurchaseLine = new PurchaseLine();
-        existingPurchaseLine.setId(1L);
+        purchaseLine.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPurchaseLineMockMvc.perform(post("/api/purchase-lines")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingPurchaseLine)))
+            .content(TestUtil.convertObjectToJsonBytes(purchaseLine)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -239,9 +237,9 @@ public class PurchaseLineResourceIntTest {
         // Update the purchaseLine
         PurchaseLine updatedPurchaseLine = purchaseLineRepository.findOne(purchaseLine.getId());
         updatedPurchaseLine
-                .quantity(UPDATED_QUANTITY)
-                .rate(UPDATED_RATE)
-                .remarks(UPDATED_REMARKS);
+            .quantity(UPDATED_QUANTITY)
+            .rate(UPDATED_RATE)
+            .remarks(UPDATED_REMARKS);
 
         restPurchaseLineMockMvc.perform(put("/api/purchase-lines")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -294,6 +292,7 @@ public class PurchaseLineResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(PurchaseLine.class);
     }
