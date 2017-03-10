@@ -1,22 +1,18 @@
 package com.kapilkoju.autopos.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kapilkoju.autopos.domain.enumeration.SaleStatus;
+import com.kapilkoju.autopos.catalog.domain.SaleStatus;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 
 /**

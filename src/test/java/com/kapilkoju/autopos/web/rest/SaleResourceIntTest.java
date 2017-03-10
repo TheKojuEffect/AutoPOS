@@ -1,8 +1,8 @@
 package com.kapilkoju.autopos.web.rest;
 
 import com.kapilkoju.autopos.Application;
+import com.kapilkoju.autopos.catalog.domain.SaleStatus;
 import com.kapilkoju.autopos.domain.Sale;
-import com.kapilkoju.autopos.domain.enumeration.SaleStatus;
 import com.kapilkoju.autopos.repository.SaleRepository;
 import com.kapilkoju.autopos.service.SaleService;
 import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
