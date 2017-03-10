@@ -45,10 +45,12 @@ export class ReceiptDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.receipt.id !== undefined) {
             this.receiptService.update(this.receipt)
-                .subscribe((res: Receipt) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Receipt) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.receiptService.create(this.receipt)
-                .subscribe((res: Receipt) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Receipt) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

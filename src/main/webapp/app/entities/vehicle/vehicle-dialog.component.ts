@@ -45,10 +45,12 @@ export class VehicleDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.vehicle.id !== undefined) {
             this.vehicleService.update(this.vehicle)
-                .subscribe((res: Vehicle) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Vehicle) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.vehicleService.create(this.vehicle)
-                .subscribe((res: Vehicle) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Vehicle) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

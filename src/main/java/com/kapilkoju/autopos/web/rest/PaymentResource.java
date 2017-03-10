@@ -90,8 +90,7 @@ public class PaymentResource {
      */
     @GetMapping("/payments")
     @Timed
-    public ResponseEntity<List<Payment>> getAllPayments(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<Payment>> getAllPayments(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Payments");
         Page<Payment> page = paymentService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/payments");

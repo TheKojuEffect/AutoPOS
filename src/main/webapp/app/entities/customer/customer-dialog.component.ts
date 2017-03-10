@@ -45,10 +45,12 @@ export class CustomerDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.customer.id !== undefined) {
             this.customerService.update(this.customer)
-                .subscribe((res: Customer) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Customer) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.customerService.create(this.customer)
-                .subscribe((res: Customer) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Customer) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

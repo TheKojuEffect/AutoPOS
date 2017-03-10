@@ -39,10 +39,12 @@ export class DayBookEntryDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.dayBookEntry.id !== undefined) {
             this.dayBookEntryService.update(this.dayBookEntry)
-                .subscribe((res: DayBookEntry) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: DayBookEntry) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.dayBookEntryService.create(this.dayBookEntry)
-                .subscribe((res: DayBookEntry) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: DayBookEntry) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

@@ -94,9 +94,9 @@ public class PriceHistoryResourceIntTest {
      */
     public static PriceHistory createEntity(EntityManager em) {
         PriceHistory priceHistory = new PriceHistory()
-                .date(DEFAULT_DATE)
-                .markedPrice(DEFAULT_MARKED_PRICE)
-                .remarks(DEFAULT_REMARKS);
+            .date(DEFAULT_DATE)
+            .markedPrice(DEFAULT_MARKED_PRICE)
+            .remarks(DEFAULT_REMARKS);
         // Add required entity
         Item item = ItemResourceIntTest.createEntity(em);
         em.persist(item);
@@ -116,7 +116,6 @@ public class PriceHistoryResourceIntTest {
         int databaseSizeBeforeCreate = priceHistoryRepository.findAll().size();
 
         // Create the PriceHistory
-
         restPriceHistoryMockMvc.perform(post("/api/price-histories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(priceHistory)))
@@ -137,13 +136,12 @@ public class PriceHistoryResourceIntTest {
         int databaseSizeBeforeCreate = priceHistoryRepository.findAll().size();
 
         // Create the PriceHistory with an existing ID
-        PriceHistory existingPriceHistory = new PriceHistory();
-        existingPriceHistory.setId(1L);
+        priceHistory.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPriceHistoryMockMvc.perform(post("/api/price-histories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingPriceHistory)))
+            .content(TestUtil.convertObjectToJsonBytes(priceHistory)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -238,9 +236,9 @@ public class PriceHistoryResourceIntTest {
         // Update the priceHistory
         PriceHistory updatedPriceHistory = priceHistoryRepository.findOne(priceHistory.getId());
         updatedPriceHistory
-                .date(UPDATED_DATE)
-                .markedPrice(UPDATED_MARKED_PRICE)
-                .remarks(UPDATED_REMARKS);
+            .date(UPDATED_DATE)
+            .markedPrice(UPDATED_MARKED_PRICE)
+            .remarks(UPDATED_REMARKS);
 
         restPriceHistoryMockMvc.perform(put("/api/price-histories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -293,6 +291,7 @@ public class PriceHistoryResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(PriceHistory.class);
     }

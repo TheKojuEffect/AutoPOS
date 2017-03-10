@@ -90,8 +90,7 @@ public class PurchaseLineResource {
      */
     @GetMapping("/purchase-lines")
     @Timed
-    public ResponseEntity<List<PurchaseLine>> getAllPurchaseLines(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<PurchaseLine>> getAllPurchaseLines(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of PurchaseLines");
         Page<PurchaseLine> page = purchaseLineService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/purchase-lines");

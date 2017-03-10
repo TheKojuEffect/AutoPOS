@@ -84,8 +84,8 @@ public class VendorResourceIntTest {
      */
     public static Vendor createEntity(EntityManager em) {
         Vendor vendor = new Vendor()
-                .name(DEFAULT_NAME)
-                .remarks(DEFAULT_REMARKS);
+            .name(DEFAULT_NAME)
+            .remarks(DEFAULT_REMARKS);
         return vendor;
     }
 
@@ -100,7 +100,6 @@ public class VendorResourceIntTest {
         int databaseSizeBeforeCreate = vendorRepository.findAll().size();
 
         // Create the Vendor
-
         restVendorMockMvc.perform(post("/api/vendors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(vendor)))
@@ -120,13 +119,12 @@ public class VendorResourceIntTest {
         int databaseSizeBeforeCreate = vendorRepository.findAll().size();
 
         // Create the Vendor with an existing ID
-        Vendor existingVendor = new Vendor();
-        existingVendor.setId(1L);
+        vendor.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restVendorMockMvc.perform(post("/api/vendors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingVendor)))
+            .content(TestUtil.convertObjectToJsonBytes(vendor)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -201,8 +199,8 @@ public class VendorResourceIntTest {
         // Update the vendor
         Vendor updatedVendor = vendorRepository.findOne(vendor.getId());
         updatedVendor
-                .name(UPDATED_NAME)
-                .remarks(UPDATED_REMARKS);
+            .name(UPDATED_NAME)
+            .remarks(UPDATED_REMARKS);
 
         restVendorMockMvc.perform(put("/api/vendors")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -254,6 +252,7 @@ public class VendorResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Vendor.class);
     }

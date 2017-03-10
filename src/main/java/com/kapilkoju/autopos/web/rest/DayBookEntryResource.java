@@ -90,8 +90,7 @@ public class DayBookEntryResource {
      */
     @GetMapping("/day-book-entries")
     @Timed
-    public ResponseEntity<List<DayBookEntry>> getAllDayBookEntries(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<DayBookEntry>> getAllDayBookEntries(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of DayBookEntries");
         Page<DayBookEntry> page = dayBookEntryService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/day-book-entries");

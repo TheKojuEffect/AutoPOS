@@ -45,10 +45,12 @@ export class PriceHistoryDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.priceHistory.id !== undefined) {
             this.priceHistoryService.update(this.priceHistory)
-                .subscribe((res: PriceHistory) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: PriceHistory) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.priceHistoryService.create(this.priceHistory)
-                .subscribe((res: PriceHistory) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: PriceHistory) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

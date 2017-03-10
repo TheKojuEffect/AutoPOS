@@ -57,10 +57,12 @@ export class SaleDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.sale.id !== undefined) {
             this.saleService.update(this.sale)
-                .subscribe((res: Sale) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Sale) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.saleService.create(this.sale)
-                .subscribe((res: Sale) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Sale) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

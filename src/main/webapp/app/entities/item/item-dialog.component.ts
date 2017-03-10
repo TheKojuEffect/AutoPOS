@@ -57,10 +57,12 @@ export class ItemDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.item.id !== undefined) {
             this.itemService.update(this.item)
-                .subscribe((res: Item) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Item) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.itemService.create(this.item)
-                .subscribe((res: Item) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Item) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

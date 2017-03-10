@@ -39,10 +39,12 @@ export class PhoneDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.phone.id !== undefined) {
             this.phoneService.update(this.phone)
-                .subscribe((res: Phone) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Phone) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.phoneService.create(this.phone)
-                .subscribe((res: Phone) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Phone) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

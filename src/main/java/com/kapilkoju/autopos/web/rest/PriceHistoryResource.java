@@ -90,8 +90,7 @@ public class PriceHistoryResource {
      */
     @GetMapping("/price-histories")
     @Timed
-    public ResponseEntity<List<PriceHistory>> getAllPriceHistories(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<PriceHistory>> getAllPriceHistories(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of PriceHistories");
         Page<PriceHistory> page = priceHistoryService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/price-histories");

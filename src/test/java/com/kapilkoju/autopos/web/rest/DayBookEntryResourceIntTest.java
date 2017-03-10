@@ -1,16 +1,22 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.kapilkoju.autopos.domain.DayBookEntry;
-import com.kapilkoju.autopos.repository.DayBookEntryRepository;
-import com.kapilkoju.autopos.service.DayBookEntryService;
-import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -21,16 +27,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.math.BigDecimal;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.domain.DayBookEntry;
+import com.kapilkoju.autopos.repository.DayBookEntryRepository;
+import com.kapilkoju.autopos.service.DayBookEntryService;
+import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Test class for the DayBookEntryResource REST controller.
@@ -96,11 +101,11 @@ public class DayBookEntryResourceIntTest {
      */
     public static DayBookEntry createEntity(EntityManager em) {
         DayBookEntry dayBookEntry = new DayBookEntry()
-                .date(DEFAULT_DATE)
-                .incomingAmount(DEFAULT_INCOMING_AMOUNT)
-                .outgoingAmount(DEFAULT_OUTGOING_AMOUNT)
-                .miscExpenses(DEFAULT_MISC_EXPENSES)
-                .remarks(DEFAULT_REMARKS);
+            .date(DEFAULT_DATE)
+            .incomingAmount(DEFAULT_INCOMING_AMOUNT)
+            .outgoingAmount(DEFAULT_OUTGOING_AMOUNT)
+            .miscExpenses(DEFAULT_MISC_EXPENSES)
+            .remarks(DEFAULT_REMARKS);
         return dayBookEntry;
     }
 
@@ -115,7 +120,6 @@ public class DayBookEntryResourceIntTest {
         int databaseSizeBeforeCreate = dayBookEntryRepository.findAll().size();
 
         // Create the DayBookEntry
-
         restDayBookEntryMockMvc.perform(post("/api/day-book-entries")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(dayBookEntry)))
@@ -138,13 +142,12 @@ public class DayBookEntryResourceIntTest {
         int databaseSizeBeforeCreate = dayBookEntryRepository.findAll().size();
 
         // Create the DayBookEntry with an existing ID
-        DayBookEntry existingDayBookEntry = new DayBookEntry();
-        existingDayBookEntry.setId(1L);
+        dayBookEntry.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restDayBookEntryMockMvc.perform(post("/api/day-book-entries")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingDayBookEntry)))
+            .content(TestUtil.convertObjectToJsonBytes(dayBookEntry)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -279,11 +282,11 @@ public class DayBookEntryResourceIntTest {
         // Update the dayBookEntry
         DayBookEntry updatedDayBookEntry = dayBookEntryRepository.findOne(dayBookEntry.getId());
         updatedDayBookEntry
-                .date(UPDATED_DATE)
-                .incomingAmount(UPDATED_INCOMING_AMOUNT)
-                .outgoingAmount(UPDATED_OUTGOING_AMOUNT)
-                .miscExpenses(UPDATED_MISC_EXPENSES)
-                .remarks(UPDATED_REMARKS);
+            .date(UPDATED_DATE)
+            .incomingAmount(UPDATED_INCOMING_AMOUNT)
+            .outgoingAmount(UPDATED_OUTGOING_AMOUNT)
+            .miscExpenses(UPDATED_MISC_EXPENSES)
+            .remarks(UPDATED_REMARKS);
 
         restDayBookEntryMockMvc.perform(put("/api/day-book-entries")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -338,6 +341,7 @@ public class DayBookEntryResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(DayBookEntry.class);
     }

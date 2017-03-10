@@ -23,7 +23,8 @@ export class PurchasePopupService {
 
         if (id) {
             this.purchaseService.find(id).subscribe(purchase => {
-                purchase.date = this.datePipe.transform(purchase.date, 'yyyy-MM-ddThh:mm');
+                purchase.date = this.datePipe
+                    .transform(purchase.date, 'yyyy-MM-ddThh:mm');
                 this.purchaseModalRef(component, purchase);
             });
         } else {

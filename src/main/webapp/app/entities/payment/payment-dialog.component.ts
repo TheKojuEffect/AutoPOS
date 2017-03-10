@@ -45,10 +45,12 @@ export class PaymentDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.payment.id !== undefined) {
             this.paymentService.update(this.payment)
-                .subscribe((res: Payment) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Payment) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
             this.paymentService.create(this.payment)
-                .subscribe((res: Payment) => this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                .subscribe((res: Payment) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 

@@ -96,10 +96,10 @@ public class PurchaseResourceIntTest {
      */
     public static Purchase createEntity(EntityManager em) {
         Purchase purchase = new Purchase()
-                .date(DEFAULT_DATE)
-                .invoiceNumber(DEFAULT_INVOICE_NUMBER)
-                .discount(DEFAULT_DISCOUNT)
-                .remarks(DEFAULT_REMARKS);
+            .date(DEFAULT_DATE)
+            .invoiceNumber(DEFAULT_INVOICE_NUMBER)
+            .discount(DEFAULT_DISCOUNT)
+            .remarks(DEFAULT_REMARKS);
         return purchase;
     }
 
@@ -114,7 +114,6 @@ public class PurchaseResourceIntTest {
         int databaseSizeBeforeCreate = purchaseRepository.findAll().size();
 
         // Create the Purchase
-
         restPurchaseMockMvc.perform(post("/api/purchases")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(purchase)))
@@ -136,13 +135,12 @@ public class PurchaseResourceIntTest {
         int databaseSizeBeforeCreate = purchaseRepository.findAll().size();
 
         // Create the Purchase with an existing ID
-        Purchase existingPurchase = new Purchase();
-        existingPurchase.setId(1L);
+        purchase.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPurchaseMockMvc.perform(post("/api/purchases")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingPurchase)))
+            .content(TestUtil.convertObjectToJsonBytes(purchase)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -239,10 +237,10 @@ public class PurchaseResourceIntTest {
         // Update the purchase
         Purchase updatedPurchase = purchaseRepository.findOne(purchase.getId());
         updatedPurchase
-                .date(UPDATED_DATE)
-                .invoiceNumber(UPDATED_INVOICE_NUMBER)
-                .discount(UPDATED_DISCOUNT)
-                .remarks(UPDATED_REMARKS);
+            .date(UPDATED_DATE)
+            .invoiceNumber(UPDATED_INVOICE_NUMBER)
+            .discount(UPDATED_DISCOUNT)
+            .remarks(UPDATED_REMARKS);
 
         restPurchaseMockMvc.perform(put("/api/purchases")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -296,6 +294,7 @@ public class PurchaseResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Purchase.class);
     }

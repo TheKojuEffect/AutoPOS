@@ -90,8 +90,7 @@ public class VehicleResource {
      */
     @GetMapping("/vehicles")
     @Timed
-    public ResponseEntity<List<Vehicle>> getAllVehicles(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<Vehicle>> getAllVehicles(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Vehicles");
         Page<Vehicle> page = vehicleService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/vehicles");

@@ -90,8 +90,7 @@ public class SaleResource {
      */
     @GetMapping("/sales")
     @Timed
-    public ResponseEntity<List<Sale>> getAllSales(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<Sale>> getAllSales(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Sales");
         Page<Sale> page = saleService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/sales");

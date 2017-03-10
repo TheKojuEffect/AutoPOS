@@ -1,16 +1,19 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.kapilkoju.autopos.domain.Customer;
-import com.kapilkoju.autopos.repository.CustomerRepository;
-import com.kapilkoju.autopos.service.CustomerService;
-import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.MockitoAnnotations;
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
@@ -21,13 +24,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.domain.Customer;
+import com.kapilkoju.autopos.repository.CustomerRepository;
+import com.kapilkoju.autopos.service.CustomerService;
+import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 
 /**
  * Test class for the CustomerResource REST controller.
@@ -84,8 +89,8 @@ public class CustomerResourceIntTest {
      */
     public static Customer createEntity(EntityManager em) {
         Customer customer = new Customer()
-                .name(DEFAULT_NAME)
-                .remarks(DEFAULT_REMARKS);
+            .name(DEFAULT_NAME)
+            .remarks(DEFAULT_REMARKS);
         return customer;
     }
 
@@ -100,7 +105,6 @@ public class CustomerResourceIntTest {
         int databaseSizeBeforeCreate = customerRepository.findAll().size();
 
         // Create the Customer
-
         restCustomerMockMvc.perform(post("/api/customers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(customer)))
@@ -120,13 +124,12 @@ public class CustomerResourceIntTest {
         int databaseSizeBeforeCreate = customerRepository.findAll().size();
 
         // Create the Customer with an existing ID
-        Customer existingCustomer = new Customer();
-        existingCustomer.setId(1L);
+        customer.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCustomerMockMvc.perform(post("/api/customers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(existingCustomer)))
+            .content(TestUtil.convertObjectToJsonBytes(customer)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -201,8 +204,8 @@ public class CustomerResourceIntTest {
         // Update the customer
         Customer updatedCustomer = customerRepository.findOne(customer.getId());
         updatedCustomer
-                .name(UPDATED_NAME)
-                .remarks(UPDATED_REMARKS);
+            .name(UPDATED_NAME)
+            .remarks(UPDATED_REMARKS);
 
         restCustomerMockMvc.perform(put("/api/customers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -254,6 +257,7 @@ public class CustomerResourceIntTest {
     }
 
     @Test
+    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Customer.class);
     }

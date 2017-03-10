@@ -90,8 +90,7 @@ public class VendorResource {
      */
     @GetMapping("/vendors")
     @Timed
-    public ResponseEntity<List<Vendor>> getAllVendors(@ApiParam Pageable pageable)
-        throws URISyntaxException {
+    public ResponseEntity<List<Vendor>> getAllVendors(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Vendors");
         Page<Vendor> page = vendorService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/vendors");

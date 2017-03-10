@@ -23,7 +23,8 @@ export class PriceHistoryPopupService {
 
         if (id) {
             this.priceHistoryService.find(id).subscribe(priceHistory => {
-                priceHistory.date = this.datePipe.transform(priceHistory.date, 'yyyy-MM-ddThh:mm');
+                priceHistory.date = this.datePipe
+                    .transform(priceHistory.date, 'yyyy-MM-ddThh:mm');
                 this.priceHistoryModalRef(component, priceHistory);
             });
         } else {
