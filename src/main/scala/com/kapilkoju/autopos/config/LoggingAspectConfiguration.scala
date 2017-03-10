@@ -1,14 +1,16 @@
 package com.kapilkoju.autopos.config
 
 import com.kapilkoju.autopos.aop.logging.LoggingAspect
-import org.springframework.context.annotation.{Bean, Configuration, EnableAspectJAutoProxy, Profile}
+import io.github.jhipster.config.JHipsterConstants
+import org.springframework.context.annotation._
+import org.springframework.core.env.Environment
 
 @Configuration
-@EnableAspectJAutoProxy
-class LoggingAspectConfiguration {
+@EnableAspectJAutoProxy class LoggingAspectConfiguration {
 
   @Bean
-  @Profile(Array("dev"))
-  def loggingAspect: LoggingAspect = new LoggingAspect
-
+  @Profile(Array(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT))
+  def loggingAspect(env: Environment): LoggingAspect = {
+    new LoggingAspect(env)
+  }
 }

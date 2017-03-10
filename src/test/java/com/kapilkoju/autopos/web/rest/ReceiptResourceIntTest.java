@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 
 import com.kapilkoju.autopos.domain.Receipt;
 import com.kapilkoju.autopos.domain.Customer;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ReceiptResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class ReceiptResourceIntTest {
 
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);

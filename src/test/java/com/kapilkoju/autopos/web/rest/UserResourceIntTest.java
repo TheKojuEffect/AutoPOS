@@ -1,12 +1,11 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
-import com.kapilkoju.autopos.domain.User;
-import com.kapilkoju.autopos.repository.UserRepository;
+import com.kapilkoju.autopos.Application;
 import com.kapilkoju.autopos.service.MailService;
-import com.kapilkoju.autopos.service.UserService;
+import com.kapilkoju.autopos.user.domain.User;
+import com.kapilkoju.autopos.user.service.UserRepository;
+import com.kapilkoju.autopos.user.service.UserService;
 import com.kapilkoju.autopos.user.web.UserResource;
-import com.kapilkoju.autopos.service.UserService;
 import com.kapilkoju.autopos.web.rest.errors.ExceptionTranslator;
 import com.kapilkoju.autopos.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -22,7 +21,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -41,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see UserResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class UserResourceIntTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";
@@ -58,9 +56,6 @@ public class UserResourceIntTest {
 
     private static final String DEFAULT_LASTNAME = "doe";
     private static final String UPDATED_LASTNAME = "jhipsterLastName";
-
-    private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
-    private static final String UPDATED_IMAGEURL = "http://placehold.it/40x40";
 
     private static final String DEFAULT_LANGKEY = "en";
     private static final String UPDATED_LANGKEY = "fr";
@@ -115,7 +110,6 @@ public class UserResourceIntTest {
         user.setEmail(DEFAULT_EMAIL);
         user.setFirstName(DEFAULT_FIRSTNAME);
         user.setLastName(DEFAULT_LASTNAME);
-        user.setImageUrl(DEFAULT_IMAGEURL);
         user.setLangKey(DEFAULT_LANGKEY);
         return user;
     }
@@ -141,7 +135,6 @@ public class UserResourceIntTest {
             DEFAULT_LASTNAME,
             DEFAULT_EMAIL,
             true,
-            DEFAULT_IMAGEURL,
             DEFAULT_LANGKEY,
             null,
             null,
@@ -162,7 +155,6 @@ public class UserResourceIntTest {
         assertThat(testUser.getFirstName()).isEqualTo(DEFAULT_FIRSTNAME);
         assertThat(testUser.getLastName()).isEqualTo(DEFAULT_LASTNAME);
         assertThat(testUser.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testUser.getImageUrl()).isEqualTo(DEFAULT_IMAGEURL);
         assertThat(testUser.getLangKey()).isEqualTo(DEFAULT_LANGKEY);
     }
 
@@ -181,7 +173,6 @@ public class UserResourceIntTest {
             DEFAULT_LASTNAME,
             DEFAULT_EMAIL,
             true,
-            DEFAULT_IMAGEURL,
             DEFAULT_LANGKEY,
             null,
             null,
@@ -217,7 +208,6 @@ public class UserResourceIntTest {
             DEFAULT_LASTNAME,
             "anothermail@localhost",
             true,
-            DEFAULT_IMAGEURL,
             DEFAULT_LANGKEY,
             null,
             null,
@@ -253,7 +243,6 @@ public class UserResourceIntTest {
             DEFAULT_LASTNAME,
             DEFAULT_EMAIL, // this email should already be used
             true,
-            DEFAULT_IMAGEURL,
             DEFAULT_LANGKEY,
             null,
             null,
@@ -287,7 +276,6 @@ public class UserResourceIntTest {
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRSTNAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LASTNAME)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
-            .andExpect(jsonPath("$.[*].imageUrl").value(hasItem(DEFAULT_IMAGEURL)))
             .andExpect(jsonPath("$.[*].langKey").value(hasItem(DEFAULT_LANGKEY)));
     }
 
@@ -305,7 +293,6 @@ public class UserResourceIntTest {
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRSTNAME))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LASTNAME))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
-            .andExpect(jsonPath("$.imageUrl").value(DEFAULT_IMAGEURL))
             .andExpect(jsonPath("$.langKey").value(DEFAULT_LANGKEY));
     }
 
@@ -336,11 +323,10 @@ public class UserResourceIntTest {
             UPDATED_LASTNAME,
             UPDATED_EMAIL,
             updatedUser.getActivated(),
-            UPDATED_IMAGEURL,
             UPDATED_LANGKEY,
-            updatedUser.getCreatedBy(),
+            updatedUser.getCreatedBy().getUsername(),
             updatedUser.getCreatedDate(),
-            updatedUser.getLastModifiedBy(),
+            updatedUser.getLastModifiedBy().getUsername(),
             updatedUser.getLastModifiedDate(),
             autorities);
 
@@ -356,7 +342,6 @@ public class UserResourceIntTest {
         assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
         assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
         assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
     }
 
@@ -380,11 +365,10 @@ public class UserResourceIntTest {
             UPDATED_LASTNAME,
             UPDATED_EMAIL,
             updatedUser.getActivated(),
-            UPDATED_IMAGEURL,
             UPDATED_LANGKEY,
-            updatedUser.getCreatedBy(),
+            updatedUser.getCreatedBy().getUsername(),
             updatedUser.getCreatedDate(),
-            updatedUser.getLastModifiedBy(),
+            updatedUser.getLastModifiedBy().getUsername(),
             updatedUser.getLastModifiedDate(),
             autorities);
 
@@ -401,7 +385,6 @@ public class UserResourceIntTest {
         assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
         assertThat(testUser.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testUser.getImageUrl()).isEqualTo(UPDATED_IMAGEURL);
         assertThat(testUser.getLangKey()).isEqualTo(UPDATED_LANGKEY);
     }
 
@@ -418,7 +401,6 @@ public class UserResourceIntTest {
         anotherUser.setEmail("jhipster@localhost");
         anotherUser.setFirstName("java");
         anotherUser.setLastName("hipster");
-        anotherUser.setImageUrl("");
         anotherUser.setLangKey("en");
         userRepository.saveAndFlush(anotherUser);
 
@@ -437,11 +419,10 @@ public class UserResourceIntTest {
             updatedUser.getLastName(),
             "jhipster@localhost",  // this email should already be used by anotherUser
             updatedUser.getActivated(),
-            updatedUser.getImageUrl(),
             updatedUser.getLangKey(),
-            updatedUser.getCreatedBy(),
+            updatedUser.getCreatedBy().getUsername(),
             updatedUser.getCreatedDate(),
-            updatedUser.getLastModifiedBy(),
+            updatedUser.getLastModifiedBy().getUsername(),
             updatedUser.getLastModifiedDate(),
             autorities);
 
@@ -464,7 +445,6 @@ public class UserResourceIntTest {
         anotherUser.setEmail("jhipster@localhost");
         anotherUser.setFirstName("java");
         anotherUser.setLastName("hipster");
-        anotherUser.setImageUrl("");
         anotherUser.setLangKey("en");
         userRepository.saveAndFlush(anotherUser);
         int databaseSizeBeforeUpdate = userRepository.findAll().size();
@@ -482,11 +462,10 @@ public class UserResourceIntTest {
             updatedUser.getLastName(),
             updatedUser.getEmail(),
             updatedUser.getActivated(),
-            updatedUser.getImageUrl(),
             updatedUser.getLangKey(),
-            updatedUser.getCreatedBy(),
+            updatedUser.getCreatedBy().getUsername(),
             updatedUser.getCreatedDate(),
-            updatedUser.getLastModifiedBy(),
+            updatedUser.getLastModifiedBy().getUsername(),
             updatedUser.getLastModifiedDate(),
             autorities);
 

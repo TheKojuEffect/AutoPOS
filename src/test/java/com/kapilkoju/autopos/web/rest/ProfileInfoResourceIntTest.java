@@ -1,7 +1,7 @@
 package com.kapilkoju.autopos.web.rest;
 
 import io.github.jhipster.config.JHipsterProperties;
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ProfileInfoResource
  **/
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class ProfileInfoResourceIntTest {
 
     @Mock

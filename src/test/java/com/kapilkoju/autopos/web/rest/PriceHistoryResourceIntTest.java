@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 import com.kapilkoju.autopos.domain.Item;
 import com.kapilkoju.autopos.domain.PriceHistory;
 import com.kapilkoju.autopos.repository.PriceHistoryRepository;
@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see PriceHistoryResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class PriceHistoryResourceIntTest {
 
     private static final LocalDateTime DEFAULT_DATE = LocalDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);

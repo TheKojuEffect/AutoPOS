@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 import com.kapilkoju.autopos.web.rest.vm.LoggerVM;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see LogsResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class LogsResourceIntTest {
 
     private MockMvc restLogsMockMvc;

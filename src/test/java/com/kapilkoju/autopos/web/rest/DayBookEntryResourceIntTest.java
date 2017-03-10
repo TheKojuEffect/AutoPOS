@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 import com.kapilkoju.autopos.domain.DayBookEntry;
 import com.kapilkoju.autopos.repository.DayBookEntryRepository;
 import com.kapilkoju.autopos.service.DayBookEntryService;
@@ -43,7 +43,7 @@ import org.mockito.MockitoAnnotations;
  * @see DayBookEntryResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class DayBookEntryResourceIntTest {
 
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);

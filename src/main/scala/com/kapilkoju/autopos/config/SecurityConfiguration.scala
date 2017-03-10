@@ -24,9 +24,9 @@ import org.springframework.web.filter.CorsFilter
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 class SecurityConfiguration(val authenticationManagerBuilder: AuthenticationManagerBuilder,
-                             val userDetailsService: UserDetailsService,
-                             val tokenProvider: TokenProvider,
-                             val corsFilter: CorsFilter)
+                            override val userDetailsService: UserDetailsService,
+                            val tokenProvider: TokenProvider,
+                            val corsFilter: CorsFilter)
   extends WebSecurityConfigurerAdapter {
 
   @PostConstruct def init() {
@@ -50,7 +50,6 @@ class SecurityConfiguration(val authenticationManagerBuilder: AuthenticationMana
   }
 
 
-
   @throws[Exception]
   override def configure(web: WebSecurity) {
     web.ignoring
@@ -68,26 +67,26 @@ class SecurityConfiguration(val authenticationManagerBuilder: AuthenticationMana
       .addFilterBefore(corsFilter, classOf[UsernamePasswordAuthenticationFilter])
       .exceptionHandling.authenticationEntryPoint(http401UnauthorizedEntryPoint)
       .and
-        .csrf.disable
-        .headers.frameOptions.disable
+      .csrf.disable
+      .headers.frameOptions.disable
       .and
-        .sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      .sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and
-        .authorizeRequests
-        .antMatchers("/api/register").permitAll
-        .antMatchers("/api/activate").permitAll
-        .antMatchers("/api/authenticate").permitAll
-        .antMatchers("/api/account/reset_password/init").permitAll
-        .antMatchers("/api/account/reset_password/finish").permitAll
-        .antMatchers("/api/profile-info").permitAll
-        .antMatchers("/api/**").authenticated
-        .antMatchers("/management/health").permitAll
-        .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-        .antMatchers("/v2/api-docs/**").permitAll
-        .antMatchers("/swagger-resources/configuration/ui").permitAll
-        .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
+      .authorizeRequests
+      .antMatchers("/api/register").permitAll
+      .antMatchers("/api/activate").permitAll
+      .antMatchers("/api/authenticate").permitAll
+      .antMatchers("/api/account/reset_password/init").permitAll
+      .antMatchers("/api/account/reset_password/finish").permitAll
+      .antMatchers("/api/profile-info").permitAll
+      .antMatchers("/api/**").authenticated
+      .antMatchers("/management/health").permitAll
+      .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
+      .antMatchers("/v2/api-docs/**").permitAll
+      .antMatchers("/swagger-resources/configuration/ui").permitAll
+      .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
       .and
-        .apply(securityConfigurerAdapter)
+      .apply(securityConfigurerAdapter)
   }
 
   private def securityConfigurerAdapter: JWTConfigurer = new JWTConfigurer(tokenProvider)

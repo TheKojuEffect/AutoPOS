@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.service;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 import com.kapilkoju.autopos.config.Constants;
 import com.kapilkoju.autopos.service.util.RandomUtil;
 import com.kapilkoju.autopos.user.domain.User;
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see UserService
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 @Transactional
 public class UserServiceIntTest {
 

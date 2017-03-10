@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 import com.kapilkoju.autopos.domain.Customer;
 import com.kapilkoju.autopos.repository.CustomerRepository;
 import com.kapilkoju.autopos.service.CustomerService;
@@ -40,7 +40,7 @@ import org.mockito.MockitoAnnotations;
  * @see CustomerResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class CustomerResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

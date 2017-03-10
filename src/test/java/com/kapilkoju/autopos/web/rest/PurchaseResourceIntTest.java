@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 import com.kapilkoju.autopos.domain.Purchase;
 import com.kapilkoju.autopos.repository.PurchaseRepository;
 import com.kapilkoju.autopos.service.PurchaseService;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see PurchaseResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class PurchaseResourceIntTest {
 
     private static final LocalDateTime DEFAULT_DATE = LocalDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);

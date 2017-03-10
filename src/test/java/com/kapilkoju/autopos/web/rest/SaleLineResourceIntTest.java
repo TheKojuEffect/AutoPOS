@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 
 import com.kapilkoju.autopos.domain.SaleLine;
 import com.kapilkoju.autopos.domain.Sale;
@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see SaleLineResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class SaleLineResourceIntTest {
 
     private static final String DEFAULT_BUYER = "AAAAAAAAAA";

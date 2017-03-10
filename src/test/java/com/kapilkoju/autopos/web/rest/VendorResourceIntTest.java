@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 
 import com.kapilkoju.autopos.domain.Vendor;
 import com.kapilkoju.autopos.repository.VendorRepository;
@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see VendorResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class VendorResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

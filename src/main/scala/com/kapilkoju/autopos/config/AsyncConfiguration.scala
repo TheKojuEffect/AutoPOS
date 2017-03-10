@@ -2,7 +2,8 @@ package com.kapilkoju.autopos.config
 
 import java.util.concurrent.Executor
 
-import com.kapilkoju.autopos.async.ExceptionHandlingAsyncTaskExecutor
+import io.github.jhipster.async.ExceptionHandlingAsyncTaskExecutor
+import io.github.jhipster.config.JHipsterProperties
 import org.slf4j.{Logger, LoggerFactory}
 import org.springframework.aop.interceptor.{AsyncUncaughtExceptionHandler, SimpleAsyncUncaughtExceptionHandler}
 import org.springframework.context.annotation.{Bean, Configuration}
@@ -12,7 +13,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 @Configuration
 @EnableAsync
 @EnableScheduling
-class AsyncConfiguration(private val jHipsterProperties: AutoposProperties)
+class AsyncConfiguration(val jHipsterProperties: JHipsterProperties)
   extends AsyncConfigurer {
 
   final private val log: Logger = LoggerFactory.getLogger(classOf[AsyncConfiguration])

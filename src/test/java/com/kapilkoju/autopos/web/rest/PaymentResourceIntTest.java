@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.kapilkoju.autopos.AutoPosApp;
+import com.kapilkoju.autopos.Application;
 
 import com.kapilkoju.autopos.domain.Payment;
 import com.kapilkoju.autopos.domain.Vendor;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see PaymentResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AutoPosApp.class)
+@SpringBootTest(classes = Application.class)
 public class PaymentResourceIntTest {
 
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);

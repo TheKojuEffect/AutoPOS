@@ -209,6 +209,10 @@ public class UserService {
         return userRepository.findOneWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin()).orElse(null);
     }
 
+    public User getSystemUser() {
+        return userRepository.findOne(1L);
+    }
+
 
     /**
      * Not activated users should be automatically deleted after 3 days.
