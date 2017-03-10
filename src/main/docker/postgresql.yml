@@ -1,0 +1,11 @@
+version: '2'
+services:
+    autopos-postgresql:
+        image: postgres:9.5.4
+        # volumes:
+        #     - ~/volumes/jhipster/AutoPOS/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=AutoPOS
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

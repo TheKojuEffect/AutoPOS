@@ -1,0 +1,41 @@
+
+<div *ngIf="dayBookEntry">
+    <h2><span jhiTranslate="autoPosApp.dayBookEntry.detail.title">Day Book Entry</span> {{dayBookEntry.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="autoPosApp.dayBookEntry.date">Date</span></dt>
+        <dd>
+            <span>{{dayBookEntry.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.dayBookEntry.incomingAmount">Incoming Amount</span></dt>
+        <dd>
+            <span>{{dayBookEntry.incomingAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.dayBookEntry.outgoingAmount">Outgoing Amount</span></dt>
+        <dd>
+            <span>{{dayBookEntry.outgoingAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.dayBookEntry.miscExpenses">Misc Expenses</span></dt>
+        <dd>
+            <span>{{dayBookEntry.miscExpenses}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.dayBookEntry.remarks">Remarks</span></dt>
+        <dd>
+            <span>{{dayBookEntry.remarks}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'day-book-entry/'+ dayBookEntry.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
