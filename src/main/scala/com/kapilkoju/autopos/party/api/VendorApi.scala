@@ -59,7 +59,7 @@ class VendorApi(repo: VendorRepo, vendorService: VendorService) {
   @Timed
   def update(@PathVariable("id") id: Long, @RequestBody @Valid vendor: Vendor): ResponseEntity[Vendor] = {
 
-    Assert.isTrue(vendor.getId == id)
+    Assert.isTrue(vendor.getId == id, "id of vendor to be updated should not be null")
 
     val updatedEntity = repo.save(vendor)
     ResponseEntity
@@ -71,7 +71,7 @@ class VendorApi(repo: VendorRepo, vendorService: VendorService) {
   @PutMapping
   @Timed
   def updateEntity(@RequestBody @Valid vendor: Vendor): ResponseEntity[Vendor] = {
-    Assert.isTrue(vendor.getId != null)
+    Assert.isTrue(vendor.getId != null, "id of vendor to be updated should not be null")
     update(vendor.getId, vendor)
   }
 

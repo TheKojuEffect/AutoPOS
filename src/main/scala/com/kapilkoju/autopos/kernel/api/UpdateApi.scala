@@ -16,7 +16,7 @@ trait UpdateApi[T <: AuditableBaseEntity] {
   @Timed
   def update(@PathVariable("id") id: Long, @RequestBody @Valid entity: T): ResponseEntity[T] = {
 
-    Assert.isTrue(entity.getId == id)
+    Assert.isTrue(entity.getId == id, "id of entity to be updated should not be null")
 
     val updatedEntity = repo.save(entity)
     ResponseEntity
@@ -28,7 +28,7 @@ trait UpdateApi[T <: AuditableBaseEntity] {
   @PutMapping
   @Timed
   def updateEntity(@RequestBody @Valid entity: T): ResponseEntity[T] = {
-    Assert.isTrue(entity.getId != null)
+    Assert.isTrue(entity.getId != null, "id of entity to be updated should not be null")
     update(entity.getId, entity)
   }
 }

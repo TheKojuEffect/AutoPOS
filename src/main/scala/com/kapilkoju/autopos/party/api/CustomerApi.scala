@@ -59,7 +59,7 @@ class CustomerApi(repo: CustomerRepo, customerService: CustomerService) {
   @Timed
   def update(@PathVariable("id") id: Long, @RequestBody @Valid customer: Customer): ResponseEntity[Customer] = {
 
-    Assert.isTrue(customer.getId == id)
+    Assert.isTrue(customer.getId == id, "id of customer to be updated should not be null")
 
     val updatedEntity = repo.save(customer)
     ResponseEntity
@@ -71,7 +71,7 @@ class CustomerApi(repo: CustomerRepo, customerService: CustomerService) {
   @PutMapping
   @Timed
   def updateEntity(@RequestBody @Valid customer: Customer): ResponseEntity[Customer] = {
-    Assert.isTrue(customer.getId != null)
+    Assert.isTrue(customer.getId != null, "id of customer to be updated should not be null")
     update(customer.getId, customer)
   }
 
