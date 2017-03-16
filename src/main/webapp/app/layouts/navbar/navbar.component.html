@@ -16,6 +16,49 @@
                     <span jhiTranslate="global.menu.home">Home</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                    <i class="fa fa-th-list" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.catalog">Catalog</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.sales">Sales</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.purchases">Purchases</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.party">Party</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                    <i class="fa fa-exchange" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.transaction">Transaction</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.accounting">Accounting</span>
+                </a>
+            </li>
+
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer">
                 <a class="nav-link dropdown-toggle" routerLinkActive="active" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
