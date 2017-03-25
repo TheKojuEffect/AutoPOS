@@ -24,6 +24,7 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
+import { AutoPosCatalogModule } from './catalog/catalog.module';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {
         AutoPosHomeModule,
         AutoPosAdminModule,
         AutoPosAccountModule,
+        AutoPosCatalogModule,
         AutoPosEntityModule
     ],
     declarations: [
