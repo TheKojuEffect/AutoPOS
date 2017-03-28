@@ -1,31 +1,17 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AutoPosSharedModule } from '../../shared';
 
-import {
-    ItemService,
-    ItemPopupService,
-    ItemComponent,
-    ItemDetailComponent,
-    ItemDialogComponent,
-    ItemPopupComponent,
-    ItemDeletePopupComponent,
-    ItemDeleteDialogComponent,
-    itemRoute,
-    itemPopupRoute,
-    ItemResolvePagingParams,
-} from './';
+import { ItemComponent, ItemDetailComponent, ItemPopupService, ItemResolvePagingParams, ItemService } from './';
+import { ItemDeleteDialogComponent, ItemDeletePopupComponent } from './item-delete-dialog.component';
+import { ItemDialogComponent, ItemPopupComponent } from './item-dialog.component';
+import { ItemRoutingModule } from './item-routing.module';
 
-let ENTITY_STATES = [
-    ...itemRoute,
-    ...itemPopupRoute,
-];
 
 @NgModule({
     imports: [
         AutoPosSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        ItemRoutingModule
     ],
     declarations: [
         ItemComponent,
@@ -45,8 +31,9 @@ let ENTITY_STATES = [
     providers: [
         ItemService,
         ItemPopupService,
-        ItemResolvePagingParams,
+        ItemResolvePagingParams
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosItemModule {}
+export class AutoPosItemModule {
+}

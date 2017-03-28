@@ -17,6 +17,8 @@ import {
     HasAnyAuthorityDirective,
     AposLoginModalComponent
 } from './';
+import { PaginationConfig } from '../blocks/config/uib-pagination.config';
+import { customHttpProvider } from '../blocks/interceptor/http.provider';
 
 @NgModule({
     imports: [
@@ -38,7 +40,9 @@ import {
         AuthServerProvider,
         AuthService,
         UserService,
-        DatePipe
+        DatePipe,
+        customHttpProvider(),
+        PaginationConfig
     ],
     entryComponents: [AposLoginModalComponent],
     exports: [

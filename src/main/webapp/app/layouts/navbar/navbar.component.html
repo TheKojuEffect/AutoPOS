@@ -15,15 +15,8 @@
 
         <ul class="navbar-nav ml-auto">
 
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    <span jhiTranslate="global.menu.home">Home</span>
-                </a>
-            </li>
-
             <li *ngSwitchCase="true" class="nav-item">
-                <a class="nav-link" routerLink="catalog" (click)="collapseNavbar()">
+                <a class="nav-link" routerLink="catalog/item" (click)="collapseNavbar()">
                     <i class="fa fa-th-list" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.catalog">Catalog</span>
                 </a>

@@ -1,23 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AutoPosSharedModule } from '../shared';
 
-import { CATALOG_ROUTE, CatalogComponent } from './';
+import { CatalogComponent } from './';
+import { CatalogRoutingModule } from './catalog-routing.module';
+import { AutoPosItemModule } from '../entities/item/item.module';
 
 
 @NgModule({
     imports: [
         AutoPosSharedModule,
-        RouterModule.forRoot([ CATALOG_ROUTE ], { useHash: true })
+        AutoPosItemModule,
+        CatalogRoutingModule
     ],
     declarations: [
         CatalogComponent,
     ],
-    entryComponents: [
-    ],
-    providers: [
-    ],
+    entryComponents: [],
+    providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosCatalogModule {}
+export class CatalogModule {
+}

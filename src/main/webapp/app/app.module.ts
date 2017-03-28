@@ -24,7 +24,7 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
-import { AutoPosCatalogModule } from './catalog/catalog.module';
+import { CatalogModule } from './catalog/catalog.module';
 
 
 @NgModule({
@@ -36,7 +36,7 @@ import { AutoPosCatalogModule } from './catalog/catalog.module';
         AutoPosHomeModule,
         AutoPosAdminModule,
         AutoPosAccountModule,
-        AutoPosCatalogModule,
+        CatalogModule,
         AutoPosEntityModule
     ],
     declarations: [
@@ -51,8 +51,6 @@ import { AutoPosCatalogModule } from './catalog/catalog.module';
         ProfileService,
         { provide: Window, useValue: window },
         { provide: Document, useValue: document },
-        customHttpProvider(),
-        PaginationConfig,
         UserRouteAccessService
     ],
     bootstrap: [ AposMainComponent ]
