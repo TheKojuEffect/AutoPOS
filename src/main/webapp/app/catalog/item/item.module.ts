@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
-import { AutoPosSharedModule } from '../../shared';
+import { SharedModule } from '../../shared';
 
 import { ItemComponent, ItemDetailComponent, ItemPopupService, ItemResolvePagingParams, ItemService } from './';
 import { ItemDeleteDialogComponent, ItemDeletePopupComponent } from './item-delete-dialog.component';
@@ -10,7 +10,7 @@ import { ItemRoutingModule } from './item-routing.module';
 
 @NgModule({
     imports: [
-        AutoPosSharedModule,
+        SharedModule,
         ItemRoutingModule
     ],
     declarations: [
@@ -35,5 +35,5 @@ import { ItemRoutingModule } from './item-routing.module';
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosItemModule {
+export class ItemModule {
 }

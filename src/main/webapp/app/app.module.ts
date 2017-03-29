@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Ng2Webstorage } from 'ng2-webstorage';
 
-import { AutoPosSharedModule, UserRouteAccessService } from './shared';
+import { SharedModule, UserRouteAccessService } from './shared';
 import { AutoPosHomeModule } from './home/home.module';
 import { AutoPosAdminModule } from './admin/admin.module';
 import { AutoPosAccountModule } from './account/account.module';
@@ -30,7 +30,7 @@ import { CatalogModule } from './catalog/catalog.module';
         BrowserModule,
         LayoutRoutingModule,
         Ng2Webstorage.forRoot({prefix: 'jhi', separator: '-'}),
-        AutoPosSharedModule,
+        SharedModule,
         AutoPosHomeModule,
         AutoPosAdminModule,
         AutoPosAccountModule,

@@ -13,11 +13,11 @@ import {
     CategoryRoutingModule,
     CategoryService
 } from './';
-import { AutoPosSharedModule } from '../../shared';
+import { SharedModule } from '../../shared';
 
 @NgModule({
     imports: [
-        AutoPosSharedModule,
+        SharedModule,
         CategoryRoutingModule
     ],
     declarations: [
@@ -42,5 +42,5 @@ import { AutoPosSharedModule } from '../../shared';
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosCategoryModule {
+export class CategoryModule {
 }

@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AutoPosSharedModule } from '../../shared';
+import { SharedModule } from '../../shared';
 
 import {
     PriceHistoryComponent,
@@ -22,7 +22,7 @@ let ENTITY_STATES = [
 
 @NgModule({
     imports: [
-        AutoPosSharedModule,
+        SharedModule,
         RouterModule.forRoot(ENTITY_STATES, {useHash: true})
     ],
     declarations: [

@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
-import { AutoPosSharedModule } from '../../shared';
+import { SharedModule } from '../../shared';
 
 import {
     TagComponent,
@@ -17,7 +17,7 @@ import {
 
 @NgModule({
     imports: [
-        AutoPosSharedModule,
+        SharedModule,
         TagRoutingModule
     ],
     declarations: [
@@ -42,5 +42,5 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosTagModule {
+export class TagModule {
 }

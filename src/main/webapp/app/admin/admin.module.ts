@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ParseLinks } from 'ng-jhipster';
 
-import { AutoPosSharedModule } from '../shared';
+import { SharedModule } from '../shared';
 
 import {
     adminState,
@@ -33,7 +33,7 @@ import {
 
 @NgModule({
     imports: [
-        AutoPosSharedModule,
+        SharedModule,
         RouterModule.forRoot(adminState, { useHash: true })
     ],
     declarations: [
