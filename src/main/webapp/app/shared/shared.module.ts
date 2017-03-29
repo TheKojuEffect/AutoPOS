@@ -1,24 +1,22 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 import {
-    AutoPosSharedLibsModule,
-    AutoPosSharedCommonModule,
-    CSRFService,
-    AuthService,
-    AuthServerProvider,
     AccountService,
-    UserService,
-    StateStorageService,
-    LoginService,
-    LoginModalService,
-    Principal,
+    AposLoginModalComponent,
+    AuthServerProvider,
+    AuthService,
+    AutoPosSharedCommonModule,
+    AutoPosSharedLibsModule,
+    CSRFService,
     HasAnyAuthorityDirective,
-    AposLoginModalComponent
+    LoginModalService,
+    LoginService,
+    Principal,
+    StateStorageService,
+    UserService
 } from './';
-import { PaginationConfig } from '../blocks/config/uib-pagination.config';
-import { customHttpProvider } from '../blocks/interceptor/http.provider';
 
 @NgModule({
     imports: [
@@ -40,9 +38,7 @@ import { customHttpProvider } from '../blocks/interceptor/http.provider';
         AuthServerProvider,
         AuthService,
         UserService,
-        DatePipe,
-        customHttpProvider(),
-        PaginationConfig
+        DatePipe
     ],
     entryComponents: [AposLoginModalComponent],
     exports: [
@@ -54,4 +50,5 @@ import { customHttpProvider } from '../blocks/interceptor/http.provider';
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
-export class AutoPosSharedModule {}
+export class AutoPosSharedModule {
+}
