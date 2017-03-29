@@ -9,9 +9,9 @@ import { DateUtils, DataUtils } from 'ng-jhipster';
 import { JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../helpers/mock-language.service';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
-import { PriceHistoryDetailComponent } from '../../../../../../main/webapp/app/entities/price-history/price-history-detail.component';
-import { PriceHistoryService } from '../../../../../../main/webapp/app/entities/price-history/price-history.service';
-import { PriceHistory } from '../../../../../../main/webapp/app/entities/price-history/price-history.model';
+import { PriceHistoryDetailComponent } from '../../../../../../main/webapp/app/catalog/price-history/price-history-detail.component';
+import { PriceHistoryService } from '../../../../../../main/webapp/app/catalog/price-history/price-history.service';
+import { PriceHistory } from '../../../../../../main/webapp/app/catalog/price-history/price-history.model';
 
 describe('Component Tests', () => {
 

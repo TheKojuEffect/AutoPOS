@@ -4,13 +4,19 @@ import { AutoPosSharedModule } from '../shared';
 
 import { CatalogComponent } from './';
 import { CatalogRoutingModule } from './catalog-routing.module';
-import { AutoPosItemModule } from '../entities/item/item.module';
+import { AutoPosItemModule } from './item/item.module';
+import { AutoPosCategoryModule } from './category/category.module';
+import { AutoPosBrandModule } from './brand/brand.module';
+import { AutoPosTagModule } from './tag/tag.module';
 
 
 @NgModule({
     imports: [
         AutoPosSharedModule,
         AutoPosItemModule,
+        AutoPosCategoryModule,
+        AutoPosBrandModule,
+        AutoPosTagModule,
         CatalogRoutingModule
     ],
     declarations: [

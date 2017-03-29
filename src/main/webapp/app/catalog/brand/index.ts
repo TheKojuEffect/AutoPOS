@@ -6,3 +6,4 @@ export * from './brand-delete-dialog.component';
 export * from './brand-detail.component';
 export * from './brand.component';
 export * from './brand.route';
+export * from './brand-routing.module';

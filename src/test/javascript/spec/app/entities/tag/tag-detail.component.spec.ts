@@ -9,9 +9,9 @@ import { DateUtils, DataUtils } from 'ng-jhipster';
 import { JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../helpers/mock-language.service';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
-import { TagDetailComponent } from '../../../../../../main/webapp/app/entities/tag/tag-detail.component';
-import { TagService } from '../../../../../../main/webapp/app/entities/tag/tag.service';
-import { Tag } from '../../../../../../main/webapp/app/entities/tag/tag.model';
+import { TagDetailComponent } from '../../../../../../main/webapp/app/catalog/tag/tag-detail.component';
+import { TagService } from '../../../../../../main/webapp/app/catalog/tag/tag.service';
+import { Tag } from '../../../../../../main/webapp/app/catalog/tag/tag.model';
 
 describe('Component Tests', () => {
 

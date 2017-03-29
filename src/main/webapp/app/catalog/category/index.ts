@@ -6,3 +6,4 @@ export * from './category-delete-dialog.component';
 export * from './category-detail.component';
 export * from './category.component';
 export * from './category.route';
+export * from './category-routing.module';

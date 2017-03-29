@@ -9,7 +9,8 @@ import { PurchaseLine } from './purchase-line.model';
 import { PurchaseLinePopupService } from './purchase-line-popup.service';
 import { PurchaseLineService } from './purchase-line.service';
 import { Purchase, PurchaseService } from '../purchase';
-import { Item, ItemService } from '../item';
+import { Item, ItemService } from '../../catalog/item';
+
 @Component({
     selector: 'apos-purchase-line-dialog',
     templateUrl: './purchase-line-dialog.component.html'

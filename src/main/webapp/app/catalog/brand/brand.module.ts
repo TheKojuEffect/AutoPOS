@@ -1,31 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { AutoPosSharedModule } from '../../shared';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import {
-    BrandService,
-    BrandPopupService,
     BrandComponent,
+    BrandDeleteDialogComponent,
+    BrandDeletePopupComponent,
     BrandDetailComponent,
     BrandDialogComponent,
     BrandPopupComponent,
-    BrandDeletePopupComponent,
-    BrandDeleteDialogComponent,
-    brandRoute,
-    brandPopupRoute,
+    BrandPopupService,
     BrandResolvePagingParams,
+    BrandRoutingModule,
+    BrandService
 } from './';
 
-let ENTITY_STATES = [
-    ...brandRoute,
-    ...brandPopupRoute,
-];
+import { AutoPosSharedModule } from '../../shared';
 
 @NgModule({
     imports: [
         AutoPosSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        BrandRoutingModule
     ],
     declarations: [
         BrandComponent,
@@ -49,4 +42,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosBrandModule {}
+export class AutoPosBrandModule {
+}

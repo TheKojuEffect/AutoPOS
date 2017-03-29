@@ -6,3 +6,4 @@ export * from './tag-delete-dialog.component';
 export * from './tag-detail.component';
 export * from './tag.component';
 export * from './tag.route';
+export * from './tag-routing.module';

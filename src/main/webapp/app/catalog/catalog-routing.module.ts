@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserRouteAccessService } from '../shared';
 import { CatalogComponent } from './';
 import { NgModule } from '@angular/core';
-import { itemRoutes } from '../entities/item/item.route';
+import { itemRoutes } from './item';
+import { categoryRoutes } from './category';
+import { brandRoutes } from './brand';
+import { tagRoutes } from './tag';
 
 export const catalogRoutes: Routes = [
     {
@@ -15,7 +18,10 @@ export const catalogRoutes: Routes = [
         },
         canActivate: [UserRouteAccessService],
         children: [
-            ...itemRoutes
+            ...itemRoutes,
+            ...categoryRoutes,
+            ...brandRoutes,
+            ...tagRoutes
         ]
     }
 ];

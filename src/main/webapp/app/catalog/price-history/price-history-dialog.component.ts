@@ -1,14 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { PriceHistory } from './price-history.model';
 import { PriceHistoryPopupService } from './price-history-popup.service';
 import { PriceHistoryService } from './price-history.service';
 import { Item, ItemService } from '../item';
+
 @Component({
     selector: 'apos-price-history-dialog',
     templateUrl: './price-history-dialog.component.html'
@@ -20,14 +21,13 @@ export class PriceHistoryDialogComponent implements OnInit {
     isSaving: boolean;
 
     items: Item[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private priceHistoryService: PriceHistoryService,
-        private itemService: ItemService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private priceHistoryService: PriceHistoryService,
+                private itemService: ItemService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['priceHistory']);
     }
 
@@ -35,13 +35,16 @@ export class PriceHistoryDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.itemService.query().subscribe(
-            (res: Response) => { this.items = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.items = res.json();
+            }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.priceHistory.id !== undefined) {
             this.priceHistoryService.update(this.priceHistory)
@@ -54,18 +57,18 @@ export class PriceHistoryDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: PriceHistory) {
-        this.eventManager.broadcast({ name: 'priceHistoryListModification', content: 'OK'});
+    private onSaveSuccess(result: PriceHistory) {
+        this.eventManager.broadcast({name: 'priceHistoryListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -83,14 +86,13 @@ export class PriceHistoryPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private priceHistoryPopupService: PriceHistoryPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private priceHistoryPopupService: PriceHistoryPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.priceHistoryPopupService
                     .open(PriceHistoryDialogComponent, params['id']);
             } else {

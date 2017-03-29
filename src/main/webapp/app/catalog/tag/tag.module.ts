@@ -1,31 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AutoPosSharedModule } from '../../shared';
 
 import {
-    TagService,
-    TagPopupService,
     TagComponent,
+    TagDeleteDialogComponent,
+    TagDeletePopupComponent,
     TagDetailComponent,
     TagDialogComponent,
     TagPopupComponent,
-    TagDeletePopupComponent,
-    TagDeleteDialogComponent,
-    tagRoute,
-    tagPopupRoute,
+    TagPopupService,
     TagResolvePagingParams,
+    TagRoutingModule,
+    TagService
 } from './';
-
-let ENTITY_STATES = [
-    ...tagRoute,
-    ...tagPopupRoute,
-];
 
 @NgModule({
     imports: [
         AutoPosSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        TagRoutingModule
     ],
     declarations: [
         TagComponent,
@@ -49,4 +42,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosTagModule {}
+export class AutoPosTagModule {
+}

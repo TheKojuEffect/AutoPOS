@@ -1,31 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
-import { AutoPosSharedModule } from '../../shared';
 
 import {
-    CategoryService,
-    CategoryPopupService,
     CategoryComponent,
+    CategoryDeleteDialogComponent,
+    CategoryDeletePopupComponent,
     CategoryDetailComponent,
     CategoryDialogComponent,
     CategoryPopupComponent,
-    CategoryDeletePopupComponent,
-    CategoryDeleteDialogComponent,
-    categoryRoute,
-    categoryPopupRoute,
+    CategoryPopupService,
     CategoryResolvePagingParams,
+    CategoryRoutingModule,
+    CategoryService
 } from './';
-
-let ENTITY_STATES = [
-    ...categoryRoute,
-    ...categoryPopupRoute,
-];
+import { AutoPosSharedModule } from '../../shared';
 
 @NgModule({
     imports: [
         AutoPosSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        CategoryRoutingModule
     ],
     declarations: [
         CategoryComponent,
@@ -49,4 +42,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosCategoryModule {}
+export class AutoPosCategoryModule {
+}

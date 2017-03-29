@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { itemPopupRoutes } from './item.route';
+import { tagPopupRoutes } from './';
 
 @NgModule({
     imports: [
-        RouterModule.forChild(itemPopupRoutes)
+        RouterModule.forChild(tagPopupRoutes)
     ],
     exports: [
         RouterModule
     ]
 })
-export class ItemRoutingModule {
+export class TagRoutingModule {
 }

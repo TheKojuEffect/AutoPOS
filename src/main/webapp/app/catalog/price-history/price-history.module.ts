@@ -1,19 +1,18 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { AutoPosSharedModule } from '../../shared';
 
 import {
-    PriceHistoryService,
-    PriceHistoryPopupService,
     PriceHistoryComponent,
+    PriceHistoryDeleteDialogComponent,
+    PriceHistoryDeletePopupComponent,
     PriceHistoryDetailComponent,
     PriceHistoryDialogComponent,
     PriceHistoryPopupComponent,
-    PriceHistoryDeletePopupComponent,
-    PriceHistoryDeleteDialogComponent,
-    priceHistoryRoute,
     priceHistoryPopupRoute,
+    PriceHistoryPopupService,
+    priceHistoryRoute,
+    PriceHistoryService
 } from './';
 
 let ENTITY_STATES = [
@@ -24,7 +23,7 @@ let ENTITY_STATES = [
 @NgModule({
     imports: [
         AutoPosSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
     ],
     declarations: [
         PriceHistoryComponent,
@@ -47,4 +46,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosPriceHistoryModule {}
+export class AutoPosPriceHistoryModule {
+}

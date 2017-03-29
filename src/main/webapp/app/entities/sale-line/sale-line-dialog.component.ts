@@ -1,15 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { SaleLine } from './sale-line.model';
 import { SaleLinePopupService } from './sale-line-popup.service';
 import { SaleLineService } from './sale-line.service';
 import { Sale, SaleService } from '../sale';
-import { Item, ItemService } from '../item';
+import { Item, ItemService } from '../../catalog/item';
+
 @Component({
     selector: 'apos-sale-line-dialog',
     templateUrl: './sale-line-dialog.component.html'

@@ -9,9 +9,9 @@ import { DateUtils, DataUtils } from 'ng-jhipster';
 import { JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../helpers/mock-language.service';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
-import { BrandDetailComponent } from '../../../../../../main/webapp/app/entities/brand/brand-detail.component';
-import { BrandService } from '../../../../../../main/webapp/app/entities/brand/brand.service';
-import { Brand } from '../../../../../../main/webapp/app/entities/brand/brand.model';
+import { BrandDetailComponent } from '../../../../../../main/webapp/app/catalog/brand/brand-detail.component';
+import { BrandService } from '../../../../../../main/webapp/app/catalog/brand/brand.service';
+import { Brand } from '../../../../../../main/webapp/app/catalog/brand/brand.model';
 
 describe('Component Tests', () => {
 
