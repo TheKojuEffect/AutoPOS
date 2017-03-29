@@ -13,6 +13,7 @@ import com.kapilkoju.autopos.kernel.domain.AbstractEntity
 import com.kapilkoju.autopos.party.domain.PartyDomainPackage
 import com.kapilkoju.autopos.party.service.PartyServicePackage
 import com.kapilkoju.autopos.repository.RepositoryPackage
+import com.kapilkoju.autopos.security.SecurityUtils
 import com.kapilkoju.autopos.shared.domain.SharedDomainPackage
 import com.kapilkoju.autopos.shared.service.SharedServicePackage
 import com.kapilkoju.autopos.trade.domain.TradeDomainPackage
@@ -34,6 +35,7 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties
 import org.springframework.context.annotation.{Bean, Configuration}
 import org.springframework.core.env.Environment
 import org.springframework.core.task.TaskExecutor
+import org.springframework.data.domain.AuditorAware
 import org.springframework.data.jpa.repository.config.{EnableJpaAuditing, EnableJpaRepositories}
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
@@ -68,7 +70,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[PurchaseDomainPackage],
     classOf[TransactionDomainPackage])
 )
-@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
+@EnableJpaAuditing
 class DatabaseConfiguration(private val env: Environment) {
 
   final private val log: Logger = LoggerFactory.getLogger(classOf[DatabaseConfiguration])
@@ -95,5 +97,10 @@ class DatabaseConfiguration(private val env: Environment) {
 
   @Bean def hibernate5Module: Hibernate5Module = {
     new Hibernate5Module
+  }
+
+  @Bean
+  def auditorAware: AuditorAware[User] = new AuditorAware[User] {
+    override def getCurrentAuditor = SecurityUtils.getCurrentUser
   }
 }

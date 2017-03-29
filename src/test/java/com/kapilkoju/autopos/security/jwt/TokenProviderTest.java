@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class TokenProviderTest {
     @Before
     public void setup() {
         jHipsterProperties = Mockito.mock(JHipsterProperties.class);
-        tokenProvider = new TokenProvider(jHipsterProperties);
+        tokenProvider = new TokenProvider(jHipsterProperties, Mockito.mock(UserDetailsService.class));
         ReflectionTestUtils.setField(tokenProvider, "secretKey", secretKey);
         ReflectionTestUtils.setField(tokenProvider, "tokenValidityInMilliseconds", ONE_MINUTE);
     }

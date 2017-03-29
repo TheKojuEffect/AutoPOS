@@ -1,21 +1,22 @@
 package com.kapilkoju.autopos.security.jwt;
 
 import io.github.jhipster.config.JHipsterProperties;
-
-import java.util.*;
-import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
-
+import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.*;
+import javax.annotation.PostConstruct;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 @Component
 public class TokenProvider {
@@ -32,25 +33,28 @@ public class TokenProvider {
 
     private final JHipsterProperties jHipsterProperties;
 
-    public TokenProvider(JHipsterProperties jHipsterProperties) {
+    private final UserDetailsService userDetailsService;
+
+    public TokenProvider(JHipsterProperties jHipsterProperties, UserDetailsService userDetailsService) {
         this.jHipsterProperties = jHipsterProperties;
+        this.userDetailsService = userDetailsService;
     }
 
     @PostConstruct
     public void init() {
         this.secretKey =
-            jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret();
+                jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret();
 
         this.tokenValidityInMilliseconds =
-            1000 * jHipsterProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSeconds();
+                1000 * jHipsterProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSeconds();
         this.tokenValidityInMillisecondsForRememberMe =
-            1000 * jHipsterProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSecondsForRememberMe();
+                1000 * jHipsterProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSecondsForRememberMe();
     }
 
     public String createToken(Authentication authentication, Boolean rememberMe) {
         String authorities = authentication.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.joining(","));
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
         Date validity;
@@ -61,27 +65,26 @@ public class TokenProvider {
         }
 
         return Jwts.builder()
-            .setSubject(authentication.getName())
-            .claim(AUTHORITIES_KEY, authorities)
-            .signWith(SignatureAlgorithm.HS512, secretKey)
-            .setExpiration(validity)
-            .compact();
+                .setSubject(authentication.getName())
+                .claim(AUTHORITIES_KEY, authorities)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
+                .setExpiration(validity)
+                .compact();
     }
 
     public Authentication getAuthentication(String token) {
         Claims claims = Jwts.parser()
-            .setSigningKey(secretKey)
-            .parseClaimsJws(token)
-            .getBody();
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
 
         Collection<? extends GrantedAuthority> authorities =
-            Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
-
-        return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     public boolean validateToken(String authToken) {
