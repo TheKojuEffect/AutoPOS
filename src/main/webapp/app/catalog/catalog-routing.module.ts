@@ -36,5 +36,5 @@ export const catalogRoutes: Routes = [
         RouterModule
     ]
 })
-export class RoutingModule {
+export class CatalogRoutingModule {
 }

@@ -1,17 +1,16 @@
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
-import { Http, BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions, Http } from '@angular/http';
 import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { DateUtils, DataUtils } from 'ng-jhipster';
-import { JhiLanguageService } from 'ng-jhipster';
+import { DataUtils, DateUtils, JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../helpers/mock-language.service';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
-import { DayBookEntryDetailComponent } from '../../../../../../main/webapp/app/entities/day-book-entry/day-book-entry-detail.component';
-import { DayBookEntryService } from '../../../../../../main/webapp/app/entities/day-book-entry/day-book-entry.service';
-import { DayBookEntry } from '../../../../../../main/webapp/app/entities/day-book-entry/day-book-entry.model';
+import { DayBookEntryDetailComponent } from '../../../../../../main/webapp/app/accounting/day-book-entry/day-book-entry-detail.component';
+import { DayBookEntryService } from '../../../../../../main/webapp/app/accounting/day-book-entry/day-book-entry.service';
+import { DayBookEntry } from '../../../../../../main/webapp/app/accounting/day-book-entry/day-book-entry.model';
 
 describe('Component Tests', () => {
 
@@ -62,16 +61,16 @@ describe('Component Tests', () => {
 
         describe('OnInit', () => {
             it('Should call load all on init', () => {
-            // GIVEN
+                // GIVEN
 
-            spyOn(service, 'find').and.returnValue(Observable.of(new DayBookEntry(10)));
+                spyOn(service, 'find').and.returnValue(Observable.of(new DayBookEntry(10)));
 
-            // WHEN
-            comp.ngOnInit();
+                // WHEN
+                comp.ngOnInit();
 
-            // THEN
-            expect(service.find).toHaveBeenCalledWith(123);
-            expect(comp.dayBookEntry).toEqual(jasmine.objectContaining({id:10}));
+                // THEN
+                expect(service.find).toHaveBeenCalledWith(123);
+                expect(comp.dayBookEntry).toEqual(jasmine.objectContaining({id: 10}));
             });
         });
     });

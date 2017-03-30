@@ -1,31 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
 
 import {
-    DayBookEntryService,
-    DayBookEntryPopupService,
     DayBookEntryComponent,
+    DayBookEntryDeleteDialogComponent,
+    DayBookEntryDeletePopupComponent,
     DayBookEntryDetailComponent,
     DayBookEntryDialogComponent,
     DayBookEntryPopupComponent,
-    DayBookEntryDeletePopupComponent,
-    DayBookEntryDeleteDialogComponent,
-    dayBookEntryRoute,
-    dayBookEntryPopupRoute,
+    DayBookEntryPopupService,
     DayBookEntryResolvePagingParams,
+    DayBookEntryService
 } from './';
-
-let ENTITY_STATES = [
-    ...dayBookEntryRoute,
-    ...dayBookEntryPopupRoute,
-];
+import { DayBookEntryRoutingModule } from '.';
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        DayBookEntryRoutingModule
     ],
     declarations: [
         DayBookEntryComponent,
@@ -49,4 +42,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosDayBookEntryModule {}
+export class DayBookEntryModule {
+}

@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
 
 @Component({
-    templateUrl: './catalog.component.html'
+    templateUrl: './accounting.component.html'
 })
-export class CatalogComponent {
+export class AccountingComponent {
 
     constructor(private jhiLanguageService: JhiLanguageService) {
-        this.jhiLanguageService.setLocations(['catalog']);
+        this.jhiLanguageService.setLocations(['accounting']);
     }
 
 }

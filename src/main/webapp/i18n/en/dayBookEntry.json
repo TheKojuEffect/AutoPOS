@@ -2,7 +2,7 @@
     "autoPosApp": {
         "dayBookEntry" : {
             "home": {
-                "title": "Day Book Entries",
+                "title": "Day Book",
                 "createLabel": "Create a new Day Book Entry",
                 "createOrEditLabel": "Create or edit a Day Book Entry"
             },

@@ -6,3 +6,4 @@ export * from './day-book-entry-delete-dialog.component';
 export * from './day-book-entry-detail.component';
 export * from './day-book-entry.component';
 export * from './day-book-entry.route';
+export * from './day-book-entry-routing.module';
