@@ -105,4 +105,10 @@
         </sql>
     </changeSet>
 
+    <changeSet id="POS-140" author="kplx2.0@gmail.com" dbms="posgresql">
+        <sql>
+            SELECT setval('persistent_audit_event_event_id_seq', nextval('hibernate_sequence'));
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
