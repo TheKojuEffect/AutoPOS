@@ -8,8 +8,6 @@ import { AutoPosSaleModule } from './sale/sale.module';
 import { AutoPosPurchaseModule } from './purchase/purchase.module';
 import { AutoPosPurchaseLineModule } from './purchase-line/purchase-line.module';
 import { AutoPosSaleLineModule } from './sale-line/sale-line.module';
-import { AutoPosPaymentModule } from './payment/payment.module';
-import { AutoPosReceiptModule } from './receipt/receipt.module';
 
 @NgModule({
     imports: [
@@ -21,8 +19,6 @@ import { AutoPosReceiptModule } from './receipt/receipt.module';
         AutoPosPurchaseModule,
         AutoPosPurchaseLineModule,
         AutoPosSaleLineModule,
-        AutoPosPaymentModule,
-        AutoPosReceiptModule,
     ],
     declarations: [],
     entryComponents: [],

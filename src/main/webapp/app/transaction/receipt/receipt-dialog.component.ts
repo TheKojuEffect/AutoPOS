@@ -1,14 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
 import { ReceiptPopupService } from './receipt-popup.service';
 import { ReceiptService } from './receipt.service';
-import { Customer, CustomerService } from '../customer';
+import { Customer, CustomerService } from '../../entities/customer';
+
 @Component({
     selector: 'apos-receipt-dialog',
     templateUrl: './receipt-dialog.component.html'

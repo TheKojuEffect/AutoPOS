@@ -24,6 +24,7 @@ import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { CatalogModule } from './catalog/catalog.module';
 import { AccountingModule } from './accounting/accounting.module';
+import { TransactionModule } from './transaction/transaction.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { AccountingModule } from './accounting/accounting.module';
         AutoPosAdminModule,
         AutoPosAccountModule,
         CatalogModule,
+        TransactionModule,
         AccountingModule,
         AutoPosEntityModule
     ],

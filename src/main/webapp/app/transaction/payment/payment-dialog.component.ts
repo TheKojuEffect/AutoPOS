@@ -1,14 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { Payment } from './payment.model';
 import { PaymentPopupService } from './payment-popup.service';
 import { PaymentService } from './payment.service';
-import { Vendor, VendorService } from '../vendor';
+import { Vendor, VendorService } from '../../entities/vendor';
+
 @Component({
     selector: 'apos-payment-dialog',
     templateUrl: './payment-dialog.component.html'
@@ -20,14 +21,13 @@ export class PaymentDialogComponent implements OnInit {
     isSaving: boolean;
 
     vendors: Vendor[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private paymentService: PaymentService,
-        private vendorService: VendorService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private paymentService: PaymentService,
+                private vendorService: VendorService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['payment']);
     }
 
@@ -35,13 +35,16 @@ export class PaymentDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.vendorService.query().subscribe(
-            (res: Response) => { this.vendors = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.vendors = res.json();
+            }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.payment.id !== undefined) {
             this.paymentService.update(this.payment)
@@ -54,18 +57,18 @@ export class PaymentDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: Payment) {
-        this.eventManager.broadcast({ name: 'paymentListModification', content: 'OK'});
+    private onSaveSuccess(result: Payment) {
+        this.eventManager.broadcast({name: 'paymentListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -83,14 +86,13 @@ export class PaymentPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private paymentPopupService: PaymentPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private paymentPopupService: PaymentPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.paymentPopupService
                     .open(PaymentDialogComponent, params['id']);
             } else {

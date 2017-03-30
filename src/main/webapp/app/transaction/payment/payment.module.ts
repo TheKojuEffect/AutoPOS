@@ -1,31 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
 
 import {
-    PaymentService,
-    PaymentPopupService,
     PaymentComponent,
+    PaymentDeleteDialogComponent,
+    PaymentDeletePopupComponent,
     PaymentDetailComponent,
     PaymentDialogComponent,
     PaymentPopupComponent,
-    PaymentDeletePopupComponent,
-    PaymentDeleteDialogComponent,
-    paymentRoute,
-    paymentPopupRoute,
+    PaymentPopupService,
     PaymentResolvePagingParams,
+    PaymentService
 } from './';
-
-let ENTITY_STATES = [
-    ...paymentRoute,
-    ...paymentPopupRoute,
-];
+import { PaymentRoutingModule } from './payment-routing.module';
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        PaymentRoutingModule
     ],
     declarations: [
         PaymentComponent,
@@ -49,4 +42,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosPaymentModule {}
+export class PaymentModule {
+}

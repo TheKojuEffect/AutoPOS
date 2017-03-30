@@ -9,9 +9,9 @@ import { DateUtils, DataUtils } from 'ng-jhipster';
 import { JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../helpers/mock-language.service';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
-import { PaymentDetailComponent } from '../../../../../../main/webapp/app/entities/payment/payment-detail.component';
-import { PaymentService } from '../../../../../../main/webapp/app/entities/payment/payment.service';
-import { Payment } from '../../../../../../main/webapp/app/entities/payment/payment.model';
+import { PaymentDetailComponent } from '../../../../../../main/webapp/app/transaction/payment/payment-detail.component';
+import { PaymentService } from '../../../../../../main/webapp/app/transaction/payment/payment.service';
+import { Payment } from '../../../../../../main/webapp/app/transaction/payment/payment.model';
 
 describe('Component Tests', () => {
 

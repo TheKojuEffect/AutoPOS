@@ -1,31 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
 
 import {
-    ReceiptService,
-    ReceiptPopupService,
     ReceiptComponent,
+    ReceiptDeleteDialogComponent,
+    ReceiptDeletePopupComponent,
     ReceiptDetailComponent,
     ReceiptDialogComponent,
     ReceiptPopupComponent,
-    ReceiptDeletePopupComponent,
-    ReceiptDeleteDialogComponent,
-    receiptRoute,
-    receiptPopupRoute,
+    ReceiptPopupService,
     ReceiptResolvePagingParams,
+    ReceiptService
 } from './';
-
-let ENTITY_STATES = [
-    ...receiptRoute,
-    ...receiptPopupRoute,
-];
+import { ReceiptRoutingModule } from './receipt-routing.module';
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        ReceiptRoutingModule
     ],
     declarations: [
         ReceiptComponent,
@@ -49,4 +42,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosReceiptModule {}
+export class ReceiptModule {
+}

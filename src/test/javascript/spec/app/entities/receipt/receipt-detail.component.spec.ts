@@ -9,9 +9,9 @@ import { DateUtils, DataUtils } from 'ng-jhipster';
 import { JhiLanguageService } from 'ng-jhipster';
 import { MockLanguageService } from '../../../helpers/mock-language.service';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
-import { ReceiptDetailComponent } from '../../../../../../main/webapp/app/entities/receipt/receipt-detail.component';
-import { ReceiptService } from '../../../../../../main/webapp/app/entities/receipt/receipt.service';
-import { Receipt } from '../../../../../../main/webapp/app/entities/receipt/receipt.model';
+import { ReceiptDetailComponent } from '../../../../../../main/webapp/app/transaction/receipt/receipt-detail.component';
+import { ReceiptService } from '../../../../../../main/webapp/app/transaction/receipt/receipt.service';
+import { Receipt } from '../../../../../../main/webapp/app/transaction/receipt/receipt.model';
 
 describe('Component Tests', () => {
 
