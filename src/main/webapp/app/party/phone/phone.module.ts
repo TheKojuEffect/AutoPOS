@@ -49,4 +49,4 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosPhoneModule {}
+export class PhoneModule {}

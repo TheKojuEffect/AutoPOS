@@ -1,4 +1,4 @@
-import { Vendor } from '../../entities/vendor';
+import { Vendor } from '../../party/vendor';
 
 export class Payment {
     constructor(public id?: number,

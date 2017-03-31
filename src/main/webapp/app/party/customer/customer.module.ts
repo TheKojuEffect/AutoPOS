@@ -1,31 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
 
 import {
-    CustomerService,
-    CustomerPopupService,
     CustomerComponent,
+    CustomerDeleteDialogComponent,
+    CustomerDeletePopupComponent,
     CustomerDetailComponent,
     CustomerDialogComponent,
     CustomerPopupComponent,
-    CustomerDeletePopupComponent,
-    CustomerDeleteDialogComponent,
-    customerRoute,
-    customerPopupRoute,
+    CustomerPopupService,
     CustomerResolvePagingParams,
+    CustomerService
 } from './';
-
-let ENTITY_STATES = [
-    ...customerRoute,
-    ...customerPopupRoute,
-];
+import { CustomerRoutingModule } from './customer-routing.module';
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        CustomerRoutingModule
     ],
     declarations: [
         CustomerComponent,
@@ -49,4 +42,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosCustomerModule {}
+export class CustomerModule {
+}

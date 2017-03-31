@@ -1,31 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
 
 import {
-    VendorService,
-    VendorPopupService,
     VendorComponent,
+    VendorDeleteDialogComponent,
+    VendorDeletePopupComponent,
     VendorDetailComponent,
     VendorDialogComponent,
     VendorPopupComponent,
-    VendorDeletePopupComponent,
-    VendorDeleteDialogComponent,
-    vendorRoute,
-    vendorPopupRoute,
+    VendorPopupService,
     VendorResolvePagingParams,
+    VendorService
 } from './';
-
-let ENTITY_STATES = [
-    ...vendorRoute,
-    ...vendorPopupRoute,
-];
+import { VendorRoutingModule } from './vendor-routing.module';
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        VendorRoutingModule
     ],
     declarations: [
         VendorComponent,
@@ -49,4 +42,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosVendorModule {}
+export class VendorModule {
+}

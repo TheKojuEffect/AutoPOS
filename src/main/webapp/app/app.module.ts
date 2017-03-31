@@ -25,6 +25,7 @@ import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { CatalogModule } from './catalog/catalog.module';
 import { AccountingModule } from './accounting/accounting.module';
 import { TransactionModule } from './transaction/transaction.module';
+import { PartyModule } from './party/party.module';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { TransactionModule } from './transaction/transaction.module';
         AutoPosAdminModule,
         AutoPosAccountModule,
         CatalogModule,
+        PartyModule,
         TransactionModule,
         AccountingModule,
         AutoPosEntityModule

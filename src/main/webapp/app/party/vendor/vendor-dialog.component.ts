@@ -8,7 +8,9 @@ import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 import { Vendor } from './vendor.model';
 import { VendorPopupService } from './vendor-popup.service';
 import { VendorService } from './vendor.service';
-import { Phone, PhoneService } from '../phone';
+import { PhoneService } from '../phone/phone.service';
+import { Phone } from '../phone';
+
 @Component({
     selector: 'apos-vendor-dialog',
     templateUrl: './vendor-dialog.component.html'

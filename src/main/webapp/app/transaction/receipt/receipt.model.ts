@@ -1,4 +1,4 @@
-import { Customer } from '../../entities/customer';
+import { Customer } from '../../party/customer';
 
 export class Receipt {
     constructor(public id?: number,

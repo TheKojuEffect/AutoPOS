@@ -1,31 +1,24 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
 
 import {
-    VehicleService,
-    VehiclePopupService,
     VehicleComponent,
+    VehicleDeleteDialogComponent,
+    VehicleDeletePopupComponent,
     VehicleDetailComponent,
     VehicleDialogComponent,
     VehiclePopupComponent,
-    VehicleDeletePopupComponent,
-    VehicleDeleteDialogComponent,
-    vehicleRoute,
-    vehiclePopupRoute,
+    VehiclePopupService,
     VehicleResolvePagingParams,
+    VehicleService
 } from './';
-
-let ENTITY_STATES = [
-    ...vehicleRoute,
-    ...vehiclePopupRoute,
-];
+import { VehicleRoutingModule } from './vehicle-routing.module';
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        VehicleRoutingModule
     ],
     declarations: [
         VehicleComponent,
@@ -49,4 +42,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosVehicleModule {}
+export class VehicleModule {
+}

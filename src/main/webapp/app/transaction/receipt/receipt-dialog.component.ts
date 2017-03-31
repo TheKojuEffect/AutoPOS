@@ -8,7 +8,7 @@ import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
 import { Receipt } from './receipt.model';
 import { ReceiptPopupService } from './receipt-popup.service';
 import { ReceiptService } from './receipt.service';
-import { Customer, CustomerService } from '../../entities/customer';
+import { Customer, CustomerService } from '../../party/customer';
 
 @Component({
     selector: 'apos-receipt-dialog',
@@ -21,14 +21,13 @@ export class ReceiptDialogComponent implements OnInit {
     isSaving: boolean;
 
     customers: Customer[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private receiptService: ReceiptService,
-        private customerService: CustomerService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private receiptService: ReceiptService,
+                private customerService: CustomerService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['receipt']);
     }
 
@@ -36,13 +35,16 @@ export class ReceiptDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.customerService.query().subscribe(
-            (res: Response) => { this.customers = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.customers = res.json();
+            }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.receipt.id !== undefined) {
             this.receiptService.update(this.receipt)
@@ -55,18 +57,18 @@ export class ReceiptDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: Receipt) {
-        this.eventManager.broadcast({ name: 'receiptListModification', content: 'OK'});
+    private onSaveSuccess(result: Receipt) {
+        this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -84,14 +86,13 @@ export class ReceiptPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private receiptPopupService: ReceiptPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private receiptPopupService: ReceiptPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.receiptPopupService
                     .open(ReceiptDialogComponent, params['id']);
             } else {

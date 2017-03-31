@@ -1,7 +1,7 @@
 {
   "autoPosApp": {
-    "transaction": {
-      "title": "Transaction"
+    "catalog": {
+      "title": "Catalog"
     }
   }
 }

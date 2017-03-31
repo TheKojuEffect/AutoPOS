@@ -8,7 +8,7 @@ import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
 import { Payment } from './payment.model';
 import { PaymentPopupService } from './payment-popup.service';
 import { PaymentService } from './payment.service';
-import { Vendor, VendorService } from '../../entities/vendor';
+import { Vendor, VendorService } from '../../party/vendor';
 
 @Component({
     selector: 'apos-payment-dialog',

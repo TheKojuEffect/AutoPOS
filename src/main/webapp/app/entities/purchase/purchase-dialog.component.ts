@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { Purchase } from './purchase.model';
 import { PurchasePopupService } from './purchase-popup.service';
 import { PurchaseService } from './purchase.service';
-import { Vendor, VendorService } from '../vendor';
+import { Vendor, VendorService } from '../../party/vendor';
 import { PurchaseLine, PurchaseLineService } from '../purchase-line';
 @Component({
     selector: 'apos-purchase-dialog',
@@ -23,15 +23,14 @@ export class PurchaseDialogComponent implements OnInit {
     vendors: Vendor[];
 
     purchaselines: PurchaseLine[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private purchaseService: PurchaseService,
-        private vendorService: VendorService,
-        private purchaseLineService: PurchaseLineService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private purchaseService: PurchaseService,
+                private vendorService: VendorService,
+                private purchaseLineService: PurchaseLineService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['purchase']);
     }
 
@@ -39,15 +38,20 @@ export class PurchaseDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.vendorService.query().subscribe(
-            (res: Response) => { this.vendors = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.vendors = res.json();
+            }, (res: Response) => this.onError(res.json()));
         this.purchaseLineService.query().subscribe(
-            (res: Response) => { this.purchaselines = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.purchaselines = res.json();
+            }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.purchase.id !== undefined) {
             this.purchaseService.update(this.purchase)
@@ -60,18 +64,18 @@ export class PurchaseDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: Purchase) {
-        this.eventManager.broadcast({ name: 'purchaseListModification', content: 'OK'});
+    private onSaveSuccess(result: Purchase) {
+        this.eventManager.broadcast({name: 'purchaseListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -93,14 +97,13 @@ export class PurchasePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private purchasePopupService: PurchasePopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private purchasePopupService: PurchasePopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.purchasePopupService
                     .open(PurchaseDialogComponent, params['id']);
             } else {

@@ -1,16 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { Sale } from './sale.model';
 import { SalePopupService } from './sale-popup.service';
 import { SaleService } from './sale.service';
-import { Customer, CustomerService } from '../customer';
+import { Customer, CustomerService } from '../../party/customer';
 import { SaleLine, SaleLineService } from '../sale-line';
-import { Vehicle, VehicleService } from '../vehicle';
+import { Vehicle, VehicleService } from '../../party/vehicle';
+
 @Component({
     selector: 'apos-sale-dialog',
     templateUrl: './sale-dialog.component.html'
@@ -26,16 +27,15 @@ export class SaleDialogComponent implements OnInit {
     salelines: SaleLine[];
 
     vehicles: Vehicle[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private saleService: SaleService,
-        private customerService: CustomerService,
-        private saleLineService: SaleLineService,
-        private vehicleService: VehicleService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private saleService: SaleService,
+                private customerService: CustomerService,
+                private saleLineService: SaleLineService,
+                private vehicleService: VehicleService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['sale', 'saleStatus']);
     }
 
@@ -43,17 +43,24 @@ export class SaleDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.customerService.query().subscribe(
-            (res: Response) => { this.customers = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.customers = res.json();
+            }, (res: Response) => this.onError(res.json()));
         this.saleLineService.query().subscribe(
-            (res: Response) => { this.salelines = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.salelines = res.json();
+            }, (res: Response) => this.onError(res.json()));
         this.vehicleService.query().subscribe(
-            (res: Response) => { this.vehicles = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.vehicles = res.json();
+            }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.sale.id !== undefined) {
             this.saleService.update(this.sale)
@@ -66,18 +73,18 @@ export class SaleDialogComponent implements OnInit {
         }
     }
 
-    private onSaveSuccess (result: Sale) {
-        this.eventManager.broadcast({ name: 'saleListModification', content: 'OK'});
+    private onSaveSuccess(result: Sale) {
+        this.eventManager.broadcast({name: 'saleListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -103,14 +110,13 @@ export class SalePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private salePopupService: SalePopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private salePopupService: SalePopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.salePopupService
                     .open(SaleDialogComponent, params['id']);
             } else {
