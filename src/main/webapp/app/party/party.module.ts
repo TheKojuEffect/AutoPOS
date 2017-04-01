@@ -7,8 +7,6 @@ import { PartyRoutingModule } from './party-routing.module';
 import { CustomerModule } from './customer/customer.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { VendorModule } from './vendor/vendor.module';
-import { PhoneModule } from './phone/phone.module';
-
 
 @NgModule({
     imports: [
@@ -16,7 +14,6 @@ import { PhoneModule } from './phone/phone.module';
         CustomerModule,
         VehicleModule,
         VendorModule,
-        PhoneModule,
         PartyRoutingModule
     ],
     declarations: [

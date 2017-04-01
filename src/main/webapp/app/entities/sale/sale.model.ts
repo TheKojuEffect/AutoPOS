@@ -18,6 +18,6 @@ export class Sale {
                 public status?: SaleStatus,
                 public customer?: Customer,
                 public line?: SaleLine,
-                public vehicle?: Vehicle,) {
+                public vehicle?: Vehicle) {
     }
 }
