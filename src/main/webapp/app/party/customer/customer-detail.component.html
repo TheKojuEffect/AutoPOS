@@ -1,4 +1,3 @@
-
 <div *ngIf="customer">
     <h2><span jhiTranslate="autoPosApp.customer.detail.title">Customer</span> {{customer.id}}</h2>
     <hr>
@@ -7,6 +6,10 @@
         <dt><span jhiTranslate="autoPosApp.customer.name">Name</span></dt>
         <dd>
             <span>{{customer.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.customer.phoneNumbers">Phone Numbers</span></dt>
+        <dd>
+            <span>{{customer.phoneNumbers.join(' ')}}</span>
         </dd>
         <dt><span jhiTranslate="autoPosApp.customer.remarks">Remarks</span></dt>
         <dd>
