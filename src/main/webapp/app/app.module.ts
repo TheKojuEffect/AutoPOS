@@ -5,9 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Ng2Webstorage } from 'ng2-webstorage';
 
 import { SharedModule, UserRouteAccessService } from './shared';
-import { AutoPosHomeModule } from './home/home.module';
-import { AutoPosAdminModule } from './admin/admin.module';
-import { AutoPosAccountModule } from './account/account.module';
+import { HomeModule } from './home/home.module';
+import { AdminModule } from './admin/admin.module';
+import { AccountModule } from './account/account.module';
 
 import {
     ActiveMenuDirective,
@@ -34,9 +34,9 @@ import { PurchaseModule } from './purchases/purchase/purchase.module';
         LayoutRoutingModule,
         Ng2Webstorage.forRoot({prefix: 'jhi', separator: '-'}),
         SharedModule,
-        AutoPosHomeModule,
-        AutoPosAdminModule,
-        AutoPosAccountModule,
+        HomeModule,
+        AdminModule,
+        AccountModule,
         CatalogModule,
         PurchaseModule,
         PartyModule,

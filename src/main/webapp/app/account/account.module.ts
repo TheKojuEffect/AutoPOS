@@ -42,5 +42,5 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosAccountModule {
+export class AccountModule {
 }

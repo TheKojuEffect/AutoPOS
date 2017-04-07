@@ -18,5 +18,5 @@ import { HOME_ROUTE, HomeComponent } from './';
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosHomeModule {
+export class HomeModule {
 }

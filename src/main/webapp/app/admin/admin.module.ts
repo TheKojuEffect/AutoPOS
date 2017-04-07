@@ -69,5 +69,5 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosAdminModule {
+export class AdminModule {
 }
