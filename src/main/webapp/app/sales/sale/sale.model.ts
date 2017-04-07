@@ -1,12 +1,12 @@
+import { Customer } from '../../party/customer';
+import { SaleLine } from '../sale-line';
+import { Vehicle } from '../../party/vehicle';
+
 const enum SaleStatus {
     'PENDING',
     'COMPLETED'
 
 }
-
-import { Customer } from '../../party/customer';
-import { SaleLine } from '../sale-line';
-import { Vehicle } from '../../party/vehicle';
 
 export class Sale {
     constructor(public id?: number,

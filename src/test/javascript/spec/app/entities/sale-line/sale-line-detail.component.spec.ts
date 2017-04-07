@@ -8,9 +8,9 @@ import { Observable } from 'rxjs/Rx';
 import { DataUtils, DateUtils, EventManager } from 'ng-jhipster';
 import { AutoPosTestModule } from '../../../test.module';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
-import { SaleLineDetailComponent } from '../../../../../../main/webapp/app/entities/sale-line/sale-line-detail.component';
-import { SaleLineService } from '../../../../../../main/webapp/app/entities/sale-line/sale-line.service';
-import { SaleLine } from '../../../../../../main/webapp/app/entities/sale-line/sale-line.model';
+import { SaleLineDetailComponent } from '../../../../../../main/webapp/app/sales/sale-line/sale-line-detail.component';
+import { SaleLineService } from '../../../../../../main/webapp/app/sales/sale-line/sale-line.service';
+import { SaleLine } from '../../../../../../main/webapp/app/sales/sale-line/sale-line.model';
 
 describe('Component Tests', () => {
 

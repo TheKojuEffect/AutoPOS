@@ -8,9 +8,9 @@ import { Observable } from 'rxjs/Rx';
 import { AutoPosTestModule } from '../../../test.module';
 import { DataUtils, DateUtils, EventManager } from 'ng-jhipster';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
-import { PurchaseLineDetailComponent } from '../../../../../../main/webapp/app/entities/purchase-line/purchase-line-detail.component';
-import { PurchaseLineService } from '../../../../../../main/webapp/app/entities/purchase-line/purchase-line.service';
-import { PurchaseLine } from '../../../../../../main/webapp/app/entities/purchase-line/purchase-line.model';
+import { PurchaseLineDetailComponent } from '../../../../../../main/webapp/app/purchases/purchase-line/purchase-line-detail.component';
+import { PurchaseLineService } from '../../../../../../main/webapp/app/purchases/purchase-line/purchase-line.service';
+import { PurchaseLine } from '../../../../../../main/webapp/app/purchases/purchase-line/purchase-line.model';
 
 describe('Component Tests', () => {
 

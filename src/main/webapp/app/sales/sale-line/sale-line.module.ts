@@ -49,5 +49,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosSaleLineModule {
+export class SaleLineModule {
 }

@@ -8,7 +8,6 @@ import { SharedModule, UserRouteAccessService } from './shared';
 import { AutoPosHomeModule } from './home/home.module';
 import { AutoPosAdminModule } from './admin/admin.module';
 import { AutoPosAccountModule } from './account/account.module';
-import { AutoPosEntityModule } from './entities/entity.module';
 
 import {
     ActiveMenuDirective,
@@ -26,6 +25,7 @@ import { CatalogModule } from './catalog/catalog.module';
 import { AccountingModule } from './accounting/accounting.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { PartyModule } from './party/party.module';
+import { PurchaseModule } from './purchases/purchase/purchase.module';
 
 
 @NgModule({
@@ -38,10 +38,10 @@ import { PartyModule } from './party/party.module';
         AutoPosAdminModule,
         AutoPosAccountModule,
         CatalogModule,
+        PurchaseModule,
         PartyModule,
         TransactionModule,
-        AccountingModule,
-        AutoPosEntityModule
+        AccountingModule
     ],
     declarations: [
         AposMainComponent,

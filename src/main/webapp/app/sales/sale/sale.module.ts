@@ -1,8 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { SharedModule } from '../../shared';
-
 import {
     SaleComponent,
     SaleDeleteDialogComponent,
@@ -16,6 +14,7 @@ import {
     saleRoute,
     SaleService
 } from './';
+import { SharedModule } from '../../shared';
 
 let ENTITY_STATES = [
     ...saleRoute,
@@ -49,5 +48,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosSaleModule {
+export class SaleModule {
 }
