@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="autoPosApp.payment.home.title">Payments</span>
-        <button class="btn btn-primary float-right create-payment" [routerLink]="['/', { outlets: { popup: ['payment-new'] } }]">
+        <button class="btn btn-primary float-right create-payment"
+                [routerLink]="['/', { outlets: { popup: ['payment-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="autoPosApp.payment.home.createLabel">
+            <span jhiTranslate="autoPosApp.payment.home.createLabel">
             Create new Payment
             </span>
         </button>
@@ -16,14 +17,21 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="date"><span jhiTranslate="autoPosApp.payment.date">Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="amount"><span jhiTranslate="autoPosApp.payment.amount">Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="receiptNumber"><span jhiTranslate="autoPosApp.payment.receiptNumber">Receipt Number</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="paidBy"><span jhiTranslate="autoPosApp.payment.paidBy">Paid By</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.payment.remarks">Remarks</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="paidTo.name"><span jhiTranslate="autoPosApp.payment.paidTo">Paid To</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="date"><span jhiTranslate="autoPosApp.payment.date">Date</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="amount"><span jhiTranslate="autoPosApp.payment.amount">Amount</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="receiptNumber"><span
+                        jhiTranslate="autoPosApp.payment.receiptNumber">Receipt Number</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="paidBy"><span jhiTranslate="autoPosApp.payment.paidBy">Paid By</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.payment.remarks">Remarks</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="paidTo.name"><span jhiTranslate="autoPosApp.payment.paidTo">Paid To</span> <span
+                        class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -36,7 +44,7 @@
                 <td>{{payment.remarks}}</td>
                 <td>
                     <div *ngIf="payment.paidTo">
-                        <a [routerLink]="['../vendor', payment.paidTo?.id ]" >{{payment.paidTo?.name}}</a>
+                        <a [routerLink]="['../vendor', payment.paidTo?.id ]">{{payment.paidTo?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -67,12 +75,13 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="payments && payments.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
+    <div *ngIf="payments && payments.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

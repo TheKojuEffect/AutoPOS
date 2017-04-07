@@ -1,33 +1,33 @@
 'use strict';
 
-describe('Controller Tests', function() {
+describe('Controller Tests', function () {
 
-    describe('Vendor Management Detail Controller', function() {
+    describe('Vendor Management Detail Controller', function () {
         var $scope, $rootScope;
         var MockEntity, MockVendor;
         var createController;
 
-        beforeEach(inject(function($injector) {
+        beforeEach(inject(function ($injector) {
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockVendor = jasmine.createSpy('MockVendor');
-            
+
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
-                'entity': MockEntity ,
+                'entity': MockEntity,
                 'Vendor': MockVendor
             };
-            createController = function() {
+            createController = function () {
                 $injector.get('$controller')("VendorDetailController", locals);
             };
         }));
 
 
-        describe('Root Scope Listening', function() {
-            it('Unregisters root scope listener upon scope destruction', function() {
+        describe('Root Scope Listening', function () {
+            it('Unregisters root scope listener upon scope destruction', function () {
                 var eventType = 'autoPosApp:vendorUpdate';
 
                 createController();

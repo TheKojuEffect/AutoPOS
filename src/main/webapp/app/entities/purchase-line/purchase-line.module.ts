@@ -1,20 +1,20 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../../shared';
 
 import {
-    PurchaseLineService,
-    PurchaseLinePopupService,
     PurchaseLineComponent,
+    PurchaseLineDeleteDialogComponent,
+    PurchaseLineDeletePopupComponent,
     PurchaseLineDetailComponent,
     PurchaseLineDialogComponent,
     PurchaseLinePopupComponent,
-    PurchaseLineDeletePopupComponent,
-    PurchaseLineDeleteDialogComponent,
-    purchaseLineRoute,
     purchaseLinePopupRoute,
+    PurchaseLinePopupService,
     PurchaseLineResolvePagingParams,
+    purchaseLineRoute,
+    PurchaseLineService
 } from './';
 
 let ENTITY_STATES = [
@@ -25,7 +25,7 @@ let ENTITY_STATES = [
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
     ],
     declarations: [
         PurchaseLineComponent,
@@ -49,4 +49,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosPurchaseLineModule {}
+export class AutoPosPurchaseLineModule {
+}

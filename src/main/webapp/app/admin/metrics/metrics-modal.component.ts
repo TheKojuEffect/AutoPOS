@@ -15,7 +15,8 @@ export class AposMetricsMonitoringModalComponent implements OnInit {
     threadDumpTimedWaiting = 0;
     threadDumpWaiting = 0;
 
-    constructor(public activeModal: NgbActiveModal) {}
+    constructor(public activeModal: NgbActiveModal) {
+    }
 
     ngOnInit() {
         this.threadDump.forEach((value) => {
@@ -34,7 +35,7 @@ export class AposMetricsMonitoringModalComponent implements OnInit {
             this.threadDumpTimedWaiting + this.threadDumpBlocked;
     }
 
-    getBadgeClass (threadState) {
+    getBadgeClass(threadState) {
         if (threadState === 'RUNNABLE') {
             return 'badge-success';
         } else if (threadState === 'WAITING') {

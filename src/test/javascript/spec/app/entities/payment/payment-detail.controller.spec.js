@@ -1,35 +1,35 @@
 'use strict';
 
-describe('Controller Tests', function() {
+describe('Controller Tests', function () {
 
-    describe('Payment Management Detail Controller', function() {
+    describe('Payment Management Detail Controller', function () {
         var $scope, $rootScope;
         var MockEntity, MockPayment, MockVendor;
         var createController;
 
-        beforeEach(inject(function($injector) {
+        beforeEach(inject(function ($injector) {
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockPayment = jasmine.createSpy('MockPayment');
             MockVendor = jasmine.createSpy('MockVendor');
-            
+
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
-                'entity': MockEntity ,
+                'entity': MockEntity,
                 'Payment': MockPayment,
                 'Vendor': MockVendor
             };
-            createController = function() {
+            createController = function () {
                 $injector.get('$controller')("PaymentDetailController", locals);
             };
         }));
 
 
-        describe('Root Scope Listening', function() {
-            it('Unregisters root scope listener upon scope destruction', function() {
+        describe('Root Scope Listening', function () {
+            it('Unregisters root scope listener upon scope destruction', function () {
                 var eventType = 'autoPosApp:paymentUpdate';
 
                 createController();

@@ -15,10 +15,8 @@ export class LogsComponent implements OnInit {
     orderProp: string;
     reverse: boolean;
 
-    constructor (
-        private jhiLanguageService: JhiLanguageService,
-        private logsService: LogsService
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private logsService: LogsService) {
         this.filter = '';
         this.orderProp = 'name';
         this.reverse = false;
@@ -29,7 +27,7 @@ export class LogsComponent implements OnInit {
         this.logsService.findAll().subscribe(loggers => this.loggers = loggers);
     }
 
-    changeLevel (name: string, level: string) {
+    changeLevel(name: string, level: string) {
         let log = new Log(name, level);
         this.logsService.changeLevel(log).subscribe(() => {
             this.logsService.findAll().subscribe(loggers => this.loggers = loggers);

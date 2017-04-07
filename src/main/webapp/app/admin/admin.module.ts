@@ -1,40 +1,39 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ParseLinks } from 'ng-jhipster';
 
 import { SharedModule } from '../shared';
 
 import {
     adminState,
+    AposConfigurationComponent,
+    AposConfigurationService,
+    AposDocsComponent,
+    AposHealthCheckComponent,
+    AposHealthModalComponent,
+    AposHealthService,
+    AposMetricsMonitoringComponent,
+    AposMetricsMonitoringModalComponent,
+    AposMetricsService,
     AuditsComponent,
-    UserMgmtComponent,
-    UserDialogComponent,
+    AuditsService,
+    LogsComponent,
+    LogsService,
     UserDeleteDialogComponent,
+    UserDialogComponent,
+    UserMgmtComponent,
+    UserMgmtDeleteDialogComponent,
     UserMgmtDetailComponent,
     UserMgmtDialogComponent,
-    UserMgmtDeleteDialogComponent,
-    LogsComponent,
-    AposMetricsMonitoringModalComponent,
-    AposMetricsMonitoringComponent,
-    AposHealthModalComponent,
-    AposHealthCheckComponent,
-    AposConfigurationComponent,
-    AposDocsComponent,
-    AuditsService,
-    AposConfigurationService,
-    AposHealthService,
-    AposMetricsService,
-    LogsService,
-    UserResolvePagingParams,
+    UserModalService,
     UserResolve,
-    UserModalService
+    UserResolvePagingParams
 } from './';
 
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(adminState, { useHash: true })
+        RouterModule.forRoot(adminState, {useHash: true})
     ],
     declarations: [
         AuditsComponent,
@@ -70,4 +69,5 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosAdminModule {}
+export class AutoPosAdminModule {
+}

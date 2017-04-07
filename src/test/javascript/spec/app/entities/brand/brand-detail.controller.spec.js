@@ -1,33 +1,33 @@
 'use strict';
 
-describe('Controller Tests', function() {
+describe('Controller Tests', function () {
 
-    describe('Brand Management Detail Controller', function() {
+    describe('Brand Management Detail Controller', function () {
         var $scope, $rootScope;
         var MockEntity, MockBrand;
         var createController;
 
-        beforeEach(inject(function($injector) {
+        beforeEach(inject(function ($injector) {
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockBrand = jasmine.createSpy('MockBrand');
-            
+
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
-                'entity': MockEntity ,
+                'entity': MockEntity,
                 'Brand': MockBrand
             };
-            createController = function() {
+            createController = function () {
                 $injector.get('$controller')("BrandDetailController", locals);
             };
         }));
 
 
-        describe('Root Scope Listening', function() {
-            it('Unregisters root scope listener upon scope destruction', function() {
+        describe('Root Scope Listening', function () {
+            it('Unregisters root scope listener upon scope destruction', function () {
                 var eventType = 'autoPosApp:brandUpdate';
 
                 createController();

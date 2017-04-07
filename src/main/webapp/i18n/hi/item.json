@@ -1,31 +1,31 @@
 {
-    "autoPosApp": {
-        "item" : {
-            "home": {
-                "title": "Items",
-                "createLabel": "नया Item बनाएँ",
-                "createOrEditLabel": "Item बनाएँ या संपादित करें"
-            },
-            "created": "एक नया Item [identifier: {{ param }}] तैयार है",
-            "updated": "एक Item [identifier: {{ param }}] का अद्यतन हुआ है",
-            "deleted": "Item [identifier: {{ param }}] हटा दिया है",
-            "delete": {
-                "question": "Item [id: {{ id }}] हटाने की पुष्टि करें"
-            },
-            "detail": {
-                "title": "Item"
-            },
-            "code": "Code",
-            "name": "Name",
-            "partNumber": "Part Number",
-            "markedPrice": "Marked Price",
-            "quantity": "Quantity",
-            "description": "Description",
-            "location": "Location",
-            "remarks": "Remarks",
-            "category": "Category",
-            "brand": "Brand",
-            "tag": "Tag"
-        }
+  "autoPosApp": {
+    "item": {
+      "home": {
+        "title": "Items",
+        "createLabel": "नया Item बनाएँ",
+        "createOrEditLabel": "Item बनाएँ या संपादित करें"
+      },
+      "created": "एक नया Item [identifier: {{ param }}] तैयार है",
+      "updated": "एक Item [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Item [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Item [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Item"
+      },
+      "code": "Code",
+      "name": "Name",
+      "partNumber": "Part Number",
+      "markedPrice": "Marked Price",
+      "quantity": "Quantity",
+      "description": "Description",
+      "location": "Location",
+      "remarks": "Remarks",
+      "category": "Category",
+      "brand": "Brand",
+      "tag": "Tag"
     }
+  }
 }

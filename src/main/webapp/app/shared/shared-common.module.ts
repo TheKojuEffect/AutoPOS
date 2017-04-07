@@ -5,11 +5,11 @@ import { TranslateService } from 'ng2-translate';
 import { AlertService } from 'ng-jhipster';
 
 import {
-    AutoPosSharedLibsModule,
-    JhiLanguageHelper,
-    FindLanguageFromKeyPipe,
     AposAlertComponent,
-    AposAlertErrorComponent
+    AposAlertErrorComponent,
+    AutoPosSharedLibsModule,
+    FindLanguageFromKeyPipe,
+    JhiLanguageHelper
 } from './';
 
 
@@ -44,4 +44,5 @@ export function alertServiceProvider(sanitizer: Sanitizer, translateService: Tra
         AposAlertErrorComponent
     ]
 })
-export class AutoPosSharedCommonModule {}
+export class AutoPosSharedCommonModule {
+}

@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
-import { BaseRequestOptions, Http } from '@angular/http';
+import { BaseRequestOptions } from '@angular/http';
 import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { DataUtils, DateUtils, JhiLanguageService } from 'ng-jhipster';
-import { MockLanguageService } from '../../../helpers/mock-language.service';
+import { DataUtils, DateUtils, EventManager } from 'ng-jhipster';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { DayBookEntryDetailComponent } from '../../../../../../main/webapp/app/accounting/day-book-entry/day-book-entry-detail.component';
 import { DayBookEntryService } from '../../../../../../main/webapp/app/accounting/day-book-entry/day-book-entry.service';
 import { DayBookEntry } from '../../../../../../main/webapp/app/accounting/day-book-entry/day-book-entry.model';
+import { AutoPosTestModule } from '../../../test.module';
 
 describe('Component Tests', () => {
 
@@ -21,6 +21,7 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
+                imports: [AutoPosTestModule],
                 declarations: [DayBookEntryDetailComponent],
                 providers: [
                     MockBackend,
@@ -32,18 +33,9 @@ describe('Component Tests', () => {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({id: 123})
                     },
-                    {
-                        provide: Http,
-                        useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-                            return new Http(backendInstance, defaultOptions);
-                        },
-                        deps: [MockBackend, BaseRequestOptions]
-                    },
-                    {
-                        provide: JhiLanguageService,
-                        useClass: MockLanguageService
-                    },
-                    DayBookEntryService
+
+                    DayBookEntryService,
+                    EventManager
                 ]
             }).overrideComponent(DayBookEntryDetailComponent, {
                 set: {

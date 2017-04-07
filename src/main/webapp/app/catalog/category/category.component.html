@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="autoPosApp.category.home.title">Categories</span>
-        <button class="btn btn-primary float-right create-category" [routerLink]="['/', { outlets: { popup: ['category-new'] } }]">
+        <button class="btn btn-primary float-right create-category"
+                [routerLink]="['/', { outlets: { popup: ['category-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="autoPosApp.category.home.createLabel">
+            <span jhiTranslate="autoPosApp.category.home.createLabel">
             Create new Category
             </span>
         </button>
@@ -16,10 +17,12 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="shortName"><span jhiTranslate="autoPosApp.category.shortName">Short Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span jhiTranslate="autoPosApp.category.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="shortName"><span jhiTranslate="autoPosApp.category.shortName">Short Name</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="name"><span jhiTranslate="autoPosApp.category.name">Name</span> <span
+                        class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -55,12 +58,13 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="categories && categories.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
+    <div *ngIf="categories && categories.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

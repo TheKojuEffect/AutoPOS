@@ -41,11 +41,11 @@ export class VendorDialogComponent implements OnInit {
         if (this.vendor.id !== undefined) {
             this.vendorService.update(this.vendor)
                 .subscribe((res: Vendor) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.vendorService.create(this.vendor)
                 .subscribe((res: Vendor) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
@@ -56,6 +56,11 @@ export class VendorDialogComponent implements OnInit {
     }
 
     private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }

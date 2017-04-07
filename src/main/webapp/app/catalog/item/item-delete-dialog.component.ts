@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,20 +16,18 @@ export class ItemDeleteDialogComponent {
 
     item: Item;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private itemService: ItemService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private itemService: ItemService,
+                public activeModal: NgbActiveModal,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['item']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
+    confirmDelete(id: number) {
         this.itemService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'itemListModification',
@@ -49,10 +47,9 @@ export class ItemDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private itemPopupService: ItemPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private itemPopupService: ItemPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {

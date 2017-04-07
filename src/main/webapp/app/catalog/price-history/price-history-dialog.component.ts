@@ -49,11 +49,11 @@ export class PriceHistoryDialogComponent implements OnInit {
         if (this.priceHistory.id !== undefined) {
             this.priceHistoryService.update(this.priceHistory)
                 .subscribe((res: PriceHistory) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.priceHistoryService.create(this.priceHistory)
                 .subscribe((res: PriceHistory) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
@@ -64,6 +64,11 @@ export class PriceHistoryDialogComponent implements OnInit {
     }
 
     private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }

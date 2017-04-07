@@ -65,11 +65,11 @@ export class SaleDialogComponent implements OnInit {
         if (this.sale.id !== undefined) {
             this.saleService.update(this.sale)
                 .subscribe((res: Sale) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.saleService.create(this.sale)
                 .subscribe((res: Sale) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
@@ -80,6 +80,11 @@ export class SaleDialogComponent implements OnInit {
     }
 
     private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }

@@ -1,68 +1,75 @@
-
-
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="mySaleLabel" jhiTranslate="autoPosApp.sale.home.createOrEditLabel">Create or edit a Sale</h4>
+        <h4 class="modal-title" id="mySaleLabel" jhiTranslate="autoPosApp.sale.home.createOrEditLabel">Create or edit a
+            Sale</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+                (click)="clear()">&times;
+        </button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!sale.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="sale.id" readonly />
+                   [(ngModel)]="sale.id" readonly/>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.sale.date" for="field_date">Date</label>
             <div class="d-flex">
                 <input id="field_date" type="datetime-local" class="form-control" name="date" [(ngModel)]="sale.date"
-                required  />
+                       required/>
             </div>
             <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
                 <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.date?.errors?.LocalDateTimelocal" jhiTranslate="entity.validation.LocalDateTimelocal">
+                       [hidden]="!editForm.controls.date?.errors?.LocalDateTimelocal"
+                       jhiTranslate="entity.validation.LocalDateTimelocal">
                     This field should be a date and time.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="autoPosApp.sale.invoiceNumber" for="field_invoiceNumber">Invoice Number</label>
+            <label class="form-control-label" jhiTranslate="autoPosApp.sale.invoiceNumber" for="field_invoiceNumber">Invoice
+                Number</label>
             <input type="text" class="form-control" name="invoiceNumber" id="field_invoiceNumber"
-                [(ngModel)]="sale.invoiceNumber"
-            minlength="1" maxlength="50" />
+                   [(ngModel)]="sale.invoiceNumber"
+                   minlength="1" maxlength="50"/>
             <div [hidden]="!(editForm.controls.invoiceNumber?.dirty && editForm.controls.invoiceNumber?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.invoiceNumber?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 1 }">
-                   This field is required to be at least 1 characters.
+                       [hidden]="!editForm.controls.invoiceNumber?.errors?.minlength"
+                       jhiTranslate="entity.validation.minlength" translateValues="{ min: 1 }">
+                    This field is required to be at least 1 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.invoiceNumber?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
-                   This field cannot be longer than 50 characters.
+                       [hidden]="!editForm.controls.invoiceNumber?.errors?.maxlength"
+                       jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="autoPosApp.sale.discount" for="field_discount">Discount</label>
+            <label class="form-control-label" jhiTranslate="autoPosApp.sale.discount"
+                   for="field_discount">Discount</label>
             <input type="number" class="form-control" name="discount" id="field_discount"
-                [(ngModel)]="sale.discount"
-            required min="0" />
+                   [(ngModel)]="sale.discount"
+                   required min="0"/>
             <div [hidden]="!(editForm.controls.discount?.dirty && editForm.controls.discount?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.discount?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.discount?.errors?.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
                 <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.discount?.errors?.min" jhiTranslate="entity.validation.min" translateValues="{ min: 0 }">
+                       [hidden]="!editForm.controls.discount?.errors?.min" jhiTranslate="entity.validation.min"
+                       translateValues="{ min: 0 }">
                     This field should be at least 0.
                 </small>
                 <small class="form-text text-danger"
-                    [hidden]="!editForm.controls.discount?.errors?.number" jhiTranslate="entity.validation.number">
+                       [hidden]="!editForm.controls.discount?.errors?.number" jhiTranslate="entity.validation.number">
                     This field should be a number.
                 </small>
             </div>
@@ -70,57 +77,64 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.sale.remarks" for="field_remarks">Remarks</label>
             <input type="text" class="form-control" name="remarks" id="field_remarks"
-                [(ngModel)]="sale.remarks"
-            maxlength="250" />
+                   [(ngModel)]="sale.remarks"
+                   maxlength="250"/>
             <div [hidden]="!(editForm.controls.remarks?.dirty && editForm.controls.remarks?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.remarks?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 250 }">
-                   This field cannot be longer than 250 characters.
+                       [hidden]="!editForm.controls.remarks?.errors?.maxlength"
+                       jhiTranslate="entity.validation.maxlength" translateValues="{ max: 250 }">
+                    This field cannot be longer than 250 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.sale.buyer" for="field_buyer">Buyer</label>
             <input type="text" class="form-control" name="buyer" id="field_buyer"
-                [(ngModel)]="sale.buyer"
-            minlength="2" maxlength="50" />
+                   [(ngModel)]="sale.buyer"
+                   minlength="2" maxlength="50"/>
             <div [hidden]="!(editForm.controls.buyer?.dirty && editForm.controls.buyer?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.buyer?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
-                   This field is required to be at least 2 characters.
+                       [hidden]="!editForm.controls.buyer?.errors?.minlength" jhiTranslate="entity.validation.minlength"
+                       translateValues="{ min: 2 }">
+                    This field is required to be at least 2 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.buyer?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
-                   This field cannot be longer than 50 characters.
+                       [hidden]="!editForm.controls.buyer?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
+                       translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.sale.status" for="field_status">Status</label>
-            <select class="form-control" name="status" [(ngModel)]="sale.status" id="field_status"  required>
+            <select class="form-control" name="status" [(ngModel)]="sale.status" id="field_status" required>
                 <option value="PENDING" jhiTranslate="autoPosApp.SaleStatus.PENDING">PENDING</option>
                 <option value="COMPLETED" jhiTranslate="autoPosApp.SaleStatus.COMPLETED">COMPLETED</option>
             </select>
             <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
             </div>
         </div>
 
         <div class="form-group">
             <label jhiTranslate="autoPosApp.sale.customer" for="field_customer">Customer</label>
-            <select class="form-control" id="field_customer" name="customer" [(ngModel)]="sale.customer" >
+            <select class="form-control" id="field_customer" name="customer" [(ngModel)]="sale.customer">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="customerOption.id === sale.customer?.id ? sale.customer : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.name}}</option>
+                <option [ngValue]="customerOption.id === sale.customer?.id ? sale.customer : customerOption"
+                        *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.name}}
+                </option>
             </select>
         </div>
         <div class="form-group">
             <label jhiTranslate="autoPosApp.sale.vehicle" for="field_vehicle">Vehicle</label>
-            <select class="form-control" id="field_vehicle" name="vehicle" [(ngModel)]="sale.vehicle" >
+            <select class="form-control" id="field_vehicle" name="vehicle" [(ngModel)]="sale.vehicle">
                 <option [ngValue]="null"></option>
-                <option [ngValue]="vehicleOption.id === sale.vehicle?.id ? sale.vehicle : vehicleOption" *ngFor="let vehicleOption of vehicles; trackBy: trackVehicleById">{{vehicleOption.number}}</option>
+                <option [ngValue]="vehicleOption.id === sale.vehicle?.id ? sale.vehicle : vehicleOption"
+                        *ngFor="let vehicleOption of vehicles; trackBy: trackVehicleById">{{vehicleOption.number}}
+                </option>
             </select>
         </div>
     </div>

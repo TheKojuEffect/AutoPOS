@@ -53,8 +53,6 @@ import { PartyModule } from './party/party.module';
     ],
     providers: [
         ProfileService,
-        {provide: Window, useValue: window},
-        {provide: Document, useValue: document},
         customHttpProvider(),
         PaginationConfig,
         UserRouteAccessService

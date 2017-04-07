@@ -1,33 +1,33 @@
 'use strict';
 
-describe('Controller Tests', function() {
+describe('Controller Tests', function () {
 
-    describe('Tag Management Detail Controller', function() {
+    describe('Tag Management Detail Controller', function () {
         var $scope, $rootScope;
         var MockEntity, MockTag;
         var createController;
 
-        beforeEach(inject(function($injector) {
+        beforeEach(inject(function ($injector) {
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockTag = jasmine.createSpy('MockTag');
-            
+
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
-                'entity': MockEntity ,
+                'entity': MockEntity,
                 'Tag': MockTag
             };
-            createController = function() {
+            createController = function () {
                 $injector.get('$controller')("TagDetailController", locals);
             };
         }));
 
 
-        describe('Root Scope Listening', function() {
-            it('Unregisters root scope listener upon scope destruction', function() {
+        describe('Root Scope Listening', function () {
+            it('Unregisters root scope listener upon scope destruction', function () {
                 var eventType = 'autoPosApp:tagUpdate';
 
                 createController();

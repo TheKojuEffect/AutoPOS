@@ -56,11 +56,11 @@ export class PurchaseDialogComponent implements OnInit {
         if (this.purchase.id !== undefined) {
             this.purchaseService.update(this.purchase)
                 .subscribe((res: Purchase) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.purchaseService.create(this.purchase)
                 .subscribe((res: Purchase) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
@@ -71,6 +71,11 @@ export class PurchaseDialogComponent implements OnInit {
     }
 
     private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }

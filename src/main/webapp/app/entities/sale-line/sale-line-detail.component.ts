@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Rx';
+import { EventManager, JhiLanguageService } from 'ng-jhipster';
 import { SaleLine } from './sale-line.model';
 import { SaleLineService } from './sale-line.service';
 
@@ -12,12 +13,11 @@ export class SaleLineDetailComponent implements OnInit, OnDestroy {
 
     saleLine: SaleLine;
     private subscription: any;
+    private eventSubscriber: Subscription;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private saleLineService: SaleLineService,
-        private route: ActivatedRoute
-    ) {
+    constructor(private eventManager: EventManager, private jhiLanguageService: JhiLanguageService,
+                private saleLineService: SaleLineService,
+                private route: ActivatedRoute) {
         this.jhiLanguageService.setLocations(['saleLine']);
     }
 
@@ -25,19 +25,26 @@ export class SaleLineDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
         });
+        this.registerChangeInSaleLines();
     }
 
-    load (id) {
+    load(id) {
         this.saleLineService.find(id).subscribe(saleLine => {
             this.saleLine = saleLine;
         });
     }
+
     previousState() {
         window.history.back();
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.eventManager.destroy(this.eventSubscriber);
+    }
+
+    registerChangeInSaleLines() {
+        this.eventSubscriber = this.eventManager.subscribe('saleLineListModification', response => this.load(this.saleLine.id));
     }
 
 }

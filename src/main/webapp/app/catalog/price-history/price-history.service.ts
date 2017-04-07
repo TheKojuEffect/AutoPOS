@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { PriceHistory } from './price-history.model';
@@ -9,7 +9,8 @@ export class PriceHistoryService {
 
     private resourceUrl = 'api/price-histories';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http, private dateUtils: DateUtils) {
+    }
 
     create(priceHistory: PriceHistory): Observable<PriceHistory> {
         let copy: PriceHistory = Object.assign({}, priceHistory);
@@ -41,7 +42,7 @@ export class PriceHistoryService {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
             .map((res: any) => this.convertResponse(res))
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {

@@ -49,11 +49,11 @@ export class VehicleDialogComponent implements OnInit {
         if (this.vehicle.id !== undefined) {
             this.vehicleService.update(this.vehicle)
                 .subscribe((res: Vehicle) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.vehicleService.create(this.vehicle)
                 .subscribe((res: Vehicle) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
@@ -64,6 +64,11 @@ export class VehicleDialogComponent implements OnInit {
     }
 
     private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }

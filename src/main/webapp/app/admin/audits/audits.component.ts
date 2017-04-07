@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ParseLinks, JhiLanguageService} from 'ng-jhipster';
+import { JhiLanguageService, ParseLinks } from 'ng-jhipster';
 
 import { Audit } from './audit.model';
 import { AuditsService } from './audits.service';
@@ -8,8 +8,8 @@ import { ITEMS_PER_PAGE } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
-  selector: 'apos-audit',
-  templateUrl: './audits.component.html'
+    selector: 'apos-audit',
+    templateUrl: './audits.component.html'
 })
 export class AuditsComponent implements OnInit {
     audits: Audit[];
@@ -22,13 +22,11 @@ export class AuditsComponent implements OnInit {
     toDate: string;
     totalItems: number;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private auditsService: AuditsService,
-        private parseLinks: ParseLinks,
-        private paginationConfig: PaginationConfig,
-        private datePipe: DatePipe
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private auditsService: AuditsService,
+                private parseLinks: ParseLinks,
+                private paginationConfig: PaginationConfig,
+                private datePipe: DatePipe) {
         this.jhiLanguageService.setLocations(['audits']);
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 1;
@@ -52,12 +50,14 @@ export class AuditsComponent implements OnInit {
     }
 
     onChangeDate() {
-        this.auditsService.query({page: this.page - 1, size: this.itemsPerPage,
-            fromDate: this.fromDate, toDate: this.toDate}).subscribe(res => {
+        this.auditsService.query({
+            page: this.page - 1, size: this.itemsPerPage,
+            fromDate: this.fromDate, toDate: this.toDate
+        }).subscribe(res => {
 
             this.audits = res.json();
             this.links = this.parseLinks.parse(res.headers.get('link'));
-            this.totalItems = + res.headers.get('X-Total-Count');
+            this.totalItems = +res.headers.get('X-Total-Count');
         });
     }
 
@@ -78,8 +78,8 @@ export class AuditsComponent implements OnInit {
         let dateFormat = 'yyyy-MM-dd';
         // Today + 1 day - needed if the current day must be included
         let today: Date = new Date();
-
-        let date = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+        today.setDate(today.getDate() + 1);
+        let date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.toDate = this.datePipe.transform(date, dateFormat);
     }
 

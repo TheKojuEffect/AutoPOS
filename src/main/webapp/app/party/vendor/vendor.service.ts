@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Vendor } from './vendor.model';
@@ -8,7 +8,8 @@ export class VendorService {
 
     private resourceUrl = 'api/vendors';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(vendor: Vendor): Observable<Vendor> {
         let copy: Vendor = Object.assign({}, vendor);
@@ -33,13 +34,12 @@ export class VendorService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
 
 
     private createRequestOption(req?: any): BaseRequestOptions {

@@ -13,11 +13,9 @@ export class AposHealthCheckComponent implements OnInit {
     healthData: any;
     updatingHealth: boolean;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private modalService: NgbModal,
-        private healthService: AposHealthService
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private modalService: NgbModal,
+                private healthService: AposHealthService) {
         this.jhiLanguageService.setLocations(['health']);
 
     }
@@ -53,7 +51,7 @@ export class AposHealthCheckComponent implements OnInit {
     }
 
     showHealth(health: any) {
-        const modalRef  = this.modalService.open(AposHealthModalComponent);
+        const modalRef = this.modalService.open(AposHealthModalComponent);
         modalRef.componentInstance.currentHealth = health;
         modalRef.result.then((result) => {
             // Left blank intentionally, nothing to do here

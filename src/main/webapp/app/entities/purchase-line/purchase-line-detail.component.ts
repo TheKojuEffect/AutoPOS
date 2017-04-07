@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Rx';
+import { EventManager, JhiLanguageService } from 'ng-jhipster';
 import { PurchaseLine } from './purchase-line.model';
 import { PurchaseLineService } from './purchase-line.service';
 
@@ -12,12 +13,11 @@ export class PurchaseLineDetailComponent implements OnInit, OnDestroy {
 
     purchaseLine: PurchaseLine;
     private subscription: any;
+    private eventSubscriber: Subscription;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private purchaseLineService: PurchaseLineService,
-        private route: ActivatedRoute
-    ) {
+    constructor(private eventManager: EventManager, private jhiLanguageService: JhiLanguageService,
+                private purchaseLineService: PurchaseLineService,
+                private route: ActivatedRoute) {
         this.jhiLanguageService.setLocations(['purchaseLine']);
     }
 
@@ -25,19 +25,26 @@ export class PurchaseLineDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
         });
+        this.registerChangeInPurchaseLines();
     }
 
-    load (id) {
+    load(id) {
         this.purchaseLineService.find(id).subscribe(purchaseLine => {
             this.purchaseLine = purchaseLine;
         });
     }
+
     previousState() {
         window.history.back();
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.eventManager.destroy(this.eventSubscriber);
+    }
+
+    registerChangeInPurchaseLines() {
+        this.eventSubscriber = this.eventManager.subscribe('purchaseLineListModification', response => this.load(this.purchaseLine.id));
     }
 
 }

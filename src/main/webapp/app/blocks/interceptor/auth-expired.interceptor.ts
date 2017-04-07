@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Injector } from '@angular/core';
 import { AuthService } from '../../shared/auth/auth.service';
 import { Principal } from '../../shared/auth/principal.service';
-import { AuthServerProvider } from '../../shared/auth/auth-jwt.service';
 
 export class AuthExpiredInterceptor extends HttpInterceptor {
 

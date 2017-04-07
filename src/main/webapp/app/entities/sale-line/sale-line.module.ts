@@ -1,20 +1,20 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../../shared';
 
 import {
-    SaleLineService,
-    SaleLinePopupService,
     SaleLineComponent,
+    SaleLineDeleteDialogComponent,
+    SaleLineDeletePopupComponent,
     SaleLineDetailComponent,
     SaleLineDialogComponent,
     SaleLinePopupComponent,
-    SaleLineDeletePopupComponent,
-    SaleLineDeleteDialogComponent,
-    saleLineRoute,
     saleLinePopupRoute,
+    SaleLinePopupService,
     SaleLineResolvePagingParams,
+    saleLineRoute,
+    SaleLineService
 } from './';
 
 let ENTITY_STATES = [
@@ -25,7 +25,7 @@ let ENTITY_STATES = [
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
     ],
     declarations: [
         SaleLineComponent,
@@ -49,4 +49,5 @@ let ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AutoPosSaleLineModule {}
+export class AutoPosSaleLineModule {
+}

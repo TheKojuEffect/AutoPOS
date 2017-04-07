@@ -24,15 +24,14 @@ export class SaleLineDialogComponent implements OnInit {
     sales: Sale[];
 
     items: Item[];
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private saleLineService: SaleLineService,
-        private saleService: SaleService,
-        private itemService: ItemService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private saleLineService: SaleLineService,
+                private saleService: SaleService,
+                private itemService: ItemService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['saleLine']);
     }
 
@@ -40,39 +39,49 @@ export class SaleLineDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.saleService.query().subscribe(
-            (res: Response) => { this.sales = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.sales = res.json();
+            }, (res: Response) => this.onError(res.json()));
         this.itemService.query().subscribe(
-            (res: Response) => { this.items = res.json(); }, (res: Response) => this.onError(res.json()));
+            (res: Response) => {
+                this.items = res.json();
+            }, (res: Response) => this.onError(res.json()));
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.saleLine.id !== undefined) {
             this.saleLineService.update(this.saleLine)
                 .subscribe((res: SaleLine) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.saleLineService.create(this.saleLine)
                 .subscribe((res: SaleLine) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
-    private onSaveSuccess (result: SaleLine) {
-        this.eventManager.broadcast({ name: 'saleLineListModification', content: 'OK'});
+    private onSaveSuccess(result: SaleLine) {
+        this.eventManager.broadcast({name: 'saleLineListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
@@ -94,14 +103,13 @@ export class SaleLinePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private saleLinePopupService: SaleLinePopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private saleLinePopupService: SaleLinePopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.saleLinePopupService
                     .open(SaleLineDialogComponent, params['id']);
             } else {

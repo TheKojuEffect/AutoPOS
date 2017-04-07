@@ -14,13 +14,11 @@ export class AposMetricsMonitoringComponent implements OnInit {
     cachesStats: any = {};
     servicesStats: any = {};
     updatingMetrics = true;
-    JCACHE_KEY: string ;
+    JCACHE_KEY: string;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private modalService: NgbModal,
-        private metricsService: AposMetricsService
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private modalService: NgbModal,
+                private metricsService: AposMetricsService) {
         this.JCACHE_KEY = 'jcache.statistics';
         this.jhiLanguageService.setLocations(['metrics']);
     }
@@ -29,7 +27,7 @@ export class AposMetricsMonitoringComponent implements OnInit {
         this.refresh();
     }
 
-    refresh () {
+    refresh() {
         this.updatingMetrics = true;
         this.metricsService.getMetrics().subscribe((metrics) => {
             this.metrics = metrics;
@@ -59,9 +57,9 @@ export class AposMetricsMonitoringComponent implements OnInit {
         });
     }
 
-    refreshThreadDumpData () {
+    refreshThreadDumpData() {
         this.metricsService.threadDump().subscribe((data) => {
-            const modalRef  = this.modalService.open(AposMetricsMonitoringModalComponent, { size: 'lg'});
+            const modalRef = this.modalService.open(AposMetricsMonitoringModalComponent, {size: 'lg'});
             modalRef.componentInstance.threadDump = data;
             modalRef.result.then((result) => {
                 // Left blank intentionally, nothing to do here

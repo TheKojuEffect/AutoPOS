@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,20 +16,18 @@ export class CategoryDeleteDialogComponent {
 
     category: Category;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private categoryService: CategoryService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private categoryService: CategoryService,
+                public activeModal: NgbActiveModal,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['category']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
+    confirmDelete(id: number) {
         this.categoryService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'categoryListModification',
@@ -49,10 +47,9 @@ export class CategoryDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private categoryPopupService: CategoryPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private categoryPopupService: CategoryPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {

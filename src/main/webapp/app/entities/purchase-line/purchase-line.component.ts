@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLinks } from 'ng-jhipster';
 
 import { PurchaseLine } from './purchase-line.model';
 import { PurchaseLineService } from './purchase-line.service';
@@ -15,7 +15,7 @@ import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 })
 export class PurchaseLineComponent implements OnInit, OnDestroy {
 
-currentAccount: any;
+    currentAccount: any;
     purchaseLines: PurchaseLine[];
     error: any;
     success: any;
@@ -30,18 +30,16 @@ currentAccount: any;
     previousPage: any;
     reverse: any;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private purchaseLineService: PurchaseLineService,
-        private parseLinks: ParseLinks,
-        private alertService: AlertService,
-        private principal: Principal,
-        private activatedRoute: ActivatedRoute,
-        private router: Router,
-        private eventManager: EventManager,
-        private paginationUtil: PaginationUtil,
-        private paginationConfig: PaginationConfig
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private purchaseLineService: PurchaseLineService,
+                private parseLinks: ParseLinks,
+                private alertService: AlertService,
+                private principal: Principal,
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private eventManager: EventManager,
+                private paginationUtil: PaginationUtil,
+                private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -56,20 +54,23 @@ currentAccount: any;
         this.purchaseLineService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            sort: this.sort()
+        }).subscribe(
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );
     }
-    loadPage (page: number) {
+
+    loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
+
     transition() {
-        this.router.navigate(['/purchase-line'], {queryParams:
-            {
+        this.router.navigate(['/purchase-line'], {
+            queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -86,6 +87,7 @@ currentAccount: any;
         }]);
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -98,17 +100,16 @@ currentAccount: any;
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: PurchaseLine) {
+    trackId(index: number, item: PurchaseLine) {
         return item.id;
     }
-
 
 
     registerChangeInPurchaseLines() {
         this.eventSubscriber = this.eventManager.subscribe('purchaseLineListModification', (response) => this.loadAll());
     }
 
-    sort () {
+    sort() {
         let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
@@ -116,7 +117,7 @@ currentAccount: any;
         return result;
     }
 
-    private onSuccess (data, headers) {
+    private onSuccess(data, headers) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
@@ -124,7 +125,7 @@ currentAccount: any;
         this.purchaseLines = data;
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

@@ -49,11 +49,11 @@ export class ReceiptDialogComponent implements OnInit {
         if (this.receipt.id !== undefined) {
             this.receiptService.update(this.receipt)
                 .subscribe((res: Receipt) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.receiptService.create(this.receipt)
                 .subscribe((res: Receipt) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
@@ -64,6 +64,11 @@ export class ReceiptDialogComponent implements OnInit {
     }
 
     private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }

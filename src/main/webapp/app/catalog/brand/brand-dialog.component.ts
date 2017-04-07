@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { Brand } from './brand.model';
 import { BrandPopupService } from './brand-popup.service';
 import { BrandService } from './brand.service';
+
 @Component({
     selector: 'apos-brand-dialog',
     templateUrl: './brand-dialog.component.html'
@@ -17,13 +18,12 @@ export class BrandDialogComponent implements OnInit {
     brand: Brand;
     authorities: any[];
     isSaving: boolean;
-    constructor(
-        public activeModal: NgbActiveModal,
-        private jhiLanguageService: JhiLanguageService,
-        private alertService: AlertService,
-        private brandService: BrandService,
-        private eventManager: EventManager
-    ) {
+
+    constructor(public activeModal: NgbActiveModal,
+                private jhiLanguageService: JhiLanguageService,
+                private alertService: AlertService,
+                private brandService: BrandService,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['brand']);
     }
 
@@ -31,35 +31,41 @@ export class BrandDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
-    clear () {
+
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    save () {
+    save() {
         this.isSaving = true;
         if (this.brand.id !== undefined) {
             this.brandService.update(this.brand)
                 .subscribe((res: Brand) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.brandService.create(this.brand)
                 .subscribe((res: Brand) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
-    private onSaveSuccess (result: Brand) {
-        this.eventManager.broadcast({ name: 'brandListModification', content: 'OK'});
+    private onSaveSuccess(result: Brand) {
+        this.eventManager.broadcast({name: 'brandListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError (error) {
+    private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }
@@ -73,21 +79,19 @@ export class BrandPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private brandPopupService: BrandPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private brandPopupService: BrandPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.brandPopupService
                     .open(BrandDialogComponent, params['id']);
             } else {
                 this.modalRef = this.brandPopupService
                     .open(BrandDialogComponent);
             }
-
         });
     }
 

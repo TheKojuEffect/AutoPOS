@@ -1,56 +1,62 @@
-
-
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myCategoryLabel" jhiTranslate="autoPosApp.category.home.createOrEditLabel">Create or edit a Category</h4>
+        <h4 class="modal-title" id="myCategoryLabel" jhiTranslate="autoPosApp.category.home.createOrEditLabel">Create or
+            edit a Category</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
+                (click)="clear()">&times;
+        </button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!category.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="category.id" readonly />
+                   [(ngModel)]="category.id" readonly/>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="autoPosApp.category.shortName" for="field_shortName">Short Name</label>
+            <label class="form-control-label" jhiTranslate="autoPosApp.category.shortName" for="field_shortName">Short
+                Name</label>
             <input type="text" class="form-control" name="shortName" id="field_shortName"
-                [(ngModel)]="category.shortName"
-            required minlength="2" maxlength="3" />
+                   [(ngModel)]="category.shortName"
+                   required minlength="2" maxlength="3"/>
             <div [hidden]="!(editForm.controls.shortName?.dirty && editForm.controls.shortName?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.shortName?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.shortName?.errors?.required"
+                       jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.shortName?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
-                   This field is required to be at least 2 characters.
+                       [hidden]="!editForm.controls.shortName?.errors?.minlength"
+                       jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
+                    This field is required to be at least 2 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.shortName?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 3 }">
-                   This field cannot be longer than 3 characters.
+                       [hidden]="!editForm.controls.shortName?.errors?.maxlength"
+                       jhiTranslate="entity.validation.maxlength" translateValues="{ max: 3 }">
+                    This field cannot be longer than 3 characters.
                 </small>
             </div>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.category.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
-                [(ngModel)]="category.name"
-            required minlength="2" maxlength="50" />
+                   [(ngModel)]="category.name"
+                   required minlength="2" maxlength="50"/>
             <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
-                   This field is required.
+                       [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.name?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
-                   This field is required to be at least 2 characters.
+                       [hidden]="!editForm.controls.name?.errors?.minlength" jhiTranslate="entity.validation.minlength"
+                       translateValues="{ min: 2 }">
+                    This field is required to be at least 2 characters.
                 </small>
                 <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 50 }">
-                   This field cannot be longer than 50 characters.
+                       [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength"
+                       translateValues="{ max: 50 }">
+                    This field cannot be longer than 50 characters.
                 </small>
             </div>
         </div>

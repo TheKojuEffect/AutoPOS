@@ -11,7 +11,8 @@ export class AposHealthModalComponent {
 
     currentHealth: any;
 
-    constructor(private healthService: AposHealthService, public activeModal: NgbActiveModal) {}
+    constructor(private healthService: AposHealthService, public activeModal: NgbActiveModal) {
+    }
 
     baseName(name) {
         return this.healthService.getBaseName(name);

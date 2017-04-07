@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="autoPosApp.purchase.home.title">Purchases</span>
-        <button class="btn btn-primary float-right create-purchase" [routerLink]="['/', { outlets: { popup: ['purchase-new'] } }]">
+        <button class="btn btn-primary float-right create-purchase"
+                [routerLink]="['/', { outlets: { popup: ['purchase-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="autoPosApp.purchase.home.createLabel">
+            <span jhiTranslate="autoPosApp.purchase.home.createLabel">
             Create new Purchase
             </span>
         </button>
@@ -16,13 +17,19 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="date"><span jhiTranslate="autoPosApp.purchase.date">Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="invoiceNumber"><span jhiTranslate="autoPosApp.purchase.invoiceNumber">Invoice Number</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="discount"><span jhiTranslate="autoPosApp.purchase.discount">Discount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.purchase.remarks">Remarks</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="vendor.name"><span jhiTranslate="autoPosApp.purchase.vendor">Vendor</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="date"><span jhiTranslate="autoPosApp.purchase.date">Date</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="invoiceNumber"><span
+                        jhiTranslate="autoPosApp.purchase.invoiceNumber">Invoice Number</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="discount"><span jhiTranslate="autoPosApp.purchase.discount">Discount</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.purchase.remarks">Remarks</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="vendor.name"><span jhiTranslate="autoPosApp.purchase.vendor">Vendor</span> <span
+                        class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -34,7 +41,7 @@
                 <td>{{purchase.remarks}}</td>
                 <td>
                     <div *ngIf="purchase.vendor">
-                        <a [routerLink]="['../vendor', purchase.vendor?.id ]" >{{purchase.vendor?.name}}</a>
+                        <a [routerLink]="['../vendor', purchase.vendor?.id ]">{{purchase.vendor?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -65,12 +72,13 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="purchases && purchases.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
+    <div *ngIf="purchases && purchases.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

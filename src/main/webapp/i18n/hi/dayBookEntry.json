@@ -1,25 +1,25 @@
 {
-    "autoPosApp": {
-        "dayBookEntry" : {
-            "home": {
-                "title": "DayBookEntries",
-                "createLabel": "नया Day Book Entry बनाएँ",
-                "createOrEditLabel": "Day Book Entry बनाएँ या संपादित करें"
-            },
-            "created": "एक नया Day Book Entry [identifier: {{ param }}] तैयार है",
-            "updated": "एक Day Book Entry [identifier: {{ param }}] का अद्यतन हुआ है",
-            "deleted": "Day Book Entry [identifier: {{ param }}] हटा दिया है",
-            "delete": {
-                "question": "Day Book Entry [id: {{ id }}] हटाने की पुष्टि करें"
-            },
-            "detail": {
-                "title": "Day Book Entry"
-            },
-            "date": "Date",
-            "incomingAmount": "Incoming Amount",
-            "outgoingAmount": "Outgoing Amount",
-            "miscExpenses": "Misc Expenses",
-            "remarks": "Remarks"
-        }
+  "autoPosApp": {
+    "dayBookEntry": {
+      "home": {
+        "title": "DayBookEntries",
+        "createLabel": "नया Day Book Entry बनाएँ",
+        "createOrEditLabel": "Day Book Entry बनाएँ या संपादित करें"
+      },
+      "created": "एक नया Day Book Entry [identifier: {{ param }}] तैयार है",
+      "updated": "एक Day Book Entry [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Day Book Entry [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Day Book Entry [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Day Book Entry"
+      },
+      "date": "Date",
+      "incomingAmount": "Incoming Amount",
+      "outgoingAmount": "Outgoing Amount",
+      "miscExpenses": "Misc Expenses",
+      "remarks": "Remarks"
     }
+  }
 }

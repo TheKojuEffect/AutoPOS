@@ -1,13 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { AlertService, EventManager, JhiLanguageService, ParseLinks } from 'ng-jhipster';
 
 import { PriceHistory } from './price-history.model';
 import { PriceHistoryService } from './price-history.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'apos-price-history',
@@ -26,14 +24,12 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private priceHistoryService: PriceHistoryService,
-        private alertService: AlertService,
-        private eventManager: EventManager,
-        private parseLinks: ParseLinks,
-        private principal: Principal
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private priceHistoryService: PriceHistoryService,
+                private alertService: AlertService,
+                private eventManager: EventManager,
+                private parseLinks: ParseLinks,
+                private principal: Principal) {
         this.priceHistories = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 0;
@@ -45,7 +41,7 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
         this.jhiLanguageService.setLocations(['priceHistory']);
     }
 
-    loadAll () {
+    loadAll() {
         this.priceHistoryService.query({
             page: this.page,
             size: this.itemsPerPage,
@@ -56,7 +52,7 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
         );
     }
 
-    reset () {
+    reset() {
         this.page = 0;
         this.priceHistories = [];
         this.loadAll();
@@ -66,6 +62,7 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
         this.page = page;
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -78,17 +75,16 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: PriceHistory) {
+    trackId(index: number, item: PriceHistory) {
         return item.id;
     }
-
 
 
     registerChangeInPriceHistories() {
         this.eventSubscriber = this.eventManager.subscribe('priceHistoryListModification', (response) => this.reset());
     }
 
-    sort () {
+    sort() {
         let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
@@ -104,7 +100,7 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
         }
     }
 
-    private onError (error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 }

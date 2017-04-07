@@ -8,6 +8,6 @@ export class Purchase {
                 public discount?: number,
                 public remarks?: string,
                 public vendor?: Vendor,
-                public line?: PurchaseLine,) {
+                public line?: PurchaseLine) {
     }
 }

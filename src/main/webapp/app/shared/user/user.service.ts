@@ -8,7 +8,8 @@ import { User } from './user.model';
 export class UserService {
     private resourceUrl = 'api/users';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(user: User): Observable<Response> {
         return this.http.post(this.resourceUrl, user);

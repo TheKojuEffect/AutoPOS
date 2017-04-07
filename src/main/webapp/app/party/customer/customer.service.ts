@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Customer } from './customer.model';
@@ -8,7 +8,8 @@ export class CustomerService {
 
     private resourceUrl = 'api/customers';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(customer: Customer): Observable<Customer> {
         let copy: Customer = Object.assign({}, customer);
@@ -33,13 +34,12 @@ export class CustomerService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
 
 
     private createRequestOption(req?: any): BaseRequestOptions {

@@ -1,5 +1,5 @@
-import { Directive, OnInit, ElementRef, Renderer, Input} from '@angular/core';
-import { TranslateService, LangChangeEvent } from 'ng2-translate';
+import { Directive, ElementRef, Input, OnInit, Renderer } from '@angular/core';
+import { LangChangeEvent, TranslateService } from 'ng2-translate';
 
 @Directive({
     selector: '[aposActiveMenu]'
@@ -7,20 +7,21 @@ import { TranslateService, LangChangeEvent } from 'ng2-translate';
 export class ActiveMenuDirective implements OnInit {
     @Input() aposActiveMenu: string;
 
-    constructor(private el: ElementRef, private renderer: Renderer, private translateService: TranslateService) {}
+    constructor(private el: ElementRef, private renderer: Renderer, private translateService: TranslateService) {
+    }
 
     ngOnInit() {
-      this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-         this.updateActiveFlag(event.lang);
-      });
-      this.updateActiveFlag(this.translateService.currentLang);
+        this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
+            this.updateActiveFlag(event.lang);
+        });
+        this.updateActiveFlag(this.translateService.currentLang);
     }
 
     updateActiveFlag(selectedLanguage) {
-      if (this.aposActiveMenu === selectedLanguage) {
-          this.renderer.setElementClass(this.el.nativeElement, 'active', true);
-      } else {
-          this.renderer.setElementClass(this.el.nativeElement, 'active', false);
-      }
+        if (this.aposActiveMenu === selectedLanguage) {
+            this.renderer.setElementClass(this.el.nativeElement, 'active', true);
+        } else {
+            this.renderer.setElementClass(this.el.nativeElement, 'active', false);
+        }
     }
 }

@@ -3,9 +3,8 @@ import { SessionStorageService } from 'ng2-webstorage';
 
 @Injectable()
 export class StateStorageService {
-    constructor(
-        private $sessionStorage: SessionStorageService
-    ) {}
+    constructor(private $sessionStorage: SessionStorageService) {
+    }
 
     getPreviousState() {
         return this.$sessionStorage.retrieve('previousState');
@@ -16,12 +15,20 @@ export class StateStorageService {
     }
 
     storePreviousState(previousStateName, previousStateParams) {
-        let previousState = { 'name': previousStateName, 'params': previousStateParams };
+        let previousState = {'name': previousStateName, 'params': previousStateParams};
         this.$sessionStorage.store('previousState', previousState);
     }
 
     getDestinationState() {
         return this.$sessionStorage.retrieve('destinationState');
+    }
+
+    storeUrl(url: string) {
+        this.$sessionStorage.store('previousUrl', url);
+    }
+
+    getUrl() {
+        return this.$sessionStorage.retrieve('previousUrl');
     }
 
     storeDestinationState(destinationState, destinationStateParams, fromState) {
@@ -33,7 +40,7 @@ export class StateStorageService {
             'params': destinationStateParams,
             'from': {
                 'name': fromState.name,
-             }
+            }
         };
         this.$sessionStorage.store('destinationState', destinationInfo);
     }

@@ -41,11 +41,11 @@ export class CustomerDialogComponent implements OnInit {
         if (this.customer.id !== undefined) {
             this.customerService.update(this.customer)
                 .subscribe((res: Customer) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.customerService.create(this.customer)
                 .subscribe((res: Customer) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
@@ -56,6 +56,11 @@ export class CustomerDialogComponent implements OnInit {
     }
 
     private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }

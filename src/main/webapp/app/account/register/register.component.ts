@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 
@@ -20,13 +20,11 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     success: boolean;
     modalRef: NgbModalRef;
 
-    constructor(
-        private languageService: JhiLanguageService,
-        private loginModalService: LoginModalService,
-        private registerService: Register,
-        private elementRef: ElementRef,
-        private renderer: Renderer
-    ) {
+    constructor(private languageService: JhiLanguageService,
+                private loginModalService: LoginModalService,
+                private registerService: Register,
+                private elementRef: ElementRef,
+                private renderer: Renderer) {
         this.languageService.setLocations(['register']);
     }
 
@@ -64,7 +62,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         this.success = null;
         if (response.status === 400 && response._body === 'login already in use') {
             this.errorUserExists = 'ERROR';
-        } else if (response.status === 400 && response._body === 'e-mail address already in use') {
+        } else if (response.status === 400 && response._body === 'email address already in use') {
             this.errorEmailExists = 'ERROR';
         } else {
             this.error = 'ERROR';

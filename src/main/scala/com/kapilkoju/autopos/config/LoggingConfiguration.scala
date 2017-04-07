@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class LoggingConfiguration(val jHipsterProperties: JHipsterProperties) {
+class LoggingConfiguration(val jHipsterProperties: JHipsterProperties,
+                           @Value("${server.port}") val appName: String,
+                           @Value("${server.port}") val serverPort: String) {
 
   private val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
 
@@ -24,13 +26,6 @@ class LoggingConfiguration(val jHipsterProperties: JHipsterProperties) {
   }
 
   final private val log: Logger = LoggerFactory.getLogger(classOf[LoggingConfiguration])
-
-
-  @Value("${spring.application.name}")
-  private val appName: String = null
-
-  @Value("${server.port}")
-  private val serverPort: String = null
 
   def addLogstashAppender(context: LoggerContext) {
     log.info("Initializing Logstash logging")

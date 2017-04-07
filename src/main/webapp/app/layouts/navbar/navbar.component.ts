@@ -4,9 +4,9 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 
 import { ProfileService } from '../profiles/profile.service'; // FIXME barrel doesnt work here
-import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from '../../shared';
+import { JhiLanguageHelper, LoginModalService, LoginService, Principal } from '../../shared';
 
-import { VERSION, DEBUG_INFO_ENABLED } from '../../app.constants';
+import { DEBUG_INFO_ENABLED, VERSION } from '../../app.constants';
 
 @Component({
     selector: 'apos-navbar',
@@ -24,15 +24,13 @@ export class NavbarComponent implements OnInit {
     modalRef: NgbModalRef;
     version: string;
 
-    constructor(
-        private loginService: LoginService,
-        private languageHelper: JhiLanguageHelper,
-        private languageService: JhiLanguageService,
-        private principal: Principal,
-        private loginModalService: LoginModalService,
-        private profileService: ProfileService,
-        private router: Router
-    ) {
+    constructor(private loginService: LoginService,
+                private languageHelper: JhiLanguageHelper,
+                private languageService: JhiLanguageService,
+                private principal: Principal,
+                private loginModalService: LoginModalService,
+                private profileService: ProfileService,
+                private router: Router) {
         this.version = DEBUG_INFO_ENABLED ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
         this.languageService.addLocation('home');
@@ -50,7 +48,7 @@ export class NavbarComponent implements OnInit {
     }
 
     changeLanguage(languageKey: string) {
-      this.languageService.changeLanguage(languageKey);
+        this.languageService.changeLanguage(languageKey);
     }
 
     collapseNavbar() {

@@ -5,10 +5,8 @@ import { HttpInterceptor } from 'ng-jhipster';
 
 export class AuthInterceptor extends HttpInterceptor {
 
-    constructor(
-        private localStorage: LocalStorageService,
-        private sessionStorage: SessionStorageService
-    ) {
+    constructor(private localStorage: LocalStorageService,
+                private sessionStorage: SessionStorageService) {
         super();
     }
 

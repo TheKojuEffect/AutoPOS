@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -18,13 +18,12 @@ export class UserMgmtDialogComponent implements OnInit {
     authorities: any[];
     isSaving: Boolean;
 
-    constructor (
-        public activeModal: NgbActiveModal,
-        private languageHelper: JhiLanguageHelper,
-        private jhiLanguageService: JhiLanguageService,
-        private userService: UserService,
-        private eventManager: EventManager
-    ) {}
+    constructor(public activeModal: NgbActiveModal,
+                private languageHelper: JhiLanguageHelper,
+                private jhiLanguageService: JhiLanguageService,
+                private userService: UserService,
+                private eventManager: EventManager) {
+    }
 
     ngOnInit() {
         this.isSaving = false;
@@ -49,7 +48,7 @@ export class UserMgmtDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result) {
-        this.eventManager.broadcast({ name: 'userListModification', content: 'OK' });
+        this.eventManager.broadcast({name: 'userListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -68,14 +67,13 @@ export class UserDialogComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private userModalService: UserModalService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private userModalService: UserModalService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
-            if ( params['login'] ) {
+            if (params['login']) {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent, params['login']);
             } else {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent);

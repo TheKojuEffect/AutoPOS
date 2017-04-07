@@ -1,14 +1,16 @@
 import { Component, OnDestroy } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
-import { EventManager, AlertService } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 import { Subscription } from 'rxjs/Rx';
 
 @Component({
     selector: 'apos-alert-error',
     template: `
         <div class="alerts" role="alert">
-            <div *ngFor="let alert of alerts"  [ngClass]="{\'alert.position\': true, \'toast\': alert.toast}">
-                <ngb-alert type="{{alert.type}}" close="alert.close(alerts)"><pre>{{ alert.msg }}</pre></ngb-alert>
+            <div *ngFor="let alert of alerts" [ngClass]="{\'alert.position\': true, \'toast\': alert.toast}">
+                <ngb-alert type="{{alert.type}}" close="alert.close(alerts)">
+                    <pre [innerHTML]="alert.msg"></pre>
+                </ngb-alert>
             </div>
         </div>`
 })
@@ -38,8 +40,12 @@ export class AposAlertErrorComponent implements OnDestroy {
                         }
                     }
                     headers.sort();
-                    let errorHeader = httpResponse.headers.get(headers[0]);
-                    let entityKey = httpResponse.headers.get(headers[1]);
+                    let errorHeader = null;
+                    let entityKey = null;
+                    if (headers.length > 1) {
+                        errorHeader = httpResponse.headers.get(headers[0]);
+                        entityKey = httpResponse.headers.get(headers[1]);
+                    }
                     if (errorHeader) {
                         let entityName = translateService.instant('global.menu.entities.' + entityKey);
                         this.addErrorAlert(errorHeader, errorHeader, {entityName: entityName});
@@ -55,7 +61,7 @@ export class AposAlertErrorComponent implements OnDestroy {
                                 'Field ' + fieldName + ' cannot be empty', 'error.' + fieldError.message, {fieldName: fieldName});
                         }
                     } else if (httpResponse.text() !== '' && httpResponse.json() && httpResponse.json().message) {
-                        this.addErrorAlert(httpResponse.json().message, httpResponse.json().message, httpResponse.json());
+                        this.addErrorAlert(httpResponse.json().message, httpResponse.json().message, httpResponse.json().params);
                     } else {
                         this.addErrorAlert(httpResponse.text());
                     }
@@ -82,7 +88,7 @@ export class AposAlertErrorComponent implements OnDestroy {
         }
     }
 
-    addErrorAlert (message, key?, data?) {
+    addErrorAlert(message, key?, data?) {
         key = key && key !== null ? key : message;
         this.alerts.push(
             this.alertService.addAlert(

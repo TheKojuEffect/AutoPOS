@@ -1,26 +1,26 @@
 {
-    "autoPosApp": {
-        "saleLine" : {
-            "home": {
-                "title": "SaleLines",
-                "createLabel": "नया Sale Line बनाएँ",
-                "createOrEditLabel": "Sale Line बनाएँ या संपादित करें"
-            },
-            "created": "एक नया Sale Line [identifier: {{ param }}] तैयार है",
-            "updated": "एक Sale Line [identifier: {{ param }}] का अद्यतन हुआ है",
-            "deleted": "Sale Line [identifier: {{ param }}] हटा दिया है",
-            "delete": {
-                "question": "Sale Line [id: {{ id }}] हटाने की पुष्टि करें"
-            },
-            "detail": {
-                "title": "Sale Line"
-            },
-            "buyer": "Buyer",
-            "quantity": "Quantity",
-            "rate": "Rate",
-            "remarks": "Remarks",
-            "sale": "Sale",
-            "item": "Item"
-        }
+  "autoPosApp": {
+    "saleLine": {
+      "home": {
+        "title": "SaleLines",
+        "createLabel": "नया Sale Line बनाएँ",
+        "createOrEditLabel": "Sale Line बनाएँ या संपादित करें"
+      },
+      "created": "एक नया Sale Line [identifier: {{ param }}] तैयार है",
+      "updated": "एक Sale Line [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Sale Line [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Sale Line [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Sale Line"
+      },
+      "buyer": "Buyer",
+      "quantity": "Quantity",
+      "rate": "Rate",
+      "remarks": "Remarks",
+      "sale": "Sale",
+      "item": "Item"
     }
+  }
 }

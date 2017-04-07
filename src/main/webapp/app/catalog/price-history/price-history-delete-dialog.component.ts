@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,20 +16,18 @@ export class PriceHistoryDeleteDialogComponent {
 
     priceHistory: PriceHistory;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private priceHistoryService: PriceHistoryService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private priceHistoryService: PriceHistoryService,
+                public activeModal: NgbActiveModal,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['priceHistory']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
+    confirmDelete(id: number) {
         this.priceHistoryService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'priceHistoryListModification',
@@ -49,10 +47,9 @@ export class PriceHistoryDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private priceHistoryPopupService: PriceHistoryPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private priceHistoryPopupService: PriceHistoryPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {

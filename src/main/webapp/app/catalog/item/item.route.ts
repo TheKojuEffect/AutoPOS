@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { PaginationUtil } from 'ng-jhipster';
+import { UserRouteAccessService } from '../../shared/auth/user-route-access-service';
 
 import { ItemComponent } from './item.component';
 import { ItemDetailComponent } from './item-detail.component';
@@ -34,7 +35,8 @@ export const itemRoutes: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.item.home.title'
-        }
+        },
+        canActivate: [UserRouteAccessService]
     },
 
     {
@@ -43,7 +45,8 @@ export const itemRoutes: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.item.home.title'
-        }
+        },
+        canActivate: [UserRouteAccessService]
     }
 ];
 
@@ -55,6 +58,7 @@ export const itemPopupRoutes: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.item.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
@@ -64,6 +68,7 @@ export const itemPopupRoutes: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.item.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
@@ -73,6 +78,7 @@ export const itemPopupRoutes: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.item.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     }
 ];

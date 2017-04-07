@@ -15,10 +15,8 @@ export class AposConfigurationComponent implements OnInit {
     orderProp: string;
     reverse: boolean;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private configurationService: AposConfigurationService
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private configurationService: AposConfigurationService) {
         this.jhiLanguageService.setLocations(['configuration']);
         this.configKeys = [];
         this.filter = '';

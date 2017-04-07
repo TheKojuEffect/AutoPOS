@@ -1,9 +1,9 @@
 {
-    "autoPosApp": {
-        "SaleStatus" : {
-            "null": "",
-            "PENDING": "PENDING",
-            "COMPLETED": "COMPLETED"
-        }
+  "autoPosApp": {
+    "SaleStatus": {
+      "null": "",
+      "PENDING": "PENDING",
+      "COMPLETED": "COMPLETED"
     }
+  }
 }

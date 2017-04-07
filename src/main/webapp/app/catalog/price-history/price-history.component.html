@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="autoPosApp.priceHistory.home.title">Price Histories</span>
-        <button class="btn btn-primary float-right create-price-history" [routerLink]="['/', { outlets: { popup: ['price-history-new'] } }]">
+        <button class="btn btn-primary float-right create-price-history"
+                [routerLink]="['/', { outlets: { popup: ['price-history-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="autoPosApp.priceHistory.home.createLabel">
+            <span jhiTranslate="autoPosApp.priceHistory.home.createLabel">
             Create new Price History
             </span>
         </button>
@@ -16,15 +17,20 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="date"><span jhiTranslate="autoPosApp.priceHistory.date">Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="markedPrice"><span jhiTranslate="autoPosApp.priceHistory.markedPrice">Marked Price</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.priceHistory.remarks">Remarks</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="item.name"><span jhiTranslate="autoPosApp.priceHistory.item">Item</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="date"><span jhiTranslate="autoPosApp.priceHistory.date">Date</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="markedPrice"><span jhiTranslate="autoPosApp.priceHistory.markedPrice">Marked Price</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.priceHistory.remarks">Remarks</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="item.name"><span jhiTranslate="autoPosApp.priceHistory.item">Item</span> <span
+                        class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
+                   [infiniteScrollDistance]="0">
             <tr *ngFor="let priceHistory of priceHistories ;trackBy: trackId">
                 <td><a [routerLink]="['../price-history', priceHistory.id ]">{{priceHistory.id}}</a></td>
                 <td>{{priceHistory.date | date:'medium'}}</td>
@@ -32,7 +38,7 @@
                 <td>{{priceHistory.remarks}}</td>
                 <td>
                     <div *ngIf="priceHistory.item">
-                        <a [routerLink]="['../item', priceHistory.item?.id ]" >{{priceHistory.item?.name}}</a>
+                        <a [routerLink]="['../item', priceHistory.item?.id ]">{{priceHistory.item?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

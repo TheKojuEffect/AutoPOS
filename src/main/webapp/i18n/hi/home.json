@@ -1,9 +1,9 @@
 {
-    "home": {
-        "title": "आपका स्वागत है, Java Hipster!",
-        "subtitle": "यह आपका होमपेज है",
-        "logged": {
-            "message": "आप उपयोगकर्ता \"{{username}}\" के रूप में लॉग ऑन हैं "
-        }
+  "home": {
+    "title": "आपका स्वागत है, Java Hipster!",
+    "subtitle": "यह आपका होमपेज है",
+    "logged": {
+      "message": "आप उपयोगकर्ता \"{{username}}\" के रूप में लॉग ऑन हैं "
     }
+  }
 }

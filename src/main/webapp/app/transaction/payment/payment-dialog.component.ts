@@ -49,11 +49,11 @@ export class PaymentDialogComponent implements OnInit {
         if (this.payment.id !== undefined) {
             this.paymentService.update(this.payment)
                 .subscribe((res: Payment) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         } else {
             this.paymentService.create(this.payment)
                 .subscribe((res: Payment) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
         }
     }
 
@@ -64,6 +64,11 @@ export class PaymentDialogComponent implements OnInit {
     }
 
     private onSaveError(error) {
+        try {
+            error.json();
+        } catch (exception) {
+            error.message = error.text();
+        }
         this.isSaving = false;
         this.onError(error);
     }

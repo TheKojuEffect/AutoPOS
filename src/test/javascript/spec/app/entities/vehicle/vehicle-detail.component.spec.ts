@@ -1,17 +1,16 @@
-import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
-import { Http, BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions } from '@angular/http';
 import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { DateUtils, DataUtils } from 'ng-jhipster';
-import { JhiLanguageService } from 'ng-jhipster';
-import { MockLanguageService } from '../../../helpers/mock-language.service';
+import { DataUtils, DateUtils, EventManager } from 'ng-jhipster';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { VehicleDetailComponent } from '../../../../../../main/webapp/app/party/vehicle/vehicle-detail.component';
 import { VehicleService } from '../../../../../../main/webapp/app/party/vehicle/vehicle.service';
 import { Vehicle } from '../../../../../../main/webapp/app/party/vehicle/vehicle.model';
+import { AutoPosTestModule } from '../../../test.module';
 
 describe('Component Tests', () => {
 
@@ -22,6 +21,7 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
+                imports: [AutoPosTestModule],
                 declarations: [VehicleDetailComponent],
                 providers: [
                     MockBackend,
@@ -33,18 +33,8 @@ describe('Component Tests', () => {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({id: 123})
                     },
-                    {
-                        provide: Http,
-                        useFactory: (backendInstance: MockBackend, defaultOptions: BaseRequestOptions) => {
-                            return new Http(backendInstance, defaultOptions);
-                        },
-                        deps: [MockBackend, BaseRequestOptions]
-                    },
-                    {
-                        provide: JhiLanguageService,
-                        useClass: MockLanguageService
-                    },
-                    VehicleService
+                    VehicleService,
+                    EventManager
                 ]
             }).overrideComponent(VehicleDetailComponent, {
                 set: {
@@ -62,16 +52,16 @@ describe('Component Tests', () => {
 
         describe('OnInit', () => {
             it('Should call load all on init', () => {
-            // GIVEN
+                // GIVEN
 
-            spyOn(service, 'find').and.returnValue(Observable.of(new Vehicle(10)));
+                spyOn(service, 'find').and.returnValue(Observable.of(new Vehicle(10)));
 
-            // WHEN
-            comp.ngOnInit();
+                // WHEN
+                comp.ngOnInit();
 
-            // THEN
-            expect(service.find).toHaveBeenCalledWith(123);
-            expect(comp.vehicle).toEqual(jasmine.objectContaining({id:10}));
+                // THEN
+                expect(service.find).toHaveBeenCalledWith(123);
+                expect(comp.vehicle).toEqual(jasmine.objectContaining({id: 10}));
             });
         });
     });

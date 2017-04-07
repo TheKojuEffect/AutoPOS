@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,20 +16,18 @@ export class PurchaseDeleteDialogComponent {
 
     purchase: Purchase;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private purchaseService: PurchaseService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private purchaseService: PurchaseService,
+                public activeModal: NgbActiveModal,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['purchase']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
+    confirmDelete(id: number) {
         this.purchaseService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'purchaseListModification',
@@ -49,10 +47,9 @@ export class PurchaseDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private purchasePopupService: PurchasePopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private purchasePopupService: PurchasePopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {

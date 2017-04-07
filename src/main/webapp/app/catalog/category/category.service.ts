@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
+import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Category } from './category.model';
@@ -8,7 +8,8 @@ export class CategoryService {
 
     private resourceUrl = 'api/categories';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(category: Category): Observable<Category> {
         let copy: Category = Object.assign({}, category);
@@ -33,13 +34,12 @@ export class CategoryService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-        ;
+            ;
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
-
 
 
     private createRequestOption(req?: any): BaseRequestOptions {

@@ -1,26 +1,26 @@
 {
-    "autoPosApp": {
-        "saleLine" : {
-            "home": {
-                "title": "Sale Lines",
-                "createLabel": "Create a new Sale Line",
-                "createOrEditLabel": "Create or edit a Sale Line"
-            },
-            "created": "A new Sale Line is created with identifier {{ param }}",
-            "updated": "A Sale Line is updated with identifier {{ param }}",
-            "deleted": "A Sale Line is deleted with identifier {{ param }}",
-            "delete": {
-                "question": "Are you sure you want to delete Sale Line {{ id }}?"
-            },
-            "detail": {
-                "title": "Sale Line"
-            },
-            "buyer": "Buyer",
-            "quantity": "Quantity",
-            "rate": "Rate",
-            "remarks": "Remarks",
-            "sale": "Sale",
-            "item": "Item"
-        }
+  "autoPosApp": {
+    "saleLine": {
+      "home": {
+        "title": "Sale Lines",
+        "createLabel": "Create a new Sale Line",
+        "createOrEditLabel": "Create or edit a Sale Line"
+      },
+      "created": "A new Sale Line is created with identifier {{ param }}",
+      "updated": "A Sale Line is updated with identifier {{ param }}",
+      "deleted": "A Sale Line is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Sale Line {{ id }}?"
+      },
+      "detail": {
+        "title": "Sale Line"
+      },
+      "buyer": "Buyer",
+      "quantity": "Quantity",
+      "rate": "Rate",
+      "remarks": "Remarks",
+      "sale": "Sale",
+      "item": "Item"
     }
+  }
 }

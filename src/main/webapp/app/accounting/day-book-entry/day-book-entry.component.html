@@ -1,9 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="autoPosApp.dayBookEntry.home.title">Day Book</span>
-        <button class="btn btn-primary float-right create-day-book-entry" [routerLink]="['/', { outlets: { popup: ['day-book-entry-new'] } }]">
+        <button class="btn btn-primary float-right create-day-book-entry"
+                [routerLink]="['/', { outlets: { popup: ['day-book-entry-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span  jhiTranslate="autoPosApp.dayBookEntry.home.createLabel">
+            <span jhiTranslate="autoPosApp.dayBookEntry.home.createLabel">
             Create new Day Book Entry
             </span>
         </button>
@@ -16,13 +17,19 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="date"><span jhiTranslate="autoPosApp.dayBookEntry.date">Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="incomingAmount"><span jhiTranslate="autoPosApp.dayBookEntry.incomingAmount">Incoming Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="outgoingAmount"><span jhiTranslate="autoPosApp.dayBookEntry.outgoingAmount">Outgoing Amount</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="miscExpenses"><span jhiTranslate="autoPosApp.dayBookEntry.miscExpenses">Misc Expenses</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.dayBookEntry.remarks">Remarks</span> <span class="fa fa-sort"></span></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="date"><span jhiTranslate="autoPosApp.dayBookEntry.date">Date</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="incomingAmount"><span jhiTranslate="autoPosApp.dayBookEntry.incomingAmount">Incoming Amount</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="outgoingAmount"><span jhiTranslate="autoPosApp.dayBookEntry.outgoingAmount">Outgoing Amount</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="miscExpenses"><span
+                        jhiTranslate="autoPosApp.dayBookEntry.miscExpenses">Misc Expenses</span> <span
+                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.dayBookEntry.remarks">Remarks</span> <span
+                        class="fa fa-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -61,12 +68,13 @@
             </tbody>
         </table>
     </div>
-        <div *ngIf="dayBookEntries && dayBookEntries.length">
-            <div class="row justify-content-center">
-                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-            </div>
-            <div class="row justify-content-center">
-                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
-            </div>
+    <div *ngIf="dayBookEntries && dayBookEntries.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
+                            (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
 </div>

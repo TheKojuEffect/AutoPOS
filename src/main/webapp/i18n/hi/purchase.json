@@ -1,26 +1,26 @@
 {
-    "autoPosApp": {
-        "purchase" : {
-            "home": {
-                "title": "Purchases",
-                "createLabel": "नया Purchase बनाएँ",
-                "createOrEditLabel": "Purchase बनाएँ या संपादित करें"
-            },
-            "created": "एक नया Purchase [identifier: {{ param }}] तैयार है",
-            "updated": "एक Purchase [identifier: {{ param }}] का अद्यतन हुआ है",
-            "deleted": "Purchase [identifier: {{ param }}] हटा दिया है",
-            "delete": {
-                "question": "Purchase [id: {{ id }}] हटाने की पुष्टि करें"
-            },
-            "detail": {
-                "title": "Purchase"
-            },
-            "date": "Date",
-            "invoiceNumber": "Invoice Number",
-            "discount": "Discount",
-            "remarks": "Remarks",
-            "vendor": "Vendor",
-            "line": "Line"
-        }
+  "autoPosApp": {
+    "purchase": {
+      "home": {
+        "title": "Purchases",
+        "createLabel": "नया Purchase बनाएँ",
+        "createOrEditLabel": "Purchase बनाएँ या संपादित करें"
+      },
+      "created": "एक नया Purchase [identifier: {{ param }}] तैयार है",
+      "updated": "एक Purchase [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Purchase [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Purchase [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Purchase"
+      },
+      "date": "Date",
+      "invoiceNumber": "Invoice Number",
+      "discount": "Discount",
+      "remarks": "Remarks",
+      "vendor": "Vendor",
+      "line": "Line"
     }
+  }
 }

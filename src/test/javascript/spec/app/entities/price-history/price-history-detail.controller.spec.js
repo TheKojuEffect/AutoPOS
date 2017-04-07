@@ -1,35 +1,35 @@
 'use strict';
 
-describe('Controller Tests', function() {
+describe('Controller Tests', function () {
 
-    describe('PriceHistory Management Detail Controller', function() {
+    describe('PriceHistory Management Detail Controller', function () {
         var $scope, $rootScope;
         var MockEntity, MockPriceHistory, MockItem;
         var createController;
 
-        beforeEach(inject(function($injector) {
+        beforeEach(inject(function ($injector) {
             $rootScope = $injector.get('$rootScope');
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockPriceHistory = jasmine.createSpy('MockPriceHistory');
             MockItem = jasmine.createSpy('MockItem');
-            
+
 
             var locals = {
                 '$scope': $scope,
                 '$rootScope': $rootScope,
-                'entity': MockEntity ,
+                'entity': MockEntity,
                 'PriceHistory': MockPriceHistory,
                 'Item': MockItem
             };
-            createController = function() {
+            createController = function () {
                 $injector.get('$controller')("PriceHistoryDetailController", locals);
             };
         }));
 
 
-        describe('Root Scope Listening', function() {
-            it('Unregisters root scope listener upon scope destruction', function() {
+        describe('Root Scope Listening', function () {
+            it('Unregisters root scope listener upon scope destruction', function () {
                 var eventType = 'autoPosApp:priceHistoryUpdate';
 
                 createController();

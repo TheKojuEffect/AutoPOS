@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,20 +16,18 @@ export class DayBookEntryDeleteDialogComponent {
 
     dayBookEntry: DayBookEntry;
 
-    constructor(
-        private jhiLanguageService: JhiLanguageService,
-        private dayBookEntryService: DayBookEntryService,
-        public activeModal: NgbActiveModal,
-        private eventManager: EventManager
-    ) {
+    constructor(private jhiLanguageService: JhiLanguageService,
+                private dayBookEntryService: DayBookEntryService,
+                public activeModal: NgbActiveModal,
+                private eventManager: EventManager) {
         this.jhiLanguageService.setLocations(['dayBookEntry']);
     }
 
-    clear () {
+    clear() {
         this.activeModal.dismiss('cancel');
     }
 
-    confirmDelete (id: number) {
+    confirmDelete(id: number) {
         this.dayBookEntryService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'dayBookEntryListModification',
@@ -49,10 +47,9 @@ export class DayBookEntryDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor (
-        private route: ActivatedRoute,
-        private dayBookEntryPopupService: DayBookEntryPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private dayBookEntryPopupService: DayBookEntryPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
