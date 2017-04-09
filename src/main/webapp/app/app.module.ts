@@ -26,6 +26,9 @@ import { AccountingModule } from './accounting/accounting.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { PartyModule } from './party/party.module';
 import { PurchaseModule } from './purchases/purchase/purchase.module';
+import { SaleModule } from './sales/sale/sale.module';
+import { PurchaseLineModule } from './purchases/purchase-line/purchase-line.module';
+import { SaleLineModule } from './sales/sale-line/sale-line.module';
 
 
 @NgModule({
@@ -38,7 +41,10 @@ import { PurchaseModule } from './purchases/purchase/purchase.module';
         AdminModule,
         AccountModule,
         CatalogModule,
+        SaleModule,
+        SaleLineModule,
         PurchaseModule,
+        PurchaseLineModule,
         PartyModule,
         TransactionModule,
         AccountingModule

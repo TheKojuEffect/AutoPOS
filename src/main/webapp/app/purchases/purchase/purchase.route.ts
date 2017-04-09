@@ -6,6 +6,7 @@ import { PurchaseComponent } from './purchase.component';
 import { PurchaseDetailComponent } from './purchase-detail.component';
 import { PurchasePopupComponent } from './purchase-dialog.component';
 import { PurchaseDeletePopupComponent } from './purchase-delete-dialog.component';
+import { UserRouteAccessService } from '../../shared/auth/user-route-access-service';
 
 @Injectable()
 export class PurchaseResolvePagingParams implements Resolve<any> {
@@ -34,14 +35,17 @@ export const purchaseRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.purchase.home.title'
-        }
-    }, {
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
         path: 'purchase/:id',
         component: PurchaseDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.purchase.home.title'
-        }
+        },
+        canActivate: [UserRouteAccessService]
     }
 ];
 
@@ -53,6 +57,7 @@ export const purchasePopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.purchase.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
@@ -62,6 +67,7 @@ export const purchasePopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.purchase.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
@@ -71,6 +77,7 @@ export const purchasePopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.purchase.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     }
 ];
