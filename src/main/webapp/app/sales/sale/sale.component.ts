@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLinks } from 'ng-jhipster';
 
-import { Sale } from './sale.model';
+import { Sale, SaleStatus } from './sale.model';
 import { SaleService } from './sale.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
@@ -29,6 +29,7 @@ export class SaleComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    saleStatus: SaleStatus;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private saleService: SaleService,
@@ -46,6 +47,7 @@ export class SaleComponent implements OnInit, OnDestroy {
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
+            this.saleStatus = data['status'];
         });
         this.jhiLanguageService.setLocations(['sale', 'saleStatus']);
     }
@@ -54,7 +56,8 @@ export class SaleComponent implements OnInit, OnDestroy {
         this.saleService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()
+            sort: this.sort(),
+            status: this.saleStatus
         }).subscribe(
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())

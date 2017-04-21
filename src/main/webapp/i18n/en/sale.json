@@ -6,6 +6,12 @@
         "createLabel": "Create a new Sale",
         "createOrEditLabel": "Create or edit a Sale"
       },
+      "pending": {
+        "title":"Pending Sales"
+      },
+      "completed": {
+        "title":"Completed Sales"
+      },
       "created": "A new Sale is created with identifier {{ param }}",
       "updated": "A Sale is updated with identifier {{ param }}",
       "deleted": "A Sale is deleted with identifier {{ param }}",

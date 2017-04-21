@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
-import { Sale } from './sale.model';
+import { Sale, SaleStatus } from './sale.model';
 import { DateUtils } from 'ng-jhipster';
 @Injectable()
 export class SaleService {
@@ -41,8 +41,7 @@ export class SaleService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res))
-            ;
+            .map((res: any) => this.convertResponse(res));
     }
 
     delete(id: number): Observable<Response> {
@@ -70,8 +69,8 @@ export class SaleService {
                 params.paramsMap.set('sort', req.sort);
             }
             params.set('query', req.query);
-
-            options.search = params;
+            params.set('status', req.status);
+            options.params = params;
         }
         return options;
     }

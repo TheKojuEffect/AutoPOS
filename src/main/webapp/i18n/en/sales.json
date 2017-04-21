@@ -1,0 +1,8 @@
+{
+  "autoPosApp": {
+    "sales": {
+      "pending": "Pending",
+      "completed": "Completed"
+    }
+  }
+}

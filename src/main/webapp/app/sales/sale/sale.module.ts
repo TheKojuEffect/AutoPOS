@@ -1,5 +1,4 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 import {
     SaleComponent,
@@ -8,25 +7,21 @@ import {
     SaleDetailComponent,
     SaleDialogComponent,
     SalePopupComponent,
-    salePopupRoute,
     SalePopupService,
     SaleResolvePagingParams,
-    saleRoute,
     SaleService
 } from './';
 import { SharedModule } from '../../shared';
-
-let ENTITY_STATES = [
-    ...saleRoute,
-    ...salePopupRoute,
-];
+import { SaleRoutingModule } from './sale-routing.module';
+import { SalesComponent } from './sales.component';
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(ENTITY_STATES, {useHash: true})
+        SaleRoutingModule
     ],
     declarations: [
+        SalesComponent,
         SaleComponent,
         SaleDetailComponent,
         SaleDialogComponent,
@@ -35,6 +30,7 @@ let ENTITY_STATES = [
         SaleDeletePopupComponent,
     ],
     entryComponents: [
+        SalesComponent,
         SaleComponent,
         SaleDialogComponent,
         SalePopupComponent,

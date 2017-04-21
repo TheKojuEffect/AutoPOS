@@ -2,10 +2,9 @@ import { Customer } from '../../party/customer';
 import { SaleLine } from '../sale-line';
 import { Vehicle } from '../../party/vehicle';
 
-const enum SaleStatus {
-    'PENDING',
-    'COMPLETED'
-
+export enum SaleStatus {
+    PENDING = <any>'PENDING',
+    COMPLETED = <any>'COMPLETED'
 }
 
 export class Sale {

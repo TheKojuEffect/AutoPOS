@@ -6,6 +6,9 @@ import { SaleComponent } from './sale.component';
 import { SaleDetailComponent } from './sale-detail.component';
 import { SalePopupComponent } from './sale-dialog.component';
 import { SaleDeletePopupComponent } from './sale-delete-dialog.component';
+import { UserRouteAccessService } from '../../shared/auth/user-route-access-service';
+import { SaleStatus } from './sale.model';
+import { SalesComponent } from './sales.component';
 
 @Injectable()
 export class SaleResolvePagingParams implements Resolve<any> {
@@ -24,28 +27,56 @@ export class SaleResolvePagingParams implements Resolve<any> {
     }
 }
 
-export const saleRoute: Routes = [
+export const saleRoutes: Routes = [
     {
         path: 'sale',
-        component: SaleComponent,
+        component: SalesComponent,
         resolve: {
             'pagingParams': SaleResolvePagingParams
         },
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.sale.home.title'
-        }
+        },
+        canActivate: [UserRouteAccessService],
+        children: [
+            {
+                path: 'pending',
+                component: SaleComponent,
+                resolve: {
+                    'pagingParams': SaleResolvePagingParams
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'autoPosApp.sale.pending.title',
+                    status: SaleStatus.PENDING
+                }
+            },
+            {
+                path: 'completed',
+                component: SaleComponent,
+                resolve: {
+                    'pagingParams': SaleResolvePagingParams
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'autoPosApp.sale.completed.title',
+                    status: SaleStatus.COMPLETED
+                }
+            }
+        ]
     }, {
         path: 'sale/:id',
         component: SaleDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.sale.home.title'
-        }
+        },
+        canActivate: [UserRouteAccessService]
     }
 ];
 
-export const salePopupRoute: Routes = [
+export const salePopupRoutes: Routes = [
     {
         path: 'sale-new',
         component: SalePopupComponent,
@@ -53,6 +84,7 @@ export const salePopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.sale.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
@@ -62,6 +94,7 @@ export const salePopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.sale.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
@@ -71,6 +104,7 @@ export const salePopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.sale.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     }
 ];
