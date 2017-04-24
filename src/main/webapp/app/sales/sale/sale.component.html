@@ -10,29 +10,40 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="date"><span jhiTranslate="autoPosApp.sale.date">Date</span> <span
-                        class="fa fa-sort"></span></th>
+
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="date"><span jhiTranslate="autoPosApp.sale.date">Date</span>
+                    <span class="fa fa-sort"></span>
+                </th>
                 <th jhiSortBy="invoiceNumber"><span jhiTranslate="autoPosApp.sale.invoiceNumber">Invoice Number</span>
-                    <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="discount"><span jhiTranslate="autoPosApp.sale.discount">Discount</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.sale.remarks">Remarks</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="buyer"><span jhiTranslate="autoPosApp.sale.buyer">Buyer</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="status"><span jhiTranslate="autoPosApp.sale.status">Status</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="customer.name"><span jhiTranslate="autoPosApp.sale.customer">Customer</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="vehicle.number"><span jhiTranslate="autoPosApp.sale.vehicle">Vehicle</span> <span
-                        class="fa fa-sort"></span></th>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="discount"><span jhiTranslate="autoPosApp.sale.discount">Discount</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.sale.remarks">Remarks</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="buyer"><span jhiTranslate="autoPosApp.sale.buyer">Buyer</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="status"><span jhiTranslate="autoPosApp.sale.status">Status</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="customer.name"><span jhiTranslate="autoPosApp.sale.customer">Customer</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="vehicle.number"><span jhiTranslate="autoPosApp.sale.vehicle">Vehicle</span>
+                    <span class="fa fa-sort"></span>
+                </th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let sale of sales ;trackBy: trackId">
-                <td><a [routerLink]="['../sale', sale.id ]">{{sale.id}}</a></td>
+                <td><a [routerLink]="['../', sale.id ]">{{sale.id}}</a></td>
                 <td>{{sale.date | date:'medium'}}</td>
                 <td>{{sale.invoiceNumber}}</td>
                 <td>{{sale.discount}}</td>

@@ -1,56 +1,127 @@
-<div *ngIf="sale">
-    <h2><span jhiTranslate="autoPosApp.sale.detail.title">Sale</span> {{sale.id}}</h2>
-    <hr>
+<div *ngIf="sale" class="row">
+
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="autoPosApp.sale.date">Date</span></dt>
-        <dd>
-            <span>{{sale.date | date:'medium'}}</span>
-        </dd>
-        <dt><span jhiTranslate="autoPosApp.sale.invoiceNumber">Invoice Number</span></dt>
-        <dd>
-            <span>{{sale.invoiceNumber}}</span>
-        </dd>
-        <dt><span jhiTranslate="autoPosApp.sale.discount">Discount</span></dt>
-        <dd>
-            <span>{{sale.discount}}</span>
-        </dd>
-        <dt><span jhiTranslate="autoPosApp.sale.remarks">Remarks</span></dt>
-        <dd>
-            <span>{{sale.remarks}}</span>
-        </dd>
-        <dt><span jhiTranslate="autoPosApp.sale.buyer">Buyer</span></dt>
-        <dd>
-            <span>{{sale.buyer}}</span>
-        </dd>
-        <dt><span jhiTranslate="autoPosApp.sale.status">Status</span></dt>
-        <dd>
-            <span jhiTranslate="{{'autoPosApp.SaleStatus.' + sale.status}}">{{sale.status}}</span>
-        </dd>
-        <dt><span jhiTranslate="autoPosApp.sale.customer">Customer</span></dt>
-        <dd>
-            <div *ngIf="sale.customer">
-                <a [routerLink]="['/customer', sale.customer?.id]">{{sale.customer?.name}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="autoPosApp.sale.vehicle">Vehicle</span></dt>
-        <dd>
-            <div *ngIf="sale.vehicle">
-                <a [routerLink]="['/vehicle', sale.vehicle?.id]">{{sale.vehicle?.number}}</a>
-            </div>
-        </dd>
-    </dl>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
+    <apos-sale-line-entry class="col-md-4"></apos-sale-line-entry>
 
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'sale/'+ sale.id + '/edit'} }]"
-            replaceUrl="true"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
+    <div class="col-md-8">
+
+        <div class="card">
+            <h4 class="card-header"> Sale # {{sale.id}} </h4>
+
+            <div class="card-block">
+
+                <form>
+                    <div class="form-group row">
+                        <label for="date" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-6">
+                            <input type="date" class="form-control" id="date" name="date" [(ngModel)]="sale.date" required/>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 col-form-label">Vehicle</label>-->
+                    <!--<vehicle-select class="col-sm-6"-->
+                    <!--selected-vehicle="sale.vehicle"-->
+                    <!--</vehicle-select>-->
+                    <!--</div>-->
+
+                    <div class="form-group row">
+                        <label for="buyer" class="col-sm-2 col-form-label">Buyer</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="buyer" name="buyer" [(ngModel)]="sale.buyer">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="invoiceNumber" class="col-sm-2 col-form-label">Invoice #</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="invoiceNumber" name="invoiceNumber" [(ngModel)]="sale.invoiceNumber">
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Code</th>
+                            <th>Particular</th>
+                            <th>Quantity</th>
+                            <th>Rate</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let line of sale.lines; let i = index" [attr.data-index]="i" (click)="editSaleLine(line)">
+                            <td>{{i + 1}}</td>
+                            <td>{{line.item.code}}</td>
+                            <td>{{line.item.name}}</td>
+                            <td>{{line.quantity}}</td>
+                            <td>{{line.rate}}</td>
+                            <td>{{line.amount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-sm-6 offset-sm-6">
+                            <div class="form-group row">
+                                <label for="subTotal" class="col-sm-6 col-form-label">Sub Total</label>
+                                <div class="col-sm-6">
+                                    <input type="number" [value]="subTotal" class="form-control"
+                                           id="subTotal" name="subTotal" placeholder="0.00" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="discount" class="col-sm-6 col-form-label">Discount</label>
+                                <div class="col-sm-6">
+                                    <input type="number" [(ngModel)]="sale.discount" class="form-control"
+                                           id="discount" name="discount" placeholder="0.00">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="grandTotal" class="col-sm-6 col-form-label">Grand Total</label>
+                                <div class="col-sm-6">
+                                    <input type="number" class="form-control" id="grandTotal" name="grandTotal" [value]="total"
+                                           placeholder="0.00" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="status" class="col-sm-6 col-form-label">Status</label>
+                                <div class="col-sm-6">
+                                    <select id="status" name="status" class="form-control"
+                                            [(ngModel)]="sale.status" required="true">
+                                        <option value="PENDING">Pending</option>
+                                        <option value="COMPLETED">Completed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                            <div class="float-left">
+                                <button type="reset" class="btn btn-danger"
+                                        [attr.disabled]="hasLines"
+                                        [attr.title]="hasLines ? 'Cannot delete sale with sale items': 'Delete Sale'"
+                                        (click)="deleteSale()">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <div class="float-right">
+                                <button type="reset" class="btn btn-default" (click)="gotoSaleList()">
+                                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+                                </button>
+                                <button type="submit" class="btn btn-success" (click)="updateSale()">
+                                    <span class="glyphicon glyphicon-ok-circle"></span>&nbsp;<span>Accept</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
