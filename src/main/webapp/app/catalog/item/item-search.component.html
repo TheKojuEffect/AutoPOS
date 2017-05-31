@@ -1,0 +1,6 @@
+<div class="form-group">
+    <input type="text" class="form-control"
+           [(ngModel)]="selectedItem" [ngbTypeahead]="search" [editable]="false" [resultFormatter]="itemFormatter" [inputFormatter]="itemFormatter"
+           placeholder="Item Search"/>
+    <span *ngIf="searching" class="fa fa-spinner"></span>
+</div>

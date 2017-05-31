@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { Item } from './item.model';
+import {Item} from './item.model';
 @Injectable()
 export class ItemService {
 
@@ -39,6 +39,12 @@ export class ItemService {
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
+    }
+
+    search(term: string): Observable<Item[]> {
+        return this.http.get(`${this.resourceUrl}?q=${term}`).map((res: Response) => {
+            return res.json() as Item[];
+        });
     }
 
 

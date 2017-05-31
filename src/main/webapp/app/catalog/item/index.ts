@@ -6,3 +6,4 @@ export * from './item-delete-dialog.component';
 export * from './item-detail.component';
 export * from './item.component';
 export * from './item.route';
+export * from './item-search.component'
