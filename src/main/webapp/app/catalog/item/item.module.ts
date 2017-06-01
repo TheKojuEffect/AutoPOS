@@ -12,6 +12,9 @@ import {ItemRoutingModule} from './item-routing.module';
         SharedModule,
         ItemRoutingModule
     ],
+    exports: [
+        ItemSearchComponent,
+    ],
     declarations: [
         ItemComponent,
         ItemDetailComponent,

@@ -1,6 +1,15 @@
 <div class="form-group">
+    <label>Item</label>
     <input type="text" class="form-control"
            [(ngModel)]="selectedItem" [ngbTypeahead]="search" [editable]="false" [resultFormatter]="itemFormatter" [inputFormatter]="itemFormatter"
-           placeholder="Item Search"/>
+           placeholder="Search"/>
     <span *ngIf="searching" class="fa fa-spinner"></span>
+
+    <div [hidden]="selectedItem">
+        <small class="form-text text-danger"
+               [hidden]="selectedItem"
+               jhiTranslate="entity.validation.required">
+            This field is required.
+        </small>
+    </div>
 </div>

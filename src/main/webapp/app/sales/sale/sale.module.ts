@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import {
     SaleComponent,
@@ -11,15 +11,17 @@ import {
     SaleResolvePagingParams,
     SaleService
 } from './';
-import { SharedModule } from '../../shared';
-import { SaleRoutingModule } from './sale-routing.module';
-import { SalesComponent } from './sales.component';
-import { SaleLineEntryComponent } from './';
+import {SharedModule} from '../../shared';
+import {SaleRoutingModule} from './sale-routing.module';
+import {SalesComponent} from './sales.component';
+import {SaleLineEntryComponent} from './';
+import {ItemModule} from '../../catalog/item/item.module';
 
 @NgModule({
     imports: [
         SharedModule,
-        SaleRoutingModule
+        SaleRoutingModule,
+        ItemModule
     ],
     declarations: [
         SalesComponent,
