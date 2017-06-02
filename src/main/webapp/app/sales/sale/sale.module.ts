@@ -14,7 +14,6 @@ import {
 import {SharedModule} from '../../shared';
 import {SaleRoutingModule} from './sale-routing.module';
 import {SalesComponent} from './sales.component';
-import {SaleLineEntryComponent} from './';
 import {ItemModule} from '../../catalog/item/item.module';
 
 @NgModule({
@@ -31,7 +30,6 @@ import {ItemModule} from '../../catalog/item/item.module';
         SaleDeleteDialogComponent,
         SalePopupComponent,
         SaleDeletePopupComponent,
-        SaleLineEntryComponent,
     ],
     entryComponents: [
         SalesComponent,

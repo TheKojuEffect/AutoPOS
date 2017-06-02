@@ -2,10 +2,110 @@
 
     <jhi-alert-error></jhi-alert-error>
 
-    <apos-sale-line-entry class="col-4"></apos-sale-line-entry>
+    <div class="col-4">
+        <div class="card">
+            <h4 class="card-header"> Sale Entry </h4>
+            <div class="card-block">
+                <form name="saleLineEntryForm" role="form" novalidate #saleLineEntryForm="ngForm">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_item">Item</label>
+                        <input type="text" class="form-control" name="item" id="field_item"
+                               [(ngModel)]="line.item" [ngbTypeahead]="search" [editable]="false" [resultFormatter]="itemFormatter" (selectItem)="onLineItemSelect($event.item)"
+                               [inputFormatter]="itemFormatter"
+                               placeholder="Search" required/>
+                        <span *ngIf="searching" class="fa fa-spinner"></span>
+
+                        <div [hidden]="!(saleLineEntryForm.controls.item?.dirty && saleLineEntryForm.controls.item?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!saleLineEntryForm.controls.item?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_quantity">Quantity</label>
+                        <input type="number" class="form-control" name="quantity" id="field_quantity"
+                               [(ngModel)]="line.quantity"
+                               required min="0"/>
+                        <div [hidden]="!(saleLineEntryForm.controls.quantity?.dirty && saleLineEntryForm.controls.quantity?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!saleLineEntryForm.controls.quantity?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                   [hidden]="!saleLineEntryForm.controls.quantity?.errors?.min" jhiTranslate="entity.validation.min"
+                                   translateValues="{ min: 0 }">
+                                This field should be at least 0.
+                            </small>
+                            <small class="form-text text-danger"
+                                   [hidden]="!saleLineEntryForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_rate">Rate</label>
+                        <input type="number" class="form-control" name="rate" id="field_rate"
+                               [(ngModel)]="line.rate"
+                               required min="0" readonly/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_amount">Amount</label>
+                        <input type="number" class="form-control" name="amount" id="field_amount"
+                               [(ngModel)]="line.amount"
+                               required min="0" readonly/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_buyer"> Buyer </label>
+                        <input type="text" class="form-control" name="buyer" id="field_buyer"
+                               [(ngModel)]="line.buyer"
+                               maxlength="250"/>
+                        <div [hidden]="!(saleLineEntryForm.controls.buyer?.dirty && saleLineEntryForm.controls.buyer?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!saleLineEntryForm.controls.buyer?.errors?.maxlength"
+                                   jhiTranslate="entity.validation.maxlength" translateValues="{ max: 250 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_remarks">Remarks</label>
+                        <textarea type="text" class="form-control" name="remarks" id="field_remarks"
+                                  [(ngModel)]="line.remarks"
+                                  maxlength="250">
+                        </textarea>
+                        <div [hidden]="!(saleLineEntryForm.controls.remarks?.dirty && saleLineEntryForm.controls.remarks?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!saleLineEntryForm.controls.remarks?.errors?.maxlength"
+                                   jhiTranslate="entity.validation.maxlength" translateValues="{ max: 250 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="float-right">
+                            <button type="reset" class="btn btn-default">
+                                <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+                            </button>
+                            <button type="submit" class="btn btn-success">
+                                <span class="fa fa-plus-circle"></span>&nbsp;<span>Add Item</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div class="col-8">
-
         <div class="card">
             <h4 class="card-header"> Sale # {{sale.id}} </h4>
 

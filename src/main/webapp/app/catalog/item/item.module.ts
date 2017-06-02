@@ -2,7 +2,7 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import {SharedModule} from '../../shared';
 
-import {ItemComponent, ItemDetailComponent, ItemPopupService, ItemResolvePagingParams, ItemSearchComponent, ItemService} from './';
+import {ItemComponent, ItemDetailComponent, ItemPopupService, ItemResolvePagingParams, ItemService} from './';
 import {ItemDeleteDialogComponent, ItemDeletePopupComponent} from './item-delete-dialog.component';
 import {ItemDialogComponent, ItemPopupComponent} from './item-dialog.component';
 import {ItemRoutingModule} from './item-routing.module';
@@ -12,9 +12,6 @@ import {ItemRoutingModule} from './item-routing.module';
         SharedModule,
         ItemRoutingModule
     ],
-    exports: [
-        ItemSearchComponent,
-    ],
     declarations: [
         ItemComponent,
         ItemDetailComponent,
@@ -22,7 +19,6 @@ import {ItemRoutingModule} from './item-routing.module';
         ItemDeleteDialogComponent,
         ItemPopupComponent,
         ItemDeletePopupComponent,
-        ItemSearchComponent,
     ],
     entryComponents: [
         ItemComponent,
