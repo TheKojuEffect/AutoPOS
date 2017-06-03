@@ -11,31 +11,26 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
 
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+                <th jhiSortBy="id">
+                    <span jhiTranslate="global.field.id">ID</span>
                     <span class="fa fa-sort"></span>
                 </th>
-                <th jhiSortBy="date"><span jhiTranslate="autoPosApp.sale.date">Date</span>
+                <th jhiSortBy="invoiceNumber">
+                    <span jhiTranslate="autoPosApp.sale.invoiceNumber">Invoice Number</span>
                     <span class="fa fa-sort"></span>
                 </th>
-                <th jhiSortBy="invoiceNumber"><span jhiTranslate="autoPosApp.sale.invoiceNumber">Invoice Number</span>
+                <th>
+                    <span>Client</span>
+                </th>
+                <th>
+                    <span>Grand Total</span>
+                </th>
+                <th jhiSortBy="date">
+                    <span jhiTranslate="autoPosApp.sale.date">Date</span>
                     <span class="fa fa-sort"></span>
                 </th>
-                <th jhiSortBy="discount"><span jhiTranslate="autoPosApp.sale.discount">Discount</span>
-                    <span class="fa fa-sort"></span>
-                </th>
-                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.sale.remarks">Remarks</span>
-                    <span class="fa fa-sort"></span>
-                </th>
-                <th jhiSortBy="buyer"><span jhiTranslate="autoPosApp.sale.buyer">Buyer</span>
-                    <span class="fa fa-sort"></span>
-                </th>
-                <th jhiSortBy="status"><span jhiTranslate="autoPosApp.sale.status">Status</span>
-                    <span class="fa fa-sort"></span>
-                </th>
-                <th jhiSortBy="customer.name"><span jhiTranslate="autoPosApp.sale.customer">Customer</span>
-                    <span class="fa fa-sort"></span>
-                </th>
-                <th jhiSortBy="vehicle.number"><span jhiTranslate="autoPosApp.sale.vehicle">Vehicle</span>
+                <th jhiSortBy="lastModifiedDate">
+                    <span>Last Modified</span>
                     <span class="fa fa-sort"></span>
                 </th>
                 <th></th>
@@ -44,22 +39,11 @@
             <tbody>
             <tr *ngFor="let sale of sales ;trackBy: trackId">
                 <td><a [routerLink]="['../', sale.id ]">{{sale.id}}</a></td>
-                <td>{{sale.date | date:'medium'}}</td>
                 <td>{{sale.invoiceNumber}}</td>
-                <td>{{sale.discount}}</td>
-                <td>{{sale.remarks}}</td>
-                <td>{{sale.buyer}}</td>
-                <td jhiTranslate="{{'autoPosApp.SaleStatus.' + sale.status}}">{{sale.status}}</td>
-                <td>
-                    <div *ngIf="sale.customer">
-                        <a [routerLink]="['../customer', sale.customer?.id ]">{{sale.customer?.name}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="sale.vehicle">
-                        <a [routerLink]="['../vehicle', sale.vehicle?.id ]">{{sale.vehicle?.number}}</a>
-                    </div>
-                </td>
+                <td>{{sale.client}}</td>
+                <td>{{sale.grandTotal}}</td>
+                <td>{{sale.date | date:'medium'}}</td>
+                <td>{{sale.lastModifiedDate | date:'medium'}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
