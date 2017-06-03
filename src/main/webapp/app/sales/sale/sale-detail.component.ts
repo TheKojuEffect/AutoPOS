@@ -1,18 +1,18 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Subscription} from 'rxjs/Rx';
-import {EventManager, JhiLanguageService} from 'ng-jhipster';
-import {Sale} from './sale.model';
-import {SaleService} from './sale.service';
-import {ItemService} from '../../catalog/item/item.service';
-import {Item} from '../../catalog/item/item.model';
-import {Observable} from 'rxjs/Observable';
-import {SaleLine} from '../sale-line/sale-line.model';
-import {SaleLineService} from '../sale-line/sale-line.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Rx';
+import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { Sale } from './sale.model';
+import { SaleService } from './sale.service';
+import { ItemService } from '../../catalog/item/item.service';
+import { Item } from '../../catalog/item/item.model';
+import { Observable } from 'rxjs/Observable';
+import { SaleLine } from '../sale-line/sale-line.model';
+import { SaleLineService } from '../sale-line/sale-line.service';
 
 import * as _ from 'lodash';
-import {Vehicle} from '../../party/vehicle/vehicle.model';
-import {VehicleService} from '../../party/vehicle/vehicle.service';
+import { Vehicle } from '../../party/vehicle/vehicle.model';
+import { VehicleService } from '../../party/vehicle/vehicle.service';
 
 @Component({
     selector: 'apos-sale-detail',
@@ -162,6 +162,19 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     updateSale() {
         this.saleService.update(this.sale)
             .subscribe(() => this.previousState());
+    }
+
+    deleteSaleLine() {
+        const sure = window.confirm('Are you sure you want to delete this sale item?');
+        if (sure) {
+            this.saleLineService.delete(this.sale.id, this.line.id)
+                .subscribe(() => {
+                    const lineIndex = _.findIndex(this.sale.lines,
+                        line => line.id === this.line.id);
+                    this.sale.lines.splice(lineIndex, 1);
+                    this.resetLineItem();
+                });
+        }
     }
 
 }
