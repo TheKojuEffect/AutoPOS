@@ -1,28 +1,31 @@
-import { Injectable } from '@angular/core';
-import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {BaseRequestOptions, Http, Response, URLSearchParams} from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
-import { SaleLine } from './sale-line.model';
+import {SaleLine} from './sale-line.model';
 @Injectable()
 export class SaleLineService {
 
-    private resourceUrl = 'api/sale-lines';
+    private resourceUrl = 'api/sales/:saleId/lines/:saleLineId';
 
     constructor(private http: Http) {
     }
 
-    create(saleLine: SaleLine): Observable<SaleLine> {
+    create(saleId: number, saleLine: SaleLine): Observable<SaleLine> {
         let copy: SaleLine = Object.assign({}, saleLine);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
-        });
+        return this.http.post(this.getResourceUrl(saleId), copy)
+            .map((res: Response) => {
+                return res.json();
+            });
     }
 
-    update(saleLine: SaleLine): Observable<SaleLine> {
+    update(saleId: number, saleLineId: number, saleLine: SaleLine): Observable<SaleLine> {
         let copy: SaleLine = Object.assign({}, saleLine);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
-        });
+
+        return this.http.put(this.getResourceUrl(saleId, saleLineId), copy)
+            .map((res: Response) => {
+                return res.json();
+            });
     }
 
     find(id: number): Observable<SaleLine> {
@@ -33,8 +36,7 @@ export class SaleLineService {
 
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            ;
+        return this.http.get(this.resourceUrl, options);
     }
 
     delete(id: number): Observable<Response> {
@@ -57,4 +59,13 @@ export class SaleLineService {
         }
         return options;
     }
+
+    private getResourceUrl = (saleId: number, saleLineId?: number): string => {
+        const lines = `api/sales/${saleId}/lines`;
+        if (saleLineId) {
+            return `${lines}/${saleLineId}`;
+        }
+        return lines;
+    }
+
 }

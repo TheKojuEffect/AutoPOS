@@ -8,7 +8,7 @@ import {ItemService} from '../../catalog/item/item.service';
 import {Item} from '../../catalog/item/item.model';
 import {Observable} from 'rxjs/Observable';
 import {SaleLine} from '../sale-line/sale-line.model';
-import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
+import {SaleLineService} from '../sale-line/sale-line.service';
 
 @Component({
     selector: 'apos-sale-detail',
@@ -29,6 +29,7 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     constructor(private eventManager: EventManager,
                 private jhiLanguageService: JhiLanguageService,
                 private saleService: SaleService,
+                private saleLineService: SaleLineService,
                 private itemService: ItemService,
                 private route: ActivatedRoute) {
         this.jhiLanguageService.setLocations(['sale', 'saleStatus']);
@@ -78,6 +79,32 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
 
     onLineItemSelect = (item: Item) => {
         this.line.rate = item.markedPrice;
+    };
+
+    onLineItemSubmit = () => {
+        this.line.sale = this.sale;
+        if (this.line.id) {
+
+            //     const lineIndex = _.findIndex(this.sale.lines,
+            //         line => line.id === this.line.id);
+            //
+            //     this.saleLineService.update(
+            //         this.sale.id,
+            //         this.line.id,
+            //         this.line
+            //     ).subscribe((line) => this.sale.lines.splice(lineIndex, 1, line));
+            //
+        } else {
+            this.saleLineService.create(
+                this.sale.id,
+                this.line
+            ).subscribe((line) => this.sale.lines.push(line));
+        }
+        this.resetLineItem();
+    };
+
+    resetLineItem = () => {
+        this.line = new SaleLine();
     }
 
 }

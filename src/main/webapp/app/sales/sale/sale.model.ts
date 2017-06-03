@@ -1,6 +1,6 @@
-import { Customer } from '../../party/customer';
-import { SaleLine } from '../sale-line';
-import { Vehicle } from '../../party/vehicle';
+import {Customer} from '../../party/customer';
+import {SaleLine} from '../sale-line';
+import {Vehicle} from '../../party/vehicle';
 
 export enum SaleStatus {
     PENDING = <any>'PENDING',
@@ -16,7 +16,7 @@ export class Sale {
                 public buyer?: string,
                 public status?: SaleStatus,
                 public customer?: Customer,
-                public line?: SaleLine,
+                public lines: SaleLine[] = [],
                 public vehicle?: Vehicle) {
     }
 }

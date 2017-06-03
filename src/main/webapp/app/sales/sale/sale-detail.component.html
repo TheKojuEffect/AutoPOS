@@ -10,7 +10,8 @@
                     <div class="form-group">
                         <label class="form-control-label" for="field_item">Item</label>
                         <input type="text" class="form-control" name="item" id="field_item"
-                               [(ngModel)]="line.item" [ngbTypeahead]="search" [editable]="false" [resultFormatter]="itemFormatter" (selectItem)="onLineItemSelect($event.item)"
+                               [(ngModel)]="line.item" [ngbTypeahead]="search" [editable]="false" [resultFormatter]="itemFormatter"
+                               (selectItem)="onLineItemSelect($event.item)"
                                [inputFormatter]="itemFormatter"
                                placeholder="Search" required/>
                         <span *ngIf="searching" class="fa fa-spinner"></span>
@@ -92,10 +93,11 @@
 
                     <div class="form-group">
                         <div class="float-right">
-                            <button type="reset" class="btn btn-default">
+                            <button type="reset" class="btn btn-default" (click)="resetLineItem()">
                                 <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
                             </button>
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success"
+                                    [disabled]="saleLineEntryForm.form.invalid" (click)="onLineItemSubmit()">
                                 <span class="fa fa-plus-circle"></span>&nbsp;<span>Add Item</span>
                             </button>
                         </div>

@@ -12,6 +12,6 @@ export class SaleLine {
     }
 
     get amount() {
-        return this.rate * this.quantity;
+        return (this.rate || 0) * (this.quantity || 0);
     }
 }
