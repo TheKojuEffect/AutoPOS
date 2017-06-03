@@ -83,7 +83,7 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
         this.line.rate = item.markedPrice;
     };
 
-    onLineItemSubmit = () => {
+    onLineItemSubmit() {
         this.line.sale = this.sale;
         if (this.line.id) {
 
@@ -105,11 +105,19 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
         this.resetLineItem();
     };
 
-    resetLineItem = () => {
+    resetLineItem() {
         this.line = new SaleLine();
     };
 
-    editSaleLine = (line: SaleLine) => {
+    editSaleLine(line: SaleLine) {
         this.line = Object.assign({}, line);
+    };
+
+    get subTotal() {
+        return _.sumBy(this.sale.lines, 'amount');
+    }
+
+    get total() {
+        return this.subTotal - this.sale.discount;
     }
 }
