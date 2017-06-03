@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { salePopupRoutes, saleRoutes } from './sale.route';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {saleRoutes} from './sale.route';
 
 @NgModule({
     imports: [RouterModule.forChild([
         ...saleRoutes,
-        ...salePopupRoutes
     ])],
     exports: [RouterModule]
 })

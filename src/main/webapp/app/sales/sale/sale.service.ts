@@ -12,10 +12,8 @@ export class SaleService {
     constructor(private http: Http, private dateUtils: DateUtils) {
     }
 
-    create(sale: Sale): Observable<Sale> {
-        let copy: Sale = Object.assign({}, sale);
-        copy.date = this.dateUtils.toDate(sale.date);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
+    create(): Observable<Sale> {
+        return this.http.post(this.resourceUrl, null).map((res: Response) => {
             return res.json();
         });
     }

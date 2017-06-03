@@ -9,8 +9,7 @@
     </li>
 
     <li class="nav-item ml-auto">
-        <button class="btn btn-primary float-right create-sale"
-                [routerLink]="['/', { outlets: { popup: ['sale-new'] } }]">
+        <button class="btn btn-primary float-right" (click)="createNewSale()">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="autoPosApp.sale.home.createLabel">
             Create new Sale

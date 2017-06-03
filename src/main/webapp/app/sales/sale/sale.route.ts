@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
-import { PaginationUtil } from 'ng-jhipster';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
+import {PaginationUtil} from 'ng-jhipster';
 
-import { SaleComponent } from './sale.component';
-import { SaleDetailComponent } from './sale-detail.component';
-import { SalePopupComponent } from './sale-dialog.component';
-import { SaleDeletePopupComponent } from './sale-delete-dialog.component';
-import { UserRouteAccessService } from '../../shared/auth/user-route-access-service';
-import { SaleStatus } from './sale.model';
-import { SalesComponent } from './sales.component';
+import {SaleComponent} from './sale.component';
+import {SaleDetailComponent} from './sale-detail.component';
+import {UserRouteAccessService} from '../../shared/auth/user-route-access-service';
+import {SaleStatus} from './sale.model';
+import {SalesComponent} from './sales.component';
 
 @Injectable()
 export class SaleResolvePagingParams implements Resolve<any> {
@@ -73,38 +71,5 @@ export const saleRoutes: Routes = [
             pageTitle: 'autoPosApp.sale.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }
-];
-
-export const salePopupRoutes: Routes = [
-    {
-        path: 'sale-new',
-        component: SalePopupComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'autoPosApp.sale.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    },
-    {
-        path: 'sale/:id/edit',
-        component: SalePopupComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'autoPosApp.sale.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    },
-    {
-        path: 'sale/:id/delete',
-        component: SaleDeletePopupComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'autoPosApp.sale.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
     }
 ];

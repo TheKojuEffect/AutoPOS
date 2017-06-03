@@ -113,11 +113,28 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
         this.line = Object.assign({}, line);
     };
 
-    get subTotal() {
+    get subTotal(): number {
         return _.sumBy(this.sale.lines, 'amount');
     }
 
-    get total() {
+    get total(): number {
         return this.subTotal - this.sale.discount;
+    }
+
+    get hasLines(): boolean {
+        return this.sale.lines && this.sale.lines.length > 0;
+    }
+
+    deleteSale() {
+        const sure = window.confirm("Are you sure you want to delete this sale?");
+        if (sure) {
+            this.saleService.delete(this.sale.id).subscribe(response => {
+                this.eventManager.broadcast({
+                    name: 'saleListModification',
+                    content: 'Deleted an sale'
+                });
+                this.previousState();
+            });
+        }
     }
 }

@@ -205,16 +205,16 @@
                         <div class="col-sm-6 form-group">
                             <div class="float-left">
                                 <button type="reset" class="btn btn-danger"
-                                        [attr.disabled]="hasLines"
+                                        [disabled]="hasLines"
                                         [attr.title]="hasLines ? 'Cannot delete sale with sale items': 'Delete Sale'"
                                         (click)="deleteSale()">
-                                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Delete</span>
+                                    <span class="fa fa-trash"></span>&nbsp;<span>Delete</span>
                                 </button>
                             </div>
                         </div>
                         <div class="col-sm-6 form-group">
                             <div class="float-right">
-                                <button type="reset" class="btn btn-default" (click)="gotoSaleList()">
+                                <button type="reset" class="btn btn-default" (click)="previousState()">
                                     <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
                                 </button>
                                 <button type="submit" class="btn btn-success" (click)="updateSale()">
