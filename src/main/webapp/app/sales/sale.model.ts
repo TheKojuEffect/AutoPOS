@@ -1,6 +1,6 @@
-import {Customer} from '../../party/customer';
-import {SaleLine} from '../sale-line';
-import {Vehicle} from '../../party/vehicle';
+import {Customer} from '../party/customer';
+import {SaleLine} from './';
+import {Vehicle} from '../party/vehicle';
 
 export enum SaleStatus {
     PENDING = <any>'PENDING',

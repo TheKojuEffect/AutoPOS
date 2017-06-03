@@ -6,8 +6,8 @@ import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLi
 
 import { Sale, SaleStatus } from './sale.model';
 import { SaleService } from './sale.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { ITEMS_PER_PAGE, Principal } from '../shared';
+import { PaginationConfig } from '../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'apos-sale',
@@ -72,7 +72,8 @@ export class SaleComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/sale'], {
+        const status = this.saleStatus.toString().toLowerCase();
+        this.router.navigate([`/sale/${status}`], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,

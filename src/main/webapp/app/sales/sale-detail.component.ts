@@ -4,15 +4,15 @@ import { Subscription } from 'rxjs/Rx';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 import { Sale } from './sale.model';
 import { SaleService } from './sale.service';
-import { ItemService } from '../../catalog/item/item.service';
-import { Item } from '../../catalog/item/item.model';
+import { ItemService } from '../catalog/item/item.service';
+import { Item } from '../catalog/item/item.model';
 import { Observable } from 'rxjs/Observable';
-import { SaleLine } from '../sale-line/sale-line.model';
-import { SaleLineService } from '../sale-line/sale-line.service';
+import { SaleLine } from './sale-line.model';
+import { SaleLineService } from './sale-line.service';
 
 import * as _ from 'lodash';
-import { Vehicle } from '../../party/vehicle/vehicle.model';
-import { VehicleService } from '../../party/vehicle/vehicle.service';
+import { Vehicle } from '../party/vehicle/vehicle.model';
+import { VehicleService } from '../party/vehicle/vehicle.service';
 
 @Component({
     selector: 'apos-sale-detail',
@@ -81,7 +81,7 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
                     .do(
                         (items) => {
                             this.searchFailed = false;
-                            if (items.length == 0) {
+                            if (items.length === 0) {
                                 this.noItems = true;
                             }
                         }

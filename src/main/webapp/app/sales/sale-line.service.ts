@@ -40,7 +40,7 @@ export class SaleLineService {
         return this.http.get(this.resourceUrl, options);
     }
 
-    delete(saleId:number, id: number): Observable<Response> {
+    delete(saleId: number, id: number): Observable<Response> {
         return this.http.delete(this.getResourceUrl(saleId, id));
     }
 

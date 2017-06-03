@@ -4,7 +4,7 @@ import {PaginationUtil} from 'ng-jhipster';
 
 import {SaleComponent} from './sale.component';
 import {SaleDetailComponent} from './sale-detail.component';
-import {UserRouteAccessService} from '../../shared/auth/user-route-access-service';
+import {UserRouteAccessService} from '../shared/auth/user-route-access-service';
 import {SaleStatus} from './sale.model';
 import {SalesComponent} from './sales.component';
 

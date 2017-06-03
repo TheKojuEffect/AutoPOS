@@ -1,5 +1,5 @@
-import {Sale} from '../sale';
-import {Item} from '../../catalog/item';
+import { Sale } from './';
+import { Item } from '../catalog/item';
 
 export class SaleLine {
     constructor(public id?: number,
