@@ -158,4 +158,10 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
             });
         }
     }
+
+    updateSale() {
+        this.saleService.update(this.sale)
+            .subscribe(() => this.previousState());
+    }
+
 }

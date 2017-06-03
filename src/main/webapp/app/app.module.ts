@@ -29,6 +29,7 @@ import { PurchaseModule } from './purchases/purchase/purchase.module';
 import { SaleModule } from './sales/sale/sale.module';
 import { PurchaseLineModule } from './purchases/purchase-line/purchase-line.module';
 import { SaleLineModule } from './sales/sale-line/sale-line.module';
+import moment = require('moment');
 
 
 @NgModule({
@@ -66,4 +67,11 @@ import { SaleLineModule } from './sales/sale-line/sale-line.module';
     bootstrap: [AposMainComponent]
 })
 export class AutoPosAppModule {
+
+    constructor() {
+        Date.prototype.toJSON = function () {
+            return moment(this).format('YYYY-MM-DDTHH:mm:ss');
+        };
+    }
+
 }

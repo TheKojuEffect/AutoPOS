@@ -21,8 +21,7 @@ export class SaleService {
     update(sale: Sale): Observable<Sale> {
         let copy: Sale = Object.assign({}, sale);
 
-        copy.date = this.dateUtils.toDate(sale.date);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
+        return this.http.put(`${this.resourceUrl}/${sale.id}`, copy).map((res: Response) => {
             return res.json();
         });
     }
