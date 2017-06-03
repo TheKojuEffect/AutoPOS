@@ -10,6 +10,8 @@ import {Observable} from 'rxjs/Observable';
 import {SaleLine} from '../sale-line/sale-line.model';
 import {SaleLineService} from '../sale-line/sale-line.service';
 
+import * as _ from 'lodash';
+
 @Component({
     selector: 'apos-sale-detail',
     templateUrl: './sale-detail.component.html',
@@ -85,15 +87,15 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
         this.line.sale = this.sale;
         if (this.line.id) {
 
-            //     const lineIndex = _.findIndex(this.sale.lines,
-            //         line => line.id === this.line.id);
-            //
-            //     this.saleLineService.update(
-            //         this.sale.id,
-            //         this.line.id,
-            //         this.line
-            //     ).subscribe((line) => this.sale.lines.splice(lineIndex, 1, line));
-            //
+            const lineIndex = _.findIndex(this.sale.lines,
+                line => line.id === this.line.id);
+
+            this.saleLineService.update(
+                this.sale.id,
+                this.line.id,
+                this.line
+            ).subscribe((line) => this.sale.lines.splice(lineIndex, 1, line));
+
         } else {
             this.saleLineService.create(
                 this.sale.id,
@@ -105,6 +107,9 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
 
     resetLineItem = () => {
         this.line = new SaleLine();
-    }
+    };
 
+    editSaleLine = (line: SaleLine) => {
+        this.line = Object.assign({}, line);
+    }
 }

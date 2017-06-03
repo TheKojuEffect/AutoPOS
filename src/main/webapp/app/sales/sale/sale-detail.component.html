@@ -98,7 +98,8 @@
                             </button>
                             <button type="submit" class="btn btn-success"
                                     [disabled]="saleLineEntryForm.form.invalid" (click)="onLineItemSubmit()">
-                                <span class="fa fa-plus-circle"></span>&nbsp;<span>Add Item</span>
+                                <span class="fa" [ngClass]="{'fa-plus-circle': !line.id, 'fa-check': line.id}"></span>
+                                &nbsp;<span>{{ line.id ? 'Accept' : 'Add Item' }}</span>
                             </button>
                         </div>
                     </div>
