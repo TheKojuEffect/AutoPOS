@@ -27,6 +27,7 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     private subscription: any;
     private eventSubscriber: Subscription;
     searching = false;
+    noItems = false;
     searchingVehicle = false;
     searchFailed = false;
     searchVehicleFailed = false;
@@ -71,10 +72,20 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     search = (text: Observable<string>) =>
         text.debounceTime(200)
             .distinctUntilChanged()
-            .do(() => this.searching = true)
+            .do(() => {
+                this.searching = true;
+                this.noItems = false;
+            })
             .switchMap(term =>
                 this.itemService.search(term)
-                    .do(() => this.searchFailed = false)
+                    .do(
+                        (items) => {
+                            this.searchFailed = false;
+                            if (items.length == 0) {
+                                this.noItems = true;
+                            }
+                        }
+                    )
                     .catch(() => {
                         this.searchFailed = true;
                         return Observable.of([]);
