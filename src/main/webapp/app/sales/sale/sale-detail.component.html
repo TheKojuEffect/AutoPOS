@@ -118,7 +118,9 @@
                     <div class="form-group row">
                         <label for="date" class="col-sm-2 col-form-label">Date</label>
                         <div class="col-sm-6">
-                            <input type="date" class="form-control" id="date" name="date" [(ngModel)]="sale.date" required/>
+                            <input type="date" class="form-control" id="date" name="date"
+                                   [value]="sale.date| date:'yyyy-MM-dd'" (input)="sale.date=$event.target.valueAsDate"
+                                   required/>
                         </div>
                     </div>
 
