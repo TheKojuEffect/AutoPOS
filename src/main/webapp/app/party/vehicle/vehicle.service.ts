@@ -33,8 +33,13 @@ export class VehicleService {
 
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            ;
+        return this.http.get(this.resourceUrl, options);
+    }
+
+    search(term: string): Observable<Vehicle[]> {
+        return this.http
+            .get(`${this.resourceUrl}?q=${term}`)
+            .map(res => res.json() as Vehicle[]);
     }
 
     delete(id: number): Observable<Response> {

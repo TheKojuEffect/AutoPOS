@@ -11,6 +11,8 @@ import {SaleLine} from '../sale-line/sale-line.model';
 import {SaleLineService} from '../sale-line/sale-line.service';
 
 import * as _ from 'lodash';
+import {Vehicle} from '../../party/vehicle/vehicle.model';
+import {VehicleService} from '../../party/vehicle/vehicle.service';
 
 @Component({
     selector: 'apos-sale-detail',
@@ -25,7 +27,9 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     private subscription: any;
     private eventSubscriber: Subscription;
     searching = false;
+    searchingVehicle = false;
     searchFailed = false;
+    searchVehicleFailed = false;
     line = new SaleLine();
 
     constructor(private eventManager: EventManager,
@@ -33,6 +37,7 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
                 private saleService: SaleService,
                 private saleLineService: SaleLineService,
                 private itemService: ItemService,
+                private vehicleService: VehicleService,
                 private route: ActivatedRoute) {
         this.jhiLanguageService.setLocations(['sale', 'saleStatus']);
     }
@@ -83,6 +88,22 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
         this.line.rate = item.markedPrice;
     };
 
+    searchVehicle = (text: Observable<string>) =>
+        text.debounceTime(200)
+            .distinctUntilChanged()
+            .do(() => this.searchingVehicle = true)
+            .switchMap(term =>
+                this.vehicleService.search(term)
+                    .do(() => this.searchVehicleFailed = false)
+                    .catch(() => {
+                        this.searchVehicleFailed = true;
+                        return Observable.of([]);
+                    }))
+            .do(() => this.searchingVehicle = false);
+
+
+    vehicleFormatter = (vehicle: Vehicle) => vehicle.number;
+
     onLineItemSubmit() {
         this.line.sale = this.sale;
         if (this.line.id) {
@@ -126,7 +147,7 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     }
 
     deleteSale() {
-        const sure = window.confirm("Are you sure you want to delete this sale?");
+        const sure = window.confirm('Are you sure you want to delete this sale?');
         if (sure) {
             this.saleService.delete(this.sale.id).subscribe(response => {
                 this.eventManager.broadcast({

@@ -5,12 +5,14 @@ import {SharedModule} from '../../shared';
 import {SaleRoutingModule} from './sale-routing.module';
 import {SalesComponent} from './sales.component';
 import {ItemModule} from '../../catalog/item/item.module';
+import {PartyModule} from '../../party/party.module';
 
 @NgModule({
     imports: [
         SharedModule,
         SaleRoutingModule,
-        ItemModule
+        ItemModule,
+        PartyModule,
     ],
     declarations: [
         SalesComponent,
