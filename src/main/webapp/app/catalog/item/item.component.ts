@@ -29,6 +29,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    filter: string;
 
     constructor(private jhiLanguageService: JhiLanguageService,
                 private itemService: ItemService,
@@ -51,11 +52,17 @@ export class ItemComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.itemService.query({
+        let params = {
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()
-        }).subscribe(
+            sort: this.sort(),
+            query: undefined
+        };
+
+        if (this.filter) {
+            params.query = this.filter;
+        }
+        this.itemService.query(params).subscribe(
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
         );

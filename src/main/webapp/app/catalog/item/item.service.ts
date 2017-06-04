@@ -33,8 +33,7 @@ export class ItemService {
 
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            ;
+        return this.http.get(this.resourceUrl, options);
     }
 
     delete(id: number): Observable<Response> {
@@ -57,9 +56,9 @@ export class ItemService {
             if (req.sort) {
                 params.paramsMap.set('sort', req.sort);
             }
-            params.set('query', req.query);
+            params.set('q', req.query);
 
-            options.search = params;
+            options.params = params;
         }
         return options;
     }
