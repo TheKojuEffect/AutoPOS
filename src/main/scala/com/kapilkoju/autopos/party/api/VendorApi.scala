@@ -5,7 +5,7 @@ import javax.validation.Valid
 
 import com.codahale.metrics.annotation.Timed
 import com.kapilkoju.autopos.party.api.VendorApi.baseUrl
-import com.kapilkoju.autopos.party.domain.Vendor
+import com.kapilkoju.autopos.party.domain.{Vehicle, Vendor}
 import com.kapilkoju.autopos.party.service.{VendorRepo, VendorService}
 import com.kapilkoju.autopos.web.rest.util.{HeaderUtil, PaginationUtil}
 import org.springframework.data.domain.Pageable
@@ -29,13 +29,17 @@ class VendorApi(repo: VendorRepo, vendorService: VendorService) {
     }
   }
 
-  @GetMapping
-  @Timed
-  def getAll(pageable: Pageable): ResponseEntity[util.List[Vendor]] = {
-    val page = repo.findAll(pageable)
+
+@GetMapping
+@Timed
+def getAll(pageable: Pageable,
+           @RequestParam(value = "q", required = false, defaultValue = "")
+           query: String): ResponseEntity[util.List[Vendor]] = {
+
+    val page = vendorService.findVendors(query, pageable)
     val headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl)
     new ResponseEntity(page.getContent, headers, HttpStatus.OK)
-  }
+}
 
   @PostMapping
   @Timed

@@ -41,6 +41,11 @@ export class VendorService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
+    search(term: string): Observable<Vendor[]> {
+        return this.http
+            .get(`${this.resourceUrl}?q=${term}`)
+            .map(res => res.json() as Vendor[]);
+    }
 
     private createRequestOption(req?: any): BaseRequestOptions {
         let options: BaseRequestOptions = new BaseRequestOptions();

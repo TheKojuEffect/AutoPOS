@@ -6,8 +6,8 @@ import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLi
 
 import { Purchase } from './purchase.model';
 import { PurchaseService } from './purchase.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { ITEMS_PER_PAGE, Principal } from '../shared';
+import { PaginationConfig } from '../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'apos-purchase',
@@ -54,7 +54,7 @@ export class PurchaseComponent implements OnInit, OnDestroy {
         this.purchaseService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()
+            sort: this.sort(),
         }).subscribe(
             (res: Response) => this.onSuccess(res.json(), res.headers),
             (res: Response) => this.onError(res.json())
@@ -117,6 +117,11 @@ export class PurchaseComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    createNewPurchase() {
+        this.purchaseService.create()
+            .subscribe((purchase) => this.router.navigate(['/purchase', purchase.id]));
+    }
+
     private onSuccess(data, headers) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = headers.get('X-Total-Count');
@@ -128,4 +133,6 @@ export class PurchaseComponent implements OnInit, OnDestroy {
     private onError(error) {
         this.alertService.error(error.message, null, null);
     }
+
+
 }

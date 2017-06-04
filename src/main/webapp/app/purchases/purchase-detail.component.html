@@ -1,0 +1,233 @@
+<div *ngIf="purchase" class="row">
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <div class="col-4">
+        <div class="card">
+            <h4 class="card-header"> Purchase Entry </h4>
+            <div class="card-block">
+                <form name="purchaseLineEntryForm" role="form" novalidate #purchaseLineEntryForm="ngForm">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_item">Item</label>
+                        <input type="text" class="form-control" name="item" id="field_item"
+                               [(ngModel)]="line.item" [ngbTypeahead]="search" [editable]="false" [resultFormatter]="itemFormatter"
+                               [inputFormatter]="itemFormatter"
+                               placeholder="Search" required/>
+                        <span *ngIf="searching" class="fa fa-spinner"></span>
+
+                        <div [hidden]="!(purchaseLineEntryForm.controls.item?.dirty && purchaseLineEntryForm.controls.item?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!purchaseLineEntryForm.controls.item?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+
+                        <button class="btn btn-primary create-item mt-1 pull-right"
+                                [hidden]="!noItems"
+                                [routerLink]="['/', { outlets: { popup: ['item-new'] } }]">
+                            <span class="fa fa-plus"></span>
+                            <span> Create new Item </span>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_quantity">Quantity</label>
+                        <input type="number" class="form-control" name="quantity" id="field_quantity"
+                               [(ngModel)]="line.quantity"
+                               required min="0"/>
+                        <div [hidden]="!(purchaseLineEntryForm.controls.quantity?.dirty && purchaseLineEntryForm.controls.quantity?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!purchaseLineEntryForm.controls.quantity?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                   [hidden]="!purchaseLineEntryForm.controls.quantity?.errors?.min" jhiTranslate="entity.validation.min"
+                                   translateValues="{ min: 0 }">
+                                This field should be at least 0.
+                            </small>
+                            <small class="form-text text-danger"
+                                   [hidden]="!purchaseLineEntryForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_rate">Rate</label>
+                        <input type="number" class="form-control" name="rate" id="field_rate"
+                               [(ngModel)]="line.rate"
+                               required min="0"/>
+
+                        <div [hidden]="!(purchaseLineEntryForm.controls.rate?.dirty && purchaseLineEntryForm.controls.rate?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!purchaseLineEntryForm.controls.rate?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                                   [hidden]="!purchaseLineEntryForm.controls.rate?.errors?.min" jhiTranslate="entity.validation.min"
+                                   translateValues="{ min: 0 }">
+                                This field should be at least 0.
+                            </small>
+                            <small class="form-text text-danger"
+                                   [hidden]="!purchaseLineEntryForm.controls.rate?.errors?.number" jhiTranslate="entity.validation.number">
+                                This field should be a number.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_amount">Amount</label>
+                        <input type="number" class="form-control" name="amount" id="field_amount"
+                               [(ngModel)]="line.amount"
+                               required min="0" readonly/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_remarks">Remarks</label>
+                        <textarea type="text" class="form-control" name="remarks" id="field_remarks"
+                                  [(ngModel)]="line.remarks"
+                                  maxlength="250">
+                        </textarea>
+                        <div [hidden]="!(purchaseLineEntryForm.controls.remarks?.dirty && purchaseLineEntryForm.controls.remarks?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!purchaseLineEntryForm.controls.remarks?.errors?.maxlength"
+                                   jhiTranslate="entity.validation.maxlength" translateValues="{ max: 250 }">
+                                This field cannot be longer than 250 characters.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="float-left">
+                            <button type="reset" class="btn btn-default"
+                                    [disabled]="!line.id" (click)="deletePurchaseLine()">
+                                <span class="fa fa-trash"></span>&nbsp;<span>Delete</span>
+                            </button>
+                        </div>
+                        <div class="float-right">
+                            <button type="reset" class="btn btn-default" (click)="resetLineItem()">
+                                <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+                            </button>
+                            <button type="submit" class="btn btn-success"
+                                    [disabled]="purchaseLineEntryForm.form.invalid" (click)="onLineItemSubmit()">
+                                <span class="fa" [ngClass]="{'fa-plus-circle': !line.id, 'fa-check': line.id}"></span>
+                                &nbsp;<span>{{ line.id ? 'Accept' : 'Add Item' }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <div class="card">
+            <h4 class="card-header"> Purchase # {{purchase.id}} </h4>
+
+            <div class="card-block">
+
+                <form name="purchaseDetailForm" role="form" novalidate #purchaseDetailForm="ngForm">
+                    <div class="form-group row">
+                        <label for="date" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-6">
+                            <input type="date" class="form-control" id="date" name="date"
+                                   [value]="purchase.date| date:'yyyy-MM-dd'" (input)="purchase.date=$event.target.valueAsDate"
+                                   required/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 form-control-label" for="field_vendor">Vendor</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="vendor" id="field_vendor"
+                                   [(ngModel)]="purchase.vendor" [ngbTypeahead]="searchVendor" [editable]="false" [resultFormatter]="vendorFormatter"
+                                   [inputFormatter]="vendorFormatter"
+                                   placeholder="Search"/>
+                            <span *ngIf="searchingVendor" class="fa fa-spinner"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="invoiceNumber" class="col-sm-2 col-form-label">Invoice #</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="invoiceNumber" name="invoiceNumber" [(ngModel)]="purchase.invoiceNumber">
+                        </div>
+                    </div>
+
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Code</th>
+                            <th>Particular</th>
+                            <th>Quantity</th>
+                            <th>Rate</th>
+                            <th>Amount</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let line of purchase.lines; let i = index" [attr.data-index]="i" (click)="editPurchaseLine(line)">
+                            <td>{{i + 1}}</td>
+                            <td>{{line.item.code}}</td>
+                            <td>{{line.item.name}}</td>
+                            <td>{{line.quantity}}</td>
+                            <td>{{line.rate}}</td>
+                            <td>{{line.amount}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-sm-6 offset-sm-6">
+                            <div class="form-group row">
+                                <label for="subTotal" class="col-sm-6 col-form-label">Sub Total</label>
+                                <div class="col-sm-6">
+                                    <input type="number" [value]="subTotal" class="form-control"
+                                           id="subTotal" name="subTotal" placeholder="0.00" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="discount" class="col-sm-6 col-form-label">Discount</label>
+                                <div class="col-sm-6">
+                                    <input type="number" [(ngModel)]="purchase.discount" class="form-control"
+                                           id="discount" name="discount" placeholder="0.00">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="grandTotal" class="col-sm-6 col-form-label">Grand Total</label>
+                                <div class="col-sm-6">
+                                    <input type="number" class="form-control" id="grandTotal" name="grandTotal" [value]="total"
+                                           placeholder="0.00" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                            <div class="float-left">
+                                <button type="reset" class="btn btn-danger"
+                                        [disabled]="hasLines"
+                                        [attr.title]="hasLines ? 'Cannot delete purchase with purchase items': 'Delete Purchase'"
+                                        (click)="deletePurchase()">
+                                    <span class="fa fa-trash"></span>&nbsp;<span>Delete</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <div class="float-right">
+                                <button type="reset" class="btn btn-default" (click)="previousState()">
+                                    <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+                                </button>
+                                <button type="submit" class="btn btn-success" (click)="updatePurchase()">
+                                    <span class="fa fa-check"></span>&nbsp;<span>Accept</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

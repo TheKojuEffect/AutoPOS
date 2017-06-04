@@ -3,26 +3,30 @@ import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { PurchaseLine } from './purchase-line.model';
+
 @Injectable()
 export class PurchaseLineService {
 
-    private resourceUrl = 'api/purchase-lines';
+    private resourceUrl = 'api/purchases/:purchaseId/lines/:purchaseLineId';
 
     constructor(private http: Http) {
     }
 
-    create(purchaseLine: PurchaseLine): Observable<PurchaseLine> {
+    create(purchaseId: number, purchaseLine: PurchaseLine): Observable<PurchaseLine> {
         let copy: PurchaseLine = Object.assign({}, purchaseLine);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
-        });
+        return this.http.post(this.getResourceUrl(purchaseId), copy)
+            .map((res: Response) => {
+                return res.json();
+            });
     }
 
-    update(purchaseLine: PurchaseLine): Observable<PurchaseLine> {
+    update(purchaseId: number, purchaseLineId: number, purchaseLine: PurchaseLine): Observable<PurchaseLine> {
         let copy: PurchaseLine = Object.assign({}, purchaseLine);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            return res.json();
-        });
+
+        return this.http.put(this.getResourceUrl(purchaseId, purchaseLineId), copy)
+            .map((res: Response) => {
+                return res.json();
+            });
     }
 
     find(id: number): Observable<PurchaseLine> {
@@ -33,14 +37,12 @@ export class PurchaseLineService {
 
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            ;
+        return this.http.get(this.resourceUrl, options);
     }
 
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+    delete(purchaseId: number, id: number): Observable<Response> {
+        return this.http.delete(this.getResourceUrl(purchaseId, id));
     }
-
 
     private createRequestOption(req?: any): BaseRequestOptions {
         let options: BaseRequestOptions = new BaseRequestOptions();
@@ -57,4 +59,13 @@ export class PurchaseLineService {
         }
         return options;
     }
+
+    private getResourceUrl = (purchaseId: number, purchaseLineId?: number): string => {
+        const lines = `api/purchases/${purchaseId}/lines`;
+        if (purchaseLineId) {
+            return `${lines}/${purchaseLineId}`;
+        }
+        return lines;
+    }
+
 }

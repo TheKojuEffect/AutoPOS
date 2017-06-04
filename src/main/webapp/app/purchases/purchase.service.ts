@@ -12,10 +12,8 @@ export class PurchaseService {
     constructor(private http: Http, private dateUtils: DateUtils) {
     }
 
-    create(purchase: Purchase): Observable<Purchase> {
-        let copy: Purchase = Object.assign({}, purchase);
-        copy.date = this.dateUtils.toDate(purchase.date);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
+    create(): Observable<Purchase> {
+        return this.http.post(this.resourceUrl, null).map((res: Response) => {
             return res.json();
         });
     }
@@ -23,8 +21,7 @@ export class PurchaseService {
     update(purchase: Purchase): Observable<Purchase> {
         let copy: Purchase = Object.assign({}, purchase);
 
-        copy.date = this.dateUtils.toDate(purchase.date);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
+        return this.http.put(`${this.resourceUrl}/${purchase.id}`, copy).map((res: Response) => {
             return res.json();
         });
     }
@@ -41,8 +38,7 @@ export class PurchaseService {
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res))
-            ;
+            .map((res: any) => this.convertResponse(res));
     }
 
     delete(id: number): Observable<Response> {
@@ -70,8 +66,8 @@ export class PurchaseService {
                 params.paramsMap.set('sort', req.sort);
             }
             params.set('query', req.query);
-
-            options.search = params;
+            params.set('status', req.status);
+            options.params = params;
         }
         return options;
     }

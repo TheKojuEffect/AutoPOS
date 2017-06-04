@@ -1,5 +1,5 @@
-import { Vendor } from '../../party/vendor';
-import { PurchaseLine } from '../purchase-line';
+import { PurchaseLine } from './';
+import { Vendor } from '../party/vendor/vendor.model';
 
 export class Purchase {
     constructor(public id?: number,
@@ -8,6 +8,6 @@ export class Purchase {
                 public discount?: number,
                 public remarks?: string,
                 public vendor?: Vendor,
-                public line?: PurchaseLine) {
+                public lines: PurchaseLine[] = []) {
     }
 }

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { PaginationUtil } from 'ng-jhipster';
-
-import { PurchaseComponent } from './purchase.component';
 import { PurchaseDetailComponent } from './purchase-detail.component';
-import { PurchasePopupComponent } from './purchase-dialog.component';
-import { PurchaseDeletePopupComponent } from './purchase-delete-dialog.component';
-import { UserRouteAccessService } from '../../shared/auth/user-route-access-service';
+import { UserRouteAccessService } from '../shared/auth/user-route-access-service';
+import { PurchaseComponent } from './purchase.component';
 
 @Injectable()
 export class PurchaseResolvePagingParams implements Resolve<any> {
@@ -25,7 +22,7 @@ export class PurchaseResolvePagingParams implements Resolve<any> {
     }
 }
 
-export const purchaseRoute: Routes = [
+export const purchaseRoutes: Routes = [
     {
         path: 'purchase',
         component: PurchaseComponent,
@@ -36,7 +33,7 @@ export const purchaseRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.purchase.home.title'
         },
-        canActivate: [UserRouteAccessService]
+        canActivate: [UserRouteAccessService],
     },
     {
         path: 'purchase/:id',
@@ -46,38 +43,5 @@ export const purchaseRoute: Routes = [
             pageTitle: 'autoPosApp.purchase.home.title'
         },
         canActivate: [UserRouteAccessService]
-    }
-];
-
-export const purchasePopupRoute: Routes = [
-    {
-        path: 'purchase-new',
-        component: PurchasePopupComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'autoPosApp.purchase.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    },
-    {
-        path: 'purchase/:id/edit',
-        component: PurchasePopupComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'autoPosApp.purchase.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
-    },
-    {
-        path: 'purchase/:id/delete',
-        component: PurchaseDeletePopupComponent,
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'autoPosApp.purchase.home.title'
-        },
-        canActivate: [UserRouteAccessService],
-        outlet: 'popup'
     }
 ];
