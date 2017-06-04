@@ -13,7 +13,7 @@ export class PurchaseResolvePagingParams implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let page = route.queryParams['page'] ? route.queryParams['page'] : '1';
-        let sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+        let sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'lastModifiedDate,desc';
         return {
             page: this.paginationUtil.parsePage(page),
             predicate: this.paginationUtil.parsePredicate(sort),
