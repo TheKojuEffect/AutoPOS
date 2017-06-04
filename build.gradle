@@ -119,9 +119,9 @@ ext['spock.version'] = '1.1-groovy-2.4-rc-3'
 
 
 group = 'com.kapilkoju.autopos'
-version = '0.0.1-SNAPSHOT'
+version = '17.06.04'
 
-description = ''
+description = 'Auto Point of Sale'
 
 configurations {
     providedRuntime

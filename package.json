@@ -1,7 +1,7 @@
 {
   "name": "AutoPOS",
   "description": "Auto Point of Sale",
-  "version": "17.01.29",
+  "version": "17.06.04",
   "private": true,
   "cacheDirectories": [
     "node_modules"
