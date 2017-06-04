@@ -17,18 +17,18 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="shortName"><span jhiTranslate="autoPosApp.category.shortName">Short Name</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="name"><span jhiTranslate="autoPosApp.category.name">Name</span> <span
-                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="shortName">
+                    <span jhiTranslate="autoPosApp.category.shortName">Short Name</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="name">
+                    <span jhiTranslate="autoPosApp.category.name">Name</span>
+                    <span class="fa fa-sort"></span></th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let category of categories ;trackBy: trackId">
-                <td><a [routerLink]="['../category', category.id ]">{{category.id}}</a></td>
-                <td>{{category.shortName}}</td>
+                <td><a [routerLink]="['../category', category.id ]">{{category.shortName}}</a></td>
                 <td>{{category.name}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
