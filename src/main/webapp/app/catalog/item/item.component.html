@@ -17,41 +17,46 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="code"><span jhiTranslate="autoPosApp.item.code">Code</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="name"><span jhiTranslate="autoPosApp.item.name">Name</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="partNumber"><span jhiTranslate="autoPosApp.item.partNumber">Part Number</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="markedPrice"><span jhiTranslate="autoPosApp.item.markedPrice">Marked Price</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="quantity"><span jhiTranslate="autoPosApp.item.quantity">Quantity</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="description"><span jhiTranslate="autoPosApp.item.description">Description</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="location"><span jhiTranslate="autoPosApp.item.location">Location</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.item.remarks">Remarks</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="category.shortName"><span jhiTranslate="autoPosApp.item.category">Category</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="brand.name"><span jhiTranslate="autoPosApp.item.brand">Brand</span> <span
-                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="code">
+                    <span jhiTranslate="autoPosApp.item.code">Code</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="name">
+                    <span jhiTranslate="autoPosApp.item.name">Name</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="partNumber">
+                    <span jhiTranslate="autoPosApp.item.partNumber">Part Number</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="category.shortName">
+                    <span jhiTranslate="autoPosApp.item.category">Category</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="brand.name">
+                    <span jhiTranslate="autoPosApp.item.brand">Brand</span>
+                    <span class="fa fa-sort"></span>
+                </th>
                 <th></th>
+                <th jhiSortBy="markedPrice">
+                    <span jhiTranslate="autoPosApp.item.markedPrice">Marked Price</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="quantity">
+                    <span jhiTranslate="autoPosApp.item.quantity">Quantity</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="location">
+                    <span jhiTranslate="autoPosApp.item.location">Location</span>
+                    <span class="fa fa-sort"></span>
+                </th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let item of items ;trackBy: trackId">
-                <td><a [routerLink]="['../item', item.id ]">{{item.id}}</a></td>
-                <td>{{item.code}}</td>
+                <td><a [routerLink]="['../item', item.id ]">{{item.code}}</a></td>
                 <td>{{item.name}}</td>
                 <td>{{item.partNumber}}</td>
-                <td>{{item.markedPrice}}</td>
-                <td>{{item.quantity}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.location}}</td>
-                <td>{{item.remarks}}</td>
                 <td>
                     <div *ngIf="item.category">
                         <a [routerLink]="['../category', item.category?.id ]">{{item.category?.shortName}}</a>
@@ -62,6 +67,9 @@
                         <a [routerLink]="['../brand', item.brand?.id ]">{{item.brand?.name}}</a>
                     </div>
                 </td>
+                <td>{{item.markedPrice}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.location}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
