@@ -1,6 +1,10 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.3.0",
+      "promptValues": {
+          "packageName": "com.kapilkoju.autopos",
+          "nativeLanguage": "en"
+      },
+    "jhipsterVersion": "4.5.2",
     "baseName": "AutoPOS",
     "packageName": "com.kapilkoju.autopos",
     "packageFolder": "com/kapilkoju/autopos",

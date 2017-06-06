@@ -36,7 +36,6 @@ export class FindLanguageFromKeyPipe implements PipeTransform {
         'zh-cn': '中文（简体）',
         'zh-tw': '繁體中文'
     };
-
     transform(lang: string): string {
         return this.languages[lang];
     }

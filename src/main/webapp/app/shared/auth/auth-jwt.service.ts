@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response, Headers, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { LocalStorageService, SessionStorageService } from 'ng2-webstorage';
 
 @Injectable()
 export class AuthServerProvider {
-    constructor(private http: Http,
-                private $localStorage: LocalStorageService,
-                private $sessionStorage: SessionStorageService) {
-    }
+    constructor(
+        private http: Http,
+        private $localStorage: LocalStorageService,
+        private $sessionStorage: SessionStorageService
+    ) {}
 
     getToken() {
         return this.$localStorage.retrieve('authenticationToken') || this.$sessionStorage.retrieve('authenticationToken');
@@ -16,7 +17,7 @@ export class AuthServerProvider {
 
     login(credentials): Observable<any> {
 
-        let data = {
+        const data = {
             username: credentials.username,
             password: credentials.password,
             rememberMe: credentials.rememberMe
@@ -24,9 +25,9 @@ export class AuthServerProvider {
         return this.http.post('api/authenticate', data).map(authenticateSuccess.bind(this));
 
         function authenticateSuccess(resp) {
-            let bearerToken = resp.headers.get('Authorization');
+            const bearerToken = resp.headers.get('Authorization');
             if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
-                let jwt = bearerToken.slice(7, bearerToken.length);
+                const jwt = bearerToken.slice(7, bearerToken.length);
                 this.storeAuthenticationToken(jwt, credentials.rememberMe);
                 return jwt;
             }
@@ -51,7 +52,7 @@ export class AuthServerProvider {
     }
 
     logout(): Observable<any> {
-        return new Observable(observer => {
+        return new Observable((observer) => {
             this.$localStorage.clear('authenticationToken');
             this.$sessionStorage.clear('authenticationToken');
             observer.complete();

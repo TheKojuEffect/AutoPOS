@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+
 import { AposMetricsMonitoringComponent } from './metrics.component';
 
 export const metricsRoute: Route = {

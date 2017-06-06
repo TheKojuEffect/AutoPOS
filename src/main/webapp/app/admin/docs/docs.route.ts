@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+
 import { AposDocsComponent } from './docs.component';
 
 export const docsRoute: Route = {

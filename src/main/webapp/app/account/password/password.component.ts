@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
 
 import { Principal } from '../../shared';
 import { Password } from './password.service';
@@ -16,10 +15,10 @@ export class PasswordComponent implements OnInit {
     password: string;
     confirmPassword: string;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private passwordService: Password,
-                private principal: Principal) {
-        this.jhiLanguageService.setLocations(['password']);
+    constructor(
+        private passwordService: Password,
+        private principal: Principal
+    ) {
     }
 
     ngOnInit() {

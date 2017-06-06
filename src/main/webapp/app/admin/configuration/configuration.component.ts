@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
 
 import { AposConfigurationService } from './configuration.service';
 
@@ -15,9 +14,9 @@ export class AposConfigurationComponent implements OnInit {
     orderProp: string;
     reverse: boolean;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private configurationService: AposConfigurationService) {
-        this.jhiLanguageService.setLocations(['configuration']);
+    constructor(
+        private configurationService: AposConfigurationService
+    ) {
         this.configKeys = [];
         this.filter = '';
         this.orderProp = 'prefix';
@@ -32,7 +31,7 @@ export class AposConfigurationComponent implements OnInit {
         this.configurationService.get().subscribe((configuration) => {
             this.configuration = configuration;
 
-            for (let config of configuration) {
+            for (const config of configuration) {
                 if (config.properties !== undefined) {
                     this.configKeys.push(Object.keys(config.properties));
                 }

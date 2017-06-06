@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 
-import { ProfileService } from '../profiles/profile.service'; // FIXME barrel doesnt work here
-import { JhiLanguageHelper, LoginModalService, LoginService, Principal } from '../../shared';
+import { ProfileService } from '../profiles/profile.service';
+import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from '../../shared';
 
-import { DEBUG_INFO_ENABLED, VERSION } from '../../app.constants';
+import { VERSION, DEBUG_INFO_ENABLED } from '../../app.constants';
 
 @Component({
     selector: 'apos-navbar',
@@ -24,14 +24,16 @@ export class NavbarComponent implements OnInit {
     modalRef: NgbModalRef;
     version: string;
 
-    constructor(private loginService: LoginService,
-                private languageHelper: JhiLanguageHelper,
-                private languageService: JhiLanguageService,
-                private principal: Principal,
-                private loginModalService: LoginModalService,
-                private profileService: ProfileService,
-                private router: Router) {
-        this.version = DEBUG_INFO_ENABLED ? 'v' + VERSION : '';
+    constructor(
+        private loginService: LoginService,
+        private languageHelper: JhiLanguageHelper,
+        private languageService: JhiLanguageService,
+        private principal: Principal,
+        private loginModalService: LoginModalService,
+        private profileService: ProfileService,
+        private router: Router
+    ) {
+        this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
         this.languageService.addLocation('home');
     }
@@ -41,14 +43,14 @@ export class NavbarComponent implements OnInit {
             this.languages = languages;
         });
 
-        this.profileService.getProfileInfo().subscribe(profileInfo => {
+        this.profileService.getProfileInfo().subscribe((profileInfo) => {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
     }
 
     changeLanguage(languageKey: string) {
-        this.languageService.changeLanguage(languageKey);
+      this.languageService.changeLanguage(languageKey);
     }
 
     collapseNavbar() {

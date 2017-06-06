@@ -4,18 +4,17 @@ import { RouterModule } from '@angular/router';
 import { navbarRoute } from '../app.route';
 import { errorRoute } from './';
 
-let LAYOUT_ROUTES = [
+const LAYOUT_ROUTES = [
     navbarRoute,
     ...errorRoute
 ];
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(LAYOUT_ROUTES, {useHash: true})
+        RouterModule.forRoot(LAYOUT_ROUTES, { useHash: true })
     ],
     exports: [
         RouterModule
     ]
 })
-export class LayoutRoutingModule {
-}
+export class LayoutRoutingModule {}

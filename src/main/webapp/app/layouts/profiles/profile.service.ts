@@ -9,14 +9,13 @@ export class ProfileService {
 
     private profileInfoUrl = 'api/profile-info';
 
-    constructor(private http: Http) {
-    }
+    constructor(private http: Http) { }
 
     getProfileInfo(): Observable<ProfileInfo> {
         return this.http.get(this.profileInfoUrl)
             .map((res: Response) => {
-                let data = res.json();
-                let pi = new ProfileInfo();
+                const data = res.json();
+                const pi = new ProfileInfo();
                 pi.activeProfiles = data.activeProfiles;
                 pi.ribbonEnv = data.ribbonEnv;
                 pi.inProduction = data.activeProfiles.indexOf('prod') !== -1;

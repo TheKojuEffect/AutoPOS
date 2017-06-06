@@ -5,13 +5,15 @@ import { HttpInterceptor } from 'ng-jhipster';
 
 export class AuthInterceptor extends HttpInterceptor {
 
-    constructor(private localStorage: LocalStorageService,
-                private sessionStorage: SessionStorageService) {
+    constructor(
+        private localStorage: LocalStorageService,
+        private sessionStorage: SessionStorageService
+    ) {
         super();
     }
 
     requestIntercept(options?: RequestOptionsArgs): RequestOptionsArgs {
-        let token = this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
+        const token = this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
         if (!!token) {
             options.headers.append('Authorization', 'Bearer ' + token);
         }

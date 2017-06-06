@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 
 import { UserModalService } from './user-modal.service';
 import { JhiLanguageHelper, User, UserService } from '../../shared';
@@ -18,20 +18,23 @@ export class UserMgmtDialogComponent implements OnInit {
     authorities: any[];
     isSaving: Boolean;
 
-    constructor(public activeModal: NgbActiveModal,
-                private languageHelper: JhiLanguageHelper,
-                private jhiLanguageService: JhiLanguageService,
-                private userService: UserService,
-                private eventManager: EventManager) {
-    }
+    constructor(
+        public activeModal: NgbActiveModal,
+        private languageHelper: JhiLanguageHelper,
+        private userService: UserService,
+        private alertService: AlertService,
+        private eventManager: EventManager
+    ) {}
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        this.authorities = [];
+        this.userService.authorities().subscribe((authorities) => {
+            this.authorities = authorities;
+        });
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
-        this.jhiLanguageService.setLocations(['user-management']);
     }
 
     clear() {
@@ -41,14 +44,18 @@ export class UserMgmtDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.user.id !== null) {
-            this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
+            this.userService.update(this.user).subscribe((response) => this.onSaveSuccess(response, false), () => this.onSaveError());
         } else {
-            this.userService.create(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
+            this.userService.create(this.user).subscribe((response) => this.onSaveSuccess(response, true), () => this.onSaveError());
         }
     }
 
-    private onSaveSuccess(result) {
-        this.eventManager.broadcast({name: 'userListModification', content: 'OK'});
+    private onSaveSuccess(result, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'userManagement.created'
+            : 'userManagement.updated',
+            { param : result.json.login }, null);
+        this.eventManager.broadcast({ name: 'userListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -67,13 +74,14 @@ export class UserDialogComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private userModalService: UserModalService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private userModalService: UserModalService
+    ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
-            if (params['login']) {
+        this.routeSub = this.route.params.subscribe((params) => {
+            if ( params['login'] ) {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent, params['login']);
             } else {
                 this.modalRef = this.userModalService.open(UserMgmtDialogComponent);
