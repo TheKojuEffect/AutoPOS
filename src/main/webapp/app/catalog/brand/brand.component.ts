@@ -67,7 +67,7 @@ export class BrandComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/brand'], {
+        this.router.navigate(['/catalog/brand'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -79,7 +79,7 @@ export class BrandComponent implements OnInit, OnDestroy {
 
     clear() {
         this.page = 0;
-        this.router.navigate(['/brand', {
+        this.router.navigate(['/catalog/brand', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);

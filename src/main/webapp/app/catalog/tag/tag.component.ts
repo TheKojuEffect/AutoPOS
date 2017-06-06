@@ -66,7 +66,7 @@ export class TagComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/tag'], {
+        this.router.navigate(['/catalog/tag'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -78,7 +78,7 @@ export class TagComponent implements OnInit, OnDestroy {
 
     clear() {
         this.page = 0;
-        this.router.navigate(['/tag', {
+        this.router.navigate(['/catalog/tag', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);

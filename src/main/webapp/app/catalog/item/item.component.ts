@@ -74,7 +74,7 @@ export class ItemComponent implements OnInit, OnDestroy {
         }
     }
     transition() {
-        this.router.navigate(['/item'], {queryParams:
+        this.router.navigate(['/catalog/item'], {queryParams:
             {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -86,7 +86,7 @@ export class ItemComponent implements OnInit, OnDestroy {
 
     clear() {
         this.page = 0;
-        this.router.navigate(['/item', {
+        this.router.navigate(['/catalog/item', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
