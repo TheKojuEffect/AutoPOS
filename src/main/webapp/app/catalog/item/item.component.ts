@@ -1,12 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLinks } from 'ng-jhipster';
+import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
 import { Item } from './item.model';
 import { ItemService } from './item.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -31,24 +30,24 @@ export class ItemComponent implements OnInit, OnDestroy {
     reverse: any;
     filter: string;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private itemService: ItemService,
-                private parseLinks: ParseLinks,
-                private alertService: AlertService,
-                private principal: Principal,
-                private activatedRoute: ActivatedRoute,
-                private router: Router,
-                private eventManager: EventManager,
-                private paginationUtil: PaginationUtil,
-                private paginationConfig: PaginationConfig) {
+    constructor(
+        private itemService: ItemService,
+        private parseLinks: ParseLinks,
+        private alertService: AlertService,
+        private principal: Principal,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private eventManager: EventManager,
+        private paginationUtil: PaginationUtil,
+        private paginationConfig: PaginationConfig
+    ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['item']);
     }
 
     loadAll() {
@@ -63,21 +62,20 @@ export class ItemComponent implements OnInit, OnDestroy {
             params.query = this.filter;
         }
         this.itemService.query(params).subscribe(
-            (res: Response) => this.onSuccess(res.json(), res.headers),
-            (res: Response) => this.onError(res.json())
+            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
+            (res: ResponseWrapper) => this.onError(res.json)
         );
-    }
 
+    }
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
-
     transition() {
-        this.router.navigate(['/item'], {
-            queryParams: {
+        this.router.navigate(['/item'], {queryParams:
+            {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -94,7 +92,6 @@ export class ItemComponent implements OnInit, OnDestroy {
         }]);
         this.loadAll();
     }
-
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -110,14 +107,12 @@ export class ItemComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Item) {
         return item.id;
     }
-
-
     registerChangeInItems() {
         this.eventSubscriber = this.eventManager.subscribe('itemListModification', (response) => this.loadAll());
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -131,7 +126,6 @@ export class ItemComponent implements OnInit, OnDestroy {
         // this.page = pagingParams.page;
         this.items = data;
     }
-
     private onError(error) {
         this.alertService.error(error.message, null, null);
     }

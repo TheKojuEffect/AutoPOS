@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager  } from 'ng-jhipster';
+
 import { Item } from './item.model';
 import { ItemService } from './item.service';
 
@@ -12,28 +13,28 @@ import { ItemService } from './item.service';
 export class ItemDetailComponent implements OnInit, OnDestroy {
 
     item: Item;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(private eventManager: EventManager, private jhiLanguageService: JhiLanguageService,
-                private itemService: ItemService,
-                private route: ActivatedRoute) {
-        this.jhiLanguageService.setLocations(['item']);
+    constructor(
+        private eventManager: EventManager,
+        private itemService: ItemService,
+        private route: ActivatedRoute
+    ) {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInItems();
     }
 
     load(id) {
-        this.itemService.find(id).subscribe(item => {
+        this.itemService.find(id).subscribe((item) => {
             this.item = item;
         });
     }
-
     previousState() {
         window.history.back();
     }
@@ -44,7 +45,9 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInItems() {
-        this.eventSubscriber = this.eventManager.subscribe('itemListModification', response => this.load(this.item.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'itemListModification',
+            (response) => this.load(this.item.id)
+        );
     }
-
 }

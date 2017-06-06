@@ -13,6 +13,6 @@ export class Item {
                 public remarks?: string,
                 public category?: Category,
                 public brand?: Brand,
-                public tag?: Tag) {
+                public tag?: Tag,) {
     }
 }

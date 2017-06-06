@@ -1,12 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLinks } from 'ng-jhipster';
+import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
 import { Category } from './category.model';
 import { CategoryService } from './category.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -30,47 +29,44 @@ export class CategoryComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private categoryService: CategoryService,
-                private parseLinks: ParseLinks,
-                private alertService: AlertService,
-                private principal: Principal,
-                private activatedRoute: ActivatedRoute,
-                private router: Router,
-                private eventManager: EventManager,
-                private paginationUtil: PaginationUtil,
-                private paginationConfig: PaginationConfig) {
+    constructor(
+        private categoryService: CategoryService,
+        private parseLinks: ParseLinks,
+        private alertService: AlertService,
+        private principal: Principal,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private eventManager: EventManager,
+        private paginationUtil: PaginationUtil,
+        private paginationConfig: PaginationConfig
+    ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['category']);
     }
 
     loadAll() {
         this.categoryService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()
-        }).subscribe(
-            (res: Response) => this.onSuccess(res.json(), res.headers),
-            (res: Response) => this.onError(res.json())
+            sort: this.sort()}).subscribe(
+            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
+            (res: ResponseWrapper) => this.onError(res.json)
         );
     }
-
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
-
     transition() {
-        this.router.navigate(['/category'], {
-            queryParams: {
+        this.router.navigate(['/category'], {queryParams:
+            {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -87,7 +83,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
         }]);
         this.loadAll();
     }
-
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -103,14 +98,12 @@ export class CategoryComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Category) {
         return item.id;
     }
-
-
     registerChangeInCategories() {
         this.eventSubscriber = this.eventManager.subscribe('categoryListModification', (response) => this.loadAll());
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -124,7 +117,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
         // this.page = pagingParams.page;
         this.categories = data;
     }
-
     private onError(error) {
         this.alertService.error(error.message, null, null);
     }
