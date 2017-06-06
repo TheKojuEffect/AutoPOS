@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 
 import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
@@ -16,11 +16,10 @@ export class TagDeleteDialogComponent {
 
     tag: Tag;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private tagService: TagService,
+    constructor(private tagService: TagService,
                 public activeModal: NgbActiveModal,
+                private alertService: AlertService,
                 private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['tag']);
     }
 
     clear() {
@@ -28,13 +27,14 @@ export class TagDeleteDialogComponent {
     }
 
     confirmDelete(id: number) {
-        this.tagService.delete(id).subscribe(response => {
+        this.tagService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'tagListModification',
                 content: 'Deleted an tag'
             });
             this.activeModal.dismiss(true);
         });
+        this.alertService.success('autoPosApp.tag.deleted', {param: id}, null);
     }
 }
 
@@ -52,7 +52,7 @@ export class TagDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.tagPopupService
                 .open(TagDeleteDialogComponent, params['id']);
         });

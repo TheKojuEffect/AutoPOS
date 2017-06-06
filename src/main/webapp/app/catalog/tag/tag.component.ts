@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLinks } from 'ng-jhipster';
+import { AlertService, EventManager, PaginationUtil, ParseLinks } from 'ng-jhipster';
 
 import { Tag } from './tag.model';
 import { TagService } from './tag.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -30,8 +29,7 @@ export class TagComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private tagService: TagService,
+    constructor(private tagService: TagService,
                 private parseLinks: ParseLinks,
                 private alertService: AlertService,
                 private principal: Principal,
@@ -41,13 +39,12 @@ export class TagComponent implements OnInit, OnDestroy {
                 private paginationUtil: PaginationUtil,
                 private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['tag']);
     }
 
     loadAll() {
@@ -56,8 +53,8 @@ export class TagComponent implements OnInit, OnDestroy {
             size: this.itemsPerPage,
             sort: this.sort()
         }).subscribe(
-            (res: Response) => this.onSuccess(res.json(), res.headers),
-            (res: Response) => this.onError(res.json())
+            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
+            (res: ResponseWrapper) => this.onError(res.json)
         );
     }
 
@@ -110,7 +107,7 @@ export class TagComponent implements OnInit, OnDestroy {
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
