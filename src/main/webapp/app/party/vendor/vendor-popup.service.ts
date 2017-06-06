@@ -19,7 +19,7 @@ export class VendorPopupService {
         this.isOpen = true;
 
         if (id) {
-            this.vendorService.find(id).subscribe(vendor => {
+            this.vendorService.find(id).subscribe((vendor) => {
                 this.vendorModalRef(component, vendor);
             });
         } else {
@@ -28,9 +28,9 @@ export class VendorPopupService {
     }
 
     vendorModalRef(component: Component, vendor: Vendor): NgbModalRef {
-        let modalRef = this.modalService.open(component, {size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.vendor = vendor;
-        modalRef.result.then(result => {
+        modalRef.result.then((result) => {
             this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});
             this.isOpen = false;
         }, (reason) => {

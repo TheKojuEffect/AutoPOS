@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 
 import { Vendor } from './vendor.model';
 import { VendorPopupService } from './vendor-popup.service';
@@ -20,11 +21,10 @@ export class VendorDialogComponent implements OnInit {
     isSaving: boolean;
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
                 private alertService: AlertService,
                 private vendorService: VendorService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['vendor']);
+        private eventManager: EventManager
+    ) {
     }
 
     ngOnInit() {
@@ -39,17 +39,25 @@ export class VendorDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.vendor.id !== undefined) {
-            this.vendorService.update(this.vendor)
-                .subscribe((res: Vendor) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.vendorService.update(this.vendor), false);
         } else {
-            this.vendorService.create(this.vendor)
-                .subscribe((res: Vendor) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.vendorService.create(this.vendor), true);
         }
     }
 
-    private onSaveSuccess(result: Vendor) {
+    private subscribeToSaveResponse(result: Observable<Vendor>, isCreated: boolean) {
+        result.subscribe((res: Vendor) =>
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+    }
+
+    private onSaveSuccess(result: Vendor, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'autoPosApp.vendor.created'
+            : 'autoPosApp.vendor.updated',
+            { param : result.id }, null);
+
         this.eventManager.broadcast({name: 'vendorListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
@@ -85,7 +93,7 @@ export class VendorPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.vendorPopupService
                     .open(VendorDialogComponent, params['id']);

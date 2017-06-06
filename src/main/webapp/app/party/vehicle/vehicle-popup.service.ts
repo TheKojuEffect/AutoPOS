@@ -19,7 +19,7 @@ export class VehiclePopupService {
         this.isOpen = true;
 
         if (id) {
-            this.vehicleService.find(id).subscribe(vehicle => {
+            this.vehicleService.find(id).subscribe((vehicle) => {
                 this.vehicleModalRef(component, vehicle);
             });
         } else {
@@ -28,9 +28,9 @@ export class VehiclePopupService {
     }
 
     vehicleModalRef(component: Component, vehicle: Vehicle): NgbModalRef {
-        let modalRef = this.modalService.open(component, {size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.vehicle = vehicle;
-        modalRef.result.then(result => {
+        modalRef.result.then((result) => {
             this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});
             this.isOpen = false;
         }, (reason) => {

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 
 import { Vehicle } from './vehicle.model';
 import { VehiclePopupService } from './vehicle-popup.service';
@@ -16,11 +16,12 @@ export class VehicleDeleteDialogComponent {
 
     vehicle: Vehicle;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(
                 private vehicleService: VehicleService,
                 public activeModal: NgbActiveModal,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['vehicle']);
+        private alertService: AlertService,
+        private eventManager: EventManager
+    ) {
     }
 
     clear() {
@@ -28,13 +29,14 @@ export class VehicleDeleteDialogComponent {
     }
 
     confirmDelete(id: number) {
-        this.vehicleService.delete(id).subscribe(response => {
+        this.vehicleService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'vehicleListModification',
                 content: 'Deleted an vehicle'
             });
             this.activeModal.dismiss(true);
         });
+        this.alertService.success('autoPosApp.vehicle.deleted', { param : id }, null);
     }
 }
 
@@ -52,7 +54,7 @@ export class VehicleDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.vehiclePopupService
                 .open(VehicleDeleteDialogComponent, params['id']);
         });

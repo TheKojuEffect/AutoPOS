@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Vehicle } from './vehicle.model';
+import { createRequestOption, ResponseWrapper } from '../../shared';
+
 @Injectable()
 export class VehicleService {
 
@@ -12,14 +14,14 @@ export class VehicleService {
     }
 
     create(vehicle: Vehicle): Observable<Vehicle> {
-        let copy: Vehicle = Object.assign({}, vehicle);
+        const copy = this.convert(vehicle);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(vehicle: Vehicle): Observable<Vehicle> {
-        let copy: Vehicle = Object.assign({}, vehicle);
+        const copy = this.convert(vehicle);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -31,9 +33,10 @@ export class VehicleService {
         });
     }
 
-    query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options);
+    query(req?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(req);
+        return this.http.get(this.resourceUrl, options)
+            .map((res: Response) => this.convertResponse(res));
     }
 
     search(term: string): Observable<Vehicle[]> {
@@ -46,20 +49,13 @@ export class VehicleService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
-    private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
-        if (req) {
-            let params: URLSearchParams = new URLSearchParams();
-            params.set('page', req.page);
-            params.set('size', req.size);
-            if (req.sort) {
-                params.paramsMap.set('sort', req.sort);
+    private convertResponse(res: Response): ResponseWrapper {
+        const jsonResponse = res.json();
+        return new ResponseWrapper(res.headers, jsonResponse, res.status);
             }
-            params.set('query', req.query);
 
-            options.search = params;
-        }
-        return options;
+    private convert(vehicle: Vehicle): Vehicle {
+        const copy: Vehicle = Object.assign({}, vehicle);
+        return copy;
     }
 }
