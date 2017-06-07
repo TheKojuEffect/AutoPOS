@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLinks } from 'ng-jhipster';
+import { AlertService, EventManager, ParseLinks } from 'ng-jhipster';
 
 import { Purchase } from './purchase.model';
 import { PurchaseService } from './purchase.service';
-import { ITEMS_PER_PAGE, Principal } from '../shared';
-import { PaginationConfig } from '../blocks/config/uib-pagination.config';
+import { Principal } from '../shared/index';
+import { ITEMS_PER_PAGE } from '../shared/constants/pagination.constants';
+import { ResponseWrapper } from '../shared/model/response-wrapper.model';
 
 @Component({
     selector: 'apos-purchase',
@@ -30,16 +30,13 @@ export class PurchaseComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private purchaseService: PurchaseService,
+    constructor(private purchaseService: PurchaseService,
                 private parseLinks: ParseLinks,
                 private alertService: AlertService,
                 private principal: Principal,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private eventManager: EventManager,
-                private paginationUtil: PaginationUtil,
-                private paginationConfig: PaginationConfig) {
+                private eventManager: EventManager,) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -47,7 +44,6 @@ export class PurchaseComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['purchase']);
     }
 
     loadAll() {
@@ -56,8 +52,8 @@ export class PurchaseComponent implements OnInit, OnDestroy {
             size: this.itemsPerPage,
             sort: this.sort(),
         }).subscribe(
-            (res: Response) => this.onSuccess(res.json(), res.headers),
-            (res: Response) => this.onError(res.json())
+            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
+            (res: ResponseWrapper) => this.onError(res.json)
         );
     }
 
@@ -110,7 +106,7 @@ export class PurchaseComponent implements OnInit, OnDestroy {
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }

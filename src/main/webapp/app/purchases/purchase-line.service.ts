@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { PurchaseLine } from './purchase-line.model';
+import { createRequestOption, ResponseWrapper } from '../shared';
 
 @Injectable()
 export class PurchaseLineService {
@@ -13,7 +14,7 @@ export class PurchaseLineService {
     }
 
     create(purchaseId: number, purchaseLine: PurchaseLine): Observable<PurchaseLine> {
-        let copy: PurchaseLine = Object.assign({}, purchaseLine);
+        const copy = this.convert(purchaseLine);
         return this.http.post(this.getResourceUrl(purchaseId), copy)
             .map((res: Response) => {
                 return res.json();
@@ -21,8 +22,7 @@ export class PurchaseLineService {
     }
 
     update(purchaseId: number, purchaseLineId: number, purchaseLine: PurchaseLine): Observable<PurchaseLine> {
-        let copy: PurchaseLine = Object.assign({}, purchaseLine);
-
+        const copy = this.convert(purchaseLine);
         return this.http.put(this.getResourceUrl(purchaseId, purchaseLineId), copy)
             .map((res: Response) => {
                 return res.json();
@@ -35,29 +35,24 @@ export class PurchaseLineService {
         });
     }
 
-    query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options);
+    query(req?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(req);
+        return this.http.get(this.resourceUrl, options)
+            .map((res: Response) => this.convertResponse(res));
     }
 
     delete(purchaseId: number, id: number): Observable<Response> {
         return this.http.delete(this.getResourceUrl(purchaseId, id));
     }
 
-    private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
-        if (req) {
-            let params: URLSearchParams = new URLSearchParams();
-            params.set('page', req.page);
-            params.set('size', req.size);
-            if (req.sort) {
-                params.paramsMap.set('sort', req.sort);
-            }
-            params.set('query', req.query);
+    private convertResponse(res: Response): ResponseWrapper {
+        const jsonResponse = res.json();
+        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+    }
 
-            options.search = params;
-        }
-        return options;
+    private convert(purchaseLine: PurchaseLine): PurchaseLine {
+        const copy: PurchaseLine = Object.assign({}, purchaseLine);
+        return copy;
     }
 
     private getResourceUrl = (purchaseId: number, purchaseLineId?: number): string => {
@@ -67,5 +62,4 @@ export class PurchaseLineService {
         }
         return lines;
     }
-
 }
