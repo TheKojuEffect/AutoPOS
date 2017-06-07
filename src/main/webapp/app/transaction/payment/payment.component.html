@@ -44,7 +44,7 @@
                 <td>{{payment.remarks}}</td>
                 <td>
                     <div *ngIf="payment.paidTo">
-                        <a [routerLink]="['../vendor', payment.paidTo?.id ]">{{payment.paidTo?.name}}</a>
+                        <a [routerLink]="['../../party/vendor', payment.paidTo?.id ]">{{payment.paidTo?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

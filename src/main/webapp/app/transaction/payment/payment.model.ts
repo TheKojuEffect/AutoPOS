@@ -7,6 +7,6 @@ export class Payment {
                 public receiptNumber?: string,
                 public paidBy?: string,
                 public remarks?: string,
-                public paidTo?: Vendor) {
+                public paidTo?: Vendor,) {
     }
 }

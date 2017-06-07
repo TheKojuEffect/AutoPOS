@@ -7,6 +7,6 @@ export class Receipt {
                 public receiptNumber?: string,
                 public receivedBy?: string,
                 public remarks?: string,
-                public receivedFrom?: Customer) {
+                public receivedFrom?: Customer,) {
     }
 }
