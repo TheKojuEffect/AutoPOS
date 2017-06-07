@@ -4,6 +4,6 @@ export class DayBookEntry {
                 public incomingAmount?: number,
                 public outgoingAmount?: number,
                 public miscExpenses?: number,
-                public remarks?: string) {
+                public remarks?: string,) {
     }
 }
