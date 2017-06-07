@@ -17,7 +17,6 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
                 <th jhiSortBy="date"><span jhiTranslate="autoPosApp.dayBookEntry.date">Date</span> <span
                         class="fa fa-sort"></span></th>
                 <th jhiSortBy="incomingAmount"><span jhiTranslate="autoPosApp.dayBookEntry.incomingAmount">Incoming Amount</span>
@@ -34,8 +33,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let dayBookEntry of dayBookEntries ;trackBy: trackId">
-                <td><a [routerLink]="['../day-book-entry', dayBookEntry.id ]">{{dayBookEntry.id}}</a></td>
-                <td>{{dayBookEntry.date | date:'mediumDate'}}</td>
+                <td><a [routerLink]="['../day-book-entry', dayBookEntry.id ]">{{dayBookEntry.date | date:'mediumDate'}}</a></td>
                 <td>{{dayBookEntry.incomingAmount}}</td>
                 <td>{{dayBookEntry.outgoingAmount}}</td>
                 <td>{{dayBookEntry.miscExpenses}}</td>
