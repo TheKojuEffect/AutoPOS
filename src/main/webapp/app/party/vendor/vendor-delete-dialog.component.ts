@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 
 import { Vendor } from './vendor.model';
 import { VendorPopupService } from './vendor-popup.service';
@@ -16,11 +16,12 @@ export class VendorDeleteDialogComponent {
 
     vendor: Vendor;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
+    constructor(
                 private vendorService: VendorService,
                 public activeModal: NgbActiveModal,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['vendor']);
+        private alertService: AlertService,
+        private eventManager: EventManager
+    ) {
     }
 
     clear() {
@@ -28,13 +29,14 @@ export class VendorDeleteDialogComponent {
     }
 
     confirmDelete(id: number) {
-        this.vendorService.delete(id).subscribe(response => {
+        this.vendorService.delete(id).subscribe((response) => {
             this.eventManager.broadcast({
                 name: 'vendorListModification',
                 content: 'Deleted an vendor'
             });
             this.activeModal.dismiss(true);
         });
+        this.alertService.success('autoPosApp.vendor.deleted', { param : id }, null);
     }
 }
 
@@ -52,7 +54,7 @@ export class VendorDeletePopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.vendorPopupService
                 .open(VendorDeleteDialogComponent, params['id']);
         });

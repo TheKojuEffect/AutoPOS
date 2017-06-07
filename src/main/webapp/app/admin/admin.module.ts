@@ -1,39 +1,40 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared';
+/* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 import {
     adminState,
-    AposConfigurationComponent,
-    AposConfigurationService,
-    AposDocsComponent,
-    AposHealthCheckComponent,
-    AposHealthModalComponent,
-    AposHealthService,
-    AposMetricsMonitoringComponent,
-    AposMetricsMonitoringModalComponent,
-    AposMetricsService,
     AuditsComponent,
-    AuditsService,
-    LogsComponent,
-    LogsService,
-    UserDeleteDialogComponent,
-    UserDialogComponent,
     UserMgmtComponent,
-    UserMgmtDeleteDialogComponent,
+    UserDialogComponent,
+    UserDeleteDialogComponent,
     UserMgmtDetailComponent,
     UserMgmtDialogComponent,
-    UserModalService,
+    UserMgmtDeleteDialogComponent,
+    LogsComponent,
+    AposMetricsMonitoringModalComponent,
+    AposMetricsMonitoringComponent,
+    AposHealthModalComponent,
+    AposHealthCheckComponent,
+    AposConfigurationComponent,
+    AposDocsComponent,
+    AuditsService,
+    AposConfigurationService,
+    AposHealthService,
+    AposMetricsService,
+    LogsService,
+    UserResolvePagingParams,
     UserResolve,
-    UserResolvePagingParams
+    UserModalService
 } from './';
-
 
 @NgModule({
     imports: [
         SharedModule,
-        RouterModule.forRoot(adminState, {useHash: true})
+        RouterModule.forRoot(adminState, { useHash: true }),
+        /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
     ],
     declarations: [
         AuditsComponent,
@@ -69,5 +70,4 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AdminModule {
-}
+export class AdminModule {}

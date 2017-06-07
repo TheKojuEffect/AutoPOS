@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
+
 import { Vendor } from './vendor.model';
 import { VendorService } from './vendor.service';
 
@@ -12,24 +13,25 @@ import { VendorService } from './vendor.service';
 export class VendorDetailComponent implements OnInit, OnDestroy {
 
     vendor: Vendor;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(private eventManager: EventManager, private jhiLanguageService: JhiLanguageService,
+    constructor(
+        private eventManager: EventManager,
                 private vendorService: VendorService,
-                private route: ActivatedRoute) {
-        this.jhiLanguageService.setLocations(['vendor']);
+        private route: ActivatedRoute
+    ) {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInVendors();
     }
 
     load(id) {
-        this.vendorService.find(id).subscribe(vendor => {
+        this.vendorService.find(id).subscribe((vendor) => {
             this.vendor = vendor;
         });
     }
@@ -44,7 +46,10 @@ export class VendorDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInVendors() {
-        this.eventSubscriber = this.eventManager.subscribe('vendorListModification', response => this.load(this.vendor.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'vendorListModification',
+            (response) => this.load(this.vendor.id)
+        );
     }
 
 }

@@ -1,21 +1,18 @@
 import { NgModule, Sanitizer } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-
 import { TranslateService } from 'ng2-translate';
 import { AlertService } from 'ng-jhipster';
-
 import {
-    AposAlertComponent,
-    AposAlertErrorComponent,
     AutoPosSharedLibsModule,
+    JhiLanguageHelper,
     FindLanguageFromKeyPipe,
-    JhiLanguageHelper
+    AposAlertComponent,
+    AposAlertErrorComponent
 } from './';
-
 
 export function alertServiceProvider(sanitizer: Sanitizer, translateService: TranslateService) {
     // set below to true to make alerts look like toast
-    let isToast = false;
+    const isToast = false;
     return new AlertService(sanitizer, isToast, translateService);
 }
 
@@ -44,5 +41,4 @@ export function alertServiceProvider(sanitizer: Sanitizer, translateService: Tra
         AposAlertErrorComponent
     ]
 })
-export class AutoPosSharedCommonModule {
-}
+export class AutoPosSharedCommonModule {}

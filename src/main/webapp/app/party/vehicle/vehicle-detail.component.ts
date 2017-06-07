@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
+
 import { Vehicle } from './vehicle.model';
 import { VehicleService } from './vehicle.service';
 
@@ -12,24 +13,25 @@ import { VehicleService } from './vehicle.service';
 export class VehicleDetailComponent implements OnInit, OnDestroy {
 
     vehicle: Vehicle;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(private eventManager: EventManager, private jhiLanguageService: JhiLanguageService,
+    constructor(
+        private eventManager: EventManager,
                 private vehicleService: VehicleService,
-                private route: ActivatedRoute) {
-        this.jhiLanguageService.setLocations(['vehicle']);
+        private route: ActivatedRoute
+    ) {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInVehicles();
     }
 
     load(id) {
-        this.vehicleService.find(id).subscribe(vehicle => {
+        this.vehicleService.find(id).subscribe((vehicle) => {
             this.vehicle = vehicle;
         });
     }
@@ -44,7 +46,10 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInVehicles() {
-        this.eventSubscriber = this.eventManager.subscribe('vehicleListModification', response => this.load(this.vehicle.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'vehicleListModification',
+            (response) => this.load(this.vehicle.id)
+        );
     }
 
 }

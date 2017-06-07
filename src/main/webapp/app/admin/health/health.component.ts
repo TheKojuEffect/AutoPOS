@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService } from 'ng-jhipster';
 
 import { AposHealthService } from './health.service';
 import { AposHealthModalComponent } from './health-modal.component';
 
 @Component({
     selector: 'apos-health',
-    templateUrl: './health.component.html',
+    templateUrl: './health.component.html'
 })
 export class AposHealthCheckComponent implements OnInit {
     healthData: any;
     updatingHealth: boolean;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private modalService: NgbModal,
-                private healthService: AposHealthService) {
-        this.jhiLanguageService.setLocations(['health']);
+    constructor(
+        private modalService: NgbModal,
+        private healthService: AposHealthService
+    ) {
 
     }
 
@@ -39,10 +38,10 @@ export class AposHealthCheckComponent implements OnInit {
     refresh() {
         this.updatingHealth = true;
 
-        this.healthService.checkHealth().subscribe(health => {
+        this.healthService.checkHealth().subscribe((health) => {
             this.healthData = this.healthService.transformHealthData(health);
             this.updatingHealth = false;
-        }, error => {
+        }, (error) => {
             if (error.status === 503) {
                 this.healthData = this.healthService.transformHealthData(error.json());
                 this.updatingHealth = false;
@@ -51,7 +50,7 @@ export class AposHealthCheckComponent implements OnInit {
     }
 
     showHealth(health: any) {
-        const modalRef = this.modalService.open(AposHealthModalComponent);
+        const modalRef  = this.modalService.open(AposHealthModalComponent);
         modalRef.componentInstance.currentHealth = health;
         modalRef.result.then((result) => {
             // Left blank intentionally, nothing to do here

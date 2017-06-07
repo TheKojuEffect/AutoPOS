@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Brand } from './brand.model';
 import { BrandPopupService } from './brand-popup.service';
@@ -20,11 +21,10 @@ export class BrandDialogComponent implements OnInit {
     isSaving: boolean;
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
                 private alertService: AlertService,
                 private brandService: BrandService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['brand']);
+        private eventManager: EventManager
+    ) {
     }
 
     ngOnInit() {
@@ -39,17 +39,25 @@ export class BrandDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.brand.id !== undefined) {
-            this.brandService.update(this.brand)
-                .subscribe((res: Brand) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.brandService.update(this.brand), false);
         } else {
-            this.brandService.create(this.brand)
-                .subscribe((res: Brand) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.brandService.create(this.brand), true);
         }
     }
 
-    private onSaveSuccess(result: Brand) {
+    private subscribeToSaveResponse(result: Observable<Brand>, isCreated: boolean) {
+        result.subscribe((res: Brand) =>
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+    }
+
+    private onSaveSuccess(result: Brand, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'autoPosApp.brand.created'
+            : 'autoPosApp.brand.updated',
+            { param : result.id }, null);
+
         this.eventManager.broadcast({name: 'brandListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
@@ -84,7 +92,7 @@ export class BrandPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.brandPopupService
                     .open(BrandDialogComponent, params['id']);

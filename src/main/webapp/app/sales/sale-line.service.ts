@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { SaleLine } from './sale-line.model';
+import { createRequestOption, ResponseWrapper } from '../shared';
 
 @Injectable()
 export class SaleLineService {
@@ -13,7 +14,7 @@ export class SaleLineService {
     }
 
     create(saleId: number, saleLine: SaleLine): Observable<SaleLine> {
-        let copy: SaleLine = Object.assign({}, saleLine);
+        const copy = this.convert(saleLine);
         return this.http.post(this.getResourceUrl(saleId), copy)
             .map((res: Response) => {
                 return res.json();
@@ -21,8 +22,7 @@ export class SaleLineService {
     }
 
     update(saleId: number, saleLineId: number, saleLine: SaleLine): Observable<SaleLine> {
-        let copy: SaleLine = Object.assign({}, saleLine);
-
+        const copy = this.convert(saleLine);
         return this.http.put(this.getResourceUrl(saleId, saleLineId), copy)
             .map((res: Response) => {
                 return res.json();
@@ -35,29 +35,24 @@ export class SaleLineService {
         });
     }
 
-    query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
-        return this.http.get(this.resourceUrl, options);
+    query(req?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(req);
+        return this.http.get(this.resourceUrl, options)
+            .map((res: Response) => this.convertResponse(res));
     }
 
     delete(saleId: number, id: number): Observable<Response> {
         return this.http.delete(this.getResourceUrl(saleId, id));
     }
 
-    private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
-        if (req) {
-            let params: URLSearchParams = new URLSearchParams();
-            params.set('page', req.page);
-            params.set('size', req.size);
-            if (req.sort) {
-                params.paramsMap.set('sort', req.sort);
-            }
-            params.set('query', req.query);
+    private convertResponse(res: Response): ResponseWrapper {
+        const jsonResponse = res.json();
+        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+    }
 
-            options.search = params;
-        }
-        return options;
+    private convert(saleLine: SaleLine): SaleLine {
+        const copy: SaleLine = Object.assign({}, saleLine);
+        return copy;
     }
 
     private getResourceUrl = (saleId: number, saleLineId?: number): string => {
@@ -67,5 +62,4 @@ export class SaleLineService {
         }
         return lines;
     }
-
 }

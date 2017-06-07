@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService } from 'ng-jhipster';
 
 import { AposMetricsMonitoringModalComponent } from './metrics-modal.component';
 import { AposMetricsService } from './metrics.service';
 
 @Component({
     selector: 'apos-metrics',
-    templateUrl: './metrics.component.html',
+    templateUrl: './metrics.component.html'
 })
 export class AposMetricsMonitoringComponent implements OnInit {
     metrics: any = {};
@@ -16,11 +15,11 @@ export class AposMetricsMonitoringComponent implements OnInit {
     updatingMetrics = true;
     JCACHE_KEY: string;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private modalService: NgbModal,
-                private metricsService: AposMetricsService) {
+    constructor(
+        private modalService: NgbModal,
+        private metricsService: AposMetricsService
+    ) {
         this.JCACHE_KEY = 'jcache.statistics';
-        this.jhiLanguageService.setLocations(['metrics']);
     }
 
     ngOnInit() {
@@ -35,17 +34,17 @@ export class AposMetricsMonitoringComponent implements OnInit {
             this.servicesStats = {};
             this.cachesStats = {};
             Object.keys(metrics.timers).forEach((key) => {
-                let value = metrics.timers[key];
+                const value = metrics.timers[key];
                 if (key.indexOf('web.rest') !== -1 || key.indexOf('service') !== -1) {
                     this.servicesStats[key] = value;
                 }
             });
             Object.keys(metrics.gauges).forEach((key) => {
                 if (key.indexOf('jcache.statistics') !== -1) {
-                    let value = metrics.gauges[key].value;
+                    const value = metrics.gauges[key].value;
                     // remove gets or puts
-                    let index = key.lastIndexOf('.');
-                    let newKey = key.substr(0, index);
+                    const index = key.lastIndexOf('.');
+                    const newKey = key.substr(0, index);
 
                     // Keep the name of the domain
                     this.cachesStats[newKey] = {
@@ -59,7 +58,7 @@ export class AposMetricsMonitoringComponent implements OnInit {
 
     refreshThreadDumpData() {
         this.metricsService.threadDump().subscribe((data) => {
-            const modalRef = this.modalService.open(AposMetricsMonitoringModalComponent, {size: 'lg'});
+            const modalRef  = this.modalService.open(AposMetricsMonitoringModalComponent, { size: 'lg'});
             modalRef.componentInstance.threadDump = data;
             modalRef.result.then((result) => {
                 // Left blank intentionally, nothing to do here
@@ -67,6 +66,13 @@ export class AposMetricsMonitoringComponent implements OnInit {
                 // Left blank intentionally, nothing to do here
             });
         });
+    }
+
+    filterNaN(input) {
+        if (isNaN(input)) {
+            return 0;
+        }
+        return input;
     }
 
 }

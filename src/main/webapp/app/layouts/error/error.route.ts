@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+
+import { UserRouteAccessService } from '../../shared';
 import { ErrorComponent } from './error.component';
 
 export const errorRoute: Routes = [
@@ -15,7 +17,8 @@ export const errorRoute: Routes = [
         component: ErrorComponent,
         data: {
             authorities: [],
-            pageTitle: 'error.title'
+            pageTitle: 'error.title',
+            error403: true
         },
     }
 ];

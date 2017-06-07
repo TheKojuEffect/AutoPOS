@@ -108,7 +108,6 @@
         <div class="form-group">
             <label jhiTranslate="autoPosApp.payment.paidTo" for="field_paidTo">Paid To</label>
             <select class="form-control" id="field_paidTo" name="paidTo" [(ngModel)]="payment.paidTo" required>
-                <option [ngValue]="null"></option>
                 <option [ngValue]="vendorOption.id === payment.paidTo?.id ? payment.paidTo : vendorOption"
                         *ngFor="let vendorOption of vendors; trackBy: trackVendorById">{{vendorOption.name}}
                 </option>

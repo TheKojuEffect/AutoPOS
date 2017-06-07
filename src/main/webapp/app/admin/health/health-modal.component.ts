@@ -11,8 +11,7 @@ export class AposHealthModalComponent {
 
     currentHealth: any;
 
-    constructor(private healthService: AposHealthService, public activeModal: NgbActiveModal) {
-    }
+    constructor(private healthService: AposHealthService, public activeModal: NgbActiveModal) {}
 
     baseName(name) {
         return this.healthService.getBaseName(name);
@@ -28,7 +27,7 @@ export class AposHealthModalComponent {
         }
 
         // Should display storage space in an human readable unit
-        let val = value / 1073741824;
+        const val = value / 1073741824;
         if (val > 1) { // Value
             return val.toFixed(2) + ' GB';
         } else {

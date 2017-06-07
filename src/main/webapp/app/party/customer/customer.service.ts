@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
-import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Customer } from './customer.model';
+import { createRequestOption, ResponseWrapper } from '../../shared';
+
 @Injectable()
 export class CustomerService {
 
     private resourceUrl = 'api/customers';
 
-    constructor(private http: Http) {
-    }
+    constructor(private http: Http) { }
 
     create(customer: Customer): Observable<Customer> {
-        let copy: Customer = Object.assign({}, customer);
+        const copy = this.convert(customer);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     update(customer: Customer): Observable<Customer> {
-        let copy: Customer = Object.assign({}, customer);
+        const copy = this.convert(customer);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
@@ -31,30 +32,23 @@ export class CustomerService {
         });
     }
 
-    query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+    query(req?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
-            ;
+            .map((res: Response) => this.convertResponse(res));
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
+    private convertResponse(res: Response): ResponseWrapper {
+        const jsonResponse = res.json();
+        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+    }
 
-    private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
-        if (req) {
-            let params: URLSearchParams = new URLSearchParams();
-            params.set('page', req.page);
-            params.set('size', req.size);
-            if (req.sort) {
-                params.paramsMap.set('sort', req.sort);
-            }
-            params.set('query', req.query);
-
-            options.search = params;
-        }
-        return options;
+    private convert(customer: Customer): Customer {
+        const copy: Customer = Object.assign({}, customer);
+        return copy;
     }
 }

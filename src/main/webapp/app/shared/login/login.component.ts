@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageService, EventManager } from 'ng-jhipster';
 
-import { LoginService } from '../login/login.service';
+import { LoginService } from './login.service';
 import { StateStorageService } from '../auth/state-storage.service';
 
 @Component({
@@ -17,14 +17,16 @@ export class AposLoginModalComponent implements OnInit, AfterViewInit {
     username: string;
     credentials: any;
 
-    constructor(private eventManager: EventManager,
-                private languageService: JhiLanguageService,
-                private loginService: LoginService,
-                private stateStorageService: StateStorageService,
-                private elementRef: ElementRef,
-                private renderer: Renderer,
-                private router: Router,
-                public activeModal: NgbActiveModal) {
+    constructor(
+        private eventManager: EventManager,
+        private languageService: JhiLanguageService,
+        private loginService: LoginService,
+        private stateStorageService: StateStorageService,
+        private elementRef: ElementRef,
+        private renderer: Renderer,
+        private router: Router,
+        public activeModal: NgbActiveModal
+    ) {
         this.credentials = {};
     }
 
@@ -66,7 +68,7 @@ export class AposLoginModalComponent implements OnInit, AfterViewInit {
 
             // // previousState was set in the authExpiredInterceptor before being redirected to login modal.
             // // since login is succesful, go to stored previousState and clear previousState
-            let redirect = this.stateStorageService.getUrl();
+            const redirect = this.stateStorageService.getUrl();
             if (redirect) {
                 this.router.navigate([redirect]);
             }

@@ -45,7 +45,7 @@
                 <td>{{receipt.remarks}}</td>
                 <td>
                     <div *ngIf="receipt.receivedFrom">
-                        <a [routerLink]="['../customer', receipt.receivedFrom?.id ]">{{receipt.receivedFrom?.name}}</a>
+                        <a [routerLink]="['../../party/customer', receipt.receivedFrom?.id ]">{{receipt.receivedFrom?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

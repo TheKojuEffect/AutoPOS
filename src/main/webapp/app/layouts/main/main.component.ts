@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, NavigationEnd, RoutesRecognized } from '@angular/router';
 
+import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper, StateStorageService } from '../../shared';
 
 @Component({
@@ -9,9 +10,14 @@ import { JhiLanguageHelper, StateStorageService } from '../../shared';
 })
 export class AposMainComponent implements OnInit {
 
-    constructor(private jhiLanguageHelper: JhiLanguageHelper,
-                private router: Router,
-                private $storageService: StateStorageService) {
+    constructor(
+        private jhiLanguageHelper: JhiLanguageHelper,
+        private jhiLanguageService: JhiLanguageService,
+        private router: Router,
+        private $storageService: StateStorageService,
+    ) {
+        // Just for forcing translation loading
+        jhiLanguageService.setLocations(['all']);
     }
 
     private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {

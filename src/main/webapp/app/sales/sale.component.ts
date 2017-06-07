@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLinks } from 'ng-jhipster';
+import { AlertService, EventManager, PaginationUtil, ParseLinks } from 'ng-jhipster';
 
 import { Sale, SaleStatus } from './sale.model';
 import { SaleService } from './sale.service';
 import { ITEMS_PER_PAGE, Principal } from '../shared';
+import { ResponseWrapper } from '../shared/model/response-wrapper.model';
 import { PaginationConfig } from '../blocks/config/uib-pagination.config';
 
 @Component({
@@ -31,8 +31,7 @@ export class SaleComponent implements OnInit, OnDestroy {
     reverse: any;
     saleStatus: SaleStatus;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private saleService: SaleService,
+    constructor(private saleService: SaleService,
                 private parseLinks: ParseLinks,
                 private alertService: AlertService,
                 private principal: Principal,
@@ -49,7 +48,6 @@ export class SaleComponent implements OnInit, OnDestroy {
             this.predicate = data['pagingParams'].predicate;
             this.saleStatus = data['status'];
         });
-        this.jhiLanguageService.setLocations(['sale', 'saleStatus']);
     }
 
     loadAll() {
@@ -59,8 +57,8 @@ export class SaleComponent implements OnInit, OnDestroy {
             sort: this.sort(),
             status: this.saleStatus
         }).subscribe(
-            (res: Response) => this.onSuccess(res.json(), res.headers),
-            (res: Response) => this.onError(res.json())
+            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
+            (res: ResponseWrapper) => this.onError(res.json)
         );
     }
 
@@ -114,7 +112,7 @@ export class SaleComponent implements OnInit, OnDestroy {
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }

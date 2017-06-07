@@ -1,17 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Item } from './item.model';
 import { ItemPopupService } from './item-popup.service';
 import { ItemService } from './item.service';
 import { Category, CategoryService } from '../category';
 import { Brand, BrandService } from '../brand';
-import { Tag } from '../tag/tag.model';
-import { TagService } from '../tag';
+import { Tag, TagService } from '../tag';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'apos-item-dialog',
@@ -29,34 +30,27 @@ export class ItemDialogComponent implements OnInit {
 
     tags: Tag[];
 
-    constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
-                private alertService: AlertService,
-                private itemService: ItemService,
-                private categoryService: CategoryService,
-                private brandService: BrandService,
-                private tagService: TagService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['item']);
+    constructor(
+        public activeModal: NgbActiveModal,
+        private alertService: AlertService,
+        private itemService: ItemService,
+        private categoryService: CategoryService,
+        private brandService: BrandService,
+        private tagService: TagService,
+        private eventManager: EventManager
+    ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.categoryService.query().subscribe(
-            (res: Response) => {
-                this.categories = res.json();
-            }, (res: Response) => this.onError(res.json()));
-        this.brandService.query().subscribe(
-            (res: Response) => {
-                this.brands = res.json();
-            }, (res: Response) => this.onError(res.json()));
-        this.tagService.query().subscribe(
-            (res: Response) => {
-                this.tags = res.json();
-            }, (res: Response) => this.onError(res.json()));
+        this.categoryService.query()
+            .subscribe((res: ResponseWrapper) => { this.categories = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.brandService.query()
+            .subscribe((res: ResponseWrapper) => { this.brands = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.tagService.query()
+            .subscribe((res: ResponseWrapper) => { this.tags = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
-
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -64,18 +58,26 @@ export class ItemDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.item.id !== undefined) {
-            this.itemService.update(this.item)
-                .subscribe((res: Item) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.itemService.update(this.item), false);
         } else {
-            this.itemService.create(this.item)
-                .subscribe((res: Item) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.itemService.create(this.item), true);
         }
     }
 
-    private onSaveSuccess(result: Item) {
-        this.eventManager.broadcast({name: 'itemListModification', content: 'OK'});
+    private subscribeToSaveResponse(result: Observable<Item>, isCreated: boolean) {
+        result.subscribe((res: Item) =>
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+    }
+
+    private onSaveSuccess(result: Item, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'autoPosApp.item.created'
+                : 'autoPosApp.item.updated',
+            { param : result.id }, null);
+
+        this.eventManager.broadcast({ name: 'itemListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -127,20 +129,20 @@ export class ItemPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private itemPopupService: ItemPopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private itemPopupService: ItemPopupService
+    ) {}
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
-            if (params['id']) {
+        this.routeSub = this.route.params.subscribe((params) => {
+            if ( params['id'] ) {
                 this.modalRef = this.itemPopupService
                     .open(ItemDialogComponent, params['id']);
             } else {
                 this.modalRef = this.itemPopupService
                     .open(ItemDialogComponent);
             }
-
         });
     }
 

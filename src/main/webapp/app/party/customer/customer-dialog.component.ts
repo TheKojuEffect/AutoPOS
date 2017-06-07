@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 
 import { Customer } from './customer.model';
 import { CustomerPopupService } from './customer-popup.service';
@@ -20,11 +21,10 @@ export class CustomerDialogComponent implements OnInit {
     isSaving: boolean;
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
                 private alertService: AlertService,
                 private customerService: CustomerService,
-                private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['customer']);
+        private eventManager: EventManager
+    ) {
     }
 
     ngOnInit() {
@@ -39,17 +39,25 @@ export class CustomerDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.customer.id !== undefined) {
-            this.customerService.update(this.customer)
-                .subscribe((res: Customer) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.customerService.update(this.customer), false);
         } else {
-            this.customerService.create(this.customer)
-                .subscribe((res: Customer) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.customerService.create(this.customer), true);
         }
     }
 
-    private onSaveSuccess(result: Customer) {
+    private subscribeToSaveResponse(result: Observable<Customer>, isCreated: boolean) {
+        result.subscribe((res: Customer) =>
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+    }
+
+    private onSaveSuccess(result: Customer, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'autoPosApp.customer.created'
+            : 'autoPosApp.customer.updated',
+            { param : result.id }, null);
+
         this.eventManager.broadcast({name: 'customerListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
@@ -85,7 +93,7 @@ export class CustomerPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.customerPopupService
                     .open(CustomerDialogComponent, params['id']);

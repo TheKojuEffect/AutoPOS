@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BaseRequestOptions, Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-
-import { Sale, SaleStatus } from './sale.model';
 import { DateUtils } from 'ng-jhipster';
+
+import { Sale } from './sale.model';
+import { ResponseWrapper, createRequestOption } from '../shared';
+
 @Injectable()
 export class SaleService {
 
@@ -19,56 +21,50 @@ export class SaleService {
     }
 
     update(sale: Sale): Observable<Sale> {
-        let copy: Sale = Object.assign({}, sale);
-
+        const copy = this.convert(sale);
         return this.http.put(`${this.resourceUrl}/${sale.id}`, copy).map((res: Response) => {
-            return res.json();
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
         });
     }
 
     find(id: number): Observable<Sale> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            let jsonResponse = res.json();
-            jsonResponse.date = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse.date);
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
             return jsonResponse;
         });
     }
 
-    query(req?: any): Observable<Response> {
-        let options = this.createRequestOption(req);
+    query(req?: any): Observable<ResponseWrapper> {
+        const options = createRequestOption(req);
+        options.search.set('status', req.status);
         return this.http.get(this.resourceUrl, options)
-            .map((res: any) => this.convertResponse(res));
+            .map((res: Response) => this.convertResponse(res));
     }
 
     delete(id: number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
-
-    private convertResponse(res: any): any {
-        let jsonResponse = res.json();
+    private convertResponse(res: Response): ResponseWrapper {
+        const jsonResponse = res.json();
         for (let i = 0; i < jsonResponse.length; i++) {
-            jsonResponse[i].date = this.dateUtils
-                .convertDateTimeFromServer(jsonResponse[i].date);
+            this.convertItemFromServer(jsonResponse[i]);
         }
-        res._body = jsonResponse;
-        return res;
+        return new ResponseWrapper(res.headers, jsonResponse, res.status);
     }
 
-    private createRequestOption(req?: any): BaseRequestOptions {
-        let options: BaseRequestOptions = new BaseRequestOptions();
-        if (req) {
-            let params: URLSearchParams = new URLSearchParams();
-            params.set('page', req.page);
-            params.set('size', req.size);
-            if (req.sort) {
-                params.paramsMap.set('sort', req.sort);
-            }
-            params.set('query', req.query);
-            params.set('status', req.status);
-            options.params = params;
-        }
-        return options;
+    private convertItemFromServer(entity: any) {
+        entity.date = this.dateUtils
+            .convertDateTimeFromServer(entity.date);
+    }
+
+    private convert(sale: Sale): Sale {
+        const copy: Sale = Object.assign({}, sale);
+
+        // copy.date = this.dateUtils.toDate(sale.date);
+        return copy;
     }
 }

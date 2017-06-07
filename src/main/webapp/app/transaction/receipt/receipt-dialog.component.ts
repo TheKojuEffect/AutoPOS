@@ -1,14 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
 import { ReceiptPopupService } from './receipt-popup.service';
 import { ReceiptService } from './receipt.service';
 import { Customer, CustomerService } from '../../party/customer';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'apos-receipt-dialog',
@@ -21,23 +23,22 @@ export class ReceiptDialogComponent implements OnInit {
     isSaving: boolean;
 
     customers: Customer[];
+    dateDp: any;
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiLanguageService: JhiLanguageService,
                 private alertService: AlertService,
                 private receiptService: ReceiptService,
                 private customerService: CustomerService,
                 private eventManager: EventManager) {
-        this.jhiLanguageService.setLocations(['receipt']);
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.customerService.query().subscribe(
-            (res: Response) => {
-                this.customers = res.json();
-            }, (res: Response) => this.onError(res.json()));
+        this.customerService.query()
+            .subscribe((res: ResponseWrapper) => {
+                this.customers = res.json;
+            }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -47,17 +48,25 @@ export class ReceiptDialogComponent implements OnInit {
     save() {
         this.isSaving = true;
         if (this.receipt.id !== undefined) {
-            this.receiptService.update(this.receipt)
-                .subscribe((res: Receipt) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.receiptService.update(this.receipt), false);
         } else {
-            this.receiptService.create(this.receipt)
-                .subscribe((res: Receipt) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+            this.subscribeToSaveResponse(
+                this.receiptService.create(this.receipt), true);
         }
     }
 
-    private onSaveSuccess(result: Receipt) {
+    private subscribeToSaveResponse(result: Observable<Receipt>, isCreated: boolean) {
+        result.subscribe((res: Receipt) =>
+            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+    }
+
+    private onSaveSuccess(result: Receipt, isCreated: boolean) {
+        this.alertService.success(
+            isCreated ? 'autoPosApp.receipt.created'
+                : 'autoPosApp.receipt.updated',
+            {param: result.id}, null);
+
         this.eventManager.broadcast({name: 'receiptListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
@@ -96,7 +105,7 @@ export class ReceiptPopupComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.routeSub = this.route.params.subscribe(params => {
+        this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.receiptPopupService
                     .open(ReceiptDialogComponent, params['id']);
@@ -104,7 +113,6 @@ export class ReceiptPopupComponent implements OnInit, OnDestroy {
                 this.modalRef = this.receiptPopupService
                     .open(ReceiptDialogComponent);
             }
-
         });
     }
 

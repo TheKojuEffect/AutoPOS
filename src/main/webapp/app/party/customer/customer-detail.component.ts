@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
+
 import { Customer } from './customer.model';
 import { CustomerService } from './customer.service';
 
@@ -12,24 +13,25 @@ import { CustomerService } from './customer.service';
 export class CustomerDetailComponent implements OnInit, OnDestroy {
 
     customer: Customer;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(private eventManager: EventManager, private jhiLanguageService: JhiLanguageService,
+    constructor(
+        private eventManager: EventManager,
                 private customerService: CustomerService,
-                private route: ActivatedRoute) {
-        this.jhiLanguageService.setLocations(['customer']);
+        private route: ActivatedRoute
+    ) {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
         this.registerChangeInCustomers();
     }
 
     load(id) {
-        this.customerService.find(id).subscribe(customer => {
+        this.customerService.find(id).subscribe((customer) => {
             this.customer = customer;
         });
     }
@@ -44,7 +46,10 @@ export class CustomerDetailComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInCustomers() {
-        this.eventSubscriber = this.eventManager.subscribe('customerListModification', response => this.load(this.customer.id));
+        this.eventSubscriber = this.eventManager.subscribe(
+            'customerListModification',
+            (response) => this.load(this.customer.id)
+        );
     }
 
 }

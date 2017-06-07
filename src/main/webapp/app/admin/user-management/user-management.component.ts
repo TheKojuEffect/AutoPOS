@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService, EventManager, JhiLanguageService, PaginationUtil, ParseLinks } from 'ng-jhipster';
+import { EventManager, PaginationUtil, ParseLinks, AlertService } from 'ng-jhipster';
 
-import { ITEMS_PER_PAGE, Principal, User, UserService } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, User, UserService, ResponseWrapper } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -26,24 +26,24 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private userService: UserService,
-                private parseLinks: ParseLinks,
-                private alertService: AlertService,
-                private principal: Principal,
-                private eventManager: EventManager,
-                private paginationUtil: PaginationUtil,
-                private paginationConfig: PaginationConfig,
-                private activatedRoute: ActivatedRoute,
-                private router: Router) {
+    constructor(
+        private userService: UserService,
+        private parseLinks: ParseLinks,
+        private alertService: AlertService,
+        private principal: Principal,
+        private eventManager: EventManager,
+        private paginationUtil: PaginationUtil,
+        private paginationConfig: PaginationConfig,
+        private activatedRoute: ActivatedRoute,
+        private router: Router
+    ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
+        this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
-        this.jhiLanguageService.setLocations(['user-management']);
     }
 
     ngOnInit() {
@@ -59,14 +59,14 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInUsers() {
-        this.eventManager.subscribe('userListModification', response => this.loadAll());
+        this.eventManager.subscribe('userListModification', (response) => this.loadAll());
     }
 
     setActive(user, isActivated) {
         user.activated = isActivated;
 
         this.userService.update(user).subscribe(
-            response => {
+            (response) => {
                 if (response.status === 200) {
                     this.error = null;
                     this.success = 'OK';
@@ -82,10 +82,9 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
         this.userService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()
-        }).subscribe(
-            (res: Response) => this.onSuccess(res.json(), res.headers),
-            (res: Response) => this.onError(res.json())
+            sort: this.sort()}).subscribe(
+            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
+            (res: ResponseWrapper) => this.onError(res.json)
         );
     }
 
@@ -94,7 +93,7 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }

@@ -42,7 +42,7 @@ class ItemApi(itemRepo: ItemRepo,
   @GetMapping
   @Timed
   def getAll(pageable: Pageable,
-             @RequestParam(value = "q", required = false, defaultValue = "")
+             @RequestParam(value = "query", required = false, defaultValue = "")
              query: String): ResponseEntity[util.List[Item]] = {
 
     val page = itemService.findAll(query, pageable)

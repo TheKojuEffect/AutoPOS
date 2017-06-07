@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
+
+import { UserRouteAccessService } from '../../shared';
 import { PaginationUtil } from 'ng-jhipster';
-import { UserRouteAccessService } from '../../shared/auth/user-route-access-service';
 
 import { VendorComponent } from './vendor.component';
 import { VendorDetailComponent } from './vendor-detail.component';
@@ -15,8 +16,8 @@ export class VendorResolvePagingParams implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let page = route.queryParams['page'] ? route.queryParams['page'] : '1';
-        let sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
+        const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
+        const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'id,asc';
         return {
             page: this.paginationUtil.parsePage(page),
             predicate: this.paginationUtil.parsePredicate(sort),
