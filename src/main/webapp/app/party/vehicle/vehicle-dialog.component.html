@@ -9,11 +9,6 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!vehicle.id">
-            <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="vehicle.id" readonly/>
-        </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.vehicle.number" for="field_number">Number</label>
             <input type="text" class="form-control" name="number" id="field_number"
@@ -36,6 +31,17 @@
                 </small>
             </div>
         </div>
+
+        <div class="form-group">
+            <label jhiTranslate="autoPosApp.vehicle.owner" for="field_owner">Owner</label>
+            <select class="form-control" id="field_owner" name="owner" [(ngModel)]="vehicle.owner">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="customerOption.id === vehicle.owner?.id ? vehicle.owner : customerOption"
+                        *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.name}}
+                </option>
+            </select>
+        </div>
+
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.vehicle.remarks"
                    for="field_remarks">Remarks</label>
@@ -49,16 +55,6 @@
                     This field cannot be longer than 250 characters.
                 </small>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label jhiTranslate="autoPosApp.vehicle.owner" for="field_owner">Owner</label>
-            <select class="form-control" id="field_owner" name="owner" [(ngModel)]="vehicle.owner">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="customerOption.id === vehicle.owner?.id ? vehicle.owner : customerOption"
-                        *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.name}}
-                </option>
-            </select>
         </div>
     </div>
     <div class="modal-footer">

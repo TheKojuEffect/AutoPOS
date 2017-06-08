@@ -9,11 +9,6 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!dayBookEntry.id">
-            <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="dayBookEntry.id" readonly/>
-        </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.dayBookEntry.date" for="field_date">Date</label>
             <div class="input-group">
@@ -22,7 +17,7 @@
                        required/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" (click)="dateDp.toggle()"><i
-                            class="fa fa-calendar"></i></button>
+                        class="fa fa-calendar"></i></button>
                 </span>
             </div>
             <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
@@ -107,9 +102,10 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.dayBookEntry.remarks"
                    for="field_remarks">Remarks</label>
-            <input type="text" class="form-control" name="remarks" id="field_remarks"
-                   [(ngModel)]="dayBookEntry.remarks"
-                   maxlength="250"/>
+            <textarea type="text" class="form-control" name="remarks" id="field_remarks"
+                      [(ngModel)]="dayBookEntry.remarks"
+                      maxlength="250">
+            </textarea>
             <div [hidden]="!(editForm.controls.remarks?.dirty && editForm.controls.remarks?.invalid)">
                 <small class="form-text text-danger"
                        [hidden]="!editForm.controls.remarks?.errors?.maxlength"

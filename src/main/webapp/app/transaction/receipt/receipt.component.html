@@ -17,21 +17,30 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="date"><span jhiTranslate="autoPosApp.receipt.date">Date</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="amount"><span jhiTranslate="autoPosApp.receipt.amount">Amount</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="receiptNumber"><span
-                        jhiTranslate="autoPosApp.receipt.receiptNumber">Receipt Number</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="receivedBy"><span jhiTranslate="autoPosApp.receipt.receivedBy">Received By</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.receipt.remarks">Remarks</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="receivedFrom.name"><span
-                        jhiTranslate="autoPosApp.receipt.receivedFrom">Received From</span> <span
-                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="id">
+                    <span jhiTranslate="global.field.id">ID</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="date">
+                    <span jhiTranslate="autoPosApp.receipt.date">Date</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="receivedFrom.name">
+                    <span jhiTranslate="autoPosApp.receipt.receivedFrom">Received From</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="amount">
+                    <span jhiTranslate="autoPosApp.receipt.amount">Amount</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="receiptNumber">
+                    <span>Receipt #</span>
+                    <span class="fa fa-sort"></span>
+                </th>
+                <th jhiSortBy="receivedBy">
+                    <span jhiTranslate="autoPosApp.receipt.receivedBy">Received By</span>
+                    <span class="fa fa-sort"></span>
+                </th>
                 <th></th>
             </tr>
             </thead>
@@ -39,15 +48,14 @@
             <tr *ngFor="let receipt of receipts ;trackBy: trackId">
                 <td><a [routerLink]="['../receipt', receipt.id ]">{{receipt.id}}</a></td>
                 <td>{{receipt.date | date:'mediumDate'}}</td>
-                <td>{{receipt.amount}}</td>
-                <td>{{receipt.receiptNumber}}</td>
-                <td>{{receipt.receivedBy}}</td>
-                <td>{{receipt.remarks}}</td>
                 <td>
                     <div *ngIf="receipt.receivedFrom">
                         <a [routerLink]="['../../party/customer', receipt.receivedFrom?.id ]">{{receipt.receivedFrom?.name}}</a>
                     </div>
                 </td>
+                <td>{{receipt.amount}}</td>
+                <td>{{receipt.receiptNumber}}</td>
+                <td>{{receipt.receivedBy}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
