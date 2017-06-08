@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 import { Sale } from './sale.model';
@@ -39,6 +39,7 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
                 private saleLineService: SaleLineService,
                 private itemService: ItemService,
                 private vehicleService: VehicleService,
+                private router: Router,
                 private route: ActivatedRoute) {
         this.jhiLanguageService.setLocations(['sale', 'saleStatus']);
     }
@@ -56,8 +57,8 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    previousState() {
-        window.history.back();
+    gotoSaleList() {
+        this.router.navigate(['./sale/pending']);
     }
 
     ngOnDestroy() {
@@ -161,18 +162,14 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
         const sure = window.confirm('Are you sure you want to delete this sale?');
         if (sure) {
             this.saleService.delete(this.sale.id).subscribe(response => {
-                this.eventManager.broadcast({
-                    name: 'saleListModification',
-                    content: 'Deleted an sale'
-                });
-                this.previousState();
+                this.gotoSaleList();
             });
         }
     }
 
     updateSale() {
         this.saleService.update(this.sale)
-            .subscribe(() => this.previousState());
+            .subscribe(() => this.gotoSaleList());
     }
 
     deleteSaleLine() {

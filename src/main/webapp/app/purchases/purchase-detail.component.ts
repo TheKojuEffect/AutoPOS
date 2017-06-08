@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 import { Purchase } from './purchase.model';
@@ -39,6 +39,7 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
                 private purchaseLineService: PurchaseLineService,
                 private itemService: ItemService,
                 private vendorService: VendorService,
+                private router: Router,
                 private route: ActivatedRoute) {
         this.jhiLanguageService.setLocations(['purchase']);
     }
@@ -56,8 +57,8 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    previousState() {
-        window.history.back();
+    gotoPurchaseList() {
+        this.router.navigate(['./purchase']);
     }
 
     ngOnDestroy() {
@@ -157,18 +158,14 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
         const sure = window.confirm('Are you sure you want to delete this purchase?');
         if (sure) {
             this.purchaseService.delete(this.purchase.id).subscribe(response => {
-                this.eventManager.broadcast({
-                    name: 'purchaseListModification',
-                    content: 'Deleted an purchase'
-                });
-                this.previousState();
+                this.gotoPurchaseList();
             });
         }
     }
 
     updatePurchase() {
         this.purchaseService.update(this.purchase)
-            .subscribe(() => this.previousState());
+            .subscribe(() => this.gotoPurchaseList());
     }
 
     deletePurchaseLine() {
