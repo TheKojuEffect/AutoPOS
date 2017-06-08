@@ -9,16 +9,13 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!item.id">
-            <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="item.id" readonly/>
-        </div>
+
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.item.code" for="field_code">Code</label>
             <input type="text" class="form-control" name="code" id="field_code"
                    [(ngModel)]="item.code" readonly/>
         </div>
+
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.item.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
@@ -41,6 +38,7 @@
                 </small>
             </div>
         </div>
+
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.item.partNumber" for="field_partNumber">Part
                 Number</label>
@@ -55,6 +53,28 @@
                 </small>
             </div>
         </div>
+
+        <div class="form-group">
+            <label jhiTranslate="autoPosApp.item.category" for="field_category">Category</label>
+            <select class="form-control" id="field_category" name="category" [(ngModel)]="item.category">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="categoryOption.id === item.category?.id ? item.category : categoryOption"
+                        *ngFor="let categoryOption of categories; trackBy: trackCategoryById">
+                    {{categoryOption.shortName}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="autoPosApp.item.brand" for="field_brand">Brand</label>
+            <select class="form-control" id="field_brand" name="brand" [(ngModel)]="item.brand">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="brandOption.id === item.brand?.id ? item.brand : brandOption"
+                        *ngFor="let brandOption of brands; trackBy: trackBrandById">{{brandOption.name}}
+                </option>
+            </select>
+        </div>
+
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.item.markedPrice" for="field_markedPrice">Marked
                 Price</label>
@@ -104,9 +124,11 @@
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.item.description" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
-                   [(ngModel)]="item.description"
-                   maxlength="250"/>
+            <textarea type="text" class="form-control"
+                      name="description" id="field_description"
+                      [(ngModel)]="item.description"
+                      maxlength="250">
+            </textarea>
             <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
                 <small class="form-text text-danger"
                        [hidden]="!editForm.controls.description?.errors?.maxlength"
@@ -129,39 +151,7 @@
                 </small>
             </div>
         </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="autoPosApp.item.remarks" for="field_remarks">Remarks</label>
-            <input type="text" class="form-control" name="remarks" id="field_remarks"
-                   [(ngModel)]="item.remarks"
-                   maxlength="250"/>
-            <div [hidden]="!(editForm.controls.remarks?.dirty && editForm.controls.remarks?.invalid)">
-                <small class="form-text text-danger"
-                       [hidden]="!editForm.controls.remarks?.errors?.maxlength"
-                       jhiTranslate="entity.validation.maxlength" translateValues="{ max: 250 }">
-                    This field cannot be longer than 250 characters.
-                </small>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <label jhiTranslate="autoPosApp.item.category" for="field_category">Category</label>
-            <select class="form-control" id="field_category" name="category" [(ngModel)]="item.category">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="categoryOption.id === item.category?.id ? item.category : categoryOption"
-                        *ngFor="let categoryOption of categories; trackBy: trackCategoryById">
-                    {{categoryOption.shortName}}
-                </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label jhiTranslate="autoPosApp.item.brand" for="field_brand">Brand</label>
-            <select class="form-control" id="field_brand" name="brand" [(ngModel)]="item.brand">
-                <option [ngValue]="null"></option>
-                <option [ngValue]="brandOption.id === item.brand?.id ? item.brand : brandOption"
-                        *ngFor="let brandOption of brands; trackBy: trackBrandById">{{brandOption.name}}
-                </option>
-            </select>
-        </div>
         <div class="form-group">
             <label jhiTranslate="autoPosApp.item.tag" for="field_tag">Tag</label>
             <select class="form-control" id="field_tag" multiple name="tag" [(ngModel)]="item.tags">
@@ -169,6 +159,20 @@
                         *ngFor="let tagOption of tags; trackBy: trackTagById">{{tagOption.name}}
                 </option>
             </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="autoPosApp.item.remarks" for="field_remarks">Remarks</label>
+            <textarea type="text" class="form-control" name="remarks" id="field_remarks"
+                      [(ngModel)]="item.remarks"
+                      maxlength="250">
+            </textarea>
+            <div [hidden]="!(editForm.controls.remarks?.dirty && editForm.controls.remarks?.invalid)">
+                <small class="form-text text-danger"
+                       [hidden]="!editForm.controls.remarks?.errors?.maxlength"
+                       jhiTranslate="entity.validation.maxlength" translateValues="{ max: 250 }">
+                    This field cannot be longer than 250 characters.
+                </small>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

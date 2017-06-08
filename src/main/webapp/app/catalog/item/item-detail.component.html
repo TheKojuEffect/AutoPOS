@@ -1,5 +1,5 @@
 <div *ngIf="item">
-    <h2><span jhiTranslate="autoPosApp.item.detail.title">Item</span> {{item.id}}</h2>
+    <h2><span jhiTranslate="autoPosApp.item.detail.title">Item</span> {{item.code}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
@@ -14,6 +14,18 @@
         <dt><span jhiTranslate="autoPosApp.item.partNumber">Part Number</span></dt>
         <dd>
             <span>{{item.partNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.category">Category</span></dt>
+        <dd>
+            <div *ngIf="item.category">
+                <a [routerLink]="['/category', item.category?.id]">{{item.category?.shortName}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.item.brand">Brand</span></dt>
+        <dd>
+            <div *ngIf="item.brand">
+                <a [routerLink]="['/brand', item.brand?.id]">{{item.brand?.name}}</a>
+            </div>
         </dd>
         <dt><span jhiTranslate="autoPosApp.item.markedPrice">Marked Price</span></dt>
         <dd>
@@ -35,19 +47,7 @@
         <dd>
             <span>{{item.remarks}}</span>
         </dd>
-        <dt><span jhiTranslate="autoPosApp.item.category">Category</span></dt>
-        <dd>
-            <div *ngIf="item.category">
-                <a [routerLink]="['/category', item.category?.id]">{{item.category?.shortName}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="autoPosApp.item.brand">Brand</span></dt>
-        <dd>
-            <div *ngIf="item.brand">
-                <a [routerLink]="['/brand', item.brand?.id]">{{item.brand?.name}}</a>
-            </div>
-        </dd>
-        <dt><span jhiTranslate="autoPosApp.item.tag">Tag</span></dt>
+        <dt><span>Tags</span></dt>
         <dd>
             <span *ngFor="let tag of item.tags; let last = last">
                 <a [routerLink]="['/tag', tag?.id ]">{{tag.name}}</a>{{last ? '' : ', '}}
