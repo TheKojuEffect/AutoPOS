@@ -22,7 +22,7 @@
                        required/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" (click)="dateDp.toggle()"><i
-                            class="fa fa-calendar"></i></button>
+                        class="fa fa-calendar"></i></button>
                 </span>
             </div>
             <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
@@ -32,6 +32,22 @@
                 </small>
             </div>
         </div>
+
+        <div class="form-group">
+            <label jhiTranslate="autoPosApp.payment.paidTo" for="field_paidTo">Paid To</label>
+            <select class="form-control" id="field_paidTo" name="paidTo" [(ngModel)]="payment.paidTo" required>
+                <option [ngValue]="vendorOption.id === payment.paidTo?.id ? payment.paidTo : vendorOption"
+                        *ngFor="let vendorOption of vendors; trackBy: trackVendorById">{{vendorOption.name}}
+                </option>
+            </select>
+        </div>
+        <div [hidden]="!(editForm.controls.paidTo?.dirty && editForm.controls.paidTo?.invalid)">
+            <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.paidTo?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+            </small>
+        </div>
+
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.payment.amount" for="field_amount">Amount</label>
             <input type="number" class="form-control" name="amount" id="field_amount"
@@ -54,8 +70,8 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="autoPosApp.payment.receiptNumber" for="field_receiptNumber">Receipt
-                Number</label>
+            <label class="form-control-label" for="field_receiptNumber"
+                   jhiTranslate="autoPosApp.payment.receiptNumber">Receipt Number</label>
             <input type="text" class="form-control" name="receiptNumber" id="field_receiptNumber"
                    [(ngModel)]="payment.receiptNumber"
                    maxlength="10"/>
@@ -68,8 +84,8 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="autoPosApp.payment.paidBy" for="field_paidBy">Paid
-                By</label>
+            <label class="form-control-label" for="field_paidBy"
+                   jhiTranslate="autoPosApp.payment.paidBy">Paid By</label>
             <input type="text" class="form-control" name="paidBy" id="field_paidBy"
                    [(ngModel)]="payment.paidBy"
                    required minlength="2" maxlength="100"/>
@@ -93,9 +109,10 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.payment.remarks"
                    for="field_remarks">Remarks</label>
-            <input type="text" class="form-control" name="remarks" id="field_remarks"
-                   [(ngModel)]="payment.remarks"
-                   maxlength="250"/>
+            <textarea type="text" class="form-control" name="remarks" id="field_remarks"
+                      [(ngModel)]="payment.remarks"
+                      maxlength="250">
+            </textarea>
             <div [hidden]="!(editForm.controls.remarks?.dirty && editForm.controls.remarks?.invalid)">
                 <small class="form-text text-danger"
                        [hidden]="!editForm.controls.remarks?.errors?.maxlength"
@@ -105,20 +122,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label jhiTranslate="autoPosApp.payment.paidTo" for="field_paidTo">Paid To</label>
-            <select class="form-control" id="field_paidTo" name="paidTo" [(ngModel)]="payment.paidTo" required>
-                <option [ngValue]="vendorOption.id === payment.paidTo?.id ? payment.paidTo : vendorOption"
-                        *ngFor="let vendorOption of vendors; trackBy: trackVendorById">{{vendorOption.name}}
-                </option>
-            </select>
-        </div>
-        <div [hidden]="!(editForm.controls.paidTo?.dirty && editForm.controls.paidTo?.invalid)">
-            <small class="form-text text-danger"
-                   [hidden]="!editForm.controls.paidTo?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-            </small>
-        </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
