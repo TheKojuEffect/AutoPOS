@@ -17,17 +17,21 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="date"><span jhiTranslate="autoPosApp.dayBookEntry.date">Date</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="incomingAmount"><span jhiTranslate="autoPosApp.dayBookEntry.incomingAmount">Incoming Amount</span>
+                <th jhiSortBy="date">
+                    <span jhiTranslate="autoPosApp.dayBookEntry.date">Date</span>
                     <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="outgoingAmount"><span jhiTranslate="autoPosApp.dayBookEntry.outgoingAmount">Outgoing Amount</span>
+                <th jhiSortBy="incomingAmount">
+                    <span>Incoming</span>
                     <span class="fa fa-sort"></span></th>
-                <th jhiSortBy="miscExpenses"><span
-                        jhiTranslate="autoPosApp.dayBookEntry.miscExpenses">Misc Expenses</span> <span
-                        class="fa fa-sort"></span></th>
-                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.dayBookEntry.remarks">Remarks</span> <span
-                        class="fa fa-sort"></span></th>
+                <th jhiSortBy="outgoingAmount">
+                    <span>Outgoing</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="miscExpenses">
+                    <span>Misc Expenses</span>
+                    <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="remarks">
+                    <span jhiTranslate="autoPosApp.dayBookEntry.remarks">Remarks</span>
+                    <span class="fa fa-sort"></span></th>
                 <th></th>
             </tr>
             </thead>
