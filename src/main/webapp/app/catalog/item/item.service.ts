@@ -28,10 +28,11 @@ export class ItemService {
         });
     }
 
-    find(id: number): Observable<Item> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            return res.json();
-        });
+    find(id: number, detail: boolean = false): Observable<Item> {
+        return this.http.get(`${this.resourceUrl}/${id}`, {params: {detail: detail}})
+            .map((res: Response) => {
+                return res.json();
+            });
     }
 
     query(req?: any): Observable<ResponseWrapper> {

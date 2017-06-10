@@ -31,7 +31,7 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.itemService.find(id).subscribe((item) => {
+        this.itemService.find(id, true).subscribe((item) => {
             this.item = item;
         });
     }
