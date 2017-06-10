@@ -23,19 +23,19 @@
                             </small>
                         </div>
 
-                        <button class="btn btn-primary create-item mt-1 pull-right"
+                        <a class="btn btn-primary create-item mt-1 pull-right"
                                 [hidden]="!noItems"
                                 [routerLink]="['/', { outlets: { popup: ['item-new'] } }]">
                             <span class="fa fa-plus"></span>
                             <span> Create new Item </span>
-                        </button>
+                        </a>
                     </div>
 
                     <div class="form-group">
                         <label class="form-control-label" for="field_quantity">Quantity</label>
                         <input type="number" class="form-control" name="quantity" id="field_quantity"
                                [(ngModel)]="line.quantity"
-                               required min="0"/>
+                               required min="1"/>
                         <div [hidden]="!(purchaseLineEntryForm.controls.quantity?.dirty && purchaseLineEntryForm.controls.quantity?.invalid)">
                             <small class="form-text text-danger"
                                    [hidden]="!purchaseLineEntryForm.controls.quantity?.errors?.required"
@@ -44,8 +44,8 @@
                             </small>
                             <small class="form-text text-danger"
                                    [hidden]="!purchaseLineEntryForm.controls.quantity?.errors?.min" jhiTranslate="entity.validation.min"
-                                   translateValues="{ min: 0 }">
-                                This field should be at least 0.
+                                   translateValues="{ min: 1 }">
+                                This field should be at least 1.
                             </small>
                             <small class="form-text text-danger"
                                    [hidden]="!purchaseLineEntryForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
