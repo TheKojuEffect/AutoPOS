@@ -1,7 +1,5 @@
 package com.kapilkoju.autopos.catalog.service
 
-import java.util.Optional
-
 import com.kapilkoju.autopos.catalog.domain.Item
 import com.kapilkoju.autopos.kernel.service.AuditableRepository
 import org.springframework.data.domain.{Page, Pageable}
@@ -11,14 +9,14 @@ import org.springframework.data.repository.query.Param
 
 trait ItemRepo extends AuditableRepository[Item] {
 
-  @Query("select item from Item item left join fetch item.tags where item.id =:id")
-  def findOneWithEagerRelationships(@Param("id") id: Long): Item
+    @Query("select item from Item item left join fetch item.tags where item.id =:id")
+    def findOneWithEagerRelationships(@Param("id") id: Long): Item
 
-  def findByCodeIgnoreCaseContainingOrNameIgnoreCaseContaining(codeQuery: String,
-                                                               nameQuery: String,
-                                                               pageable: Pageable
-                                                              ): Page[Item]
+    def findByCodeIgnoreCaseContainingOrNameIgnoreCaseContaining(codeQuery: String,
+                                                                 nameQuery: String,
+                                                                 pageable: Pageable
+                                                                ): Page[Item]
 
-  @EntityGraph(value = Item.Graph.detail, `type` = EntityGraphType.LOAD)
-  def findById(id: Long): Optional[Item]
+    @EntityGraph(value = Item.Graph.detail, `type` = EntityGraphType.LOAD)
+    def findById(id: Long): Option[Item]
 }

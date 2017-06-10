@@ -44,7 +44,7 @@ class ItemServiceImpl(private val itemRepo: ItemRepo)
 
   @Transactional(readOnly = true)
   override def getItemWithDetail(id: Long): Option[Item] =
-    itemRepo.findById(id).asScala
+      itemRepo.findById(id)
 
 
   override def delete(id: Long): Unit = {
