@@ -1,22 +1,16 @@
 package com.kapilkoju.autopos.party.domain
 
-import java.lang.Long
-import javax.persistence.{GeneratedValue, _}
+import javax.persistence._
 import javax.validation.constraints.{NotNull, Size}
 
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 
 import scala.beans.BeanProperty
 
 
 @Entity
 @Table(name = "vehicle")
-class Vehicle extends AuditableBaseEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Long = _
+class Vehicle extends AuditableEntity {
 
   @NotNull
   @Size(min = 1, max = 20)

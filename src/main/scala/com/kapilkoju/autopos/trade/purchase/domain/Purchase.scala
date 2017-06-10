@@ -1,6 +1,5 @@
 package com.kapilkoju.autopos.trade.purchase.domain
 
-import java.lang.Long
 import java.math.BigDecimal
 import java.util
 import javax.persistence._
@@ -18,11 +17,6 @@ import scala.collection.JavaConverters._
 @Entity
 @Table(name = "purchase")
 class Purchase extends Trade {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Long = _
 
   @ManyToOne
   @JoinColumn(name = "vendor_id")

@@ -1,6 +1,5 @@
 package com.kapilkoju.autopos.trade.sale.domain
 
-import java.lang.Long
 import java.math.BigDecimal
 import javax.persistence._
 import javax.validation.constraints.{Min, NotNull}
@@ -13,11 +12,6 @@ import scala.beans.BeanProperty
 @Entity
 @Table(name = "sale_line")
 class SaleLine extends LineItem {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Long = _
 
   @NotNull
   @Min(value = 0)

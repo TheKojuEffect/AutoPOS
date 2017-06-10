@@ -5,12 +5,12 @@ import javax.persistence.{Column, JoinColumn, ManyToOne, MappedSuperclass}
 import javax.validation.constraints.{Min, NotNull, Size}
 
 import com.kapilkoju.autopos.catalog.domain.Item
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 
 import scala.beans.BeanProperty
 
 @MappedSuperclass
-abstract class LineItem extends AuditableBaseEntity {
+abstract class LineItem extends AuditableEntity {
 
   @NotNull
   @ManyToOne(optional = false)

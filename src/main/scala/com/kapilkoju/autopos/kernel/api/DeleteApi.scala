@@ -1,12 +1,12 @@
 package com.kapilkoju.autopos.kernel.api
 
 import com.codahale.metrics.annotation.Timed
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.{DeleteMapping, PathVariable}
 
-trait DeleteApi[T <: AuditableBaseEntity] {
+trait DeleteApi[T <: AuditableEntity] {
   this: Api[T] =>
 
   @DeleteMapping(value = Array("/{id}"))

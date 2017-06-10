@@ -1,12 +1,11 @@
 package com.kapilkoju.autopos.party.domain
 
-import java.lang.Long
 import java.util
-import javax.persistence.{GeneratedValue, _}
+import javax.persistence._
 import javax.validation.constraints.{NotNull, Size}
 
 import com.fasterxml.jackson.annotation.JsonView
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import com.kapilkoju.autopos.kernel.json.Views
 
 import scala.beans.BeanProperty
@@ -15,12 +14,7 @@ import scala.beans.BeanProperty
 @Table(name = "vendor")
 @NamedEntityGraph(name = Vendor.Graph.detail,
   attributeNodes = Array(new NamedAttributeNode("phoneNumbers")))
-class Vendor extends AuditableBaseEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Long = _
+class Vendor extends AuditableEntity {
 
   @NotNull
   @Size(min = 2, max = 100)

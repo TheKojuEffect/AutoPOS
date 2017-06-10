@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.catalog.service
 
 import com.kapilkoju.autopos.catalog.domain.Brand
-import com.kapilkoju.autopos.kernel.service.AuditableBaseRepository
+import com.kapilkoju.autopos.kernel.service.AuditableRepository
 
-trait BrandRepo extends AuditableBaseRepository[Brand]
+trait BrandRepo extends AuditableRepository[Brand]

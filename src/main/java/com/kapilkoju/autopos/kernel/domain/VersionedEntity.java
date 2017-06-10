@@ -6,12 +6,11 @@ import com.kapilkoju.autopos.kernel.json.Views;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
-import java.io.Serializable;
 
 @MappedSuperclass
-public abstract class VersionedEntity<ID extends Serializable>
-        extends AbstractEntity<ID>
-        implements Versioned {
+public abstract class VersionedEntity
+    extends AbstractBaseEntity
+    implements Versioned {
 
     @Version
     @Column(name = "version")

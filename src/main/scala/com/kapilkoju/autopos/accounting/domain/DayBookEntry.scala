@@ -1,23 +1,17 @@
 package com.kapilkoju.autopos.accounting.domain
 
-import java.lang.Long
 import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence._
 import javax.validation.constraints.{Min, NotNull, Size}
 
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 
 import scala.beans.BeanProperty
 
 @Entity
 @Table(name = "day_book_entry")
-class DayBookEntry extends AuditableBaseEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Long = _
+class DayBookEntry extends AuditableEntity {
 
   @NotNull
   @Column(name = "txn_date", nullable = false)

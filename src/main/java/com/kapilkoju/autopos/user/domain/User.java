@@ -2,7 +2,7 @@ package com.kapilkoju.autopos.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kapilkoju.autopos.config.Constants;
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity;
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,12 +22,8 @@ import static java.util.stream.Collectors.toList;
 @Entity
 @Table(name = "users")
 public class User
-    extends AuditableBaseEntity
+    extends AuditableEntity
     implements UserDetails {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @NotNull
     @Pattern(regexp = Constants.LOGIN_REGEX)
@@ -86,15 +82,6 @@ public class User
         return authorities.stream()
             .map(authority -> new SimpleGrantedAuthority(authority.getRole().getName()))
             .collect(toList());
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
     }
 
     @Override

@@ -9,6 +9,6 @@ object VendorInfo {
   def apply(vendor: Vendor): VendorInfo = {
     require(vendor != null)
 
-    VendorInfo(vendor.id, vendor.name)
+    VendorInfo(vendor.getId, vendor.name)
   }
 }

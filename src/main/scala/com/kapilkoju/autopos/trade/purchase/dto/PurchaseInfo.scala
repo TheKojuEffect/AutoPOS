@@ -10,7 +10,7 @@ object PurchaseInfo {
 
   def apply(purchase: Purchase): PurchaseInfo = {
     require(purchase != null)
-    PurchaseInfo(purchase.id, purchase.date, purchase.invoiceNumber)
+    PurchaseInfo(purchase.getId, purchase.date, purchase.invoiceNumber)
   }
 
 }

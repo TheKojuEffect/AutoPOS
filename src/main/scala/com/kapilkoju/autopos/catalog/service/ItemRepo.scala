@@ -3,13 +3,13 @@ package com.kapilkoju.autopos.catalog.service
 import java.util.Optional
 
 import com.kapilkoju.autopos.catalog.domain.Item
-import com.kapilkoju.autopos.kernel.service.AuditableBaseRepository
+import com.kapilkoju.autopos.kernel.service.AuditableRepository
 import org.springframework.data.domain.{Page, Pageable}
 import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType
 import org.springframework.data.jpa.repository.{EntityGraph, Query}
 import org.springframework.data.repository.query.Param
 
-trait ItemRepo extends AuditableBaseRepository[Item] {
+trait ItemRepo extends AuditableRepository[Item] {
 
   @Query("select item from Item item left join fetch item.tags where item.id =:id")
   def findOneWithEagerRelationships(@Param("id") id: Long): Item

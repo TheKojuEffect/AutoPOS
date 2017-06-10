@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.catalog.service
 
 import com.kapilkoju.autopos.catalog.domain.Category
-import com.kapilkoju.autopos.kernel.service.AuditableBaseRepository
+import com.kapilkoju.autopos.kernel.service.AuditableRepository
 
-trait CategoryRepo extends AuditableBaseRepository[Category]
+trait CategoryRepo extends AuditableRepository[Category]

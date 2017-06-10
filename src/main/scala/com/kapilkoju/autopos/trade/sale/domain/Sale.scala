@@ -1,9 +1,8 @@
 package com.kapilkoju.autopos.trade.sale.domain
 
-import java.lang.Long
 import java.math.BigDecimal
 import java.util
-import javax.persistence.{GeneratedValue, _}
+import javax.persistence._
 
 import com.fasterxml.jackson.annotation.{JsonManagedReference, JsonView}
 import com.kapilkoju.autopos.catalog.domain.SaleStatus
@@ -18,11 +17,6 @@ import scala.collection.JavaConverters._
 @Entity
 @Table(name = "sale")
 class Sale extends Trade {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Long = _
 
   @ManyToOne
   @JoinColumn(name = "vehicle_id")

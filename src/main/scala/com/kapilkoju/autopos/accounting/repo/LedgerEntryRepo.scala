@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.accounting.repo
 
 import com.kapilkoju.autopos.accounting.domain.LedgerEntry
-import com.kapilkoju.autopos.kernel.service.AuditableBaseRepository
+import com.kapilkoju.autopos.kernel.service.AuditableRepository
 
-trait LedgerEntryRepo extends AuditableBaseRepository[LedgerEntry]
+trait LedgerEntryRepo extends AuditableRepository[LedgerEntry]

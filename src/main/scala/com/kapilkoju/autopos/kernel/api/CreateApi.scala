@@ -3,12 +3,12 @@ package com.kapilkoju.autopos.kernel.api
 import javax.validation.Valid
 
 import com.codahale.metrics.annotation.Timed
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil
 import org.springframework.http.{HttpStatus, ResponseEntity}
 import org.springframework.web.bind.annotation.{PostMapping, RequestBody}
 
-trait CreateApi[T <: AuditableBaseEntity] {
+trait CreateApi[T <: AuditableEntity] {
   this: Api[T] =>
 
   @PostMapping

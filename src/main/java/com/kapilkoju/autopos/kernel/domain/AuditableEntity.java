@@ -11,21 +11,16 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class AuditableEntity<ID extends Serializable>
-        extends VersionedEntity<ID>
-        implements AuditedEntity {
+public abstract class AuditableEntity
+    extends VersionedEntity
+    implements AuditedEntity {
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)

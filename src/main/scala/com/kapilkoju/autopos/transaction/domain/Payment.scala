@@ -1,24 +1,18 @@
 package com.kapilkoju.autopos.transaction.domain
 
-import java.lang.Long
 import java.math.BigDecimal
 import java.time.LocalDate
-import javax.persistence.{GeneratedValue, JoinColumn, _}
+import javax.persistence.{JoinColumn, _}
 import javax.validation.constraints.{Min, NotNull, Size}
 
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import com.kapilkoju.autopos.party.domain.Vendor
 
 import scala.beans.BeanProperty
 
 @Entity
 @Table(name = "payment")
-class Payment extends AuditableBaseEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Long = _
+class Payment extends AuditableEntity {
 
   @NotNull
   @Column(name = "date", nullable = false)

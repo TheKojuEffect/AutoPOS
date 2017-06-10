@@ -6,17 +6,13 @@ import java.time.LocalDateTime
 import javax.persistence._
 import javax.validation.constraints.{Min, NotNull, Size}
 
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 
 import scala.beans.BeanProperty
 
 @Entity
 @Table(name = "ledger_entry")
-class LedgerEntry extends AuditableBaseEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty var id: Long = _
+class LedgerEntry extends AuditableEntity {
 
   @NotNull
   @Column(name = "date", nullable = false)

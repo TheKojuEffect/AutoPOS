@@ -3,13 +3,13 @@ package com.kapilkoju.autopos.kernel.api
 import javax.validation.Valid
 
 import com.codahale.metrics.annotation.Timed
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.util.Assert
 import org.springframework.web.bind.annotation.{PathVariable, PutMapping, RequestBody}
 
-trait UpdateApi[T <: AuditableBaseEntity] {
+trait UpdateApi[T <: AuditableEntity] {
   this: Api[T] =>
 
   @PutMapping(value = Array("/{id}"))

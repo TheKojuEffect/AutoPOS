@@ -3,13 +3,13 @@ package com.kapilkoju.autopos.kernel.api
 import java.util
 
 import com.codahale.metrics.annotation.Timed
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import com.kapilkoju.autopos.web.rest.util.PaginationUtil
 import org.springframework.data.domain.Pageable
 import org.springframework.http.{HttpStatus, ResponseEntity}
 import org.springframework.web.bind.annotation.GetMapping
 
-trait GetAllApi[T <: AuditableBaseEntity] {
+trait GetAllApi[T <: AuditableEntity] {
   this: Api[T] =>
 
   @GetMapping

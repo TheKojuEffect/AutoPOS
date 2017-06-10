@@ -6,13 +6,13 @@ import javax.persistence.{Column, MappedSuperclass}
 import javax.validation.constraints.{Min, NotNull, Size}
 
 import com.fasterxml.jackson.annotation.JsonView
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import com.kapilkoju.autopos.kernel.json.Views
 
 import scala.beans.BeanProperty
 
 @MappedSuperclass
-abstract class Trade extends AuditableBaseEntity {
+abstract class Trade extends AuditableEntity {
 
   @NotNull
   @Column(name = "date", nullable = false)

@@ -1,21 +1,15 @@
 package com.kapilkoju.autopos.catalog.domain
 
-import java.lang.Long
-import javax.persistence.{GeneratedValue, _}
+import javax.persistence._
 import javax.validation.constraints.{NotNull, Size}
 
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 
 import scala.beans.BeanProperty
 
 @Entity
 @Table(name = "category")
-class Category extends AuditableBaseEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Long = _
+class Category extends AuditableEntity {
 
   @NotNull
   @Size(min = 2, max = 3)

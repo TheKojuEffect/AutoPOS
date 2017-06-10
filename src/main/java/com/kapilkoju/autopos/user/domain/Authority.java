@@ -3,7 +3,10 @@ package com.kapilkoju.autopos.user.domain;
 import com.kapilkoju.autopos.kernel.domain.AbstractBaseEntity;
 import com.kapilkoju.autopos.user.domain.Role.RoleConverter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,19 +16,10 @@ import javax.validation.constraints.NotNull;
 @Table(name = "authority")
 public class Authority extends AbstractBaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @NotNull
     @Column(name = "role_name", length = 40, unique = true, nullable = false) // role is reserved DB keyword
     @Convert(converter = RoleConverter.class)
     private Role role;
-
-    @Override
-    public Long getId() {
-        return id;
-    }
 
     public Role getRole() {
         return role;

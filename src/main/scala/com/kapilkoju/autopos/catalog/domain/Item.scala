@@ -1,12 +1,11 @@
 package com.kapilkoju.autopos.catalog.domain
 
-import java.lang.Long
 import java.math.BigDecimal
 import java.util
 import javax.persistence._
 import javax.validation.constraints.{Min, NotNull, Size}
 
-import com.kapilkoju.autopos.kernel.domain.AuditableBaseEntity
+import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import org.hibernate.annotations.{Generated, GenerationTime}
 
 import scala.beans.BeanProperty
@@ -20,12 +19,7 @@ import scala.beans.BeanProperty
     new NamedAttributeNode("brand"),
     new NamedAttributeNode("tags"))
 )
-class Item extends AuditableBaseEntity {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Long = _
+class Item extends AuditableEntity {
 
   @Column(name = "code", length = 14, nullable = false, insertable = false, updatable = false)
   @Generated(GenerationTime.INSERT)
