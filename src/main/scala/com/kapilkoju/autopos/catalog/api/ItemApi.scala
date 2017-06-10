@@ -50,7 +50,7 @@ class ItemApi(itemRepo: ItemRepo,
     new ResponseEntity(page.getContent, headers, HttpStatus.OK)
   }
 
-  @GetMapping(value = Array("/{id}/costPrices"))
+  @GetMapping(value = Array("/{id}/cost_prices"))
   def getCostPriceHistory(@PathVariable("id") itemId: Long): ResponseEntity[List[CostPriceInfo]] = {
     val purchaseLines = purchaseService.getPurchaseLines(itemId)
     val costPrices = purchaseLines.map(line => CostPriceInfo(line))

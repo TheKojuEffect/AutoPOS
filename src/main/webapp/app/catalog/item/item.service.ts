@@ -4,13 +4,15 @@ import { Observable } from 'rxjs/Rx';
 
 import { Item } from './item.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
+import { CostPriceInfo } from './CostPriceInfo';
 
 @Injectable()
 export class ItemService {
 
     private resourceUrl = 'api/items';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(item: Item): Observable<Item> {
         const copy = this.convert(item);
@@ -45,6 +47,12 @@ export class ItemService {
     search(term: string): Observable<Item[]> {
         return this.http.get(`${this.resourceUrl}?query=${term}`).map((res: Response) => {
             return res.json() as Item[];
+        });
+    }
+
+    getCostPrices(id: number): Observable<CostPriceInfo[]> {
+        return this.http.get(`${this.resourceUrl}/${id}/cost_prices`).map((res: Response) => {
+            return res.json();
         });
     }
 

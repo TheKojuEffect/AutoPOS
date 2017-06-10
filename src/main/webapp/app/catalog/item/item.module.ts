@@ -1,11 +1,12 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
-import {SharedModule} from '../../shared';
+import { SharedModule } from '../../shared';
 
-import {ItemComponent, ItemDetailComponent, ItemPopupService, ItemResolvePagingParams, ItemService} from './';
-import {ItemDeleteDialogComponent, ItemDeletePopupComponent} from './item-delete-dialog.component';
-import {ItemDialogComponent, ItemPopupComponent} from './item-dialog.component';
-import {ItemRoutingModule} from './item-routing.module';
+import { ItemComponent, ItemDetailComponent, ItemPopupService, ItemResolvePagingParams, ItemService } from './';
+import { ItemDeleteDialogComponent, ItemDeletePopupComponent } from './item-delete-dialog.component';
+import { ItemDialogComponent, ItemPopupComponent } from './item-dialog.component';
+import { ItemRoutingModule } from './item-routing.module';
+import { CostPriceDialogComponent, CostPricePopupComponent } from './cost-price.component';
 
 @NgModule({
     imports: [
@@ -19,6 +20,8 @@ import {ItemRoutingModule} from './item-routing.module';
         ItemDeleteDialogComponent,
         ItemPopupComponent,
         ItemDeletePopupComponent,
+        CostPriceDialogComponent,
+        CostPricePopupComponent,
     ],
     entryComponents: [
         ItemComponent,
@@ -26,6 +29,8 @@ import {ItemRoutingModule} from './item-routing.module';
         ItemPopupComponent,
         ItemDeleteDialogComponent,
         ItemDeletePopupComponent,
+        CostPriceDialogComponent,
+        CostPricePopupComponent,
     ],
     providers: [
         ItemService,

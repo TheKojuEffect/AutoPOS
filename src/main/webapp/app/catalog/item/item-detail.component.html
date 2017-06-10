@@ -27,10 +27,20 @@
                 <a [routerLink]="['/brand', item.brand?.id]">{{item.brand?.name}}</a>
             </div>
         </dd>
+
         <dt><span jhiTranslate="autoPosApp.item.markedPrice">Marked Price</span></dt>
         <dd>
             <span>{{item.markedPrice}}</span>
         </dd>
+
+        <dt><span>Cost Price</span></dt>
+        <dd>
+            <a class="btn btn-info"
+               [routerLink]="['/', { outlets: { popup: 'item/'+ item.id + '/cost_prices'} }]">
+                Show Cost Prices
+            </a>
+        </dd>
+
         <dt><span jhiTranslate="autoPosApp.item.quantity">Quantity</span></dt>
         <dd>
             <span>{{item.quantity}}</span>

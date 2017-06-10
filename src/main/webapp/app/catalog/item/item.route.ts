@@ -10,6 +10,7 @@ import { ItemPopupComponent } from './item-dialog.component';
 import { ItemDeletePopupComponent } from './item-delete-dialog.component';
 
 import { Principal } from '../../shared';
+import { CostPricePopupComponent } from './cost-price.component';
 
 @Injectable()
 export class ItemResolvePagingParams implements Resolve<any> {
@@ -77,6 +78,16 @@ export const itemPopupRoutes: Routes = [
     {
         path: 'item/:id/delete',
         component: ItemDeletePopupComponent,
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'autoPosApp.item.home.title'
+        },
+        canActivate: [UserRouteAccessService],
+        outlet: 'popup'
+    },
+    {
+        path: 'item/:id/cost_prices',
+        component: CostPricePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.item.home.title'

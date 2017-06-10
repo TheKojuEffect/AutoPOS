@@ -50,4 +50,5 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
             (response) => this.load(this.item.id)
         );
     }
+
 }

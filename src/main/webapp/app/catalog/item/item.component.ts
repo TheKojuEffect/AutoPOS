@@ -51,7 +51,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        let params = {
+        const params = {
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort(),
