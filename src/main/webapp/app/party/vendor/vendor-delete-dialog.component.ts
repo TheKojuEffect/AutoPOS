@@ -16,12 +16,10 @@ export class VendorDeleteDialogComponent {
 
     vendor: Vendor;
 
-    constructor(
-                private vendorService: VendorService,
+    constructor(private vendorService: VendorService,
                 public activeModal: NgbActiveModal,
-        private alertService: AlertService,
-        private eventManager: EventManager
-    ) {
+                private alertService: AlertService,
+                private eventManager: EventManager) {
     }
 
     clear() {
@@ -36,7 +34,7 @@ export class VendorDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.vendor.deleted', { param : id }, null);
+        this.alertService.success('autoPosApp.vendor.deleted', {param: id}, null);
     }
 }
 

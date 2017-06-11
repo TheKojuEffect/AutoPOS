@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { DateUtils } from 'ng-jhipster';
 
 import { Sale } from './sale.model';
-import { ResponseWrapper, createRequestOption } from '../shared';
+import { createRequestOption, ResponseWrapper } from '../shared';
 
 @Injectable()
 export class SaleService {

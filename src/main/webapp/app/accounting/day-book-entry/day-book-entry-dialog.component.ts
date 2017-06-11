@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 
 import { DayBookEntry } from './day-book-entry.model';
 import { DayBookEntryPopupService } from './day-book-entry-popup.service';
@@ -21,18 +21,17 @@ export class DayBookEntryDialogComponent implements OnInit {
     isSaving: boolean;
     dateDp: any;
 
-    constructor(
-        public activeModal: NgbActiveModal,
-        private alertService: AlertService,
-        private dayBookEntryService: DayBookEntryService,
-        private eventManager: EventManager
-    ) {
+    constructor(public activeModal: NgbActiveModal,
+                private alertService: AlertService,
+                private dayBookEntryService: DayBookEntryService,
+                private eventManager: EventManager) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -57,9 +56,9 @@ export class DayBookEntryDialogComponent implements OnInit {
         this.alertService.success(
             isCreated ? 'autoPosApp.dayBookEntry.created'
                 : 'autoPosApp.dayBookEntry.updated',
-            { param : result.id }, null);
+            {param: result.id}, null);
 
-        this.eventManager.broadcast({ name: 'dayBookEntryListModification', content: 'OK'});
+        this.eventManager.broadcast({name: 'dayBookEntryListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -88,14 +87,13 @@ export class DayBookEntryPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(
-        private route: ActivatedRoute,
-        private dayBookEntryPopupService: DayBookEntryPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private dayBookEntryPopupService: DayBookEntryPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.dayBookEntryPopupService
                     .open(DayBookEntryDialogComponent, params['id']);
             } else {

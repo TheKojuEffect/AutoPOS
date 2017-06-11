@@ -4,14 +4,15 @@ import { Observable } from 'rxjs/Rx';
 import { DateUtils } from 'ng-jhipster';
 
 import { Payment } from './payment.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption, ResponseWrapper } from '../../shared';
 
 @Injectable()
 export class PaymentService {
 
     private resourceUrl = 'api/payments';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http, private dateUtils: DateUtils) {
+    }
 
     create(payment: Payment): Observable<Payment> {
         const copy = this.convert(payment);

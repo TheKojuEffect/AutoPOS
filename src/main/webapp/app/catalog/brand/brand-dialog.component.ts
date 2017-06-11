@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { EventManager, AlertService } from 'ng-jhipster';
+import { AlertService, EventManager } from 'ng-jhipster';
 
 import { Brand } from './brand.model';
 import { BrandPopupService } from './brand-popup.service';
@@ -23,8 +23,7 @@ export class BrandDialogComponent implements OnInit {
     constructor(public activeModal: NgbActiveModal,
                 private alertService: AlertService,
                 private brandService: BrandService,
-        private eventManager: EventManager
-    ) {
+                private eventManager: EventManager) {
     }
 
     ngOnInit() {
@@ -55,8 +54,8 @@ export class BrandDialogComponent implements OnInit {
     private onSaveSuccess(result: Brand, isCreated: boolean) {
         this.alertService.success(
             isCreated ? 'autoPosApp.brand.created'
-            : 'autoPosApp.brand.updated',
-            { param : result.id }, null);
+                : 'autoPosApp.brand.updated',
+            {param: result.id}, null);
 
         this.eventManager.broadcast({name: 'brandListModification', content: 'OK'});
         this.isSaving = false;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 import { PaginationUtil } from 'ng-jhipster';
@@ -8,8 +8,6 @@ import { ReceiptComponent } from './receipt.component';
 import { ReceiptDetailComponent } from './receipt-detail.component';
 import { ReceiptPopupComponent } from './receipt-dialog.component';
 import { ReceiptDeletePopupComponent } from './receipt-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 @Injectable()
 export class ReceiptResolvePagingParams implements Resolve<any> {

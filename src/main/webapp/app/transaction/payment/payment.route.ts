@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 import { PaginationUtil } from 'ng-jhipster';
@@ -8,8 +8,6 @@ import { PaymentComponent } from './payment.component';
 import { PaymentDetailComponent } from './payment-detail.component';
 import { PaymentPopupComponent } from './payment-dialog.component';
 import { PaymentDeletePopupComponent } from './payment-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 @Injectable()
 export class PaymentResolvePagingParams implements Resolve<any> {

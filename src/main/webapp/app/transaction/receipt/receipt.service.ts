@@ -4,14 +4,15 @@ import { Observable } from 'rxjs/Rx';
 import { DateUtils } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption, ResponseWrapper } from '../../shared';
 
 @Injectable()
 export class ReceiptService {
 
     private resourceUrl = 'api/receipts';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http, private dateUtils: DateUtils) {
+    }
 
     create(receipt: Receipt): Observable<Receipt> {
         const copy = this.convert(receipt);

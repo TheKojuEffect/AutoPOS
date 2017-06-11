@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,12 +16,10 @@ export class ReceiptDeleteDialogComponent {
 
     receipt: Receipt;
 
-    constructor(
-                private receiptService: ReceiptService,
+    constructor(private receiptService: ReceiptService,
                 public activeModal: NgbActiveModal,
-        private alertService: AlertService,
-        private eventManager: EventManager
-    ) {
+                private alertService: AlertService,
+                private eventManager: EventManager) {
     }
 
     clear() {
@@ -36,7 +34,7 @@ export class ReceiptDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.receipt.deleted', { param : id }, null);
+        this.alertService.success('autoPosApp.receipt.deleted', {param: id}, null);
     }
 }
 

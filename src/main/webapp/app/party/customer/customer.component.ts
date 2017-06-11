@@ -29,8 +29,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(
-                private customerService: CustomerService,
+    constructor(private customerService: CustomerService,
                 private parseLinks: ParseLinks,
                 private alertService: AlertService,
                 private principal: Principal,
@@ -101,7 +100,6 @@ export class CustomerComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Customer) {
         return item.id;
     }
-
 
     registerChangeInCustomers() {
         this.eventSubscriber = this.eventManager.subscribe('customerListModification', (response) => this.loadAll());

@@ -4,14 +4,15 @@ import { Observable } from 'rxjs/Rx';
 import { DateUtils } from 'ng-jhipster';
 
 import { DayBookEntry } from './day-book-entry.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption, ResponseWrapper } from '../../shared';
 
 @Injectable()
 export class DayBookEntryService {
 
     private resourceUrl = 'api/day-book-entries';
 
-    constructor(private http: Http, private dateUtils: DateUtils) { }
+    constructor(private http: Http, private dateUtils: DateUtils) {
+    }
 
     create(dayBookEntry: DayBookEntry): Observable<DayBookEntry> {
         const copy = this.convert(dayBookEntry);

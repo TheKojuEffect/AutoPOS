@@ -3,14 +3,15 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Category } from './category.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption, ResponseWrapper } from '../../shared';
 
 @Injectable()
 export class CategoryService {
 
     private resourceUrl = 'api/categories';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(category: Category): Observable<Category> {
         const copy = this.convert(category);

@@ -106,7 +106,6 @@ export class SaleComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInSales() {
         this.eventSubscriber = this.eventManager.subscribe('saleListModification', (response) => this.loadAll());
     }

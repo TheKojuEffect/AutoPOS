@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {JhiLanguageService} from 'ng-jhipster';
-import {SaleService} from './sale.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { JhiLanguageService } from 'ng-jhipster';
+import { SaleService } from './sale.service';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './sales.component.html'

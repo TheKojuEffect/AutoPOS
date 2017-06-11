@@ -1,4 +1,4 @@
-import { Injectable, Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DayBookEntry } from './day-book-entry.model';
@@ -27,7 +27,7 @@ export class DayBookEntryPopupService {
                 this.dayBookEntryModalRef(component, dayBookEntry);
             });
         } else {
-            let dayEntry = new DayBookEntry();
+            const dayEntry = new DayBookEntry();
             dayEntry.date = convertDate(new Date());
             return this.dayBookEntryModalRef(component, dayEntry);
         }
@@ -42,7 +42,7 @@ export class DayBookEntryPopupService {
     }
 
     dayBookEntryModalRef(component: Component, dayBookEntry: DayBookEntry): NgbModalRef {
-        let modalRef = this.modalService.open(component, {size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, {size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.dayBookEntry = dayBookEntry;
         modalRef.result.then(result => {
             this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});

@@ -25,7 +25,7 @@ export class CostPriceDialogComponent implements OnInit {
         this.itemService.getCostPrices(this.item.id)
             .subscribe((response) => {
 
-                this.costPrices = response as CostPriceInfo[]
+                this.costPrices = response as CostPriceInfo[];
             });
     }
 

@@ -28,7 +28,7 @@ export class VendorPopupService {
     }
 
     vendorModalRef(component: Component, vendor: Vendor): NgbModalRef {
-        const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, {size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.vendor = vendor;
         modalRef.result.then((result) => {
             this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});

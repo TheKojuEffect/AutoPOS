@@ -24,7 +24,6 @@ export const partyRoutes: Routes = [
     }
 ];
 
-
 @NgModule({
     imports: [
         RouterModule.forChild(partyRoutes)

@@ -16,12 +16,10 @@ export class VehicleDeleteDialogComponent {
 
     vehicle: Vehicle;
 
-    constructor(
-                private vehicleService: VehicleService,
+    constructor(private vehicleService: VehicleService,
                 public activeModal: NgbActiveModal,
-        private alertService: AlertService,
-        private eventManager: EventManager
-    ) {
+                private alertService: AlertService,
+                private eventManager: EventManager) {
     }
 
     clear() {
@@ -36,7 +34,7 @@ export class VehicleDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.vehicle.deleted', { param : id }, null);
+        this.alertService.success('autoPosApp.vehicle.deleted', {param: id}, null);
     }
 }
 

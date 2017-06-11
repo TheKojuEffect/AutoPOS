@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,12 +16,10 @@ export class BrandDeleteDialogComponent {
 
     brand: Brand;
 
-    constructor(
-        private brandService: BrandService,
-        public activeModal: NgbActiveModal,
-        private alertService: AlertService,
-        private eventManager: EventManager
-    ) {
+    constructor(private brandService: BrandService,
+                public activeModal: NgbActiveModal,
+                private alertService: AlertService,
+                private eventManager: EventManager) {
     }
 
     clear() {
@@ -36,7 +34,7 @@ export class BrandDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.brand.deleted', { param : id }, null);
+        this.alertService.success('autoPosApp.brand.deleted', {param: id}, null);
     }
 }
 
@@ -49,10 +47,9 @@ export class BrandDeletePopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(
-        private route: ActivatedRoute,
-        private brandPopupService: BrandPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private brandPopupService: BrandPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {

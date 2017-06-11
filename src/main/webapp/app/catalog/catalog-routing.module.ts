@@ -26,7 +26,6 @@ export const catalogRoutes: Routes = [
     }
 ];
 
-
 @NgModule({
     imports: [
         RouterModule.forChild(catalogRoutes)

@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { AlertService, EventManager, PaginationUtil, ParseLinks } from 'ng-jhipster';
 
 import { Brand } from './brand.model';
 import { BrandService } from './brand.service';
@@ -29,8 +29,7 @@ export class BrandComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(
-                private brandService: BrandService,
+    constructor(private brandService: BrandService,
                 private parseLinks: ParseLinks,
                 private alertService: AlertService,
                 private principal: Principal,
@@ -101,7 +100,6 @@ export class BrandComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Brand) {
         return item.id;
     }
-
 
     registerChangeInBrands() {
         this.eventSubscriber = this.eventManager.subscribe('brandListModification', (response) => this.loadAll());

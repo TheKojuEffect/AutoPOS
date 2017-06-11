@@ -16,11 +16,9 @@ export class CustomerDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(
-        private eventManager: EventManager,
+    constructor(private eventManager: EventManager,
                 private customerService: CustomerService,
-        private route: ActivatedRoute
-    ) {
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {

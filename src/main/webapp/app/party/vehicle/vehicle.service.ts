@@ -52,7 +52,7 @@ export class VehicleService {
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
         return new ResponseWrapper(res.headers, jsonResponse, res.status);
-            }
+    }
 
     private convert(vehicle: Vehicle): Vehicle {
         const copy: Vehicle = Object.assign({}, vehicle);

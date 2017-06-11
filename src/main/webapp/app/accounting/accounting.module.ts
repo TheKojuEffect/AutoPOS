@@ -6,7 +6,6 @@ import { AccountingComponent } from './';
 import { AccountingRoutingModule } from './accounting-routing.module';
 import { DayBookEntryModule } from './day-book-entry/day-book-entry.module';
 
-
 @NgModule({
     imports: [
         SharedModule,

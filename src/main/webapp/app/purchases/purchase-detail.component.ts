@@ -93,7 +93,6 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
                     }))
             .do(() => this.searching = false);
 
-
     itemFormatter = (item: Item) => item.name;
 
     searchVendor = (text: Observable<string>) =>
@@ -108,7 +107,6 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
                         return Observable.of([]);
                     }))
             .do(() => this.searchingVendor = false);
-
 
     vendorFormatter = (vendor: Vendor) => vendor.name;
 
@@ -157,7 +155,7 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
     deletePurchase() {
         const sure = window.confirm('Are you sure you want to delete this purchase?');
         if (sure) {
-            this.purchaseService.delete(this.purchase.id).subscribe(response => {
+            this.purchaseService.delete(this.purchase.id).subscribe(() => {
                 this.gotoPurchaseList();
             });
         }

@@ -16,11 +16,9 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(
-        private eventManager: EventManager,
+    constructor(private eventManager: EventManager,
                 private vehicleService: VehicleService,
-        private route: ActivatedRoute
-    ) {
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {

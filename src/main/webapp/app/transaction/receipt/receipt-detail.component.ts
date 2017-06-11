@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager  } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
 import { ReceiptService } from './receipt.service';
@@ -16,11 +16,9 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(
-        private eventManager: EventManager,
-        private receiptService: ReceiptService,
-        private route: ActivatedRoute
-    ) {
+    constructor(private eventManager: EventManager,
+                private receiptService: ReceiptService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -35,6 +33,7 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
             this.receipt = receipt;
         });
     }
+
     previousState() {
         window.history.back();
     }

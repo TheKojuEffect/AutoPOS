@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 import { PaginationUtil } from 'ng-jhipster';
@@ -8,8 +8,6 @@ import { BrandComponent } from './brand.component';
 import { BrandDetailComponent } from './brand-detail.component';
 import { BrandPopupComponent } from './brand-dialog.component';
 import { BrandDeletePopupComponent } from './brand-delete-dialog.component';
-
-import { Principal } from '../../shared';
 
 @Injectable()
 export class BrandResolvePagingParams implements Resolve<any> {

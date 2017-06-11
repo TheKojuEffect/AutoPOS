@@ -29,8 +29,7 @@ export class VehicleComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(
-                private vehicleService: VehicleService,
+    constructor(private vehicleService: VehicleService,
                 private parseLinks: ParseLinks,
                 private alertService: AlertService,
                 private principal: Principal,
@@ -101,7 +100,6 @@ export class VehicleComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Vehicle) {
         return item.id;
     }
-
 
     registerChangeInVehicles() {
         this.eventSubscriber = this.eventManager.subscribe('vehicleListModification', (response) => this.loadAll());

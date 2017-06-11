@@ -100,7 +100,6 @@ export class PurchaseComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInPurchases() {
         this.eventSubscriber = this.eventManager.subscribe('purchaseListModification', (response) => this.loadAll());
     }
@@ -129,6 +128,5 @@ export class PurchaseComponent implements OnInit, OnDestroy {
     private onError(error) {
         this.alertService.error(error.message, null, null);
     }
-
 
 }

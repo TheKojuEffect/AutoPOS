@@ -28,15 +28,16 @@ export class VehicleDialogComponent implements OnInit {
                 private alertService: AlertService,
                 private vehicleService: VehicleService,
                 private customerService: CustomerService,
-        private eventManager: EventManager
-    ) {
+                private eventManager: EventManager) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.customerService.query()
-            .subscribe((res: ResponseWrapper) => { this.customers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: ResponseWrapper) => {
+                this.customers = res.json;
+            }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -62,8 +63,8 @@ export class VehicleDialogComponent implements OnInit {
     private onSaveSuccess(result: Vehicle, isCreated: boolean) {
         this.alertService.success(
             isCreated ? 'autoPosApp.vehicle.created'
-            : 'autoPosApp.vehicle.updated',
-            { param : result.id }, null);
+                : 'autoPosApp.vehicle.updated',
+            {param: result.id}, null);
 
         this.eventManager.broadcast({name: 'vehicleListModification', content: 'OK'});
         this.isSaving = false;

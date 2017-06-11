@@ -25,21 +25,22 @@ export class PaymentDialogComponent implements OnInit {
     vendors: Vendor[];
     dateDp: any;
 
-    constructor(
-        public activeModal: NgbActiveModal,
-        private alertService: AlertService,
-        private paymentService: PaymentService,
-        private vendorService: VendorService,
-        private eventManager: EventManager
-    ) {
+    constructor(public activeModal: NgbActiveModal,
+                private alertService: AlertService,
+                private paymentService: PaymentService,
+                private vendorService: VendorService,
+                private eventManager: EventManager) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.vendorService.query()
-            .subscribe((res: ResponseWrapper) => { this.vendors = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: ResponseWrapper) => {
+                this.vendors = res.json;
+            }, (res: ResponseWrapper) => this.onError(res.json));
     }
+
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -64,9 +65,9 @@ export class PaymentDialogComponent implements OnInit {
         this.alertService.success(
             isCreated ? 'autoPosApp.payment.created'
                 : 'autoPosApp.payment.updated',
-            { param : result.id }, null);
+            {param: result.id}, null);
 
-        this.eventManager.broadcast({ name: 'paymentListModification', content: 'OK'});
+        this.eventManager.broadcast({name: 'paymentListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -99,14 +100,13 @@ export class PaymentPopupComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(
-        private route: ActivatedRoute,
-        private paymentPopupService: PaymentPopupService
-    ) {}
+    constructor(private route: ActivatedRoute,
+                private paymentPopupService: PaymentPopupService) {
+    }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.modalRef = this.paymentPopupService
                     .open(PaymentDialogComponent, params['id']);
             } else {

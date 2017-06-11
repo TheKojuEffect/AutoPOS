@@ -23,8 +23,7 @@ export class CustomerDialogComponent implements OnInit {
     constructor(public activeModal: NgbActiveModal,
                 private alertService: AlertService,
                 private customerService: CustomerService,
-        private eventManager: EventManager
-    ) {
+                private eventManager: EventManager) {
     }
 
     ngOnInit() {
@@ -55,8 +54,8 @@ export class CustomerDialogComponent implements OnInit {
     private onSaveSuccess(result: Customer, isCreated: boolean) {
         this.alertService.success(
             isCreated ? 'autoPosApp.customer.created'
-            : 'autoPosApp.customer.updated',
-            { param : result.id }, null);
+                : 'autoPosApp.customer.updated',
+            {param: result.id}, null);
 
         this.eventManager.broadcast({name: 'customerListModification', content: 'OK'});
         this.isSaving = false;

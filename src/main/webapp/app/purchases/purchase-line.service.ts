@@ -61,5 +61,5 @@ export class PurchaseLineService {
             return `${lines}/${purchaseLineId}`;
         }
         return lines;
-    }
+    };
 }

@@ -16,12 +16,10 @@ export class CustomerDeleteDialogComponent {
 
     customer: Customer;
 
-    constructor(
-                private customerService: CustomerService,
+    constructor(private customerService: CustomerService,
                 public activeModal: NgbActiveModal,
-        private alertService: AlertService,
-        private eventManager: EventManager
-    ) {
+                private alertService: AlertService,
+                private eventManager: EventManager) {
     }
 
     clear() {
@@ -36,7 +34,7 @@ export class CustomerDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.customer.deleted', { param : id }, null);
+        this.alertService.success('autoPosApp.customer.deleted', {param: id}, null);
     }
 }
 

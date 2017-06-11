@@ -23,8 +23,7 @@ export class VendorDialogComponent implements OnInit {
     constructor(public activeModal: NgbActiveModal,
                 private alertService: AlertService,
                 private vendorService: VendorService,
-        private eventManager: EventManager
-    ) {
+                private eventManager: EventManager) {
     }
 
     ngOnInit() {
@@ -55,8 +54,8 @@ export class VendorDialogComponent implements OnInit {
     private onSaveSuccess(result: Vendor, isCreated: boolean) {
         this.alertService.success(
             isCreated ? 'autoPosApp.vendor.created'
-            : 'autoPosApp.vendor.updated',
-            { param : result.id }, null);
+                : 'autoPosApp.vendor.updated',
+            {param: result.id}, null);
 
         this.eventManager.broadcast({name: 'vendorListModification', content: 'OK'});
         this.isSaving = false;

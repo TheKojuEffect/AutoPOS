@@ -9,26 +9,16 @@ import { HomeModule } from './home/home.module';
 import { AdminModule } from './admin/admin.module';
 import { AccountModule } from './account/account.module';
 
-import {
-    ActiveMenuDirective,
-    AposMainComponent,
-    ErrorComponent,
-    FooterComponent,
-    LayoutRoutingModule,
-    NavbarComponent,
-    PageRibbonComponent,
-    ProfileService
-} from './layouts';
+import { ActiveMenuDirective, AposMainComponent, ErrorComponent, FooterComponent, LayoutRoutingModule, NavbarComponent, PageRibbonComponent, ProfileService } from './layouts';
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { CatalogModule } from './catalog/catalog.module';
 import { AccountingModule } from './accounting/accounting.module';
-import { TransactionModule } from './transaction/transaction.module';
+import { TransactionModule } from './transaction';
 import { PartyModule } from './party/party.module';
 import { PurchaseModule } from './purchases/purchase.module';
 import { SaleModule } from './sales/sale.module';
 import moment = require('moment');
-
 
 @NgModule({
     imports: [
@@ -65,7 +55,7 @@ import moment = require('moment');
 export class AutoPosAppModule {
 
     constructor() {
-        Date.prototype.toJSON = function () {
+        Date.prototype.toJSON = function() {
             return moment(this).format('YYYY-MM-DDTHH:mm:ss');
         };
     }

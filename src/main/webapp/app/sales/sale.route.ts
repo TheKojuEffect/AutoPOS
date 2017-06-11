@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from '@angular/router';
-import {PaginationUtil} from 'ng-jhipster';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
+import { PaginationUtil } from 'ng-jhipster';
 
-import {SaleComponent} from './sale.component';
-import {SaleDetailComponent} from './sale-detail.component';
-import {UserRouteAccessService} from '../shared/auth/user-route-access-service';
-import {SaleStatus} from './sale.model';
-import {SalesComponent} from './sales.component';
+import { SaleComponent } from './sale.component';
+import { SaleDetailComponent } from './sale-detail.component';
+import { UserRouteAccessService } from '../shared/auth/user-route-access-service';
+import { SaleStatus } from './sale.model';
+import { SalesComponent } from './sales.component';
 
 @Injectable()
 export class SaleResolvePagingParams implements Resolve<any> {
@@ -15,8 +15,8 @@ export class SaleResolvePagingParams implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let page = route.queryParams['page'] ? route.queryParams['page'] : '1';
-        let sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'lastModifiedDate,desc';
+        const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
+        const sort = route.queryParams['sort'] ? route.queryParams['sort'] : 'lastModifiedDate,desc';
         return {
             page: this.paginationUtil.parsePage(page),
             predicate: this.paginationUtil.parsePredicate(sort),

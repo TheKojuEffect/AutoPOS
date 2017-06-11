@@ -93,7 +93,6 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
                     }))
             .do(() => this.searching = false);
 
-
     itemFormatter = (item: Item) => item.name;
 
     onLineItemSelect = (item: Item) => {
@@ -112,7 +111,6 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
                         return Observable.of([]);
                     }))
             .do(() => this.searchingVehicle = false);
-
 
     vehicleFormatter = (vehicle: Vehicle) => vehicle.number;
 
@@ -161,7 +159,7 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     deleteSale() {
         const sure = window.confirm('Are you sure you want to delete this sale?');
         if (sure) {
-            this.saleService.delete(this.sale.id).subscribe(response => {
+            this.saleService.delete(this.sale.id).subscribe(() => {
                 this.gotoSaleList();
             });
         }

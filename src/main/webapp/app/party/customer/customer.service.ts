@@ -10,7 +10,8 @@ export class CustomerService {
 
     private resourceUrl = 'api/customers';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+    }
 
     create(customer: Customer): Observable<Customer> {
         const copy = this.convert(customer);

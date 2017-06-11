@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager  } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { DayBookEntry } from './day-book-entry.model';
 import { DayBookEntryService } from './day-book-entry.service';
@@ -16,11 +16,9 @@ export class DayBookEntryDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(
-        private eventManager: EventManager,
-        private dayBookEntryService: DayBookEntryService,
-        private route: ActivatedRoute
-    ) {
+    constructor(private eventManager: EventManager,
+                private dayBookEntryService: DayBookEntryService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -35,6 +33,7 @@ export class DayBookEntryDetailComponent implements OnInit, OnDestroy {
             this.dayBookEntry = dayBookEntry;
         });
     }
+
     previousState() {
         window.history.back();
     }

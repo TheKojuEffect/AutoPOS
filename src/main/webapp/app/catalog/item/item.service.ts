@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
 import { Item } from './item.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption, ResponseWrapper } from '../../shared';
 import { CostPriceInfo } from './CostPriceInfo';
 
 @Injectable()
@@ -28,8 +28,9 @@ export class ItemService {
         });
     }
 
-    find(id: number, detail: boolean = false): Observable<Item> {
-        return this.http.get(`${this.resourceUrl}/${id}`, {params: {detail: detail}})
+    find(id: number, detail = false): Observable<Item> {
+        const options = {params: {detail}};
+        return this.http.get(`${this.resourceUrl}/${id}`, options)
             .map((res: Response) => {
                 return res.json();
             });

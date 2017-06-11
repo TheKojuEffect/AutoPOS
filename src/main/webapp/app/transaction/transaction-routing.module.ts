@@ -22,7 +22,6 @@ export const transactionRoutes: Routes = [
     }
 ];
 
-
 @NgModule({
     imports: [
         RouterModule.forChild(transactionRoutes)

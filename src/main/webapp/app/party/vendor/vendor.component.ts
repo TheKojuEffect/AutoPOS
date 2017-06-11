@@ -29,8 +29,7 @@ export class VendorComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(
-                private vendorService: VendorService,
+    constructor(private vendorService: VendorService,
                 private parseLinks: ParseLinks,
                 private alertService: AlertService,
                 private principal: Principal,
@@ -101,7 +100,6 @@ export class VendorComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Vendor) {
         return item.id;
     }
-
 
     registerChangeInVendors() {
         this.eventSubscriber = this.eventManager.subscribe('vendorListModification', (response) => this.loadAll());

@@ -9,7 +9,6 @@ import { CategoryModule } from './category/category.module';
 import { BrandModule } from './brand/brand.module';
 import { TagModule } from './tag/tag.module';
 
-
 @NgModule({
     imports: [
         SharedModule,

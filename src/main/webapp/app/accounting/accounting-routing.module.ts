@@ -20,11 +20,9 @@ export const accountingRoutes: Routes = [
     }
 ];
 
-
 @NgModule({
     imports: [
         RouterModule.forChild(accountingRoutes)
-
     ],
     exports: [
         RouterModule

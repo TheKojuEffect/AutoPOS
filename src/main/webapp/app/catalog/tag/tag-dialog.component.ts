@@ -21,12 +21,10 @@ export class TagDialogComponent implements OnInit {
     authorities: any[];
     isSaving: boolean;
 
-    constructor(
-        public activeModal: NgbActiveModal,
-        private alertService: AlertService,
-        private tagService: TagService,
-        private eventManager: EventManager
-    ) {
+    constructor(public activeModal: NgbActiveModal,
+                private alertService: AlertService,
+                private tagService: TagService,
+                private eventManager: EventManager) {
     }
 
     ngOnInit() {
@@ -57,8 +55,8 @@ export class TagDialogComponent implements OnInit {
     private onSaveSuccess(result: Tag, isCreated: boolean) {
         this.alertService.success(
             isCreated ? 'autoPosApp.tag.created'
-            : 'autoPosApp.tag.updated',
-            { param : result.id }, null);
+                : 'autoPosApp.tag.updated',
+            {param: result.id}, null);
 
         this.eventManager.broadcast({name: 'tagListModification', content: 'OK'});
         this.isSaving = false;

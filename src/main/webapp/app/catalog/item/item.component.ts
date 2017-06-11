@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { AlertService, EventManager, PaginationUtil, ParseLinks } from 'ng-jhipster';
 
 import { Item } from './item.model';
 import { ItemService } from './item.service';
@@ -30,17 +30,15 @@ export class ItemComponent implements OnInit, OnDestroy {
     reverse: any;
     filter: string;
 
-    constructor(
-        private itemService: ItemService,
-        private parseLinks: ParseLinks,
-        private alertService: AlertService,
-        private principal: Principal,
-        private activatedRoute: ActivatedRoute,
-        private router: Router,
-        private eventManager: EventManager,
-        private paginationUtil: PaginationUtil,
-        private paginationConfig: PaginationConfig
-    ) {
+    constructor(private itemService: ItemService,
+                private parseLinks: ParseLinks,
+                private alertService: AlertService,
+                private principal: Principal,
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private eventManager: EventManager,
+                private paginationUtil: PaginationUtil,
+                private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
@@ -67,15 +65,17 @@ export class ItemComponent implements OnInit, OnDestroy {
         );
 
     }
+
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
+
     transition() {
-        this.router.navigate(['/catalog/item'], {queryParams:
-            {
+        this.router.navigate(['/catalog/item'], {
+            queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -92,6 +92,7 @@ export class ItemComponent implements OnInit, OnDestroy {
         }]);
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -107,6 +108,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Item) {
         return item.id;
     }
+
     registerChangeInItems() {
         this.eventSubscriber = this.eventManager.subscribe('itemListModification', (response) => this.loadAll());
     }
@@ -126,6 +128,7 @@ export class ItemComponent implements OnInit, OnDestroy {
         // this.page = pagingParams.page;
         this.items = data;
     }
+
     private onError(error) {
         this.alertService.error(error.message, null, null);
     }

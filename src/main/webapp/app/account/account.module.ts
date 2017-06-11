@@ -1,22 +1,22 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared';
 
 import {
-    Register,
+    accountState,
     Activate,
-    Password,
-    PasswordResetInit,
-    PasswordResetFinish,
-    PasswordStrengthBarComponent,
-    RegisterComponent,
     ActivateComponent,
+    Password,
     PasswordComponent,
-    PasswordResetInitComponent,
+    PasswordResetFinish,
     PasswordResetFinishComponent,
-    SettingsComponent,
-    accountState
+    PasswordResetInit,
+    PasswordResetInitComponent,
+    PasswordStrengthBarComponent,
+    Register,
+    RegisterComponent,
+    SettingsComponent
 } from './';
 
 @NgModule({

@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager  } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { Category } from './category.model';
 import { CategoryService } from './category.service';
@@ -16,11 +16,9 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(
-        private eventManager: EventManager,
-        private categoryService: CategoryService,
-        private route: ActivatedRoute
-    ) {
+    constructor(private eventManager: EventManager,
+                private categoryService: CategoryService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -35,6 +33,7 @@ export class CategoryDetailComponent implements OnInit, OnDestroy {
             this.category = category;
         });
     }
+
     previousState() {
         window.history.back();
     }

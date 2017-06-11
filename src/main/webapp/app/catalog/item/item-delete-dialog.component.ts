@@ -16,12 +16,10 @@ export class ItemDeleteDialogComponent {
 
     item: Item;
 
-    constructor(
-                private itemService: ItemService,
+    constructor(private itemService: ItemService,
                 public activeModal: NgbActiveModal,
-        private alertService: AlertService,
-        private eventManager: EventManager
-    ) {
+                private alertService: AlertService,
+                private eventManager: EventManager) {
     }
 
     clear() {
@@ -36,7 +34,7 @@ export class ItemDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.item.deleted', { param : id }, null);
+        this.alertService.success('autoPosApp.item.deleted', {param: id}, null);
     }
 }
 

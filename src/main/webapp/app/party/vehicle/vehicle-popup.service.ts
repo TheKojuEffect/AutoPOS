@@ -28,7 +28,7 @@ export class VehiclePopupService {
     }
 
     vehicleModalRef(component: Component, vehicle: Vehicle): NgbModalRef {
-        const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, {size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.vehicle = vehicle;
         modalRef.result.then((result) => {
             this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});

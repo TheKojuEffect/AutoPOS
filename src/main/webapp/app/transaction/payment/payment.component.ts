@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { AlertService, EventManager, PaginationUtil, ParseLinks } from 'ng-jhipster';
 
 import { Payment } from './payment.model';
 import { PaymentService } from './payment.service';
@@ -29,17 +29,15 @@ export class PaymentComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(
-        private paymentService: PaymentService,
-        private parseLinks: ParseLinks,
-        private alertService: AlertService,
-        private principal: Principal,
-        private activatedRoute: ActivatedRoute,
-        private router: Router,
-        private eventManager: EventManager,
-        private paginationUtil: PaginationUtil,
-        private paginationConfig: PaginationConfig
-    ) {
+    constructor(private paymentService: PaymentService,
+                private parseLinks: ParseLinks,
+                private alertService: AlertService,
+                private principal: Principal,
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private eventManager: EventManager,
+                private paginationUtil: PaginationUtil,
+                private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
@@ -53,20 +51,23 @@ export class PaymentComponent implements OnInit, OnDestroy {
         this.paymentService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()}).subscribe(
+            sort: this.sort()
+        }).subscribe(
             (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
             (res: ResponseWrapper) => this.onError(res.json)
         );
     }
+
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
+
     transition() {
-        this.router.navigate(['/transaction/payment'], {queryParams:
-            {
+        this.router.navigate(['/transaction/payment'], {
+            queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
@@ -83,6 +84,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
         }]);
         this.loadAll();
     }
+
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -98,6 +100,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Payment) {
         return item.id;
     }
+
     registerChangeInPayments() {
         this.eventSubscriber = this.eventManager.subscribe('paymentListModification', (response) => this.loadAll());
     }
@@ -117,6 +120,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
         // this.page = pagingParams.page;
         this.payments = data;
     }
+
     private onError(error) {
         this.alertService.error(error.message, null, null);
     }

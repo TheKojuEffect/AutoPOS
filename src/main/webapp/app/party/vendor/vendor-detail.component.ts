@@ -16,11 +16,9 @@ export class VendorDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(
-        private eventManager: EventManager,
+    constructor(private eventManager: EventManager,
                 private vendorService: VendorService,
-        private route: ActivatedRoute
-    ) {
+                private route: ActivatedRoute) {
     }
 
     ngOnInit() {

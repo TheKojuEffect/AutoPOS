@@ -3,5 +3,5 @@ export * from './purchase.service';
 export * from './purchase-detail.component';
 export * from './purchase.component';
 export * from './purchase.route';
-export * from './purchase-line.model'
-export * from './purchase-line.service'
+export * from './purchase-line.model';
+export * from './purchase-line.service';

@@ -101,7 +101,6 @@ export class TagComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInTags() {
         this.eventSubscriber = this.eventManager.subscribe('tagListModification', (response) => this.loadAll());
     }

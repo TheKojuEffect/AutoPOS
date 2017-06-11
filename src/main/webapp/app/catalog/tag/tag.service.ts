@@ -46,7 +46,7 @@ export class TagService {
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
         return new ResponseWrapper(res.headers, jsonResponse, res.status);
-            }
+    }
 
     private convert(tag: Tag): Tag {
         const copy: Tag = Object.assign({}, tag);

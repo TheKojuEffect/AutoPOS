@@ -79,7 +79,6 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
         return item.id;
     }
 
-
     registerChangeInPriceHistories() {
         this.eventSubscriber = this.eventManager.subscribe('priceHistoryListModification', (response) => this.reset());
     }

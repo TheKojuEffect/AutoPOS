@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
+import { AlertService, EventManager, PaginationUtil, ParseLinks } from 'ng-jhipster';
 
 import { DayBookEntry } from './day-book-entry.model';
 import { DayBookEntryService } from './day-book-entry.service';
@@ -29,8 +29,7 @@ export class DayBookEntryComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(
-                private dayBookEntryService: DayBookEntryService,
+    constructor(private dayBookEntryService: DayBookEntryService,
                 private parseLinks: ParseLinks,
                 private alertService: AlertService,
                 private principal: Principal,
@@ -101,7 +100,6 @@ export class DayBookEntryComponent implements OnInit, OnDestroy {
     trackId(index: number, item: DayBookEntry) {
         return item.id;
     }
-
 
     registerChangeInDayBookEntries() {
         this.eventSubscriber = this.eventManager.subscribe('dayBookEntryListModification', (response) => this.loadAll());
