@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
@@ -22,9 +22,9 @@ export class TagDialogComponent implements OnInit {
     isSaving: boolean;
 
     constructor(public activeModal: NgbActiveModal,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private tagService: TagService,
-                private eventManager: EventManager) {
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -99,7 +99,6 @@ export class TagDialogComponent implements OnInit {
 })
 export class TagPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(private route: ActivatedRoute,
@@ -109,11 +108,11 @@ export class TagPopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
-                this.modalRef = this.tagPopupService
-                    .open(TagDialogComponent, params['id']);
+                this.tagPopupService
+                    .open(TagDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.tagPopupService
-                    .open(TagDialogComponent);
+                this.tagPopupService
+                    .open(TagDialogComponent as Component);
             }
 
         });

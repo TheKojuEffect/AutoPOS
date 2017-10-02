@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { Brand } from './brand.model';
 import { BrandPopupService } from './brand-popup.service';
@@ -21,9 +21,9 @@ export class BrandDialogComponent implements OnInit {
     isSaving: boolean;
 
     constructor(public activeModal: NgbActiveModal,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private brandService: BrandService,
-                private eventManager: EventManager) {
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -94,10 +94,10 @@ export class BrandPopupComponent implements OnInit, OnDestroy {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.brandPopupService
-                    .open(BrandDialogComponent, params['id']);
+                    .open(BrandDialogComponent as Component, params['id']);
             } else {
                 this.modalRef = this.brandPopupService
-                    .open(BrandDialogComponent);
+                    .open(BrandDialogComponent as Component);
             }
         });
     }

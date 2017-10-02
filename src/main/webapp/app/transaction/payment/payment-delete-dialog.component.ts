@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Payment } from './payment.model';
 import { PaymentPopupService } from './payment-popup.service';
@@ -16,10 +16,11 @@ export class PaymentDeleteDialogComponent {
 
     payment: Payment;
 
-    constructor(private paymentService: PaymentService,
-                public activeModal: NgbActiveModal,
-                private alertService: AlertService,
-                private eventManager: EventManager) {
+    constructor(
+        private paymentService: PaymentService,
+        public activeModal: NgbActiveModal,
+        private eventManager: JhiEventManager
+    ) {
     }
 
     clear() {
@@ -34,7 +35,6 @@ export class PaymentDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.payment.deleted', {param: id}, null);
     }
 }
 
@@ -44,17 +44,17 @@ export class PaymentDeleteDialogComponent {
 })
 export class PaymentDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private paymentPopupService: PaymentPopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private paymentPopupService: PaymentPopupService
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.paymentPopupService
-                .open(PaymentDeleteDialogComponent, params['id']);
+            this.paymentPopupService
+                .open(PaymentDeleteDialogComponent as Component, params['id']);
         });
     }
 

@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
+
 import { PriceHistory } from './price-history.model';
 import { PriceHistoryService } from './price-history.service';
 
@@ -12,28 +13,28 @@ import { PriceHistoryService } from './price-history.service';
 export class PriceHistoryDetailComponent implements OnInit, OnDestroy {
 
     priceHistory: PriceHistory;
-    private subscription: any;
+    private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(private eventManager: EventManager, private jhiLanguageService: JhiLanguageService,
-                private priceHistoryService: PriceHistoryService,
-                private route: ActivatedRoute) {
-        this.jhiLanguageService.setLocations(['priceHistory']);
+    constructor(
+        private eventManager: JhiEventManager,
+        private priceHistoryService: PriceHistoryService,
+        private route: ActivatedRoute
+    ) {
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(params => {
+        this.subscription = this.route.params.subscribe((params) => {
             this.load(params['id']);
         });
-        this.registerChangeInPriceHistorys();
+        this.registerChangeInPriceHistories();
     }
 
     load(id) {
-        this.priceHistoryService.find(id).subscribe(priceHistory => {
+        this.priceHistoryService.find(id).subscribe((priceHistory) => {
             this.priceHistory = priceHistory;
         });
     }
-
     previousState() {
         window.history.back();
     }
@@ -43,8 +44,10 @@ export class PriceHistoryDetailComponent implements OnInit, OnDestroy {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    registerChangeInPriceHistorys() {
-        this.eventSubscriber = this.eventManager.subscribe('priceHistoryListModification', response => this.load(this.priceHistory.id));
+    registerChangeInPriceHistories() {
+        this.eventSubscriber = this.eventManager.subscribe(
+            'priceHistoryListModification',
+            (response) => this.load(this.priceHistory.id)
+        );
     }
-
 }

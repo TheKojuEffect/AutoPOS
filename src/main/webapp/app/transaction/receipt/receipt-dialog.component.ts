@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
 import { ReceiptPopupService } from './receipt-popup.service';
@@ -26,10 +26,10 @@ export class ReceiptDialogComponent implements OnInit {
     dateDp: any;
 
     constructor(public activeModal: NgbActiveModal,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private receiptService: ReceiptService,
                 private customerService: CustomerService,
-                private eventManager: EventManager) {
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -108,10 +108,10 @@ export class ReceiptPopupComponent implements OnInit, OnDestroy {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
                 this.modalRef = this.receiptPopupService
-                    .open(ReceiptDialogComponent, params['id']);
+                    .open(ReceiptDialogComponent as Component, params['id']);
             } else {
                 this.modalRef = this.receiptPopupService
-                    .open(ReceiptDialogComponent);
+                    .open(ReceiptDialogComponent as Component);
             }
         });
     }

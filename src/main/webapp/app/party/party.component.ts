@@ -6,8 +6,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 })
 export class PartyComponent {
 
-    constructor(private jhiLanguageService: JhiLanguageService) {
-        this.jhiLanguageService.setLocations(['party']);
+    constructor() {
     }
 
 }

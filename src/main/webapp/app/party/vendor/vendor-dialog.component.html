@@ -8,7 +8,13 @@
         </button>
     </div>
     <div class="modal-body">
-        <jhi-alert-error></jhi-alert-error>
+        <apos-alert-error></apos-alert-error>
+
+        <div class="form-group" [hidden]="!vendor.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="vendor.id" readonly />
+        </div>
 
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="autoPosApp.vendor.name" for="field_name">Name</label>

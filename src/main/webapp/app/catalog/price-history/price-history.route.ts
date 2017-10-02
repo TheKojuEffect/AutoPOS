@@ -1,10 +1,13 @@
-import { Routes } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+
+import { UserRouteAccessService } from '../../shared';
+import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { PriceHistoryComponent } from './price-history.component';
 import { PriceHistoryDetailComponent } from './price-history-detail.component';
 import { PriceHistoryPopupComponent } from './price-history-dialog.component';
 import { PriceHistoryDeletePopupComponent } from './price-history-delete-dialog.component';
-
 
 export const priceHistoryRoute: Routes = [
     {
@@ -13,14 +16,16 @@ export const priceHistoryRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.priceHistory.home.title'
-        }
+        },
+        canActivate: [UserRouteAccessService]
     }, {
         path: 'price-history/:id',
         component: PriceHistoryDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.priceHistory.home.title'
-        }
+        },
+        canActivate: [UserRouteAccessService]
     }
 ];
 
@@ -32,6 +37,7 @@ export const priceHistoryPopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.priceHistory.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
@@ -41,6 +47,7 @@ export const priceHistoryPopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.priceHistory.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     },
     {
@@ -50,6 +57,7 @@ export const priceHistoryPopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'autoPosApp.priceHistory.home.title'
         },
+        canActivate: [UserRouteAccessService],
         outlet: 'popup'
     }
 ];

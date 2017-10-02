@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { Item } from './item.model';
 import { ItemPopupService } from './item-popup.service';
@@ -18,8 +18,8 @@ export class ItemDeleteDialogComponent {
 
     constructor(private itemService: ItemService,
                 public activeModal: NgbActiveModal,
-                private alertService: AlertService,
-                private eventManager: EventManager) {
+                private alertService: JhiAlertService,
+                private eventManager: JhiEventManager) {
     }
 
     clear() {
@@ -54,7 +54,7 @@ export class ItemDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.itemPopupService
-                .open(ItemDeleteDialogComponent, params['id']);
+                .open(ItemDeleteDialogComponent as Component, params['id']);
         });
     }
 

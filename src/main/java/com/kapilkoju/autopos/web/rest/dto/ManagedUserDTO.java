@@ -3,7 +3,7 @@ package com.kapilkoju.autopos.web.rest.dto;
 
 import com.kapilkoju.autopos.user.domain.User;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 /**
  * A DTO extending the UserDTO, which is meant to be used in the user management UI.
@@ -12,11 +12,11 @@ public class ManagedUserDTO extends UserDTO {
 
     private Long id;
 
-    private LocalDateTime createdDate;
+    private Instant createdDate;
 
     private String lastModifiedBy;
 
-    private LocalDateTime lastModifiedDate;
+    private Instant lastModifiedDate;
 
     public ManagedUserDTO() {
     }
@@ -37,11 +37,11 @@ public class ManagedUserDTO extends UserDTO {
         this.id = id;
     }
 
-    public LocalDateTime getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -53,11 +53,11 @@ public class ManagedUserDTO extends UserDTO {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public LocalDateTime getLastModifiedDate() {
+    public Instant getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+    public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 

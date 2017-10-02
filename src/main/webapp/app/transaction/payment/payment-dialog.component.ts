@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { Payment } from './payment.model';
 import { PaymentPopupService } from './payment-popup.service';
@@ -26,10 +26,10 @@ export class PaymentDialogComponent implements OnInit {
     dateDp: any;
 
     constructor(public activeModal: NgbActiveModal,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private paymentService: PaymentService,
                 private vendorService: VendorService,
-                private eventManager: EventManager) {
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -107,11 +107,11 @@ export class PaymentPopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
-                this.modalRef = this.paymentPopupService
-                    .open(PaymentDialogComponent, params['id']);
+                this.paymentPopupService
+                    .open(PaymentDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.paymentPopupService
-                    .open(PaymentDialogComponent);
+                this.paymentPopupService
+                    .open(PaymentDialogComponent as Component);
             }
         });
     }

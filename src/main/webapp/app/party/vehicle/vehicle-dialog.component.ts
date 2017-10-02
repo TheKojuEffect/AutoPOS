@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { Vehicle } from './vehicle.model';
 import { VehiclePopupService } from './vehicle-popup.service';
@@ -25,10 +25,10 @@ export class VehicleDialogComponent implements OnInit {
     customers: Customer[];
 
     constructor(public activeModal: NgbActiveModal,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private vehicleService: VehicleService,
                 private customerService: CustomerService,
-                private eventManager: EventManager) {
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -96,7 +96,6 @@ export class VehicleDialogComponent implements OnInit {
 })
 export class VehiclePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(private route: ActivatedRoute,
@@ -106,11 +105,11 @@ export class VehiclePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
-                this.modalRef = this.vehiclePopupService
-                    .open(VehicleDialogComponent, params['id']);
+                this.vehiclePopupService
+                    .open(VehicleDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.vehiclePopupService
-                    .open(VehicleDialogComponent);
+               this.vehiclePopupService
+                    .open(VehicleDialogComponent as Component);
             }
 
         });

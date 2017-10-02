@@ -17,7 +17,6 @@ public class LoggerVM {
         this.level = logger.getEffectiveLevel().toString();
     }
 
-    @JsonCreator
     public LoggerVM() {
         // Empty public constructor used by Jackson.
     }

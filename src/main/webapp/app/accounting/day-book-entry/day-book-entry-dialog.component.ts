@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { DayBookEntry } from './day-book-entry.model';
 import { DayBookEntryPopupService } from './day-book-entry-popup.service';
@@ -22,9 +22,9 @@ export class DayBookEntryDialogComponent implements OnInit {
     dateDp: any;
 
     constructor(public activeModal: NgbActiveModal,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private dayBookEntryService: DayBookEntryService,
-                private eventManager: EventManager) {
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -84,7 +84,6 @@ export class DayBookEntryDialogComponent implements OnInit {
 })
 export class DayBookEntryPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(private route: ActivatedRoute,
@@ -94,11 +93,11 @@ export class DayBookEntryPopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
-                this.modalRef = this.dayBookEntryPopupService
-                    .open(DayBookEntryDialogComponent, params['id']);
+                this.dayBookEntryPopupService
+                    .open(DayBookEntryDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.dayBookEntryPopupService
-                    .open(DayBookEntryDialogComponent);
+                this.dayBookEntryPopupService
+                    .open(DayBookEntryDialogComponent as Component);
             }
         });
     }

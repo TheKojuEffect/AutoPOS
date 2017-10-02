@@ -1,21 +1,21 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../../shared';
 
+import { SharedModule } from '../../shared';
 import {
+    PriceHistoryService,
+    PriceHistoryPopupService,
     PriceHistoryComponent,
-    PriceHistoryDeleteDialogComponent,
-    PriceHistoryDeletePopupComponent,
     PriceHistoryDetailComponent,
     PriceHistoryDialogComponent,
     PriceHistoryPopupComponent,
-    priceHistoryPopupRoute,
-    PriceHistoryPopupService,
+    PriceHistoryDeletePopupComponent,
+    PriceHistoryDeleteDialogComponent,
     priceHistoryRoute,
-    PriceHistoryService
+    priceHistoryPopupRoute,
 } from './';
 
-let ENTITY_STATES = [
+const ENTITY_STATES = [
     ...priceHistoryRoute,
     ...priceHistoryPopupRoute,
 ];

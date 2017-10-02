@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { JhiEventManager} from 'ng-jhipster';
 import { Sale } from './sale.model';
 import { SaleService } from './sale.service';
 import { ItemService } from '../catalog/item/item.service';
@@ -33,15 +33,13 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     searchVehicleFailed = false;
     line = new SaleLine();
 
-    constructor(private eventManager: EventManager,
-                private jhiLanguageService: JhiLanguageService,
+    constructor(private eventManager: JhiEventManager,
                 private saleService: SaleService,
                 private saleLineService: SaleLineService,
                 private itemService: ItemService,
                 private vehicleService: VehicleService,
                 private router: Router,
                 private route: ActivatedRoute) {
-        this.jhiLanguageService.setLocations(['sale', 'saleStatus']);
     }
 
     ngOnInit() {

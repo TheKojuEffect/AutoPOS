@@ -12,7 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -25,12 +25,12 @@ public abstract class AuditableEntity
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
     @JsonView(Views.DateTimeAudited.class)
-    private LocalDateTime createdDate;
+    private Instant createdDate;
 
     @LastModifiedDate
     @Column(name = "last_modified_date", nullable = false)
     @JsonView(Views.DateTimeAudited.class)
-    private LocalDateTime lastModifiedDate;
+    private Instant lastModifiedDate;
 
     @CreatedBy
     @ManyToOne(fetch = LAZY, optional = false)
@@ -45,20 +45,20 @@ public abstract class AuditableEntity
     private User lastModifiedBy;
 
     @Override
-    public LocalDateTime getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    protected void setCreatedDate(LocalDateTime createdDate) {
+    protected void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
     @Override
-    public LocalDateTime getLastModifiedDate() {
+    public Instant getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    protected void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+    protected void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 

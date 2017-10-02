@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { AlertService, EventManager, JhiLanguageService, ParseLinks } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiAlertService } from 'ng-jhipster';
 
 import { PriceHistory } from './price-history.model';
 import { PriceHistoryService } from './price-history.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'apos-price-history',
@@ -24,12 +25,13 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private priceHistoryService: PriceHistoryService,
-                private alertService: AlertService,
-                private eventManager: EventManager,
-                private parseLinks: ParseLinks,
-                private principal: Principal) {
+    constructor(
+        private priceHistoryService: PriceHistoryService,
+        private jhiAlertService: JhiAlertService,
+        private eventManager: JhiEventManager,
+        private parseLinks: JhiParseLinks,
+        private principal: Principal
+    ) {
         this.priceHistories = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 0;
@@ -38,7 +40,6 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
         };
         this.predicate = 'id';
         this.reverse = true;
-        this.jhiLanguageService.setLocations(['priceHistory']);
     }
 
     loadAll() {
@@ -47,8 +48,8 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
             size: this.itemsPerPage,
             sort: this.sort()
         }).subscribe(
-            (res: Response) => this.onSuccess(res.json(), res.headers),
-            (res: Response) => this.onError(res.json())
+            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
+            (res: ResponseWrapper) => this.onError(res.json)
         );
     }
 
@@ -62,7 +63,6 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
         this.page = page;
         this.loadAll();
     }
-
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -78,13 +78,12 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
     trackId(index: number, item: PriceHistory) {
         return item.id;
     }
-
     registerChangeInPriceHistories() {
         this.eventSubscriber = this.eventManager.subscribe('priceHistoryListModification', (response) => this.reset());
     }
 
     sort() {
-        let result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
         if (this.predicate !== 'id') {
             result.push('id');
         }
@@ -100,6 +99,6 @@ export class PriceHistoryComponent implements OnInit, OnDestroy {
     }
 
     private onError(error) {
-        this.alertService.error(error.message, null, null);
+        this.jhiAlertService.error(error.message, null, null);
     }
 }

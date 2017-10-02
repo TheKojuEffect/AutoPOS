@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { AlertService, EventManager, PaginationUtil, ParseLinks } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks } from 'ng-jhipster';
 
 import { DayBookEntry } from './day-book-entry.model';
 import { DayBookEntryService } from './day-book-entry.service';
@@ -30,13 +30,13 @@ export class DayBookEntryComponent implements OnInit, OnDestroy {
     reverse: any;
 
     constructor(private dayBookEntryService: DayBookEntryService,
-                private parseLinks: ParseLinks,
-                private alertService: AlertService,
+                private parseLinks: JhiParseLinks,
+                private alertService: JhiAlertService,
                 private principal: Principal,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private eventManager: EventManager,
-                private paginationUtil: PaginationUtil,
+                private eventManager: JhiEventManager,
+                private paginationUtil: JhiPaginationUtil,
                 private paginationConfig: PaginationConfig) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe((data) => {

@@ -2,17 +2,17 @@ package com.kapilkoju.autopos.kernel.domain;
 
 import com.kapilkoju.autopos.user.domain.User;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public interface AuditedEntity {
 
     User getCreatedBy();
 
-    LocalDateTime getCreatedDate();
+    Instant getCreatedDate();
 
     User getLastModifiedBy();
 
-    LocalDateTime getLastModifiedDate();
+    Instant getLastModifiedDate();
 
 }
 

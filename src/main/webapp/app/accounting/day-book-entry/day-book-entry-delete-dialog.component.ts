@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { DayBookEntry } from './day-book-entry.model';
 import { DayBookEntryPopupService } from './day-book-entry-popup.service';
@@ -18,8 +18,8 @@ export class DayBookEntryDeleteDialogComponent {
 
     constructor(private dayBookEntryService: DayBookEntryService,
                 public activeModal: NgbActiveModal,
-                private alertService: AlertService,
-                private eventManager: EventManager) {
+                private alertService: JhiAlertService,
+                private eventManager: JhiEventManager) {
     }
 
     clear() {
@@ -54,7 +54,7 @@ export class DayBookEntryDeletePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.dayBookEntryPopupService
-                .open(DayBookEntryDeleteDialogComponent, params['id']);
+                .open(DayBookEntryDeleteDialogComponent as Component, params['id']);
         });
     }
 

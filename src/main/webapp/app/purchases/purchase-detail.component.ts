@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { EventManager, JhiLanguageService } from 'ng-jhipster';
+import { JhiEventManager} from 'ng-jhipster';
 import { Purchase } from './purchase.model';
 import { PurchaseService } from './purchase.service';
 import { ItemService } from '../catalog/item/item.service';
@@ -33,15 +33,13 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
     searchVendorFailed = false;
     line = new PurchaseLine();
 
-    constructor(private eventManager: EventManager,
-                private jhiLanguageService: JhiLanguageService,
+    constructor(private eventManager: JhiEventManager,
                 private purchaseService: PurchaseService,
                 private purchaseLineService: PurchaseLineService,
                 private itemService: ItemService,
                 private vendorService: VendorService,
                 private router: Router,
                 private route: ActivatedRoute) {
-        this.jhiLanguageService.setLocations(['purchase']);
     }
 
     ngOnInit() {

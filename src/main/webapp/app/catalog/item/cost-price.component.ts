@@ -51,7 +51,7 @@ export class CostPricePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             this.modalRef = this.itemPopupService
-                .open(CostPriceDialogComponent, params['id']);
+                .open(CostPriceDialogComponent as Component, params['id']);
         });
     }
 

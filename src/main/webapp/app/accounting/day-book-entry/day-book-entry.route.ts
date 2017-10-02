@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { PaginationUtil } from 'ng-jhipster';
+import { JhiPaginationUtil } from 'ng-jhipster';
 
 import { DayBookEntryComponent } from './day-book-entry.component';
 import { DayBookEntryDetailComponent } from './day-book-entry-detail.component';
@@ -12,7 +12,7 @@ import { DayBookEntryDeletePopupComponent } from './day-book-entry-delete-dialog
 @Injectable()
 export class DayBookEntryResolvePagingParams implements Resolve<any> {
 
-    constructor(private paginationUtil: PaginationUtil) {
+    constructor(private paginationUtil: JhiPaginationUtil) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
-import { PaginationUtil } from 'ng-jhipster';
+import { JhiPaginationUtil } from 'ng-jhipster';
 import { PurchaseDetailComponent } from './purchase-detail.component';
 import { UserRouteAccessService } from '../shared/auth/user-route-access-service';
 import { PurchaseComponent } from './purchase.component';
@@ -8,7 +8,7 @@ import { PurchaseComponent } from './purchase.component';
 @Injectable()
 export class PurchaseResolvePagingParams implements Resolve<any> {
 
-    constructor(private paginationUtil: PaginationUtil) {
+    constructor(private paginationUtil: JhiPaginationUtil) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

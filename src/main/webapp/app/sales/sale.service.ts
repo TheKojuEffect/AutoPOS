@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { DateUtils } from 'ng-jhipster';
+import { JhiDateUtils } from 'ng-jhipster';
 
 import { Sale } from './sale.model';
 import { createRequestOption, ResponseWrapper } from '../shared';
@@ -11,7 +11,7 @@ export class SaleService {
 
     private resourceUrl = 'api/sales';
 
-    constructor(private http: Http, private dateUtils: DateUtils) {
+    constructor(private http: Http, private dateUtils: JhiDateUtils) {
     }
 
     create(): Observable<Sale> {

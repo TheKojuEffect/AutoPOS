@@ -3,6 +3,7 @@ package com.kapilkoju.autopos.web.rest.vm;
 import com.kapilkoju.autopos.web.rest.dto.UserDTO;
 
 import javax.validation.constraints.Size;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class ManagedUserVM extends UserDTO {
 
     public ManagedUserVM(Long id, String login, String password, String firstName, String lastName,
                          String email, boolean activated, String langKey,
-                         String createdBy, LocalDateTime createdDate, String lastModifiedBy, LocalDateTime lastModifiedDate,
+                         String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
                          Set<String> authorities) {
 
         super(id, login, firstName, lastName, email, activated, langKey,

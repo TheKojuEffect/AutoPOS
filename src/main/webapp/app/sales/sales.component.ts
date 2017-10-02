@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
 import { SaleService } from './sale.service';
 import { Router } from '@angular/router';
 
@@ -8,11 +7,8 @@ import { Router } from '@angular/router';
 })
 export class SalesComponent {
 
-    constructor(private jhiLanguageService: JhiLanguageService,
-                private saleService: SaleService,
+    constructor(private saleService: SaleService,
                 private router: Router) {
-
-        this.jhiLanguageService.setLocations(['sales']);
     }
 
     createNewSale() {

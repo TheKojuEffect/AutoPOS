@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService, EventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 
 import { Item } from './item.model';
 import { ItemPopupService } from './item-popup.service';
@@ -31,12 +31,12 @@ export class ItemDialogComponent implements OnInit {
     tags: Tag[];
 
     constructor(public activeModal: NgbActiveModal,
-                private alertService: AlertService,
+                private alertService: JhiAlertService,
                 private itemService: ItemService,
                 private categoryService: CategoryService,
                 private brandService: BrandService,
                 private tagService: TagService,
-                private eventManager: EventManager) {
+                private eventManager: JhiEventManager) {
     }
 
     ngOnInit() {
@@ -141,11 +141,11 @@ export class ItemPopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if (params['id']) {
-                this.modalRef = this.itemPopupService
-                    .open(ItemDialogComponent, params['id']);
+                this.itemPopupService
+                    .open(ItemDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.itemPopupService
-                    .open(ItemDialogComponent);
+                this.itemPopupService
+                    .open(ItemDialogComponent as Component);
             }
         });
     }
