@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Vendor } from './vendor.model';
 import { VendorPopupService } from './vendor-popup.service';
@@ -19,10 +19,12 @@ export class VendorDialogComponent implements OnInit {
     vendor: Vendor;
     isSaving: boolean;
 
-    constructor(public activeModal: NgbActiveModal,
-                private alertService: JhiAlertService,
-                private vendorService: VendorService,
-                private eventManager: JhiEventManager) {
+    constructor(
+        public activeModal: NgbActiveModal,
+        private jhiAlertService: JhiAlertService,
+        private vendorService: VendorService,
+        private eventManager: JhiEventManager
+    ) {
     }
 
     ngOnInit() {
@@ -50,7 +52,7 @@ export class VendorDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: Vendor) {
-        this.eventManager.broadcast({name: 'vendorListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'vendorListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -60,7 +62,7 @@ export class VendorDialogComponent implements OnInit {
     }
 
     private onError(error: any) {
-        this.alertService.error(error.message, null, null);
+        this.jhiAlertService.error(error.message, null, null);
     }
 }
 
@@ -72,13 +74,14 @@ export class VendorPopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private vendorPopupService: VendorPopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private vendorPopupService: VendorPopupService
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
+            if ( params['id'] ) {
                 this.vendorPopupService
                     .open(VendorDialogComponent as Component, params['id']);
             } else {

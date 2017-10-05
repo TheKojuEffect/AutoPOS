@@ -6,3 +6,4 @@ export * from './vendor-delete-dialog.component';
 export * from './vendor-detail.component';
 export * from './vendor.component';
 export * from './vendor.route';
+export * from './vendor-routing.module'

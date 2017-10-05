@@ -11,9 +11,9 @@ import {
     VendorPopupComponent,
     VendorPopupService,
     VendorResolvePagingParams,
-    VendorService
+    VendorRoutingModule,
+    VendorService,
 } from './';
-import { VendorRoutingModule } from './vendor-routing.module';
 
 @NgModule({
     imports: [

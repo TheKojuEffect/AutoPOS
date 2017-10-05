@@ -1,7 +1,10 @@
-export class Vendor {
-    constructor(public id?: number,
-                public name?: string,
-                public remarks?: string,
-                public phoneNumbers?: string[]) {
+import { BaseEntity } from './../../shared';
+
+export class Vendor implements BaseEntity {
+    constructor(
+        public id?: number,
+        public name?: string,
+        public remarks?: string,
+    ) {
     }
 }

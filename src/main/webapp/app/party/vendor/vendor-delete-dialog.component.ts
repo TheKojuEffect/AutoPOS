@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Vendor } from './vendor.model';
 import { VendorPopupService } from './vendor-popup.service';
@@ -16,10 +16,11 @@ export class VendorDeleteDialogComponent {
 
     vendor: Vendor;
 
-    constructor(private vendorService: VendorService,
-                public activeModal: NgbActiveModal,
-                private alertService: JhiAlertService,
-                private eventManager: JhiEventManager) {
+    constructor(
+        private vendorService: VendorService,
+        public activeModal: NgbActiveModal,
+        private eventManager: JhiEventManager
+    ) {
     }
 
     clear() {
@@ -34,7 +35,6 @@ export class VendorDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.vendor.deleted', {param: id}, null);
     }
 }
 
@@ -44,16 +44,16 @@ export class VendorDeleteDialogComponent {
 })
 export class VendorDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private vendorPopupService: VendorPopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private vendorPopupService: VendorPopupService
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.vendorPopupService
+            this.vendorPopupService
                 .open(VendorDeleteDialogComponent as Component, params['id']);
         });
     }
