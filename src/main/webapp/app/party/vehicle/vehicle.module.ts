@@ -11,9 +11,9 @@ import {
     VehiclePopupComponent,
     VehiclePopupService,
     VehicleResolvePagingParams,
-    VehicleService
+    VehicleRoutingModule,
+    VehicleService,
 } from './';
-import { VehicleRoutingModule } from './vehicle-routing.module';
 
 @NgModule({
     imports: [

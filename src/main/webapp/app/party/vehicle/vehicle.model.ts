@@ -1,9 +1,11 @@
-import { Customer } from '../customer';
+import { BaseEntity } from './../../shared';
 
-export class Vehicle {
-    constructor(public id?: number,
-                public number?: string,
-                public remarks?: string,
-                public owner?: Customer) {
+export class Vehicle implements BaseEntity {
+    constructor(
+        public id?: number,
+        public number?: string,
+        public remarks?: string,
+        public owner?: BaseEntity,
+    ) {
     }
 }

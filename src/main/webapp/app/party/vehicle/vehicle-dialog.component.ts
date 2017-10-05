@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Vehicle } from './vehicle.model';
 import { VehiclePopupService } from './vehicle-popup.service';
 import { VehicleService } from './vehicle.service';
 import { Customer, CustomerService } from '../customer';
-import { ResponseWrapper } from '../../shared/model/response-wrapper.model';
-import { Observable } from 'rxjs/Observable';
+import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'apos-vehicle-dialog',
@@ -19,25 +19,23 @@ import { Observable } from 'rxjs/Observable';
 export class VehicleDialogComponent implements OnInit {
 
     vehicle: Vehicle;
-    authorities: any[];
     isSaving: boolean;
 
     customers: Customer[];
 
-    constructor(public activeModal: NgbActiveModal,
-                private alertService: JhiAlertService,
-                private vehicleService: VehicleService,
-                private customerService: CustomerService,
-                private eventManager: JhiEventManager) {
+    constructor(
+        public activeModal: NgbActiveModal,
+        private jhiAlertService: JhiAlertService,
+        private vehicleService: VehicleService,
+        private customerService: CustomerService,
+        private eventManager: JhiEventManager
+    ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.customerService.query()
-            .subscribe((res: ResponseWrapper) => {
-                this.customers = res.json;
-            }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: ResponseWrapper) => { this.customers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -48,41 +46,30 @@ export class VehicleDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.vehicle.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.vehicleService.update(this.vehicle), false);
+                this.vehicleService.update(this.vehicle));
         } else {
             this.subscribeToSaveResponse(
-                this.vehicleService.create(this.vehicle), true);
+                this.vehicleService.create(this.vehicle));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Vehicle>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Vehicle>) {
         result.subscribe((res: Vehicle) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
     }
 
-    private onSaveSuccess(result: Vehicle, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'autoPosApp.vehicle.created'
-                : 'autoPosApp.vehicle.updated',
-            {param: result.id}, null);
-
-        this.eventManager.broadcast({name: 'vehicleListModification', content: 'OK'});
+    private onSaveSuccess(result: Vehicle) {
+        this.eventManager.broadcast({ name: 'vehicleListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
     }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackCustomerById(index: number, item: Customer) {
@@ -98,20 +85,20 @@ export class VehiclePopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private vehiclePopupService: VehiclePopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private vehiclePopupService: VehiclePopupService
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
+            if ( params['id'] ) {
                 this.vehiclePopupService
                     .open(VehicleDialogComponent as Component, params['id']);
             } else {
-               this.vehiclePopupService
+                this.vehiclePopupService
                     .open(VehicleDialogComponent as Component);
             }
-
         });
     }
 

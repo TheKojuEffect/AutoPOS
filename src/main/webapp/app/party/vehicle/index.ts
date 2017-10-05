@@ -6,3 +6,4 @@ export * from './vehicle-delete-dialog.component';
 export * from './vehicle-detail.component';
 export * from './vehicle.component';
 export * from './vehicle.route';
+export * from './vehicle-routing.module'
