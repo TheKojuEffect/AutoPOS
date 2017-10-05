@@ -1,15 +1,14 @@
 <div>
     <h2>
         <span jhiTranslate="autoPosApp.customer.home.title">Customers</span>
-        <button class="btn btn-primary float-right create-customer"
-                [routerLink]="['/', { outlets: { popup: ['customer-new'] } }]">
+        <button class="btn btn-primary float-right jh-create-entity create-customer" [routerLink]="['/', { outlets: { popup: ['customer-new'] } }]">
             <span class="fa fa-plus"></span>
-            <span jhiTranslate="autoPosApp.customer.home.createLabel">
+            <span  jhiTranslate="autoPosApp.customer.home.createLabel">
             Create new Customer
             </span>
         </button>
     </h2>
-    <jhi-alert></jhi-alert>
+    <apos-alert></apos-alert>
     <div class="row">
     </div>
     <br/>
@@ -17,11 +16,9 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="name"><span jhiTranslate="autoPosApp.customer.name">Name</span> <span
-                    class="fa fa-sort"></span></th>
-                <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.customer.remarks">Remarks</span> <span
-                    class="fa fa-sort"></span></th>
-                <th></th>
+            <th jhiSortBy="name"><span jhiTranslate="autoPosApp.customer.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="remarks"><span jhiTranslate="autoPosApp.customer.remarks">Remarks</span> <span class="fa fa-sort"></span></th>
+            <th></th>
             </tr>
             </thead>
             <tbody>
@@ -34,21 +31,21 @@
                                 [routerLink]="['../customer', customer.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'customer/'+ customer.id + '/edit'} }]"
                                 replaceUrl="true"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'customer/'+ customer.id + '/delete'} }]"
                                 replaceUrl="true"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
-                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
                 </td>
@@ -56,13 +53,12 @@
             </tbody>
         </table>
     </div>
-    <div *ngIf="customers && customers.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        <div *ngIf="customers && customers.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
         </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page"
-                            (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
-    </div>
 </div>

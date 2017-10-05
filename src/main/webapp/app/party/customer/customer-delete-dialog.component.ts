@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Customer } from './customer.model';
 import { CustomerPopupService } from './customer-popup.service';
@@ -16,10 +16,11 @@ export class CustomerDeleteDialogComponent {
 
     customer: Customer;
 
-    constructor(private customerService: CustomerService,
-                public activeModal: NgbActiveModal,
-                private alertService: JhiAlertService,
-                private eventManager: JhiEventManager) {
+    constructor(
+        private customerService: CustomerService,
+        public activeModal: NgbActiveModal,
+        private eventManager: JhiEventManager
+    ) {
     }
 
     clear() {
@@ -34,7 +35,6 @@ export class CustomerDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.customer.deleted', {param: id}, null);
     }
 }
 
@@ -44,16 +44,16 @@ export class CustomerDeleteDialogComponent {
 })
 export class CustomerDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private customerPopupService: CustomerPopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private customerPopupService: CustomerPopupService
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.customerPopupService
+            this.customerPopupService
                 .open(CustomerDeleteDialogComponent as Component, params['id']);
         });
     }

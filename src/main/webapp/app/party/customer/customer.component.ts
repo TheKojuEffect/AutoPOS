@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
 
 import { Customer } from './customer.model';
 import { CustomerService } from './customer.service';
@@ -14,7 +14,7 @@ import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 })
 export class CustomerComponent implements OnInit, OnDestroy {
 
-    currentAccount: any;
+currentAccount: any;
     customers: Customer[];
     error: any;
     success: any;
@@ -29,15 +29,17 @@ export class CustomerComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    constructor(private customerService: CustomerService,
-                private parseLinks: JhiParseLinks,
-                private alertService: JhiAlertService,
-                private principal: Principal,
-                private activatedRoute: ActivatedRoute,
-                private router: Router,
-                private eventManager: JhiEventManager,
-                private paginationUtil: JhiPaginationUtil,
-                private paginationConfig: PaginationConfig) {
+    constructor(
+        private customerService: CustomerService,
+        private parseLinks: JhiParseLinks,
+        private jhiAlertService: JhiAlertService,
+        private principal: Principal,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private eventManager: JhiEventManager,
+        private paginationUtil: JhiPaginationUtil,
+        private paginationConfig: PaginationConfig
+    ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
@@ -51,20 +53,17 @@ export class CustomerComponent implements OnInit, OnDestroy {
         this.customerService.query({
             page: this.page - 1,
             size: this.itemsPerPage,
-            sort: this.sort()
-        }).subscribe(
+            sort: this.sort()}).subscribe(
             (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
             (res: ResponseWrapper) => this.onError(res.json)
         );
     }
-
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
-
     transition() {
         this.router.navigate(['/party/customer'], {
             queryParams: {
@@ -84,7 +83,6 @@ export class CustomerComponent implements OnInit, OnDestroy {
         }]);
         this.loadAll();
     }
-
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -100,7 +98,6 @@ export class CustomerComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Customer) {
         return item.id;
     }
-
     registerChangeInCustomers() {
         this.eventSubscriber = this.eventManager.subscribe('customerListModification', (response) => this.loadAll());
     }
@@ -120,8 +117,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
         // this.page = pagingParams.page;
         this.customers = data;
     }
-
     private onError(error) {
-        this.alertService.error(error.message, null, null);
+        this.jhiAlertService.error(error.message, null, null);
     }
 }

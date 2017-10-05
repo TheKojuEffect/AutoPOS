@@ -11,9 +11,9 @@ import {
     CustomerPopupComponent,
     CustomerPopupService,
     CustomerResolvePagingParams,
-    CustomerService
+    CustomerRoutingModule,
+    CustomerService,
 } from './';
-import { CustomerRoutingModule } from './customer-routing.module';
 
 @NgModule({
     imports: [
