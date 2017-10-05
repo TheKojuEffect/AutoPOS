@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { SERVER_API_URL } from '../../app.constants';
+
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { DayBookEntry } from './day-book-entry.model';
-import { createRequestOption, ResponseWrapper } from '../../shared';
+import { ResponseWrapper, createRequestOption } from '../../shared';
 
 @Injectable()
 export class DayBookEntryService {
 
-    private resourceUrl = 'api/day-book-entries';
+    private resourceUrl = SERVER_API_URL + 'api/day-book-entries';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) {
-    }
+    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
     create(dayBookEntry: DayBookEntry): Observable<DayBookEntry> {
         const copy = this.convert(dayBookEntry);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -27,16 +27,14 @@ export class DayBookEntryService {
         const copy = this.convert(dayBookEntry);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
     find(id: number): Observable<DayBookEntry> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -52,17 +50,26 @@ export class DayBookEntryService {
 
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
+        const result = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            this.convertItemFromServer(jsonResponse[i]);
+            result.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+        return new ResponseWrapper(res.headers, result, res.status);
     }
 
-    private convertItemFromServer(entity: any) {
+    /**
+     * Convert a returned JSON object to DayBookEntry.
+     */
+    private convertItemFromServer(json: any): DayBookEntry {
+        const entity: DayBookEntry = Object.assign(new DayBookEntry(), json);
         entity.date = this.dateUtils
-            .convertLocalDateFromServer(entity.date);
+            .convertLocalDateFromServer(json.date);
+        return entity;
     }
 
+    /**
+     * Convert a DayBookEntry to a JSON which can be sent to the server.
+     */
     private convert(dayBookEntry: DayBookEntry): DayBookEntry {
         const copy: DayBookEntry = Object.assign({}, dayBookEntry);
         copy.date = this.dateUtils

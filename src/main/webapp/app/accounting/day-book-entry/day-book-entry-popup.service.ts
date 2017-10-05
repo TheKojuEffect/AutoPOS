@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DayBookEntry } from './day-book-entry.model';
@@ -6,50 +6,55 @@ import { DayBookEntryService } from './day-book-entry.service';
 
 @Injectable()
 export class DayBookEntryPopupService {
-    private isOpen = false;
+    private ngbModalRef: NgbModalRef;
 
-    constructor(private modalService: NgbModal,
-                private router: Router,
-                private dayBookEntryService: DayBookEntryService) {
+    constructor(
+        private modalService: NgbModal,
+        private router: Router,
+        private dayBookEntryService: DayBookEntryService
+
+    ) {
+        this.ngbModalRef = null;
     }
 
-    open(component: Component, id?: number | any): NgbModalRef {
-        if (this.isOpen) {
-            return;
-        }
-        this.isOpen = true;
+    open(component: Component, id?: number | any): Promise<NgbModalRef> {
+        return new Promise<NgbModalRef>((resolve, reject) => {
+            const isOpen = this.ngbModalRef !== null;
+            if (isOpen) {
+                resolve(this.ngbModalRef);
+            }
 
-        if (id) {
-            this.dayBookEntryService.find(id).subscribe(dayBookEntry => {
-                if (dayBookEntry.date) {
-                    dayBookEntry.date = convertDate(dayBookEntry.date);
-                }
-                this.dayBookEntryModalRef(component, dayBookEntry);
-            });
-        } else {
-            const dayEntry = new DayBookEntry();
-            dayEntry.date = convertDate(new Date());
-            return this.dayBookEntryModalRef(component, dayEntry);
-        }
-
-        function convertDate(date) {
-            return {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                day: date.getDate()
-            };
-        }
+            if (id) {
+                this.dayBookEntryService.find(id).subscribe((dayBookEntry) => {
+                    if (dayBookEntry.date) {
+                        dayBookEntry.date = {
+                            year: dayBookEntry.date.getFullYear(),
+                            month: dayBookEntry.date.getMonth() + 1,
+                            day: dayBookEntry.date.getDate()
+                        };
+                    }
+                    this.ngbModalRef = this.dayBookEntryModalRef(component, dayBookEntry);
+                    resolve(this.ngbModalRef);
+                });
+            } else {
+                // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
+                setTimeout(() => {
+                    this.ngbModalRef = this.dayBookEntryModalRef(component, new DayBookEntry());
+                    resolve(this.ngbModalRef);
+                }, 0);
+            }
+        });
     }
 
     dayBookEntryModalRef(component: Component, dayBookEntry: DayBookEntry): NgbModalRef {
-        const modalRef = this.modalService.open(component, {size: 'lg', backdrop: 'static'});
+        const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.dayBookEntry = dayBookEntry;
-        modalRef.result.then(result => {
-            this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});
-            this.isOpen = false;
+        modalRef.result.then((result) => {
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.ngbModalRef = null;
         }, (reason) => {
-            this.router.navigate([{outlets: {popup: null}}], {replaceUrl: true});
-            this.isOpen = false;
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.ngbModalRef = null;
         });
         return modalRef;
     }

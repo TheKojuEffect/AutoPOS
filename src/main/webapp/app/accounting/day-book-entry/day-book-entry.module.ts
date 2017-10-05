@@ -1,7 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared';
-
 import {
     DayBookEntryComponent,
     DayBookEntryDeleteDialogComponent,
@@ -11,9 +10,9 @@ import {
     DayBookEntryPopupComponent,
     DayBookEntryPopupService,
     DayBookEntryResolvePagingParams,
+    DayBookEntryRoutingModule,
     DayBookEntryService
 } from './';
-import { DayBookEntryRoutingModule } from '.';
 
 @NgModule({
     imports: [

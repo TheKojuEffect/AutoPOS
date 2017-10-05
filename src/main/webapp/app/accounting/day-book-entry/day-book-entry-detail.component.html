@@ -1,29 +1,25 @@
+
 <div *ngIf="dayBookEntry">
     <h2>{{dayBookEntry.date | date:'mediumDate'}}</h2>
     <hr>
-    <jhi-alert-error></jhi-alert-error>
+    <apos-alert-error></apos-alert-error>
     <dl class="row-md jh-entity-details">
-
         <dt><span jhiTranslate="autoPosApp.dayBookEntry.date">Date</span></dt>
         <dd>
             <span>{{dayBookEntry.date | date:'mediumDate'}}</span>
         </dd>
-
         <dt><span jhiTranslate="autoPosApp.dayBookEntry.incomingAmount">Incoming Amount</span></dt>
         <dd>
             <span>{{dayBookEntry.incomingAmount}}</span>
         </dd>
-
         <dt><span jhiTranslate="autoPosApp.dayBookEntry.outgoingAmount">Outgoing Amount</span></dt>
         <dd>
             <span>{{dayBookEntry.outgoingAmount}}</span>
         </dd>
-
         <dt><span jhiTranslate="autoPosApp.dayBookEntry.miscExpenses">Misc Expenses</span></dt>
         <dd>
             <span>{{dayBookEntry.miscExpenses}}</span>
         </dd>
-
         <dt><span jhiTranslate="autoPosApp.dayBookEntry.remarks">Remarks</span></dt>
         <dd>
             <span>{{dayBookEntry.remarks}}</span>

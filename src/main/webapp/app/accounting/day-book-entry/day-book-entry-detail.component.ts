@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { JhiEventManager } from 'ng-jhipster';
@@ -16,9 +16,11 @@ export class DayBookEntryDetailComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     private eventSubscriber: Subscription;
 
-    constructor(private eventManager: JhiEventManager,
-                private dayBookEntryService: DayBookEntryService,
-                private route: ActivatedRoute) {
+    constructor(
+        private eventManager: JhiEventManager,
+        private dayBookEntryService: DayBookEntryService,
+        private route: ActivatedRoute
+    ) {
     }
 
     ngOnInit() {
