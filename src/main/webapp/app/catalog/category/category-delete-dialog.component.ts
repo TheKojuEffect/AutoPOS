@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Category } from './category.model';
 import { CategoryPopupService } from './category-popup.service';
@@ -16,10 +16,11 @@ export class CategoryDeleteDialogComponent {
 
     category: Category;
 
-    constructor(private categoryService: CategoryService,
-                public activeModal: NgbActiveModal,
-                private alertService: JhiAlertService,
-                private eventManager: JhiEventManager) {
+    constructor(
+        private categoryService: CategoryService,
+        public activeModal: NgbActiveModal,
+        private eventManager: JhiEventManager
+    ) {
     }
 
     clear() {
@@ -34,7 +35,6 @@ export class CategoryDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.category.deleted', {param: id}, null);
     }
 }
 
@@ -44,16 +44,16 @@ export class CategoryDeleteDialogComponent {
 })
 export class CategoryDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private categoryPopupService: CategoryPopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private categoryPopupService: CategoryPopupService
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.categoryPopupService
+            this.categoryPopupService
                 .open(CategoryDeleteDialogComponent as Component, params['id']);
         });
     }

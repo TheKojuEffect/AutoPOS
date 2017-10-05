@@ -1,5 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
+import { SharedModule } from '../../shared';
 import {
     CategoryComponent,
     CategoryDeleteDialogComponent,
@@ -10,9 +11,8 @@ import {
     CategoryPopupService,
     CategoryResolvePagingParams,
     CategoryRoutingModule,
-    CategoryService
+    CategoryService,
 } from './';
-import { SharedModule } from '../../shared';
 
 @NgModule({
     imports: [
