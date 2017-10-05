@@ -1,19 +1,21 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../../shared';
 
 import {
+    PaymentService,
+    PaymentPopupService,
     PaymentComponent,
-    PaymentDeleteDialogComponent,
-    PaymentDeletePopupComponent,
     PaymentDetailComponent,
     PaymentDialogComponent,
     PaymentPopupComponent,
-    PaymentPopupService,
+    PaymentDeletePopupComponent,
+    PaymentDeleteDialogComponent,
     PaymentResolvePagingParams,
-    PaymentService
+    PaymentRoutingModule
 } from './';
-import { PaymentRoutingModule } from './payment-routing.module';
+
 
 @NgModule({
     imports: [

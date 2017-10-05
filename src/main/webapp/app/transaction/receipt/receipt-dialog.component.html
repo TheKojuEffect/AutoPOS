@@ -30,11 +30,9 @@
         </div>
         <div class="form-group">
             <label jhiTranslate="autoPosApp.receipt.receivedFrom" for="field_receivedFrom">Received From</label>
-            <select class="form-control" id="field_receivedFrom" name="receivedFrom" [(ngModel)]="receipt.receivedFrom"
-                    required>
-                <option [ngValue]="customerOption.id === receipt.receivedFrom?.id ? receipt.receivedFrom : customerOption"
-                        *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.name}}
-                </option>
+            <select class="form-control" id="field_receivedFrom" name="receivedFrom" [(ngModel)]="receipt.receivedFrom"  required>
+                <option *ngIf="!editForm.value.receivedFrom" [ngValue]="null" selected></option>
+                <option [ngValue]="customerOption.id === receipt.receivedFrom?.id ? receipt.receivedFrom : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.name}}</option>
             </select>
         </div>
         <div [hidden]="!(editForm.controls.receivedFrom?.dirty && editForm.controls.receivedFrom?.invalid)">

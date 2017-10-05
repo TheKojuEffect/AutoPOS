@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Payment } from './payment.model';
 import { PaymentPopupService } from './payment-popup.service';
@@ -19,26 +19,24 @@ import { ResponseWrapper } from '../../shared';
 export class PaymentDialogComponent implements OnInit {
 
     payment: Payment;
-    authorities: any[];
     isSaving: boolean;
 
     vendors: Vendor[];
     dateDp: any;
 
-    constructor(public activeModal: NgbActiveModal,
-                private alertService: JhiAlertService,
-                private paymentService: PaymentService,
-                private vendorService: VendorService,
-                private eventManager: JhiEventManager) {
+    constructor(
+        public activeModal: NgbActiveModal,
+        private jhiAlertService: JhiAlertService,
+        private paymentService: PaymentService,
+        private vendorService: VendorService,
+        private eventManager: JhiEventManager
+    ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
         this.vendorService.query()
-            .subscribe((res: ResponseWrapper) => {
-                this.vendors = res.json;
-            }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: ResponseWrapper) => { this.vendors = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -49,41 +47,30 @@ export class PaymentDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.payment.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.paymentService.update(this.payment), false);
+                this.paymentService.update(this.payment));
         } else {
             this.subscribeToSaveResponse(
-                this.paymentService.create(this.payment), true);
+                this.paymentService.create(this.payment));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Payment>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Payment>) {
         result.subscribe((res: Payment) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
     }
 
-    private onSaveSuccess(result: Payment, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'autoPosApp.payment.created'
-                : 'autoPosApp.payment.updated',
-            {param: result.id}, null);
-
-        this.eventManager.broadcast({name: 'paymentListModification', content: 'OK'});
+    private onSaveSuccess(result: Payment) {
+        this.eventManager.broadcast({ name: 'paymentListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
 
-    private onSaveError(error) {
-        try {
-            error.json();
-        } catch (exception) {
-            error.message = error.text();
-        }
+    private onSaveError() {
         this.isSaving = false;
-        this.onError(error);
     }
 
-    private onError(error) {
-        this.alertService.error(error.message, null, null);
+    private onError(error: any) {
+        this.jhiAlertService.error(error.message, null, null);
     }
 
     trackVendorById(index: number, item: Vendor) {
@@ -97,16 +84,16 @@ export class PaymentDialogComponent implements OnInit {
 })
 export class PaymentPopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private paymentPopupService: PaymentPopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private paymentPopupService: PaymentPopupService
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if (params['id']) {
+            if ( params['id'] ) {
                 this.paymentPopupService
                     .open(PaymentDialogComponent as Component, params['id']);
             } else {

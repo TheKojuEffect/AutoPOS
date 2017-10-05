@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { SERVER_API_URL } from '../../app.constants';
+
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { Payment } from './payment.model';
-import { createRequestOption, ResponseWrapper } from '../../shared';
+import { ResponseWrapper, createRequestOption } from '../../shared';
 
 @Injectable()
 export class PaymentService {
 
-    private resourceUrl = 'api/payments';
+    private resourceUrl = SERVER_API_URL + 'api/payments';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) {
-    }
+    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
     create(payment: Payment): Observable<Payment> {
         const copy = this.convert(payment);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -27,16 +27,14 @@ export class PaymentService {
         const copy = this.convert(payment);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
     find(id: number): Observable<Payment> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -52,17 +50,26 @@ export class PaymentService {
 
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
+        const result = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            this.convertItemFromServer(jsonResponse[i]);
+            result.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+        return new ResponseWrapper(res.headers, result, res.status);
     }
 
-    private convertItemFromServer(entity: any) {
+    /**
+     * Convert a returned JSON object to Payment.
+     */
+    private convertItemFromServer(json: any): Payment {
+        const entity: Payment = Object.assign(new Payment(), json);
         entity.date = this.dateUtils
-            .convertLocalDateFromServer(entity.date);
+            .convertLocalDateFromServer(json.date);
+        return entity;
     }
 
+    /**
+     * Convert a Payment to a JSON which can be sent to the server.
+     */
     private convert(payment: Payment): Payment {
         const copy: Payment = Object.assign({}, payment);
         copy.date = this.dateUtils

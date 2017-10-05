@@ -1,9 +1,9 @@
+
 <div *ngIf="payment">
     <h2><span jhiTranslate="autoPosApp.payment.detail.title">Payment</span> {{payment.id}}</h2>
     <hr>
-    <jhi-alert-error></jhi-alert-error>
+    <apos-alert-error></apos-alert-error>
     <dl class="row-md jh-entity-details">
-
         <dt><span jhiTranslate="autoPosApp.payment.date">Date</span></dt>
         <dd>
             <span>{{payment.date | date:'mediumDate'}}</span>
@@ -20,17 +20,14 @@
         <dd>
             <span>{{payment.amount}}</span>
         </dd>
-
         <dt><span jhiTranslate="autoPosApp.payment.receiptNumber">Receipt Number</span></dt>
         <dd>
             <span>{{payment.receiptNumber}}</span>
         </dd>
-
         <dt><span jhiTranslate="autoPosApp.payment.paidBy">Paid By</span></dt>
         <dd>
             <span>{{payment.paidBy}}</span>
         </dd>
-
         <dt><span jhiTranslate="autoPosApp.payment.remarks">Remarks</span></dt>
         <dd>
             <span>{{payment.remarks}}</span>

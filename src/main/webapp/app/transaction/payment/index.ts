@@ -6,3 +6,4 @@ export * from './payment-delete-dialog.component';
 export * from './payment-detail.component';
 export * from './payment.component';
 export * from './payment.route';
+export * from './payment-routing.module';
