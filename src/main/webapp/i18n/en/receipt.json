@@ -17,7 +17,7 @@
       },
       "date": "Date",
       "amount": "Amount",
-      "receiptNumber": "Receipt Number",
+      "receiptNumber": "Receipt #",
       "receivedBy": "Received By",
       "remarks": "Remarks",
       "receivedFrom": "Received From"

@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
 import { ReceiptPopupService } from './receipt-popup.service';
@@ -16,10 +16,11 @@ export class ReceiptDeleteDialogComponent {
 
     receipt: Receipt;
 
-    constructor(private receiptService: ReceiptService,
-                public activeModal: NgbActiveModal,
-                private alertService: JhiAlertService,
-                private eventManager: JhiEventManager) {
+    constructor(
+        private receiptService: ReceiptService,
+        public activeModal: NgbActiveModal,
+        private eventManager: JhiEventManager
+    ) {
     }
 
     clear() {
@@ -34,7 +35,6 @@ export class ReceiptDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.receipt.deleted', {param: id}, null);
     }
 }
 
@@ -46,13 +46,14 @@ export class ReceiptDeletePopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private receiptPopupService: ReceiptPopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private receiptPopupService: ReceiptPopupService
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-             this.receiptPopupService
+            this.receiptPopupService
                 .open(ReceiptDeleteDialogComponent as Component, params['id']);
         });
     }

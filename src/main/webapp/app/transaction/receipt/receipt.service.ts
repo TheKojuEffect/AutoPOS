@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { SERVER_API_URL } from '../../app.constants';
+
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
-import { createRequestOption, ResponseWrapper } from '../../shared';
+import { ResponseWrapper, createRequestOption } from '../../shared';
 
 @Injectable()
 export class ReceiptService {
 
-    private resourceUrl = 'api/receipts';
+    private resourceUrl = SERVER_API_URL + 'api/receipts';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) {
-    }
+    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
     create(receipt: Receipt): Observable<Receipt> {
         const copy = this.convert(receipt);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -27,16 +27,14 @@ export class ReceiptService {
         const copy = this.convert(receipt);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
     find(id: number): Observable<Receipt> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
+            return this.convertItemFromServer(jsonResponse);
         });
     }
 
@@ -52,17 +50,26 @@ export class ReceiptService {
 
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
+        const result = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            this.convertItemFromServer(jsonResponse[i]);
+            result.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+        return new ResponseWrapper(res.headers, result, res.status);
     }
 
-    private convertItemFromServer(entity: any) {
+    /**
+     * Convert a returned JSON object to Receipt.
+     */
+    private convertItemFromServer(json: any): Receipt {
+        const entity: Receipt = Object.assign(new Receipt(), json);
         entity.date = this.dateUtils
-            .convertLocalDateFromServer(entity.date);
+            .convertLocalDateFromServer(json.date);
+        return entity;
     }
 
+    /**
+     * Convert a Receipt to a JSON which can be sent to the server.
+     */
     private convert(receipt: Receipt): Receipt {
         const copy: Receipt = Object.assign({}, receipt);
         copy.date = this.dateUtils

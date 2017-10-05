@@ -11,9 +11,9 @@ import {
     ReceiptPopupComponent,
     ReceiptPopupService,
     ReceiptResolvePagingParams,
+    ReceiptRoutingModule,
     ReceiptService
 } from './';
-import { ReceiptRoutingModule } from './receipt-routing.module';
 
 @NgModule({
     imports: [
