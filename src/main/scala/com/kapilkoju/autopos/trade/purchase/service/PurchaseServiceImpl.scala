@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.trade.purchase.service
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 import com.kapilkoju.autopos.catalog.service.ItemService
 import com.kapilkoju.autopos.trade.purchase.domain.{Purchase, PurchaseLine}
@@ -22,7 +22,7 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
 
   override def createNewPurchase() = {
     val purchase = new Purchase
-    purchase.setDate(LocalDateTime.now())
+    purchase.setDate(Instant.now())
     purchaseRepo.save(purchase)
   }
 

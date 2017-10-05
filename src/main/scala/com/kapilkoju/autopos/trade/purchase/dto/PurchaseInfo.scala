@@ -1,10 +1,10 @@
 package com.kapilkoju.autopos.trade.purchase.dto
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 import com.kapilkoju.autopos.trade.purchase.domain.Purchase
 
-case class PurchaseInfo(id: Long, date: LocalDateTime, invoiceNumber: String)
+case class PurchaseInfo(id: Long, date: Instant, invoiceNumber: String)
 
 object PurchaseInfo {
 

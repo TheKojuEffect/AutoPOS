@@ -1,7 +1,7 @@
 package com.kapilkoju.autopos.trade.domain
 
 import java.math.BigDecimal
-import java.time.LocalDateTime
+import java.time.Instant
 import javax.persistence.{Column, MappedSuperclass}
 import javax.validation.constraints.{Min, NotNull, Size}
 
@@ -18,7 +18,7 @@ abstract class Trade extends AuditableEntity {
   @Column(name = "date", nullable = false)
   @JsonView(Array(classOf[Views.Summary]))
   @BeanProperty
-  var date: LocalDateTime = _
+  var date: Instant = _
 
   @NotNull
   @Min(value = 0)

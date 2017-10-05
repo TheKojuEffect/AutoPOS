@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.trade.sale.service
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 import com.kapilkoju.autopos.catalog.domain.SaleStatus
 import com.kapilkoju.autopos.catalog.service.ItemService
@@ -22,7 +22,7 @@ class SaleServiceImpl(private val saleRepo: SaleRepo,
 
   override def createNewSale() = {
     val sale = new Sale
-    sale.setDate(LocalDateTime.now())
+    sale.setDate(Instant.now())
     sale.setStatus(SaleStatus.PENDING)
     saleRepo.save(sale)
   }

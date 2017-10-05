@@ -2,7 +2,7 @@ package com.kapilkoju.autopos.catalog.domain
 
 import java.io.Serializable
 import java.math.BigDecimal
-import java.time.LocalDateTime
+import java.time.Instant
 import javax.persistence.{GeneratedValue, _}
 import javax.validation.constraints.{Min, NotNull, Size}
 
@@ -19,7 +19,7 @@ import scala.beans.BeanProperty
   @NotNull
   @Column(name = "date", nullable = false)
   @BeanProperty
-  var date: LocalDateTime = _
+  var date: Instant = _
 
   @NotNull
   @Min(value = 0)
