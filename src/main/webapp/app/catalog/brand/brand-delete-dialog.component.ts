@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Brand } from './brand.model';
 import { BrandPopupService } from './brand-popup.service';
@@ -16,10 +16,11 @@ export class BrandDeleteDialogComponent {
 
     brand: Brand;
 
-    constructor(private brandService: BrandService,
-                public activeModal: NgbActiveModal,
-                private alertService: JhiAlertService,
-                private eventManager: JhiEventManager) {
+    constructor(
+        private brandService: BrandService,
+        public activeModal: NgbActiveModal,
+        private eventManager: JhiEventManager
+    ) {
     }
 
     clear() {
@@ -34,7 +35,6 @@ export class BrandDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('autoPosApp.brand.deleted', {param: id}, null);
     }
 }
 
@@ -44,16 +44,16 @@ export class BrandDeleteDialogComponent {
 })
 export class BrandDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
-    constructor(private route: ActivatedRoute,
-                private brandPopupService: BrandPopupService) {
-    }
+    constructor(
+        private route: ActivatedRoute,
+        private brandPopupService: BrandPopupService
+    ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.brandPopupService
+            this.brandPopupService
                 .open(BrandDeleteDialogComponent as Component, params['id']);
         });
     }

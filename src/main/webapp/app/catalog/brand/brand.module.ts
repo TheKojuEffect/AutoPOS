@@ -1,5 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
+import { SharedModule } from '../../shared';
+
 import {
     BrandComponent,
     BrandDeleteDialogComponent,
@@ -10,10 +12,8 @@ import {
     BrandPopupService,
     BrandResolvePagingParams,
     BrandRoutingModule,
-    BrandService
+    BrandService,
 } from './';
-
-import { SharedModule } from '../../shared';
 
 @NgModule({
     imports: [
