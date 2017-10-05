@@ -12,7 +12,7 @@ import {
     TagPopupService,
     TagResolvePagingParams,
     TagRoutingModule,
-    TagService
+    TagService,
 } from './';
 
 @NgModule({
