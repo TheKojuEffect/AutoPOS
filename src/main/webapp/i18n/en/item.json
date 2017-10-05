@@ -17,7 +17,7 @@
       },
       "code": "Code",
       "name": "Name",
-      "partNumber": "Part Number",
+      "partNumber": "Part #",
       "markedPrice": "Marked Price",
       "quantity": "Quantity",
       "description": "Description",
@@ -25,7 +25,7 @@
       "remarks": "Remarks",
       "category": "Category",
       "brand": "Brand",
-      "tag": "Tag"
+      "tag": "Tags"
     }
   }
 }

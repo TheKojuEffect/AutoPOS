@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
 
 import { Item } from './item.model';
 import { ItemService } from './item.service';
@@ -14,7 +14,7 @@ import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 })
 export class ItemComponent implements OnInit, OnDestroy {
 
-    currentAccount: any;
+currentAccount: any;
     items: Item[];
     error: any;
     success: any;
@@ -30,15 +30,17 @@ export class ItemComponent implements OnInit, OnDestroy {
     reverse: any;
     filter: string;
 
-    constructor(private itemService: ItemService,
-                private parseLinks: JhiParseLinks,
-                private alertService: JhiAlertService,
-                private principal: Principal,
-                private activatedRoute: ActivatedRoute,
-                private router: Router,
-                private eventManager: JhiEventManager,
-                private paginationUtil: JhiPaginationUtil,
-                private paginationConfig: PaginationConfig) {
+    constructor(
+        private itemService: ItemService,
+        private parseLinks: JhiParseLinks,
+        private jhiAlertService: JhiAlertService,
+        private principal: Principal,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private eventManager: JhiEventManager,
+        private paginationUtil: JhiPaginationUtil,
+        private paginationConfig: PaginationConfig
+    ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe((data) => {
             this.page = data['pagingParams'].page;
@@ -63,16 +65,13 @@ export class ItemComponent implements OnInit, OnDestroy {
             (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
             (res: ResponseWrapper) => this.onError(res.json)
         );
-
     }
-
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
             this.transition();
         }
     }
-
     transition() {
         this.router.navigate(['/catalog/item'], {
             queryParams: {
@@ -92,7 +91,6 @@ export class ItemComponent implements OnInit, OnDestroy {
         }]);
         this.loadAll();
     }
-
     ngOnInit() {
         this.loadAll();
         this.principal.identity().then((account) => {
@@ -108,7 +106,6 @@ export class ItemComponent implements OnInit, OnDestroy {
     trackId(index: number, item: Item) {
         return item.id;
     }
-
     registerChangeInItems() {
         this.eventSubscriber = this.eventManager.subscribe('itemListModification', (response) => this.loadAll());
     }
@@ -128,8 +125,7 @@ export class ItemComponent implements OnInit, OnDestroy {
         // this.page = pagingParams.page;
         this.items = data;
     }
-
     private onError(error) {
-        this.alertService.error(error.message, null, null);
+        this.jhiAlertService.error(error.message, null, null);
     }
 }

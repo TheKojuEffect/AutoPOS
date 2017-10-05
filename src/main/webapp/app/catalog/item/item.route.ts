@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
 import { JhiPaginationUtil } from 'ng-jhipster';
@@ -13,8 +13,7 @@ import { CostPricePopupComponent } from './cost-price.component';
 @Injectable()
 export class ItemResolvePagingParams implements Resolve<any> {
 
-    constructor(private paginationUtil: JhiPaginationUtil) {
-    }
+    constructor(private paginationUtil: JhiPaginationUtil) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
@@ -23,7 +22,7 @@ export class ItemResolvePagingParams implements Resolve<any> {
             page: this.paginationUtil.parsePage(page),
             predicate: this.paginationUtil.parsePredicate(sort),
             ascending: this.paginationUtil.parseAscending(sort)
-        };
+      };
     }
 }
 
@@ -39,9 +38,7 @@ export const itemRoutes: Routes = [
             pageTitle: 'autoPosApp.item.home.title'
         },
         canActivate: [UserRouteAccessService]
-    },
-
-    {
+    }, {
         path: 'item/:id',
         component: ItemDetailComponent,
         data: {
