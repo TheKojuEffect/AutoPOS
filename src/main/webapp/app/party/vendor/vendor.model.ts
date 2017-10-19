@@ -5,6 +5,7 @@ export class Vendor implements BaseEntity {
         public id?: number,
         public name?: string,
         public remarks?: string,
+        public phoneNumbers?: string[]
     ) {
     }
 }
