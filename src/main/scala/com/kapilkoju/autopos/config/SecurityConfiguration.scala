@@ -4,9 +4,8 @@ import javax.annotation.PostConstruct
 
 import com.kapilkoju.autopos.security._
 import com.kapilkoju.autopos.security.jwt._
-import io.github.jhipster.security._
 import org.springframework.beans.factory.BeanInitializationException
-import org.springframework.context.annotation.{Bean, Configuration}
+import org.springframework.context.annotation.{Bean, Configuration, Import}
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
@@ -19,14 +18,17 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.filter.CorsFilter
+import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport
 
+@Import(Array(classOf[SecurityProblemSupport]))
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 class SecurityConfiguration(val authenticationManagerBuilder: AuthenticationManagerBuilder,
                             override val userDetailsService: UserDetailsService,
                             val tokenProvider: TokenProvider,
-                            val corsFilter: CorsFilter)
+                            val corsFilter: CorsFilter,
+                            val problemSupport: SecurityProblemSupport)
   extends WebSecurityConfigurerAdapter {
 
   @PostConstruct def init() {
@@ -44,12 +46,6 @@ class SecurityConfiguration(val authenticationManagerBuilder: AuthenticationMana
   @Bean
   def passwordEncoder: PasswordEncoder = new BCryptPasswordEncoder
 
-  @Bean
-  def http401UnauthorizedEntryPoint: Http401UnauthorizedEntryPoint = {
-    new Http401UnauthorizedEntryPoint
-  }
-
-
   @throws[Exception]
   override def configure(web: WebSecurity) {
     web.ignoring
@@ -59,13 +55,19 @@ class SecurityConfiguration(val authenticationManagerBuilder: AuthenticationMana
       .antMatchers("/i18n/**")
       .antMatchers("/content/**")
       .antMatchers("/swagger-ui/index.html")
+      .antMatchers("/api/register")
+      .antMatchers("/api/activate")
+      .antMatchers("/api/account/reset-password/init")
+      .antMatchers("/api/account/reset-password/finish")
       .antMatchers("/test/**")
   }
 
   override protected def configure(http: HttpSecurity) {
     http
       .addFilterBefore(corsFilter, classOf[UsernamePasswordAuthenticationFilter])
-      .exceptionHandling.authenticationEntryPoint(http401UnauthorizedEntryPoint)
+      .exceptionHandling
+      .authenticationEntryPoint(problemSupport)
+      .accessDeniedHandler(problemSupport)
       .and
       .csrf.disable
       .headers.frameOptions.disable
