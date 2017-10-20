@@ -45,7 +45,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let purchase of purchases ;trackBy: trackId">
-                <td><a [routerLink]="['../', purchase.id ]">{{purchase.id}}</a></td>
+                <td><a [routerLink]="['./', purchase.id ]">{{purchase.id}}</a></td>
                 <td>{{purchase.invoiceNumber}}</td>
                 <td>{{purchase.vendor && purchase.vendor.name}}</td>
                 <td>{{purchase.grandTotal}}</td>
