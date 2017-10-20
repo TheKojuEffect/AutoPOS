@@ -15,10 +15,9 @@ buildscript {
 
 plugins {
     id "org.sonarqube" version "2.5"
-    id "net.ltgt.apt" version "0.11"
+    id "net.ltgt.apt" version "0.12"
     id "io.spring.dependency-management" version "1.0.3.RELEASE"
     id "com.moowork.node" version "1.2.0"
-    //jhipster-needle-gradle-plugins - JHipster will add additional gradle plugins here
 }
 
 apply plugin: 'java'
@@ -114,14 +113,11 @@ if (project.hasProperty('prometheus')) {
 }
 
 ext {
-    scalaVersion = '2.12.1'
-    scalaTestVersion = '3.0.1'
-    scalaCheckVersion = '1.13.4'
-    scalaTestSpringVersion = '0.3.1'
+    scalaVersion = '2.12.4'
+    scalaTestVersion = '3.0.4'
+    scalaCheckVersion = '1.13.5'
 }
-ext['spock.version'] = '1.1-groovy-2.4-rc-3'
-
-
+ext['spock.version'] = '1.1-groovy-2.4'
 
 configurations {
     providedRuntime
@@ -152,7 +148,7 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-annotations"
     compile "com.fasterxml.jackson.core:jackson-databind"
     compile "com.fasterxml.jackson.module:jackson-module-afterburner"
-    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-scala_2.12', version: '2.8.7'
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-scala_2.12'
     compile ("com.ryantenney.metrics:metrics-spring:${metrics_spring_version}")
     compile "org.hibernate:hibernate-core:${hibernate_version}"
     compile ("com.zaxxer:HikariCP:${hikaricp_version}")
