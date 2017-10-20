@@ -1,11 +1,11 @@
 <div *ngIf="sale" class="row">
 
-    <jhi-alert-error></jhi-alert-error>
+    <apos-alert-error></apos-alert-error>
 
     <div class="col-4">
         <div class="card">
             <h4 class="card-header"> Sale Entry </h4>
-            <div class="card-block">
+            <div class="card-body">
                 <form name="saleLineEntryForm" role="form" novalidate #saleLineEntryForm="ngForm">
                     <div class="form-group">
                         <label class="form-control-label" for="field_item">Item</label>
@@ -125,7 +125,7 @@
         <div class="card">
             <h4 class="card-header"> Sale # {{sale.id}} </h4>
 
-            <div class="card-block">
+            <div class="card-body">
 
                 <form name="saleDetailForm" role="form" novalidate #saleDetailForm="ngForm">
                     <div class="form-group row">
@@ -186,7 +186,7 @@
                     </table>
 
                     <div class="row">
-                        <div class="col-sm-6 offset-sm-6">
+                        <div class="col-sm-6 ml-sm-auto">
                             <div class="form-group row">
                                 <label for="subTotal" class="col-sm-6 col-form-label">Sub Total</label>
                                 <div class="col-sm-6">
@@ -221,6 +221,8 @@
                             </div>
                         </div>
 
+                    </div>
+                    <div class="row">
                         <div class="col-sm-6 form-group">
                             <div class="float-left">
                                 <button type="reset" class="btn btn-danger"
