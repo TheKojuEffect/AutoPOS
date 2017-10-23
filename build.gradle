@@ -118,6 +118,7 @@ ext {
     scalaCheckVersion = '1.13.5'
 }
 ext['spock.version'] = '1.1-groovy-2.4'
+ext['postgresql.version'] = '42.1.4'
 
 configurations {
     providedRuntime
