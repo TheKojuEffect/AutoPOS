@@ -35,7 +35,7 @@ apply plugin: 'idea'
 defaultTasks 'bootRun'
 
 group = 'com.kapilkoju.autopos'
-version = '17.06.11'
+version = '17.10.23'
 
 description = 'Auto Point of Sale'
 
