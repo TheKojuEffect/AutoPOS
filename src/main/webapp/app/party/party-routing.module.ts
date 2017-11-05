@@ -17,6 +17,11 @@ export const partyRoutes: Routes = [
         },
         canActivate: [UserRouteAccessService],
         children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'customer'
+            },
             ...customerRoutes,
             ...vehicleRoutes,
             ...vendorRoutes

@@ -18,6 +18,11 @@ export const catalogRoutes: Routes = [
         },
         canActivate: [UserRouteAccessService],
         children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'item'
+            },
             ...itemRoutes,
             ...categoryRoutes,
             ...brandRoutes,

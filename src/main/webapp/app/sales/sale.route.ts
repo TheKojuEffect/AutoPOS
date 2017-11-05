@@ -39,6 +39,11 @@ export const saleRoutes: Routes = [
         canActivate: [UserRouteAccessService],
         children: [
             {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'pending'
+            },
+            {
                 path: 'pending',
                 component: SaleComponent,
                 resolve: {

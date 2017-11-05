@@ -16,6 +16,11 @@ export const transactionRoutes: Routes = [
         },
         canActivate: [UserRouteAccessService],
         children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'receipt'
+            },
             ...receiptRoutes,
             ...paymentRoutes
         ]

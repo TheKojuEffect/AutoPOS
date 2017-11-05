@@ -15,6 +15,11 @@ export const accountingRoutes: Routes = [
         },
         canActivate: [UserRouteAccessService],
         children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'day-book-entry'
+            },
             ...dayBookEntryRoutes
         ]
     }

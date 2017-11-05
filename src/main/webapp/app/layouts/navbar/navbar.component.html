@@ -12,14 +12,14 @@
         <ul class="navbar-nav ml-auto">
 
             <li *ngSwitchCase="true" class="nav-item">
-                <a class="nav-link" routerLink="catalog/item" routerLinkActive="active" (click)="collapseNavbar()">
+                <a class="nav-link" routerLink="catalog" routerLinkActive="active" (click)="collapseNavbar()">
                     <i class="fa fa-th-list" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.catalog">Catalog</span>
                 </a>
             </li>
 
             <li *ngSwitchCase="true" class="nav-item">
-                <a class="nav-link" routerLink="sale/pending" routerLinkActive="active" (click)="collapseNavbar()">
+                <a class="nav-link" routerLink="sale" routerLinkActive="active" (click)="collapseNavbar()">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.sales">Sales</span>
                 </a>
@@ -33,14 +33,14 @@
             </li>
 
             <li *ngSwitchCase="true" class="nav-item">
-                <a class="nav-link" routerLink="party/customer" routerLinkActive="active" (click)="collapseNavbar()">
+                <a class="nav-link" routerLink="party" routerLinkActive="active" (click)="collapseNavbar()">
                     <i class="fa fa-users" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.party">Party</span>
                 </a>
             </li>
 
             <li *ngSwitchCase="true" class="nav-item">
-                <a class="nav-link" routerLink="transaction/receipt" routerLinkActive="active"
+                <a class="nav-link" routerLink="transaction" routerLinkActive="active"
                    (click)="collapseNavbar()">
                     <i class="fa fa-exchange" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.transaction">Transaction</span>
@@ -48,7 +48,7 @@
             </li>
 
             <li *ngSwitchCase="true" class="nav-item">
-                <a class="nav-link" routerLink="accounting/day-book-entry" routerLinkActive="active"
+                <a class="nav-link" routerLink="accounting" routerLinkActive="active"
                    (click)="collapseNavbar()">
                     <i class="fa fa-book" aria-hidden="true"></i>
                     <span jhiTranslate="global.menu.accounting">Accounting</span>
