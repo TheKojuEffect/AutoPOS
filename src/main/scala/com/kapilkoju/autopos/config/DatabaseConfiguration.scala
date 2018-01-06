@@ -16,6 +16,8 @@ import com.kapilkoju.autopos.repository.RepositoryPackage
 import com.kapilkoju.autopos.security.SecurityUtils
 import com.kapilkoju.autopos.shared.domain.SharedDomainPackage
 import com.kapilkoju.autopos.shared.service.SharedServicePackage
+import com.kapilkoju.autopos.stockbook.domain.StockBookDomainPackage
+import com.kapilkoju.autopos.stockbook.service.StockBookServicePackage
 import com.kapilkoju.autopos.trade.domain.TradeDomainPackage
 import com.kapilkoju.autopos.trade.purchase.domain.PurchaseDomainPackage
 import com.kapilkoju.autopos.trade.purchase.service.PurchaseServicePackage
@@ -54,7 +56,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[SaleRepoPackage],
     classOf[PurchaseServicePackage],
     classOf[TransactionServicePackage],
-    classOf[CatalogServicePackage]
+    classOf[CatalogServicePackage],
+    classOf[StockBookServicePackage]
   ))
 @EntityScan(
   basePackageClasses = Array(
@@ -68,12 +71,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[TradeDomainPackage],
     classOf[SaleDomainPackage],
     classOf[PurchaseDomainPackage],
-    classOf[TransactionDomainPackage])
+    classOf[TransactionDomainPackage],
+    classOf[StockBookDomainPackage])
 )
 @EnableJpaAuditing
 class DatabaseConfiguration(private val env: Environment) {
 
   final private val log: Logger = LoggerFactory.getLogger(classOf[DatabaseConfiguration])
+
   @Bean def liquibase(@Qualifier("taskExecutor") taskExecutor: TaskExecutor,
                       dataSource: DataSource,
                       liquibaseProperties: LiquibaseProperties

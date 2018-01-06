@@ -1,0 +1,41 @@
+
+<div *ngIf="stockBookEntry">
+    <h2>{{stockBookEntry.item.name}}</h2>
+    <hr>
+    <apos-alert-error></apos-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="autoPosApp.stockBookEntry.item">Item</span></dt>
+        <dd>
+            <span>{{stockBookEntry.item.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.stockBookEntry.quantity">Incoming Amount</span></dt>
+        <dd>
+            <span>{{stockBookEntry.quantity}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.stockBookEntry.costPrice">Outgoing Amount</span></dt>
+        <dd>
+            <span>{{stockBookEntry.costPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.stockBookEntry.lastModifiedDate">Misc Expenses</span></dt>
+        <dd>
+            <span>{{stockBookEntry.lastModifiedDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="autoPosApp.stockBookEntry.remarks">Remarks</span></dt>
+        <dd>
+            <span>{{stockBookEntry.remarks}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'stock-book-entry/'+ stockBookEntry.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

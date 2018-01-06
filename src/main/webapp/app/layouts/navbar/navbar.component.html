@@ -55,6 +55,14 @@
                 </a>
             </li>
 
+            <li *ngSwitchCase="true" class="nav-item">
+                <a class="nav-link" routerLink="stockbook" routerLinkActive="active"
+                   (click)="collapseNavbar()">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    <span jhiTranslate="global.menu.stockBook">Stock Book</span>
+                </a>
+            </li>
+
             <li *aposHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
                     <span>

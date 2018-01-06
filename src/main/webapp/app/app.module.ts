@@ -18,6 +18,7 @@ import { TransactionModule } from './transaction';
 import { PartyModule } from './party/party.module';
 import { PurchaseModule } from './purchases/purchase.module';
 import { SaleModule } from './sales/sale.module';
+import { StockBookModule } from './stockbook';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { SaleModule } from './sales/sale.module';
         PurchaseModule,
         PartyModule,
         TransactionModule,
-        AccountingModule
+        AccountingModule,
+        StockBookModule
     ],
     declarations: [
         AposMainComponent,
