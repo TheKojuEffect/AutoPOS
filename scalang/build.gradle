@@ -1,0 +1,18 @@
+apply plugin: 'groovy'
+apply plugin: 'scala'
+
+dependencies {
+
+    compile "org.scala-lang:scala-library:$scalaVersion"
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-scala_2.12'
+
+    compile group: 'org.scala-lang.modules', name: 'scala-java8-compat_2.12', version: '0.8.0'
+
+
+    testCompile 'org.spockframework:spock-core'
+
+    testCompile 'org.spockframework:spock-spring'
+    testCompile "org.scalactic:scalactic_2.12:$scalaTestVersion"
+    testCompile "org.scalatest:scalatest_2.12:$scalaTestVersion"
+    testCompile "org.scalacheck:scalacheck_2.12:$scalaCheckVersion"
+}

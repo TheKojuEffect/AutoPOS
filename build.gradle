@@ -1,6 +1,10 @@
 import org.gradle.internal.os.OperatingSystem
 
 buildscript {
+
+    ext {
+        kotlinVersion = '1.2.10'
+    }
     repositories {
         mavenLocal()
         jcenter()
@@ -10,6 +14,8 @@ buildscript {
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
         classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
     }
 }
 
@@ -21,10 +27,11 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'scala'
-sourceCompatibility=1.8
-targetCompatibility=1.8
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 apply plugin: 'maven'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
@@ -40,7 +47,15 @@ version = '17.10.23'
 description = 'Auto Point of Sale'
 
 bootRepackage {
-   mainClass = 'com.kapilkoju.autopos.Application'
+    mainClass = 'com.kapilkoju.autopos.Application'
+}
+
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
 }
 
 war {
@@ -130,88 +145,98 @@ repositories {
     jcenter()
 }
 
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        compile "io.github.jhipster:jhipster:${jhipster_server_version}"
+        compile "io.dropwizard.metrics:metrics-core:${dropwizard_metrics_version}"
+        compile "io.dropwizard.metrics:metrics-jvm:${dropwizard_metrics_version}"
+        compile "io.dropwizard.metrics:metrics-servlet:${dropwizard_metrics_version}"
+        compile "io.dropwizard.metrics:metrics-json:${dropwizard_metrics_version}"
+        compile "io.dropwizard.metrics:metrics-servlets:${dropwizard_metrics_version}"
+        compile "net.logstash.logback:logstash-logback-encoder:${logstash_logback_encoder_version}"
+        compile "com.fasterxml.jackson.datatype:jackson-datatype-json-org"
+        compile "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
+        compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+        compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
+        compile "com.fasterxml.jackson.core:jackson-annotations"
+        compile "com.fasterxml.jackson.core:jackson-databind"
+        compile "com.fasterxml.jackson.module:jackson-module-afterburner"
+        compile("com.ryantenney.metrics:metrics-spring:${metrics_spring_version}")
+        compile "org.hibernate:hibernate-core:${hibernate_version}"
+        compile("com.zaxxer:HikariCP:${hikaricp_version}")
+        compile "org.apache.commons:commons-lang3:${commons_lang_version}"
+        compile "commons-io:commons-io:${commons_io_version}"
+        compile "javax.transaction:javax.transaction-api"
+        compile "org.hibernate:hibernate-envers:${hibernate_version}"
+        compile "org.hibernate:hibernate-validator"
+        compile "org.hibernate:hibernate-entitymanager:${hibernate_version}"
+        compile("org.liquibase:liquibase-core")
+        compile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
+        compile "org.springframework.boot:spring-boot-actuator"
+        compile "org.springframework.boot:spring-boot-autoconfigure"
+        compile "org.springframework.boot:spring-boot-loader-tools"
+        compile "org.springframework.boot:spring-boot-starter-mail"
+        compile "org.springframework.boot:spring-boot-starter-logging"
+        compile "org.springframework.boot:spring-boot-starter-aop"
+        compile "org.springframework.boot:spring-boot-starter-data-jpa"
+        compile "org.springframework.boot:spring-boot-starter-security"
+        compile("org.springframework.boot:spring-boot-starter-web") {
+            exclude module: 'spring-boot-starter-tomcat'
+        }
+        compile "org.springframework.boot:spring-boot-starter-undertow"
+        compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+        compile "org.zalando:problem-spring-web:${problem_spring_web_version}"
+        compile "org.springframework.boot:spring-boot-starter-cloud-connectors"
+        compile("org.springframework:spring-context-support")
+        compile "org.springframework.security:spring-security-config"
+        compile "org.springframework.security:spring-security-data"
+        compile "org.springframework.security:spring-security-web"
+        compile "io.jsonwebtoken:jjwt:${jjwt_version}"
+        compile("io.springfox:springfox-swagger2:${springfox_version}") {
+            exclude module: 'mapstruct'
+        }
+        compile "io.springfox:springfox-bean-validators:${springfox_version}"
+        compile "org.postgresql:postgresql"
+        compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
+        testCompile "org.awaitility:awaitility:${awaitility_version}"
+        testCompile "com.jayway.jsonpath:json-path"
+        testCompile("org.springframework.boot:spring-boot-starter-test") {
+            exclude group: 'com.vaadin.external.google', module: 'android-json'
+        }
+        testCompile "org.springframework.security:spring-security-test"
+        testCompile "org.springframework.boot:spring-boot-test"
+        testCompile "org.assertj:assertj-core:${assertj_version}"
+        testCompile "junit:junit"
+        testCompile "org.mockito:mockito-core"
+        testCompile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
+        testCompile "org.hamcrest:hamcrest-library"
+    }
+}
+
 dependencies {
-    compile "org.scala-lang:scala-library:$scalaVersion"
+    compile project(':scalang')
 
-    compile group: 'org.scala-lang.modules', name: 'scala-java8-compat_2.12', version: '0.8.0'
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
+    compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
 
-    compile "io.github.jhipster:jhipster:${jhipster_server_version}"
-    compile "io.dropwizard.metrics:metrics-core:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-jvm:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-servlet:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-json:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-servlets:${dropwizard_metrics_version}"
-    compile "net.logstash.logback:logstash-logback-encoder:${logstash_logback_encoder_version}"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-json-org"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
-    compile "com.fasterxml.jackson.core:jackson-annotations"
-    compile "com.fasterxml.jackson.core:jackson-databind"
-    compile "com.fasterxml.jackson.module:jackson-module-afterburner"
-    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-scala_2.12'
-    compile ("com.ryantenney.metrics:metrics-spring:${metrics_spring_version}")
-    compile "org.hibernate:hibernate-core:${hibernate_version}"
-    compile ("com.zaxxer:HikariCP:${hikaricp_version}")
-    compile "org.apache.commons:commons-lang3:${commons_lang_version}"
-    compile "commons-io:commons-io:${commons_io_version}"
-    compile "javax.transaction:javax.transaction-api"
-    compile "org.hibernate:hibernate-envers:${hibernate_version}"
-    compile "org.hibernate:hibernate-validator"
-    compile "org.hibernate:hibernate-entitymanager:${hibernate_version}"
-    compile ("org.liquibase:liquibase-core")
-    compile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
-    compile "org.springframework.boot:spring-boot-actuator"
-    compile "org.springframework.boot:spring-boot-autoconfigure"
-    compile "org.springframework.boot:spring-boot-loader-tools"
-    compile "org.springframework.boot:spring-boot-starter-mail"
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-starter-aop"
-    compile "org.springframework.boot:spring-boot-starter-data-jpa"
-    compile "org.springframework.boot:spring-boot-starter-security"
-    compile ("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: 'spring-boot-starter-tomcat'
-    }
-    compile "org.springframework.boot:spring-boot-starter-undertow"
-    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
-    compile "org.zalando:problem-spring-web:${problem_spring_web_version}"
-    compile "org.springframework.boot:spring-boot-starter-cloud-connectors"
-    compile ("org.springframework:spring-context-support")
-    compile "org.springframework.security:spring-security-config"
-    compile "org.springframework.security:spring-security-data"
-    compile "org.springframework.security:spring-security-web"
-    compile "io.jsonwebtoken:jjwt:${jjwt_version}"
-    compile ("io.springfox:springfox-swagger2:${springfox_version}") {
-        exclude module: 'mapstruct'
-    }
-    compile "io.springfox:springfox-bean-validators:${springfox_version}"
-    compile "org.postgresql:postgresql"
-    compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
-    testCompile "org.awaitility:awaitility:${awaitility_version}"
-    testCompile "com.jayway.jsonpath:json-path"
-    testCompile ("org.springframework.boot:spring-boot-starter-test") {
-        exclude group: 'com.vaadin.external.google', module: 'android-json'
-    }
-    testCompile "org.springframework.security:spring-security-test"
-    testCompile "org.springframework.boot:spring-boot-test"
-    testCompile "org.assertj:assertj-core:${assertj_version}"
-    testCompile "junit:junit"
-    testCompile "org.mockito:mockito-core"
-    testCompile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
-    testCompile "org.hamcrest:hamcrest-library"
-    optional ("org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}") {
+
+    optional("org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
     }
 
-    testCompile 'org.spockframework:spock-core'
 
-    testCompile 'org.spockframework:spock-spring'
-    testCompile "org.scalactic:scalactic_2.12:$scalaTestVersion"
-    testCompile "org.scalatest:scalatest_2.12:$scalaTestVersion"
-    testCompile "org.scalacheck:scalacheck_2.12:$scalaCheckVersion"
-
-    optional "org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}"
-    //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
 task cleanResources(type: Delete) {
@@ -235,5 +260,5 @@ if (project.hasProperty('nodeInstall')) {
 }
 
 compileJava.dependsOn processResources
-processResources.dependsOn cleanResources,bootBuildInfo
+processResources.dependsOn cleanResources, bootBuildInfo
 bootBuildInfo.mustRunAfter cleanResources
