@@ -6,6 +6,7 @@ import _root_.liquibase.integration.spring.SpringLiquibase
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module
 import com.kapilkoju.autopos.accounting.domain.AccountingDomainPackage
 import com.kapilkoju.autopos.accounting.repo.AccountingRepoPackage
+import com.kapilkoju.autopos.accounting.service.AccountingServicePackage
 import com.kapilkoju.autopos.catalog.domain.Item
 import com.kapilkoju.autopos.catalog.service.CatalogServicePackage
 import com.kapilkoju.autopos.domain.DomainPackage
@@ -51,6 +52,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
     classOf[CatalogServicePackage],
     classOf[UserServicePackage],
     classOf[AccountingRepoPackage],
+    classOf[AccountingServicePackage],
     classOf[PartyServicePackage],
     classOf[TradeServicePackage],
     classOf[SaleRepoPackage],

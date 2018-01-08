@@ -16,6 +16,7 @@ buildscript {
         classpath 'io.spring.gradle:propdeps-plugin:0.0.9.RELEASE'
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
     }
 }
 
@@ -30,8 +31,8 @@ apply plugin: 'java'
 
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+apply plugin: "org.jetbrains.kotlin.plugin.jpa"
+
 apply plugin: 'maven'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
@@ -40,6 +41,9 @@ apply plugin: 'com.moowork.node'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'idea'
 defaultTasks 'bootRun'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 group = 'com.kapilkoju.autopos'
 version = '17.10.23'
@@ -231,11 +235,11 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
 
+    compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.2")
 
     optional("org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
     }
-
 
 }
 
