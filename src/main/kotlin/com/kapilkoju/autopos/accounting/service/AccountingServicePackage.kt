@@ -1,3 +1,3 @@
 package com.kapilkoju.autopos.accounting.service
 
-trait AccountingServicePackage
+interface AccountingServicePackage

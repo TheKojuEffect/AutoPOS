@@ -2,7 +2,6 @@ package com.kapilkoju.autopos.config
 
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module
 import com.kapilkoju.autopos.accounting.domain.AccountingDomainPackage
-import com.kapilkoju.autopos.accounting.repo.AccountingRepoPackage
 import com.kapilkoju.autopos.accounting.service.AccountingServicePackage
 import com.kapilkoju.autopos.catalog.domain.Item
 import com.kapilkoju.autopos.catalog.service.CatalogServicePackage
@@ -52,7 +51,6 @@ import javax.sql.DataSource
             SharedServicePackage::class,
             CatalogServicePackage::class,
             UserServicePackage::class,
-            AccountingRepoPackage::class,
             AccountingServicePackage::class,
             PartyServicePackage::class,
             TradeServicePackage::class,
