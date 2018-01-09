@@ -76,9 +76,8 @@ class WebConfigurer(val env: Environment,
     }
 
     private fun setLocationForStaticAssets(container: ConfigurableEmbeddedServletContainer) {
-        var root: File? = null
         val prefixPath: String = resolvePathPrefix()
-        root = File(prefixPath + "build/www/")
+        val root = File(prefixPath + "build/www/")
         if (root.exists() && root.isDirectory) {
             container.setDocumentRoot(root)
         }

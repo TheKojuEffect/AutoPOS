@@ -7,9 +7,8 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class CustomerServiceImpl(private val customerRepo: CustomerRepo)
-  extends CustomerService {
+class CustomerServiceImpl(private val customerRepo: CustomerRepo) : CustomerService {
 
-  override def getCustomer(id: Long): Option[Customer] = Option(customerRepo.getById(id))
+    override fun getCustomer(id: Long): Customer? = customerRepo.getById(id)
 
 }
