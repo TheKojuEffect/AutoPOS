@@ -70,10 +70,6 @@
 
     <include file="classpath:config/liquibase/changelog/20160209141843_added_entity_PriceHistory.xml"
              relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160209160545_added_entity_Ledger.xml"
-             relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20160209170435_added_entity_LedgerEntry.xml"
-             relativeToChangelogFile="false"/>
 
     <changeSet id="POS-116" author="kplx2.0@gmail.com" dbms="postgresql">
         <sql>
