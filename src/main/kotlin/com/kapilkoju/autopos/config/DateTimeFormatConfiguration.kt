@@ -5,12 +5,13 @@ import org.springframework.format.FormatterRegistry
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
-@Configuration class DateTimeFormatConfiguration extends WebMvcConfigurerAdapter {
+@Configuration
+class DateTimeFormatConfiguration : WebMvcConfigurerAdapter() {
 
-  override def addFormatters(registry: FormatterRegistry) {
-    val registrar: DateTimeFormatterRegistrar = new DateTimeFormatterRegistrar
-    registrar.setUseIsoFormat(true)
-    registrar.registerFormatters(registry)
-  }
+    override fun addFormatters(registry: FormatterRegistry) {
+        val registrar = DateTimeFormatterRegistrar()
+        registrar.setUseIsoFormat(true)
+        registrar.registerFormatters(registry)
+    }
 
 }
