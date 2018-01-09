@@ -9,10 +9,14 @@ case class CostPriceInfo(price: BigDecimal, vendor: Option[VendorInfo], purchase
 
 object CostPriceInfo {
 
-  def apply(purchaseLine: PurchaseLine): CostPriceInfo = CostPriceInfo(
-    purchaseLine.rate,
-    Option(purchaseLine.purchase.vendor).map(v => VendorInfo(v)),
-    PurchaseInfo(purchaseLine.purchase)
-  )
+  def apply(purchaseLine: PurchaseLine): CostPriceInfo = {
+    val vendorInfo: Option[VendorInfo] = Option(purchaseLine.purchase.vendor).map(v => new VendorInfo(v))
+
+    CostPriceInfo(
+      purchaseLine.rate,
+      vendorInfo,
+      PurchaseInfo(purchaseLine.purchase)
+    )
+  }
 
 }
