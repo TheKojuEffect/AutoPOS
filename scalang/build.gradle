@@ -8,7 +8,4 @@ dependencies {
 
     compile group: 'org.scala-lang.modules', name: 'scala-java8-compat_2.12', version: '0.8.0'
 
-    testCompile "org.scalactic:scalactic_2.12:$scalaTestVersion"
-    testCompile "org.scalatest:scalatest_2.12:$scalaTestVersion"
-    testCompile "org.scalacheck:scalacheck_2.12:$scalaCheckVersion"
 }
