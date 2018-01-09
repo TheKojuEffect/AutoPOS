@@ -22,7 +22,7 @@ data class Vendor(
         @ElementCollection
         @CollectionTable(name = "vendor_phone_numbers")
         @Column(name = "phone_number")
-        val phoneNumbers: List<String> = ArrayList(),
+        val phoneNumbers: List<String>? = ArrayList(),
 
         @Size(max = 250)
         @Column(name = "remarks", length = 250)
@@ -36,5 +36,3 @@ data class Vendor(
     }
 
 }
-
-

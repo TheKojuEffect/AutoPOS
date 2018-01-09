@@ -2,8 +2,8 @@ package com.kapilkoju.autopos.party.domain
 
 import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import javax.persistence.*
-import javax.validation.constraints.Size
 import javax.validation.constraints.NotNull
+import javax.validation.constraints.Size
 
 
 @Entity
@@ -20,7 +20,7 @@ data class Customer(
         @ElementCollection
         @CollectionTable(name = "customer_phone_numbers")
         @Column(name = "phone_number")
-        val phoneNumbers: List<String> = ArrayList(),
+        val phoneNumbers: List<String>? = ArrayList(),
 
         @Size(max = 250)
         @Column(name = "remarks", length = 250)
