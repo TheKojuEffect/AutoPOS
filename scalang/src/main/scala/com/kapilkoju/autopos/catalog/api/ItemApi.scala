@@ -46,7 +46,7 @@ class ItemApi(itemRepo: ItemRepo,
              query: String): ResponseEntity[util.List[Item]] = {
 
     val page = itemService.findAll(query, pageable)
-    val headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl)
+    val headers = PaginationUtil.generatePaginationHttpHeaders(page, ItemApi.baseUrl)
     new ResponseEntity(page.getContent, headers, HttpStatus.OK)
   }
 

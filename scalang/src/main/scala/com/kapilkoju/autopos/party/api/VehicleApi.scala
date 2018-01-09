@@ -24,7 +24,7 @@ class VehicleApi(vehicleRepository: VehicleRepo,
              query: String): ResponseEntity[util.List[Vehicle]] = {
 
     val page = vehicleService.findVehicles(query, pageable)
-    val headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl)
+    val headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/vehicles")
     new ResponseEntity(page.getContent, headers, HttpStatus.OK)
   }
 
