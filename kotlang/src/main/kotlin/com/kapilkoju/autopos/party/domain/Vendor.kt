@@ -1,7 +1,8 @@
 package com.kapilkoju.autopos.party.domain
 
+import com.fasterxml.jackson.annotation.JsonView
 import com.kapilkoju.autopos.kernel.domain.AuditableEntity
-
+import com.kapilkoju.autopos.kernel.json.Views.Summary
 import javax.persistence.*
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -16,7 +17,7 @@ data class Vendor(
         @NotNull
         @Size(min = 2, max = 100)
         @Column(name = "name", length = 100, nullable = false, unique = true)
-
+        @JsonView(Summary::class)
         val name: String,
 
         @ElementCollection
@@ -26,7 +27,6 @@ data class Vendor(
 
         @Size(max = 250)
         @Column(name = "remarks", length = 250)
-
         val remarks: String?
 
 ) : AuditableEntity() {
