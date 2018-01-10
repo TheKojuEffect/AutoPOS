@@ -36,22 +36,20 @@ class ItemServiceImpl(private val itemRepo: ItemRepo)
     }
   }
 
+  @Transactional(readOnly = true)
+  override def getItem(id: Long): Item =
+    Option(itemRepo.findOne(id)).orNull
+
 
   @Transactional(readOnly = true)
-  override def getItem(id: Long): Option[Item] =
-    Option(itemRepo.findOne(id))
-
-
-  @Transactional(readOnly = true)
-  override def getItemWithDetail(id: Long): Option[Item] =
-      itemRepo.findById(id)
+  override def getItemWithDetail(id: Long): Item =
+      itemRepo.findById(id).orNull
 
 
   override def delete(id: Long): Unit = {
     log.debug("Request to delete Item : {}", id)
     itemRepo.delete(id)
   }
-
 
   override def adjustQuantity(item: Item, number: Integer): Unit = {
     val dbItem = itemRepo.findOne(item.getId)

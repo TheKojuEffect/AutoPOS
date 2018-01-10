@@ -1,6 +1,7 @@
 package com.kapilkoju.autopos.catalog.service
 
 import java.lang.Long
+import javax.annotation.{Nonnull, Nullable}
 
 import com.kapilkoju.autopos.catalog.domain.Item
 import org.springframework.data.domain.{Page, Pageable}
@@ -9,11 +10,14 @@ trait ItemService {
 
   def save(item: Item): Item
 
+  @Nonnull
   def findAll(queryTerm: String, pageable: Pageable): Page[Item]
 
-  def getItem(id: Long): Option[Item]
+  @Nullable
+  def getItem(id: Long): Item
 
-  def getItemWithDetail(id: Long): Option[Item]
+  @Nullable
+  def getItemWithDetail(id: Long): Item
 
   def delete(id: Long)
 
