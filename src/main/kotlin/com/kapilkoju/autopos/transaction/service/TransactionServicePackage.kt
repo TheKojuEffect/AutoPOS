@@ -1,3 +1,3 @@
 package com.kapilkoju.autopos.transaction.service
 
-trait TransactionServicePackage
+interface TransactionServicePackage
