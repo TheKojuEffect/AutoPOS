@@ -19,7 +19,7 @@ import com.kapilkoju.autopos.trade.domain.TradeDomainPackage
 import com.kapilkoju.autopos.trade.purchase.domain.PurchaseDomainPackage
 import com.kapilkoju.autopos.trade.purchase.service.PurchaseServicePackage
 import com.kapilkoju.autopos.trade.sale.domain.SaleDomainPackage
-import com.kapilkoju.autopos.trade.sale.repo.SaleRepoPackage
+import com.kapilkoju.autopos.trade.sale.service.SaleServicePackage
 import com.kapilkoju.autopos.trade.service.TradeServicePackage
 import com.kapilkoju.autopos.transaction.domain.TransactionDomainPackage
 import com.kapilkoju.autopos.transaction.service.TransactionServicePackage
@@ -54,7 +54,7 @@ import javax.sql.DataSource
             AccountingServicePackage::class,
             PartyServicePackage::class,
             TradeServicePackage::class,
-            SaleRepoPackage::class,
+            SaleServicePackage::class,
             PurchaseServicePackage::class,
             TransactionServicePackage::class,
             CatalogServicePackage::class,

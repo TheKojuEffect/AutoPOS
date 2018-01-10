@@ -1,7 +1,7 @@
-package com.kapilkoju.autopos.trade.sale.repo
+package com.kapilkoju.autopos.trade.sale.service
 
 import com.kapilkoju.autopos.kernel.service.AuditableRepository
 import com.kapilkoju.autopos.trade.sale.domain.SaleLine
 
-trait SaleLineRepo extends AuditableRepository[SaleLine]
+interface SaleLineRepo : AuditableRepository<SaleLine>
 
