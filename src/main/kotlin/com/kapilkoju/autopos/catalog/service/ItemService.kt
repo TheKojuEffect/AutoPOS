@@ -8,7 +8,7 @@ interface ItemService {
 
     fun save(item: Item): Item
 
-    fun findAll(queryTerm: String, pageable: Pageable): Page<Item>
+    fun findAll(query: String, pageable: Pageable): Page<Item>
 
     fun getItem(id: Long): Item?
 

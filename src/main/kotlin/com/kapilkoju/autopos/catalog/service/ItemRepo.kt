@@ -13,6 +13,6 @@ interface ItemRepo : AuditableRepository<Item> {
                                                                  pageable: Pageable
     ): Page<Item>
 
-    @EntityGraph(value = "Item.detail", `type` = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(value = Item.Graph.detail, `type` = EntityGraph.EntityGraphType.LOAD)
     fun findById(id: Long): Item?
 }

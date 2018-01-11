@@ -3,7 +3,7 @@ package com.kapilkoju.autopos.config
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module
 import com.kapilkoju.autopos.accounting.domain.AccountingDomainPackage
 import com.kapilkoju.autopos.accounting.service.AccountingServicePackage
-import com.kapilkoju.autopos.catalog.domain.Item
+import com.kapilkoju.autopos.catalog.domain.CatalogDomainPackage
 import com.kapilkoju.autopos.catalog.service.CatalogServicePackage
 import com.kapilkoju.autopos.domain.DomainPackage
 import com.kapilkoju.autopos.kernel.domain.AbstractEntity
@@ -66,7 +66,7 @@ import javax.sql.DataSource
             DomainPackage::class,
             SharedDomainPackage::class,
             User::class,
-            Item::class,
+            CatalogDomainPackage::class,
             AccountingDomainPackage::class,
             PartyDomainPackage::class,
             TradeDomainPackage::class,
