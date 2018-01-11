@@ -1,7 +1,6 @@
 apply plugin: 'scala'
 
 dependencies {
-    compile project(':kotlang')
 
     compile "org.scala-lang:scala-library:$scalaVersion"
     compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-scala_2.12'
