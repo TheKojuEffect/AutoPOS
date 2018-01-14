@@ -49,6 +49,17 @@ public class Purchase extends AuditableEntity {
     @Column(name = "remarks", length = 250)
     private String remarks;
 
+    @Column(name = "vat", nullable = false)
+    private boolean vat;
+
+    public boolean getVat() {
+        return vat;
+    }
+
+    public void setVat(boolean vat) {
+        this.vat = vat;
+    }
+
     public Vendor getVendor() {
         return vendor;
     }

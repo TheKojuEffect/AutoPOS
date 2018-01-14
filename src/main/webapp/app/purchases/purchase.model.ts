@@ -8,6 +8,7 @@ export class Purchase {
                 public discount?: number,
                 public remarks?: string,
                 public vendor?: Vendor,
+                public vat?: boolean,
                 public lines: PurchaseLine[] = []) {
     }
 }

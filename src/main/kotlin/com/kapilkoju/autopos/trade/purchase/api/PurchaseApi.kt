@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed
 import com.fasterxml.jackson.annotation.JsonView
 import com.kapilkoju.autopos.kernel.json.Views
 import com.kapilkoju.autopos.trade.purchase.domain.Purchase
+import com.kapilkoju.autopos.trade.purchase.dto.CreatePurchaseDto
 import com.kapilkoju.autopos.trade.purchase.service.PurchaseService
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil
 import com.kapilkoju.autopos.web.rest.util.PaginationUtil
@@ -20,16 +21,16 @@ class PurchaseApi(private val purchaseService: PurchaseService) {
     @GetMapping
     @Timed
     @JsonView(Views.Summary::class)
-    fun getAllPurchases(pageable: Pageable): ResponseEntity<List<Purchase>> {
-        val page = purchaseService.getPurchases(pageable)
+    fun getAllPurchases(@RequestParam vat: Boolean = false, pageable: Pageable): ResponseEntity<List<Purchase>> {
+        val page = purchaseService.getPurchases(vat, pageable)
         val headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl)
         return ResponseEntity(page.content, headers, HttpStatus.OK)
     }
 
     @PostMapping
     @Timed
-    fun createNewPurchase(): ResponseEntity<Purchase> {
-        val newPurchase = purchaseService.createNewPurchase()
+    fun createNewPurchase(@RequestBody createPurchaseDto: CreatePurchaseDto): ResponseEntity<Purchase> {
+        val newPurchase = purchaseService.createNewPurchase(createPurchaseDto)
         return ResponseEntity
                 .created(URI("/api/purchases/${newPurchase.getId()}"))
                 .body(newPurchase)

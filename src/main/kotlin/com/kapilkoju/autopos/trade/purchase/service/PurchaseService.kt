@@ -2,14 +2,15 @@ package com.kapilkoju.autopos.trade.purchase.service
 
 import com.kapilkoju.autopos.trade.purchase.domain.Purchase
 import com.kapilkoju.autopos.trade.purchase.domain.PurchaseLine
+import com.kapilkoju.autopos.trade.purchase.dto.CreatePurchaseDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 interface PurchaseService {
 
-    fun getPurchases(pageable: Pageable): Page<Purchase>
+    fun getPurchases(vat: Boolean, pageable: Pageable): Page<Purchase>
 
-    fun createNewPurchase(): Purchase
+    fun createNewPurchase(createPurchaseDto: CreatePurchaseDto): Purchase
 
     fun updatePurchase(purchase: Purchase): Purchase
 

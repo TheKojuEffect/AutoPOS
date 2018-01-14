@@ -1,8 +1,10 @@
 package com.kapilkoju.autopos.trade.purchase.service
 
 import com.kapilkoju.autopos.catalog.service.ItemService
+import com.kapilkoju.autopos.stockbook.service.StockBookService
 import com.kapilkoju.autopos.trade.purchase.domain.Purchase
 import com.kapilkoju.autopos.trade.purchase.domain.PurchaseLine
+import com.kapilkoju.autopos.trade.purchase.dto.CreatePurchaseDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -14,14 +16,16 @@ import java.time.Instant
 @Transactional
 class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
                           private val purchaseLineRepo: PurchaseLineRepo,
-                          private val itemService: ItemService)
+                          private val itemService: ItemService,
+                          private val stockBookService: StockBookService)
     : PurchaseService {
 
-    override fun getPurchases(pageable: Pageable): Page<Purchase> =
-            purchaseRepo.findAll(pageable)
+    override fun getPurchases(vat: Boolean, pageable: Pageable): Page<Purchase> =
+            purchaseRepo.findAllByVat(vat, pageable)
 
-    override fun createNewPurchase(): Purchase {
+    override fun createNewPurchase(createPurchaseDto: CreatePurchaseDto): Purchase {
         val purchase = Purchase()
+        purchase.vat = createPurchaseDto.vat
         purchase.date = Instant.now()
         return purchaseRepo.save(purchase)
     }
@@ -34,7 +38,12 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
         purchaseLine.purchase = purchase
         purchaseLine.setId(null)
         purchaseLineRepo.save(purchaseLine)
-        itemService.addQuantity(purchaseLine.item, purchaseLine.quantity)
+
+        if (purchaseLine.purchase.vat) {
+            stockBookService.addQuantity(purchaseLine, purchaseLine.quantity)
+        } else {
+            itemService.addQuantity(purchaseLine.item, purchaseLine.quantity)
+        }
         return purchaseLine
     }
 
@@ -45,13 +54,22 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
         val quantityChanged = purchaseLine.quantity - dbPurchaseLine.quantity
 
         purchaseLineRepo.save(purchaseLine)
-        itemService.adjustQuantity(purchaseLine.item, quantityChanged)
+        if (purchase.vat) {
+            stockBookService.adjustQuantity(purchaseLine, quantityChanged)
+        } else {
+            itemService.adjustQuantity(purchaseLine.item, quantityChanged)
+        }
         return purchaseLine
     }
 
     override fun deletePurchaseLine(purchaseLine: PurchaseLine) {
         purchaseLineRepo.delete(purchaseLine)
-        itemService.addQuantity(purchaseLine.item, purchaseLine.quantity)
+
+        if (purchaseLine.purchase.vat) {
+            stockBookService.subtractQuantity(purchaseLine, purchaseLine.quantity)
+        } else {
+            itemService.subtractQuantity(purchaseLine.item, purchaseLine.quantity)
+        }
     }
 
     override fun getPurchaseLines(itemId: Long): List<PurchaseLine> =

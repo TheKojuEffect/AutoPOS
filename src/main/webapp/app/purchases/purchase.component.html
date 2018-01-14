@@ -1,10 +1,10 @@
 <div>
     <h2>
         <span jhiTranslate="autoPosApp.purchase.home.title">Purchases</span>
-        <button class="btn btn-primary float-right create-purchase" (click)="createNewPurchase()">
+        <button class="btn btn-primary float-right create-purchase" (click)="createNewPurchase(vat)">
             <span class="fa fa-plus"></span>
-            <span jhiTranslate="autoPosApp.purchase.home.createLabel">
-            Create new Purchase
+            <span>
+            Create new {{vat ? 'VAT ': ''}}Purchase
             </span>
         </button>
     </h2>
@@ -45,7 +45,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let purchase of purchases ;trackBy: trackId">
-                <td><a [routerLink]="['./', purchase.id ]">{{purchase.id}}</a></td>
+                <td><a [routerLink]="['../', purchase.id ]">{{purchase.id}}</a></td>
                 <td>{{purchase.invoiceNumber}}</td>
                 <td>{{purchase.vendor && purchase.vendor.name}}</td>
                 <td>{{purchase.grandTotal}}</td>
@@ -54,7 +54,7 @@
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['./', purchase.id ]"
+                                [routerLink]="['../', purchase.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes } from '@angular/router';
 import { JhiPaginationUtil } from 'ng-jhipster';
 import { PurchaseDetailComponent } from './purchase-detail.component';
-import { UserRouteAccessService } from '../shared/auth/user-route-access-service';
+import { UserRouteAccessService } from '../shared';
 import { PurchaseComponent } from './purchase.component';
+import { PurchasesComponent } from './purchases.component';
 
 @Injectable()
 export class PurchaseResolvePagingParams implements Resolve<any> {
@@ -25,7 +26,7 @@ export class PurchaseResolvePagingParams implements Resolve<any> {
 export const purchaseRoutes: Routes = [
     {
         path: 'purchase',
-        component: PurchaseComponent,
+        component: PurchasesComponent,
         resolve: {
             'pagingParams': PurchaseResolvePagingParams
         },
@@ -34,6 +35,37 @@ export const purchaseRoutes: Routes = [
             pageTitle: 'autoPosApp.purchase.home.title'
         },
         canActivate: [UserRouteAccessService],
+        children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'normal'
+            },
+            {
+                path: 'normal',
+                component: PurchaseComponent,
+                resolve: {
+                    'pagingParams': PurchaseResolvePagingParams
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'autoPosApp.purchase.normal.title',
+                    vat: false
+                }
+            },
+            {
+                path: 'vat',
+                component: PurchaseComponent,
+                resolve: {
+                    'pagingParams': PurchaseResolvePagingParams
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'autoPosApp.purchase.vat.title',
+                    vat: true
+                }
+            }
+        ]
     },
     {
         path: 'purchase/:id',

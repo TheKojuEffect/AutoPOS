@@ -21,15 +21,15 @@ data class StockBookEntry(
 
         @Min(0)
         @Column(name = "quantity", nullable = false)
-        val quantity: Int = 0,
+        var quantity: Int = 0,
 
         @NotNull
         @Min(0)
         @Column(name = "cost_price", precision = 10, scale = 2, nullable = false)
-        val costPrice: BigDecimal,
+        var costPrice: BigDecimal,
 
         @Size(max = 250)
         @Column(name = "remarks", length = 250)
-        val remarks: String?
+        val remarks: String? = null
 
 ) : AuditableEntity()

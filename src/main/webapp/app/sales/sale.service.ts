@@ -39,7 +39,7 @@ export class SaleService {
 
     query(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
-        options.search.set('status', req.status);
+        options.params.set('status', req.status);
         return this.http.get(this.resourceUrl, options)
             .map((res: Response) => this.convertResponse(res));
     }

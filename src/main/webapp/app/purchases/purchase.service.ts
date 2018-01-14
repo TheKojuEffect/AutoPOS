@@ -14,8 +14,8 @@ export class PurchaseService {
     constructor(private http: Http, private dateUtils: JhiDateUtils) {
     }
 
-    create(): Observable<Purchase> {
-        return this.http.post(this.resourceUrl, null).map((res: Response) => {
+    create(vat: boolean): Observable<Purchase> {
+        return this.http.post(this.resourceUrl, {vat}).map((res: Response) => {
             return res.json();
         });
     }
@@ -39,6 +39,7 @@ export class PurchaseService {
 
     query(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
+        options.params.set('vat', req.vat);
         return this.http.get(this.resourceUrl, options)
             .map((res: Response) => this.convertResponse(res));
     }

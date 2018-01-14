@@ -29,6 +29,7 @@ export class PurchaseComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    vat: boolean;
 
     constructor(private purchaseService: PurchaseService,
                 private parseLinks: JhiParseLinks,
@@ -43,6 +44,7 @@ export class PurchaseComponent implements OnInit, OnDestroy {
             this.previousPage = data['pagingParams'].page;
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
+            this.vat = data['vat'];
         });
     }
 
@@ -51,6 +53,7 @@ export class PurchaseComponent implements OnInit, OnDestroy {
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort(),
+            vat: this.vat,
         }).subscribe(
             (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
             (res: ResponseWrapper) => this.onError(res.json)
@@ -65,7 +68,7 @@ export class PurchaseComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/purchase'], {
+        this.router.navigate(['/purchase' + this.vat ? '/vat' : ''], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
@@ -77,7 +80,7 @@ export class PurchaseComponent implements OnInit, OnDestroy {
 
     clear() {
         this.page = 0;
-        this.router.navigate(['/purchase', {
+        this.router.navigate(['/purchase' + this.vat ? '/vat' : '', {
             page: this.page,
             sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
         }]);
@@ -112,8 +115,8 @@ export class PurchaseComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    createNewPurchase() {
-        this.purchaseService.create()
+    createNewPurchase(vat: boolean) {
+        this.purchaseService.create(vat)
             .subscribe((purchase) => this.router.navigate(['/purchase', purchase.id]));
     }
 

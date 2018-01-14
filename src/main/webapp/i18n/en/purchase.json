@@ -1,6 +1,12 @@
 {
   "autoPosApp": {
     "purchase": {
+      "normal": {
+        "title":"Normal Purchases"
+      },
+      "vat": {
+        "title":"VAT Purchases"
+      },
       "home": {
         "title": "Purchases",
         "createLabel": "Create a new Purchase",

@@ -6,6 +6,7 @@ import { PurchaseRoutingModule } from './purchase-routing.module';
 import { ItemModule } from '../catalog/item/item.module';
 import { PartyModule } from '../party/party.module';
 import { PurchaseLineService } from './purchase-line.service';
+import { PurchasesComponent } from './purchases.component';
 
 @NgModule({
     imports: [
@@ -15,11 +16,12 @@ import { PurchaseLineService } from './purchase-line.service';
         PartyModule,
     ],
     declarations: [
+        PurchasesComponent,
         PurchaseComponent,
         PurchaseDetailComponent,
     ],
     entryComponents: [
-        PurchaseComponent,
+        PurchasesComponent
     ],
     providers: [
         PurchaseService,

@@ -111,5 +111,12 @@
         <sqlFile path="sql/stock_book_entry_table.sql"
                  relativeToChangelogFile="true" splitStatements="false" stripComments="false"/>
     </changeSet>
+    
+    <changeSet id="POS-212" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sql>
+            ALTER TABLE purchase
+            ADD COLUMN vat BOOLEAN NOT NULL DEFAULT FALSE;
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>
