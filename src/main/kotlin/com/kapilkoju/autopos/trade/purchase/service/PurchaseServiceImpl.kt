@@ -40,7 +40,7 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
         purchaseLineRepo.save(purchaseLine)
 
         if (purchaseLine.purchase.vat) {
-            stockBookService.addQuantity(purchaseLine, purchaseLine.quantity)
+            stockBookService.addStock(purchaseLine.item, purchaseLine.quantity, purchaseLine.rate)
         } else {
             itemService.addQuantity(purchaseLine.item, purchaseLine.quantity)
         }
@@ -55,7 +55,7 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
 
         purchaseLineRepo.save(purchaseLine)
         if (purchase.vat) {
-            stockBookService.adjustQuantity(purchaseLine, quantityChanged)
+            stockBookService.adjustStock(purchaseLine.item, quantityChanged, purchaseLine.rate)
         } else {
             itemService.adjustQuantity(purchaseLine.item, quantityChanged)
         }
@@ -66,7 +66,7 @@ class PurchaseServiceImpl(private val purchaseRepo: PurchaseRepo,
         purchaseLineRepo.delete(purchaseLine)
 
         if (purchaseLine.purchase.vat) {
-            stockBookService.subtractQuantity(purchaseLine, purchaseLine.quantity)
+            stockBookService.subtractStock(purchaseLine.item, purchaseLine.quantity) // Need to update the cost price to latest
         } else {
             itemService.subtractQuantity(purchaseLine.item, purchaseLine.quantity)
         }

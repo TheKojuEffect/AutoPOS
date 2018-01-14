@@ -66,6 +66,19 @@ export const saleRoutes: Routes = [
                     pageTitle: 'autoPosApp.sale.completed.title',
                     status: SaleStatus.COMPLETED
                 }
+            },
+            {
+                path: 'vat',
+                component: SaleComponent,
+                resolve: {
+                    'pagingParams': SaleResolvePagingParams
+                },
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'autoPosApp.sale.vat.title',
+                    status: SaleStatus.PENDING,
+                    vat: true
+                }
             }
         ]
     }, {

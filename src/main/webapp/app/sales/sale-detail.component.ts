@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager} from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 import { Sale } from './sale.model';
 import { SaleService } from './sale.service';
 import { ItemService } from '../catalog/item/item.service';
@@ -56,7 +56,7 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     }
 
     gotoSaleList() {
-        this.router.navigate(['./sale/pending']);
+        this.router.navigate([this.sale.vat ? './sale/vat' : './sale/pending']);
     }
 
     ngOnDestroy() {

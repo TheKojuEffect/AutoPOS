@@ -12,6 +12,9 @@
       "completed": {
         "title":"Completed Sales"
       },
+      "vat": {
+        "title":"VAT Sales"
+      },
       "created": "A new Sale is created with identifier {{ param }}",
       "updated": "A Sale is updated with identifier {{ param }}",
       "deleted": "A Sale is deleted with identifier {{ param }}",

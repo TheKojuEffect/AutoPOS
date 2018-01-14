@@ -30,6 +30,7 @@ export class SaleComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     saleStatus: SaleStatus;
+    vat: boolean;
 
     constructor(private saleService: SaleService,
                 private parseLinks: JhiParseLinks,
@@ -37,9 +38,7 @@ export class SaleComponent implements OnInit, OnDestroy {
                 private principal: Principal,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private eventManager: JhiEventManager,
-                private paginationUtil: JhiPaginationUtil,
-                private paginationConfig: PaginationConfig) {
+                private eventManager: JhiEventManager) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
             this.page = data['pagingParams'].page;
@@ -47,6 +46,7 @@ export class SaleComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
             this.saleStatus = data['status'];
+            this.vat = data['vat'] || false;
         });
     }
 
@@ -55,7 +55,8 @@ export class SaleComponent implements OnInit, OnDestroy {
             page: this.page - 1,
             size: this.itemsPerPage,
             sort: this.sort(),
-            status: this.saleStatus
+            status: this.saleStatus,
+            vat: this.vat
         }).subscribe(
             (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
             (res: ResponseWrapper) => this.onError(res.json)
@@ -69,9 +70,14 @@ export class SaleComponent implements OnInit, OnDestroy {
         }
     }
 
+    createNewSale(vat) {
+        this.saleService.create(vat)
+            .subscribe((sale) => this.router.navigate(['/sale', sale.id]));
+    }
+
     transition() {
         const status = this.saleStatus.toString().toLowerCase();
-        this.router.navigate([`/sale/${status}`], {
+        this.router.navigate([`/sale/${this.vat ? 'vat' : status}`], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,

@@ -11,9 +11,6 @@ export class SalesComponent {
                 private router: Router) {
     }
 
-    createNewSale() {
-        this.saleService.create()
-            .subscribe((sale) => this.router.navigate(['/sale', sale.id]));
-    }
+
 
 }

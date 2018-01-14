@@ -16,6 +16,7 @@ export class Sale {
                 public buyer?: string,
                 public status?: SaleStatus,
                 public customer?: Customer,
+                public vat?: boolean,
                 public lines: SaleLine[] = [],
                 public vehicle?: Vehicle) {
     }

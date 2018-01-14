@@ -2,9 +2,10 @@ package com.kapilkoju.autopos.trade.sale.api
 
 import com.codahale.metrics.annotation.Timed
 import com.fasterxml.jackson.annotation.JsonView
-import com.kapilkoju.autopos.catalog.domain.SaleStatus
 import com.kapilkoju.autopos.kernel.json.Views
 import com.kapilkoju.autopos.trade.sale.domain.Sale
+import com.kapilkoju.autopos.trade.sale.dto.CreateSaleDto
+import com.kapilkoju.autopos.trade.sale.dto.GetSaleDto
 import com.kapilkoju.autopos.trade.sale.service.SaleService
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil
 import com.kapilkoju.autopos.web.rest.util.PaginationUtil
@@ -21,16 +22,18 @@ class SaleApi(private val saleService: SaleService) {
     @GetMapping
     @Timed
     @JsonView(Views.Summary::class)
-    fun getAllSales(@RequestParam("status") status: SaleStatus, pageable: Pageable): ResponseEntity<List<Sale>> {
-        val page = saleService.getSalesWithStatus(status, pageable)
+    fun getAllSales(getSaleDto: GetSaleDto, pageable: Pageable)
+            : ResponseEntity<List<Sale>> {
+
+        val page = saleService.getSalesWithStatus(getSaleDto, pageable)
         val headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl)
         return ResponseEntity(page.content, headers, HttpStatus.OK)
     }
 
     @PostMapping
     @Timed
-    fun createNewSale(): ResponseEntity<Sale> {
-        val newSale = saleService.createNewSale()
+    fun createNewSale(@RequestBody createSaleDto: CreateSaleDto): ResponseEntity<Sale> {
+        val newSale = saleService.createNewSale(createSaleDto)
         return ResponseEntity
                 .created(URI("/api/sales/${newSale.getId()}"))
                 .body(newSale)

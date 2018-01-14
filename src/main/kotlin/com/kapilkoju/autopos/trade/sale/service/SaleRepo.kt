@@ -8,6 +8,6 @@ import org.springframework.data.domain.Pageable
 
 interface SaleRepo : AuditableRepository<Sale> {
 
-    fun findByStatus(status: SaleStatus, pageable: Pageable): Page<Sale>
+    fun findByStatusAndVat(status: SaleStatus, vat: Boolean, pageable: Pageable): Page<Sale>
 
 }

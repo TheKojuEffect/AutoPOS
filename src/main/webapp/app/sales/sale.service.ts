@@ -14,8 +14,8 @@ export class SaleService {
     constructor(private http: Http, private dateUtils: JhiDateUtils) {
     }
 
-    create(): Observable<Sale> {
-        return this.http.post(this.resourceUrl, null).map((res: Response) => {
+    create(vat): Observable<Sale> {
+        return this.http.post(this.resourceUrl, {vat}).map((res: Response) => {
             return res.json();
         });
     }
@@ -40,6 +40,7 @@ export class SaleService {
     query(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
         options.params.set('status', req.status);
+        options.params.set('vat', req.vat);
         return this.http.get(this.resourceUrl, options)
             .map((res: Response) => this.convertResponse(res));
     }
