@@ -113,7 +113,6 @@ task testReport(type: TestReport) {
     reportOn test
 }
 
-apply from: 'gradle/docker.gradle'
 apply from: 'gradle/liquibase.gradle'
 
 if (project.hasProperty('prod')) {
@@ -192,7 +191,6 @@ dependencies {
     }
     compile "io.springfox:springfox-bean-validators:${springfox_version}"
     compile "org.postgresql:postgresql"
-    compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
     testCompile "org.awaitility:awaitility:${awaitility_version}"
     testCompile "com.jayway.jsonpath:json-path"
     testCompile("org.springframework.boot:spring-boot-starter-test") {
