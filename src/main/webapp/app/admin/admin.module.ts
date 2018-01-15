@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared';
-/* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 import {
     adminState,
@@ -19,7 +18,6 @@ import {
     AposHealthModalComponent,
     AposHealthCheckComponent,
     AposConfigurationComponent,
-    AposDocsComponent,
     AuditsService,
     AposConfigurationService,
     AposHealthService,
@@ -48,7 +46,6 @@ import {
         AposConfigurationComponent,
         AposHealthCheckComponent,
         AposHealthModalComponent,
-        AposDocsComponent,
         AposMetricsMonitoringComponent,
         AposMetricsMonitoringModalComponent
     ],

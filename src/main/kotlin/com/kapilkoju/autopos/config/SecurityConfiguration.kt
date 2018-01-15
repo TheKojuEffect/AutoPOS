@@ -58,7 +58,6 @@ class SecurityConfiguration(val authenticationManagerBuilder: AuthenticationMana
                 .antMatchers("/bower_components/**")
                 .antMatchers("/i18n/**")
                 .antMatchers("/content/**")
-                .antMatchers("/swagger-ui/index.html")
                 .antMatchers("/api/register")
                 .antMatchers("/api/activate")
                 .antMatchers("/api/account/reset-password/init")
@@ -88,9 +87,6 @@ class SecurityConfiguration(val authenticationManagerBuilder: AuthenticationMana
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/management/health").permitAll()
                 .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                .antMatchers("/v2/api-docs/**").permitAll()
-                .antMatchers("/swagger-resources/configuration/ui").permitAll()
-                .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
                 .and()
                 .apply(securityConfigurerAdapter())
     }
