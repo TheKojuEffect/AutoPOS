@@ -7,8 +7,6 @@ import com.kapilkoju.autopos.config.JHipsterProperties
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.SpringApplication
-import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration
-import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -18,7 +16,7 @@ import java.net.InetAddress
 import javax.annotation.PostConstruct
 
 @ComponentScan
-@EnableAutoConfiguration(exclude = [MetricFilterAutoConfiguration::class, MetricRepositoryAutoConfiguration::class])
+@EnableAutoConfiguration
 @EnableConfigurationProperties(value = [LiquibaseProperties::class, ApplicationProperties::class, JHipsterProperties::class])
 class Application(private val env: Environment) {
 
