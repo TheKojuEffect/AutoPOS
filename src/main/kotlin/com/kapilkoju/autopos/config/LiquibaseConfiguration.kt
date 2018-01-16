@@ -30,7 +30,7 @@ class LiquibaseConfiguration(private val env: Environment) {
             defaultSchema = liquibaseProperties.defaultSchema
             isDropFirst = liquibaseProperties.isDropFirst
         }
-        if (env.acceptsProfiles(JHipsterConstants.SPRING_PROFILE_NO_LIQUIBASE)) {
+        if (env.acceptsProfiles(SpringProfiles.NO_LIQUIBASE)) {
             liquibase.setShouldRun(false)
         } else {
             liquibase.setShouldRun(liquibaseProperties.isEnabled)

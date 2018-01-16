@@ -36,7 +36,7 @@ class WebConfigurer(val env: Environment,
         }
         val disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC)
 
-        if (env.acceptsProfiles(JHipsterConstants.SPRING_PROFILE_PRODUCTION)) {
+        if (env.acceptsProfiles(SpringProfiles.PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps)
         }
         log.info("Web application fully configured")

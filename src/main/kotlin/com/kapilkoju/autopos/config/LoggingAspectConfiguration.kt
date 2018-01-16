@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment
 class LoggingAspectConfiguration {
 
     @Bean
-    @Profile(value = [JHipsterConstants.SPRING_PROFILE_DEVELOPMENT])
+    @Profile(value = [SpringProfiles.DEVELOPMENT])
     fun loggingAspect(env: Environment): LoggingAspect {
         return LoggingAspect(env)
     }
