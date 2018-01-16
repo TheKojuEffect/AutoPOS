@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.kernel.api
 
-import com.codahale.metrics.annotation.Timed
+
 import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil
 import org.springframework.http.HttpStatus
@@ -12,7 +12,7 @@ import javax.validation.Valid
 interface CreateApi<T : AuditableEntity> : Api<T> {
 
     @PostMapping
-    @Timed
+
     fun save(@RequestBody @Valid entity: T): ResponseEntity<T> {
 
         if (entity.getId() != null) {

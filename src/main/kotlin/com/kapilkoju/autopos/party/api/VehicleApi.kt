@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.party.api
 
-import com.codahale.metrics.annotation.Timed
+
 import com.kapilkoju.autopos.kernel.api.CrudApi
 import com.kapilkoju.autopos.party.domain.Vehicle
 import com.kapilkoju.autopos.party.service.VehicleRepo
@@ -21,7 +21,7 @@ class VehicleApi(vehicleRepository: VehicleRepo,
     : CrudApi<Vehicle>(vehicleRepository, "vehicle", baseUrl) {
 
     @GetMapping
-    @Timed
+
     fun getAll(pageable: Pageable, @RequestParam(value = "q", required = false, defaultValue = "") query: String): ResponseEntity<List<Vehicle>> {
         val page = vehicleService.findVehicles(query, pageable)
         val headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl)

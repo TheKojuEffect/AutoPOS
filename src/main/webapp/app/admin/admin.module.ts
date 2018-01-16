@@ -1,31 +1,11 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared';
 
 import {
-    adminState,
-    AuditsComponent,
-    UserMgmtComponent,
-    UserDialogComponent,
-    UserDeleteDialogComponent,
-    UserMgmtDetailComponent,
-    UserMgmtDialogComponent,
-    UserMgmtDeleteDialogComponent,
-    LogsComponent,
-    AposMetricsMonitoringModalComponent,
-    AposMetricsMonitoringComponent,
-    AposHealthModalComponent,
-    AposHealthCheckComponent,
-    AposConfigurationComponent,
-    AuditsService,
-    AposConfigurationService,
-    AposHealthService,
-    AposMetricsService,
-    LogsService,
-    UserResolvePagingParams,
-    UserResolve,
-    UserModalService
+    adminState, AuditsComponent, AuditsService, UserDeleteDialogComponent, UserDialogComponent, UserMgmtComponent, UserMgmtDeleteDialogComponent, UserMgmtDetailComponent,
+    UserMgmtDialogComponent, UserModalService, UserResolve, UserResolvePagingParams
 } from './';
 
 @NgModule({
@@ -42,25 +22,13 @@ import {
         UserMgmtDetailComponent,
         UserMgmtDialogComponent,
         UserMgmtDeleteDialogComponent,
-        LogsComponent,
-        AposConfigurationComponent,
-        AposHealthCheckComponent,
-        AposHealthModalComponent,
-        AposMetricsMonitoringComponent,
-        AposMetricsMonitoringModalComponent
     ],
     entryComponents: [
         UserMgmtDialogComponent,
         UserMgmtDeleteDialogComponent,
-        AposHealthModalComponent,
-        AposMetricsMonitoringModalComponent,
     ],
     providers: [
         AuditsService,
-        AposConfigurationService,
-        AposHealthService,
-        AposMetricsService,
-        LogsService,
         UserResolvePagingParams,
         UserResolve,
         UserModalService

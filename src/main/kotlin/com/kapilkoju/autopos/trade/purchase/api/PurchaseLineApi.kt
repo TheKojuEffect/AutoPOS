@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.trade.purchase.api
 
-import com.codahale.metrics.annotation.Timed
+
 import com.kapilkoju.autopos.trade.purchase.domain.Purchase
 import com.kapilkoju.autopos.trade.purchase.domain.PurchaseLine
 import com.kapilkoju.autopos.trade.purchase.service.PurchaseService
@@ -16,7 +16,7 @@ import javax.validation.Valid
 class PurchaseLineApi(private val purchaseService: PurchaseService) {
 
     @GetMapping("/{purchaseLineId}")
-    @Timed
+
     fun getPurchaseLine(@PathVariable("purchaseId") purchaseId: Long,
                         @PathVariable("purchaseLineId") purchaseLine: PurchaseLine)
             : ResponseEntity<PurchaseLine> {
@@ -29,7 +29,7 @@ class PurchaseLineApi(private val purchaseService: PurchaseService) {
     }
 
     @PostMapping
-    @Timed
+
     fun createPurchaseLine(@PathVariable("purchaseId") purchase: Purchase,
                            @RequestBody @Valid purchaseLine: PurchaseLine)
             : ResponseEntity<PurchaseLine> {
@@ -41,7 +41,7 @@ class PurchaseLineApi(private val purchaseService: PurchaseService) {
     }
 
     @PutMapping("/{purchaseLineId}")
-    @Timed
+
     fun updatePurchaseLine(@PathVariable("purchaseId") purchase: Purchase,
                            @PathVariable("purchaseLineId") purchaseLineId: Long,
                            @RequestBody @Valid purchaseLine: PurchaseLine): ResponseEntity<PurchaseLine> {
@@ -54,7 +54,7 @@ class PurchaseLineApi(private val purchaseService: PurchaseService) {
     }
 
     @DeleteMapping("/{purchaseLineId}")
-    @Timed
+
     fun deletePurchaseLine(@PathVariable("purchaseId") purchaseId: Long,
                            @PathVariable("purchaseLineId") purchaseLine: PurchaseLine): ResponseEntity<Void> {
 

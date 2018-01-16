@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.catalog.api
 
-import com.codahale.metrics.annotation.Timed
+
 import com.kapilkoju.autopos.catalog.domain.Item
 import com.kapilkoju.autopos.catalog.model.CostPriceInfo
 import com.kapilkoju.autopos.catalog.service.ItemRepo
@@ -22,7 +22,7 @@ class ItemApi(itemRepo: ItemRepo,
     : CudApi<Item>(itemRepo, "item", ItemApi.baseUrl) {
 
     @GetMapping("/{id}")
-    @Timed
+
     fun get(@PathVariable("id") itemId: Long,
             @RequestParam(value = "detail", required = false) detail: Boolean)
             : ResponseEntity<Item> {
@@ -41,7 +41,7 @@ class ItemApi(itemRepo: ItemRepo,
     }
 
     @GetMapping
-    @Timed
+
     fun getAll(pageable: Pageable,
                @RequestParam(value = "query", required = false, defaultValue = "")
                query: String): ResponseEntity<List<Item>> {

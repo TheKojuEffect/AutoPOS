@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.party.api
 
-import com.codahale.metrics.annotation.Timed
+
 import com.kapilkoju.autopos.party.domain.Customer
 import com.kapilkoju.autopos.party.service.CustomerRepo
 import com.kapilkoju.autopos.party.service.CustomerService
@@ -19,7 +19,7 @@ class CustomerApi(private val repo: CustomerRepo, private val customerService: C
 
 
     @GetMapping("{id}")
-    @Timed
+
     fun get(@PathVariable("id") id: Long): ResponseEntity<Customer> {
         val customer = customerService.getCustomer(id)
         return if (customer != null) {
@@ -30,7 +30,7 @@ class CustomerApi(private val repo: CustomerRepo, private val customerService: C
     }
 
     @GetMapping
-    @Timed
+
     fun getAll(pageable: Pageable): ResponseEntity<List<Customer>> {
         val page = repo.findAll(pageable)
         val headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl)
@@ -38,7 +38,7 @@ class CustomerApi(private val repo: CustomerRepo, private val customerService: C
     }
 
     @PostMapping
-    @Timed
+
     fun save(@RequestBody @Valid customer: Customer): ResponseEntity<Customer> {
 
         if (customer.getId() != null) {
@@ -56,7 +56,7 @@ class CustomerApi(private val repo: CustomerRepo, private val customerService: C
 
 
     @PutMapping("/{id}")
-    @Timed
+
     fun update(@PathVariable("id") id: Long, @RequestBody @Valid customer: Customer): ResponseEntity<Customer> {
 
         Assert.isTrue(customer.getId() == id, "id of customer to be updated should not be null")
@@ -69,7 +69,7 @@ class CustomerApi(private val repo: CustomerRepo, private val customerService: C
     }
 
     @PutMapping
-    @Timed
+
     fun updateEntity(@RequestBody @Valid customer: Customer): ResponseEntity<Customer> {
         Assert.isTrue(customer.getId() != null, "id of customer to be updated should not be null")
         return update(customer.getId()!!, customer)
@@ -77,7 +77,7 @@ class CustomerApi(private val repo: CustomerRepo, private val customerService: C
 
 
     @DeleteMapping("/{id}")
-    @Timed
+
     fun delete(@PathVariable("id") id: Long): ResponseEntity<Void> {
         repo.delete(id)
         return ResponseEntity

@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.trade.purchase.api
 
-import com.codahale.metrics.annotation.Timed
+
 import com.fasterxml.jackson.annotation.JsonView
 import com.kapilkoju.autopos.kernel.json.Views
 import com.kapilkoju.autopos.trade.purchase.domain.Purchase
@@ -19,7 +19,7 @@ import java.net.URI
 class PurchaseApi(private val purchaseService: PurchaseService) {
 
     @GetMapping
-    @Timed
+
     @JsonView(Views.Summary::class)
     fun getAllPurchases(@RequestParam vat: Boolean = false, pageable: Pageable): ResponseEntity<List<Purchase>> {
         val page = purchaseService.getPurchases(vat, pageable)
@@ -28,7 +28,7 @@ class PurchaseApi(private val purchaseService: PurchaseService) {
     }
 
     @PostMapping
-    @Timed
+
     fun createNewPurchase(@RequestBody createPurchaseDto: CreatePurchaseDto): ResponseEntity<Purchase> {
         val newPurchase = purchaseService.createNewPurchase(createPurchaseDto)
         return ResponseEntity
@@ -37,7 +37,7 @@ class PurchaseApi(private val purchaseService: PurchaseService) {
     }
 
     @PutMapping("/{id}")
-    @Timed
+
     fun updatePurchase(@PathVariable("id") id: Long, @RequestBody purchase: Purchase): ResponseEntity<Purchase> {
         purchase.setId(id)
         val updatedPurchase = purchaseService.updatePurchase(purchase)
@@ -47,7 +47,7 @@ class PurchaseApi(private val purchaseService: PurchaseService) {
     }
 
     @GetMapping("/{id}")
-    @Timed
+
     fun getPurchase(@PathVariable("id") purchase: Purchase?): ResponseEntity<Purchase> {
 
         return if (purchase != null) {
@@ -58,7 +58,7 @@ class PurchaseApi(private val purchaseService: PurchaseService) {
     }
 
     @DeleteMapping("/{id}")
-    @Timed
+
     fun deletePurchase(@PathVariable("id") purchase: Purchase?): ResponseEntity<Void> {
 
         return if (purchase != null) {

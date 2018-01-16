@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.trade.sale.api
 
-import com.codahale.metrics.annotation.Timed
+
 import com.fasterxml.jackson.annotation.JsonView
 import com.kapilkoju.autopos.kernel.json.Views
 import com.kapilkoju.autopos.trade.sale.domain.Sale
@@ -20,7 +20,7 @@ import java.net.URI
 class SaleApi(private val saleService: SaleService) {
 
     @GetMapping
-    @Timed
+
     @JsonView(Views.Summary::class)
     fun getAllSales(getSaleDto: GetSaleDto, pageable: Pageable)
             : ResponseEntity<List<Sale>> {
@@ -31,7 +31,7 @@ class SaleApi(private val saleService: SaleService) {
     }
 
     @PostMapping
-    @Timed
+
     fun createNewSale(@RequestBody createSaleDto: CreateSaleDto): ResponseEntity<Sale> {
         val newSale = saleService.createNewSale(createSaleDto)
         return ResponseEntity
@@ -40,7 +40,7 @@ class SaleApi(private val saleService: SaleService) {
     }
 
     @PutMapping("/{id}")
-    @Timed
+
     fun updateSale(@PathVariable("id") id: Long, @RequestBody sale: Sale)
             : ResponseEntity<Sale> {
         sale.setId(id)
@@ -51,13 +51,13 @@ class SaleApi(private val saleService: SaleService) {
     }
 
     @GetMapping("/{id}")
-    @Timed
+
     fun getSale(@PathVariable("id") sale: Sale): ResponseEntity<Sale> {
         return ResponseEntity.ok(sale)
     }
 
     @DeleteMapping("/{id}")
-    @Timed
+
     fun deleteSale(@PathVariable("id") sale: Sale)
             : ResponseEntity<Void> {
         saleService.deleteSale(sale)

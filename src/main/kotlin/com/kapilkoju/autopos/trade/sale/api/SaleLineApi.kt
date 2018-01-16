@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.trade.sale.api
 
-import com.codahale.metrics.annotation.Timed
+
 import com.kapilkoju.autopos.trade.sale.domain.Sale
 import com.kapilkoju.autopos.trade.sale.domain.SaleLine
 import com.kapilkoju.autopos.trade.sale.service.SaleService
@@ -16,14 +16,14 @@ import javax.validation.Valid
 class SaleLineApi(private val saleService: SaleService) {
 
     @GetMapping("/{saleLineId}")
-    @Timed
+
     fun getSaleLine(@PathVariable("saleId") saleId: Long,
                     @PathVariable("saleLineId") saleLine: SaleLine): ResponseEntity<SaleLine> {
         return ResponseEntity.ok(saleLine)
     }
 
     @PostMapping
-    @Timed
+
     fun createSaleLine(@PathVariable("saleId") sale: Sale,
                        @RequestBody @Valid saleLine: SaleLine): ResponseEntity<SaleLine> {
 
@@ -34,7 +34,7 @@ class SaleLineApi(private val saleService: SaleService) {
     }
 
     @PutMapping("/{saleLineId}")
-    @Timed
+
     fun updateSaleLine(@PathVariable("saleId") sale: Sale,
                        @PathVariable("saleLineId") saleLineId: Long,
                        @RequestBody @Valid saleLine: SaleLine): ResponseEntity<SaleLine> {
@@ -47,7 +47,7 @@ class SaleLineApi(private val saleService: SaleService) {
     }
 
     @DeleteMapping("/{saleLineId}")
-    @Timed
+
     fun deleteSaleLine(@PathVariable("saleId") saleId: Long,
                        @PathVariable("saleLineId") saleLine: SaleLine): ResponseEntity<Void> {
         saleService.deleteSaleLine(saleLine)

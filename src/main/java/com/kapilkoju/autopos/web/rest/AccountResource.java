@@ -1,17 +1,14 @@
 package com.kapilkoju.autopos.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-
 import com.kapilkoju.autopos.security.SecurityUtils;
 import com.kapilkoju.autopos.service.MailService;
 import com.kapilkoju.autopos.user.domain.User;
 import com.kapilkoju.autopos.user.service.UserRepository;
 import com.kapilkoju.autopos.user.service.UserService;
 import com.kapilkoju.autopos.web.rest.dto.UserDTO;
+import com.kapilkoju.autopos.web.rest.util.HeaderUtil;
 import com.kapilkoju.autopos.web.rest.vm.KeyAndPasswordVM;
 import com.kapilkoju.autopos.web.rest.vm.ManagedUserVM;
-import com.kapilkoju.autopos.web.rest.util.HeaderUtil;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Optional;
+
+;
 
 /**
  * REST controller for managing the current user's account.
@@ -58,7 +57,7 @@ public class AccountResource {
      */
     @PostMapping(path = "/register",
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
-    @Timed
+
     public ResponseEntity registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
 
         HttpHeaders textPlainHeaders = new HttpHeaders();
@@ -89,7 +88,7 @@ public class AccountResource {
      * @return the ResponseEntity with status 200 (OK) and the activated user in body, or status 500 (Internal Server Error) if the user couldn't be activated
      */
     @GetMapping("/activate")
-    @Timed
+
     public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
         return userService.activateRegistration(key)
                 .map(user -> new ResponseEntity<String>(HttpStatus.OK))
@@ -103,7 +102,7 @@ public class AccountResource {
      * @return the login if the user is authenticated
      */
     @GetMapping("/authenticate")
-    @Timed
+
     public String isAuthenticated(HttpServletRequest request) {
         log.debug("REST request to check if the current user is authenticated");
         return request.getRemoteUser();
@@ -115,7 +114,7 @@ public class AccountResource {
      * @return the ResponseEntity with status 200 (OK) and the current user in body, or status 500 (Internal Server Error) if the user couldn't be returned
      */
     @GetMapping("/account")
-    @Timed
+
     public ResponseEntity<UserDTO> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
                 .map(user -> new ResponseEntity<>(new UserDTO(user), HttpStatus.OK))
@@ -129,7 +128,7 @@ public class AccountResource {
      * @return the ResponseEntity with status 200 (OK), or status 400 (Bad Request) or 500 (Internal Server Error) if the user couldn't be updated
      */
     @PostMapping("/account")
-    @Timed
+
     public ResponseEntity saveAccount(@Valid @RequestBody UserDTO userDTO) {
         final String userLogin = SecurityUtils.getCurrentUserLogin();
         Optional<User> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
@@ -154,7 +153,7 @@ public class AccountResource {
      */
     @PostMapping(path = "/account/change-password",
             produces = MediaType.TEXT_PLAIN_VALUE)
-    @Timed
+
     public ResponseEntity changePassword(@RequestBody String password) {
         if (!checkPasswordLength(password)) {
             return new ResponseEntity<>(CHECK_ERROR_MESSAGE, HttpStatus.BAD_REQUEST);
@@ -171,7 +170,7 @@ public class AccountResource {
      */
     @PostMapping(path = "/account/reset-password/init",
             produces = MediaType.TEXT_PLAIN_VALUE)
-    @Timed
+
     public ResponseEntity requestPasswordReset(@RequestBody String mail) {
         return userService.requestPasswordReset(mail)
                 .map(user -> {
@@ -189,7 +188,7 @@ public class AccountResource {
      */
     @PostMapping(path = "/account/reset-password/finish",
             produces = MediaType.TEXT_PLAIN_VALUE)
-    @Timed
+
     public ResponseEntity<String> finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
         if (!checkPasswordLength(keyAndPassword.getNewPassword())) {
             return new ResponseEntity<>(CHECK_ERROR_MESSAGE, HttpStatus.BAD_REQUEST);

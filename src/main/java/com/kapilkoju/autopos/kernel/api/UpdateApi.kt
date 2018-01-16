@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.kernel.api
 
-import com.codahale.metrics.annotation.Timed
+
 import com.kapilkoju.autopos.kernel.domain.AuditableEntity
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil
 import org.springframework.http.ResponseEntity
@@ -13,7 +13,7 @@ import javax.validation.Valid
 interface UpdateApi<T : AuditableEntity> : Api<T> {
 
     @PutMapping(value = ["/{id}"])
-    @Timed
+
     fun update(@PathVariable("id") id: Long, @RequestBody @Valid entity: T): ResponseEntity<T> {
 
         Assert.isTrue(entity.getId() == id, "id of entity to be updated should not be null")
@@ -26,7 +26,7 @@ interface UpdateApi<T : AuditableEntity> : Api<T> {
     }
 
     @PutMapping
-    @Timed
+
     fun updateEntity(@RequestBody @Valid entity: T): ResponseEntity<T> {
         Assert.isTrue(entity.getId() != null, "id of entity to be updated should not be null")
         return update(entity.getId()!!, entity)

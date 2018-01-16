@@ -71,50 +71,13 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" routerLink="apos-metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-tachometer" aria-hidden="true"></i>
-                            <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="apos-health" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-heart" aria-hidden="true"></i>
-                            <span jhiTranslate="global.menu.admin.health">Health</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="apos-configuration" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-list" aria-hidden="true"></i>
-                            <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
-                        </a>
-                    </li>
-                    <li>
                         <a class="dropdown-item" routerLink="audits" routerLinkActive="active" (click)="collapseNavbar()">
                             <i class="fa fa-fw fa-bell" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.admin.audits">Audits</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="logs" routerLinkActive="active" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-tasks" aria-hidden="true"></i>
-                            <span jhiTranslate="global.menu.admin.logs">Logs</span>
-                        </a>
-                    </li>
                 </ul>
             </li>
-            <!--<li ngbDropdown class="nav-item dropdown pointer" *ngIf="languages">-->
-                <!--<a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown" *ngIf="languages.length > 1">-->
-                    <!--<span>-->
-                        <!--<i class="fa fa-flag" aria-hidden="true"></i>-->
-                        <!--<span jhiTranslate="global.menu.language">Language</span>-->
-                    <!--</span>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-menu" ngbDropdownMenu *ngIf="languages.length > 1">-->
-                    <!--<li *ngFor="let language of languages">-->
-                        <!--<a class="dropdown-item" [aposActiveMenu]="language" href="javascript:void(0);" (click)="changeLanguage(language);collapseNavbar();">{{language | findLanguageFromKey}}</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
             <li ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                   <span *ngIf="!getImageUrl()">

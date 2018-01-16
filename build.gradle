@@ -145,12 +145,6 @@ dependencies {
     compile("io.github.jhipster:jhipster:${jhipster_server_version}") {
         transitive = false
     }
-
-    compile "io.dropwizard.metrics:metrics-core:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-jvm:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-servlet:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-json:${dropwizard_metrics_version}"
-    compile "io.dropwizard.metrics:metrics-servlets:${dropwizard_metrics_version}"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-json-org"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
@@ -158,7 +152,6 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-annotations"
     compile "com.fasterxml.jackson.core:jackson-databind"
     compile "com.fasterxml.jackson.module:jackson-module-afterburner"
-    compile("com.ryantenney.metrics:metrics-spring:${metrics_spring_version}")
     compile "org.hibernate:hibernate-core"
     compile("com.zaxxer:HikariCP:${hikaricp_version}")
     compile "org.apache.commons:commons-lang3:${commons_lang_version}"
@@ -190,7 +183,6 @@ dependencies {
     compile "org.springframework.security:spring-security-web"
     compile "io.jsonwebtoken:jjwt:${jjwt_version}"
     compile "org.postgresql:postgresql"
-    testCompile "org.awaitility:awaitility:${awaitility_version}"
     testCompile "com.jayway.jsonpath:json-path"
     testCompile("org.springframework.boot:spring-boot-starter-test") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'

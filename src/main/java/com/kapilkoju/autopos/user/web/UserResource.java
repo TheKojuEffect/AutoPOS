@@ -1,6 +1,5 @@
 package com.kapilkoju.autopos.user.web;
 
-import com.codahale.metrics.annotation.Timed;
 import com.kapilkoju.autopos.config.Constants;
 import com.kapilkoju.autopos.security.AuthoritiesConstants;
 import com.kapilkoju.autopos.service.MailService;
@@ -26,6 +25,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+
+;
 
 /**
  * REST controller for managing users.
@@ -86,7 +87,7 @@ public class UserResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/users")
-    @Timed
+
     @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity createUser(@RequestBody ManagedUserVM managedUserVM) throws URISyntaxException {
         log.debug("REST request to save User : {}", managedUserVM);
@@ -122,7 +123,7 @@ public class UserResource {
      * or with status 500 (Internal Server Error) if the user couldn't be updated
      */
     @PutMapping("/users")
-    @Timed
+
     @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<UserDTO> updateUser(@RequestBody ManagedUserVM managedUserVM) {
         log.debug("REST request to update User : {}", managedUserVM);
@@ -147,7 +148,7 @@ public class UserResource {
      * @return the ResponseEntity with status 200 (OK) and with body all users
      */
     @GetMapping("/users")
-    @Timed
+
     public ResponseEntity<List<UserDTO>> getAllUsers(Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
@@ -161,7 +162,7 @@ public class UserResource {
      * @return the ResponseEntity with status 200 (OK) and with body the "login" user, or with status 404 (Not Found)
      */
     @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
-    @Timed
+
     public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
         return ResponseUtil.wrapOrNotFound(
@@ -176,7 +177,7 @@ public class UserResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
-    @Timed
+
     @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity<Void> deleteUser(@PathVariable String login) {
         log.debug("REST request to delete User: {}", login);
