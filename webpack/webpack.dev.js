@@ -16,12 +16,8 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         contentBase: './build/www',
         proxy: [{
             context: [
-                /* jhipster-needle-add-entity-to-webpack - JHipster will add entity api paths here */
                 '/api',
                 '/management',
-                '/swagger-resources',
-                '/v2/api-docs',
-                '/h2-console',
                 '/auth'
             ],
             target: 'http://127.0.0.1:8080',

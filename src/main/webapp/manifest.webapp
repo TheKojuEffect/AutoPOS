@@ -1,6 +1,6 @@
 {
-  "name": "AutoPos",
-  "short_name": "AutoPos",
+  "name": "AutoPOS",
+  "short_name": "AutoPOS",
   "icons": [
       {
           "src": "./content/images/Autopos-logo.jpg",
