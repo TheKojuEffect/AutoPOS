@@ -1,10 +1,10 @@
 package com.kapilkoju.autopos.config
 
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module
 import com.kapilkoju.autopos.accounting.domain.AccountingDomainPackage
 import com.kapilkoju.autopos.accounting.service.AccountingServicePackage
 import com.kapilkoju.autopos.catalog.domain.CatalogDomainPackage
 import com.kapilkoju.autopos.catalog.service.CatalogServicePackage
+import com.kapilkoju.autopos.config.liquibase.AsyncSpringLiquibase
 import com.kapilkoju.autopos.domain.DomainPackage
 import com.kapilkoju.autopos.kernel.domain.AbstractEntity
 import com.kapilkoju.autopos.party.domain.PartyDomainPackage
@@ -25,7 +25,6 @@ import com.kapilkoju.autopos.transaction.domain.TransactionDomainPackage
 import com.kapilkoju.autopos.transaction.service.TransactionServicePackage
 import com.kapilkoju.autopos.user.domain.User
 import com.kapilkoju.autopos.user.service.UserServicePackage
-import com.kapilkoju.autopos.config.liquibase.AsyncSpringLiquibase
 import liquibase.integration.spring.SpringLiquibase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -99,11 +98,6 @@ class DatabaseConfiguration(private val env: Environment) {
             log.debug("Configuring Liquibase")
         }
         return liquibase
-    }
-
-    @Bean
-    fun hibernate5Module(): Hibernate5Module {
-        return Hibernate5Module()
     }
 
     @Bean
