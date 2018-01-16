@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { SERVER_API_URL } from '../../app.constants';
+
 import { ProfileInfo } from './profile-info.model';
 
 @Injectable()
 export class ProfileService {
 
-    private profileInfoUrl = SERVER_API_URL + 'api/profile-info';
+    private profileInfoUrl = 'api/profile-info';
     private profileInfo: Promise<ProfileInfo>;
 
     constructor(private http: Http) { }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { SERVER_API_URL } from '../../app.constants';
+
 
 import { Vendor } from './vendor.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
@@ -9,7 +9,7 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 @Injectable()
 export class VendorService {
 
-    private resourceUrl = SERVER_API_URL + 'api/vendors';
+    private resourceUrl = 'api/vendors';
 
     constructor(private http: Http) { }
 

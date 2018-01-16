@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
-import { SERVER_API_URL } from '../../app.constants';
+
 
 @Injectable()
 export class AuthServerProvider {
@@ -24,7 +24,7 @@ export class AuthServerProvider {
             password: credentials.password,
             rememberMe: credentials.rememberMe
         };
-        return this.http.post(SERVER_API_URL + 'api/authenticate', data).map(authenticateSuccess.bind(this));
+        return this.http.post('api/authenticate', data).map(authenticateSuccess.bind(this));
 
         function authenticateSuccess(resp) {
             const bearerToken = resp.headers.get('Authorization');

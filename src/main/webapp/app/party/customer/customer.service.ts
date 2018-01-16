@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { SERVER_API_URL } from '../../app.constants';
+
 
 import { Customer } from './customer.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
@@ -9,7 +9,7 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 @Injectable()
 export class CustomerService {
 
-    private resourceUrl = SERVER_API_URL + 'api/customers';
+    private resourceUrl = 'api/customers';
 
     constructor(private http: Http) { }
 
