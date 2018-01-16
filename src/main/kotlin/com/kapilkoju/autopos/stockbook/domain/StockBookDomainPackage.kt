@@ -1,3 +1,0 @@
-package com.kapilkoju.autopos.stockbook.domain
-
-interface StockBookDomainPackage
