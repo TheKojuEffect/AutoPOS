@@ -26,7 +26,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.StopWatch;
 
-import com.kapilkoju.autopos.config.JHipsterConstants;
+import com.kapilkoju.autopos.config.Profiles;
 import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
 
@@ -55,8 +55,8 @@ public class AsyncSpringLiquibase extends SpringLiquibase {
 
     @Override
     public void afterPropertiesSet() throws LiquibaseException {
-        if (!env.acceptsProfiles(JHipsterConstants.SPRING_PROFILE_NO_LIQUIBASE)) {
-            if (env.acceptsProfiles(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT)) {
+        if (!env.acceptsProfiles(Profiles.NO_LIQUIBASE)) {
+            if (env.acceptsProfiles(Profiles.DEVELOPMENT)) {
                 taskExecutor.execute(() -> {
                     try {
                         logger.warn("Starting Liquibase asynchronously, your database might not be ready at startup!");

@@ -2,7 +2,7 @@ package com.kapilkoju.autopos
 
 import com.kapilkoju.autopos.config.ApplicationProperties
 import com.kapilkoju.autopos.config.DefaultProfileUtil
-import com.kapilkoju.autopos.config.JHipsterConstants
+import com.kapilkoju.autopos.config.Profiles
 import com.kapilkoju.autopos.config.JHipsterProperties
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -30,7 +30,7 @@ class Application(private val env: Environment) {
     @PostConstruct
     fun initApplication() {
         val activeProfiles = env.activeProfiles
-        if (activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(JHipsterConstants.SPRING_PROFILE_PRODUCTION)) {
+        if (activeProfiles.contains(Profiles.DEVELOPMENT) && activeProfiles.contains(Profiles.PRODUCTION)) {
             log.error("You have misconfigured your application! It should not run " + "with both the 'dev' and 'prod' profiles at the same time.")
         }
     }
