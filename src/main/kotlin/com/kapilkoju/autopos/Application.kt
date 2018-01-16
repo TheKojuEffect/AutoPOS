@@ -2,7 +2,8 @@ package com.kapilkoju.autopos
 
 import com.kapilkoju.autopos.config.ApplicationProperties
 import com.kapilkoju.autopos.config.DefaultProfileUtil
-import io.github.jhipster.config.JHipsterConstants
+import com.kapilkoju.autopos.config.JHipsterConstants
+import com.kapilkoju.autopos.config.JHipsterProperties
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.SpringApplication
@@ -18,7 +19,7 @@ import javax.annotation.PostConstruct
 
 @ComponentScan
 @EnableAutoConfiguration(exclude = [MetricFilterAutoConfiguration::class, MetricRepositoryAutoConfiguration::class])
-@EnableConfigurationProperties(value = [LiquibaseProperties::class, ApplicationProperties::class])
+@EnableConfigurationProperties(value = [LiquibaseProperties::class, ApplicationProperties::class, JHipsterProperties::class])
 class Application(private val env: Environment) {
 
     /**

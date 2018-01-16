@@ -25,8 +25,7 @@ import com.kapilkoju.autopos.transaction.domain.TransactionDomainPackage
 import com.kapilkoju.autopos.transaction.service.TransactionServicePackage
 import com.kapilkoju.autopos.user.domain.User
 import com.kapilkoju.autopos.user.service.UserServicePackage
-import io.github.jhipster.config.JHipsterConstants
-import io.github.jhipster.config.liquibase.AsyncSpringLiquibase
+import com.kapilkoju.autopos.config.liquibase.AsyncSpringLiquibase
 import liquibase.integration.spring.SpringLiquibase
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

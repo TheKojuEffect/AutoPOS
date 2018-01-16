@@ -1,6 +1,6 @@
 package com.kapilkoju.autopos.aop.logging;
 
-import io.github.jhipster.config.JHipsterConstants;
+import com.kapilkoju.autopos.config.JHipsterConstants;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

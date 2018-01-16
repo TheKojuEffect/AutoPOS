@@ -1,7 +1,6 @@
 package com.kapilkoju.autopos.config
 
-import io.github.jhipster.async.ExceptionHandlingAsyncTaskExecutor
-import io.github.jhipster.config.JHipsterProperties
+import com.kapilkoju.autopos.async.ExceptionHandlingAsyncTaskExecutor
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler

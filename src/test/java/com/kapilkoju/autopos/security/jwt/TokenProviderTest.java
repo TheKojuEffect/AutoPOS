@@ -1,7 +1,7 @@
 package com.kapilkoju.autopos.security.jwt;
 
 import com.kapilkoju.autopos.security.AuthoritiesConstants;
-import io.github.jhipster.config.JHipsterProperties;
+import com.kapilkoju.autopos.config.JHipsterProperties;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.Before;

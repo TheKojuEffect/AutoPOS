@@ -142,9 +142,6 @@ dependencies {
 
     compile("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.3")
 
-    compile("io.github.jhipster:jhipster:${jhipster_server_version}") {
-        transitive = false
-    }
     compile "com.fasterxml.jackson.datatype:jackson-datatype-json-org"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
@@ -194,11 +191,6 @@ dependencies {
     testCompile "org.mockito:mockito-core"
     testCompile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
     testCompile "org.hamcrest:hamcrest-library"
-
-    optional("org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}") {
-        exclude group: 'com.vaadin.external.google', module: 'android-json'
-    }
-
 }
 
 task cleanResources(type: Delete) {

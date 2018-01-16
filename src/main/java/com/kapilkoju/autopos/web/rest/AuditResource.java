@@ -2,7 +2,7 @@ package com.kapilkoju.autopos.web.rest;
 
 import com.kapilkoju.autopos.service.AuditEventService;
 import com.kapilkoju.autopos.web.rest.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.kapilkoju.autopos.web.util.ResponseUtil;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

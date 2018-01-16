@@ -10,7 +10,7 @@ import com.kapilkoju.autopos.web.rest.dto.UserDTO;
 import com.kapilkoju.autopos.web.rest.util.HeaderUtil;
 import com.kapilkoju.autopos.web.rest.util.PaginationUtil;
 import com.kapilkoju.autopos.web.rest.vm.ManagedUserVM;
-import io.github.jhipster.web.util.ResponseUtil;
+import com.kapilkoju.autopos.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

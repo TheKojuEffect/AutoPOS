@@ -2,7 +2,7 @@ package com.kapilkoju.autopos.web.rest;
 
 import com.kapilkoju.autopos.config.DefaultProfileUtil;
 
-import io.github.jhipster.config.JHipsterProperties;
+import com.kapilkoju.autopos.config.JHipsterProperties;
 
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
