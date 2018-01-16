@@ -126,4 +126,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="POS-202" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sql>
+            DROP FUNCTION item_code( BIGINT );
+            DROP TRIGGER set_item_code_trigger ON item;
+            DROP FUNCTION set_item_code();
+            ALTER TABLE item DROP COLUMN code;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

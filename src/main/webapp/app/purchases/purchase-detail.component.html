@@ -161,7 +161,6 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Code</th>
                             <th>Particular</th>
                             <th>Quantity</th>
                             <th>Rate</th>
@@ -171,7 +170,6 @@
                         <tbody>
                         <tr *ngFor="let line of purchase.lines; let i = index" [attr.data-index]="i" (click)="editPurchaseLine(line)">
                             <td>{{i + 1}}</td>
-                            <td>{{line.item.code}}</td>
                             <td>{{line.item.name}}</td>
                             <td>{{line.quantity}}</td>
                             <td>{{line.rate}}</td>

@@ -1,13 +1,9 @@
 
 <div *ngIf="item">
-    <h2><span jhiTranslate="autoPosApp.item.detail.title">Item</span> {{item.code}}</h2>
+    <h2><span jhiTranslate="autoPosApp.item.detail.title">Item</span> {{item.id + ' ' + item.name}}</h2>
     <hr>
     <apos-alert-error></apos-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="autoPosApp.item.code">Code</span></dt>
-        <dd>
-            <span>{{item.code}}</span>
-        </dd>
         <dt><span jhiTranslate="autoPosApp.item.name">Name</span></dt>
         <dd>
             <span>{{item.name}}</span>

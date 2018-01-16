@@ -1,8 +1,6 @@
 package com.kapilkoju.autopos.catalog.domain
 
 import com.kapilkoju.autopos.kernel.domain.AuditableEntity
-import org.hibernate.annotations.Generated
-import org.hibernate.annotations.GenerationTime
 import java.math.BigDecimal
 import javax.persistence.*
 import javax.validation.constraints.Min
@@ -19,10 +17,6 @@ import javax.validation.constraints.Size
             NamedAttributeNode("tags")]
 )
 data class Item(
-
-        @Column(name = "code", length = 14, nullable = false, insertable = false, updatable = false)
-        @Generated(GenerationTime.INSERT)
-        val code: String?,
 
         @NotNull
         @Size(min = 2, max = 50)

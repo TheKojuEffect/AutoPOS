@@ -31,7 +31,7 @@ class ItemServiceImpl(private val itemRepo: ItemRepo)
         return if (query.isEmpty()) {
             itemRepo.findAll(pageable)
         } else {
-            itemRepo.findByCodeIgnoreCaseContainingOrNameIgnoreCaseContaining(query, query, pageable)
+            itemRepo.findByNameIgnoreCaseContaining(query, pageable)
         }
     }
 

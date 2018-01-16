@@ -12,7 +12,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control"
                                [(ngModel)]="filter" [ngModelOptions]="{standalone: true}"
-                               placeholder="Filter by name or code...">
+                               placeholder="Filter by name">
                     </div>
                 </div>
             </form>
@@ -32,19 +32,19 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="code"><span jhiTranslate="autoPosApp.item.code">Code</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span jhiTranslate="autoPosApp.item.name">Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="partNumber"><span jhiTranslate="autoPosApp.item.partNumber">Part #</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="category.shortName"><span jhiTranslate="autoPosApp.item.category">Category</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="brand.name"><span jhiTranslate="autoPosApp.item.brand">Brand</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="markedPrice"><span jhiTranslate="autoPosApp.item.markedPrice">Marked Price</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="quantity"><span jhiTranslate="autoPosApp.item.quantity">Quantity</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="partNumber"><span>Part #</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="category.shortName"><span>Category</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="brand.name"><span>Brand</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="markedPrice"><span>Marked Price</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="quantity"><span>Quantity</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let item of items ;trackBy: trackId">
-                <td><a [routerLink]="['../item', item.id ]">{{item.code}}</a></td>
+                <td><a [routerLink]="['../item', item.id ]">{{item.id}}</a></td>
                 <td>{{item.name}}</td>
                 <td>{{item.partNumber}}</td>
                 <td>
