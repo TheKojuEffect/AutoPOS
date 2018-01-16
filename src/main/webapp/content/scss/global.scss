@@ -75,7 +75,7 @@ a:hover {
   cursor: pointer;
 }
 
-.hand {
+.hand, [jhisortby] {
   cursor: pointer;
 }
 
@@ -187,7 +187,7 @@ entity detail page css
 /* ==========================================================================
 ui bootstrap tweaks
 ========================================================================== */
-.nav, .pagination, .carousel, .panel-title a, button {
+.nav, .pagination, .carousel, .panel-title a {
   cursor: pointer;
 }
 
@@ -200,5 +200,12 @@ ui bootstrap tweaks
 .uib-datepicker-popup > li > div.uib-datepicker > table:focus {
   outline: none;
 }
+
+.thread-dump-modal-lock {
+    max-width: 450px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+ }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */

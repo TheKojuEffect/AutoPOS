@@ -84,7 +84,7 @@ module.exports = (options) => {
              * See: https://github.com/angular/angular/issues/11580
              */
             new webpack.ContextReplacementPlugin(
-                /angular(\\|\/)core(\\|\/)@angular/,
+                /(.+)?angular(\\|\/)core(.+)?/,
                 utils.root('src/main/webapp/app'), {}
             ),
             new CopyWebpackPlugin([

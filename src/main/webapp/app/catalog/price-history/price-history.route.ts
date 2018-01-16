@@ -1,9 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { JhiPaginationUtil } from 'ng-jhipster';
-
 import { PriceHistoryComponent } from './price-history.component';
 import { PriceHistoryDetailComponent } from './price-history-detail.component';
 import { PriceHistoryPopupComponent } from './price-history-dialog.component';
