@@ -14,7 +14,7 @@ export class SaleService {
 
     private resourceUrl = 'api/sales';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {
+    constructor(private http: HttpClient) {
     }
 
     create(vat): Observable<EntityResponseType> {
@@ -63,19 +63,13 @@ export class SaleService {
      * Convert a returned JSON object to Sale.
      */
     private convertItemFromServer(sale: Sale): Sale {
-        const copy: Sale = Object.assign({}, sale);
-        copy.date = this.dateUtils
-            .convertDateTimeFromServer(sale.date);
-        return copy;
+        return Object.assign({}, sale);
     }
 
     /**
      * Convert a Sale to a JSON which can be sent to the server.
      */
     private convert(sale: Sale): Sale {
-        const copy: Sale = Object.assign({}, sale);
-
-        copy.date = this.dateUtils.toDate(sale.date);
-        return copy;
+        return Object.assign({}, sale);
     }
 }

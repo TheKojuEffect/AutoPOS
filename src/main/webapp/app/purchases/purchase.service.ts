@@ -14,7 +14,7 @@ export class PurchaseService {
 
     private resourceUrl = 'api/purchases';
 
-    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {
+    constructor(private http: HttpClient) {
     }
 
     create(vat: boolean): Observable<EntityResponseType> {
@@ -62,19 +62,13 @@ export class PurchaseService {
      * Convert a returned JSON object to Purchase.
      */
     private convertItemFromServer(purchase: Purchase): Purchase {
-        const copy: Purchase = Object.assign({}, purchase);
-        copy.date = this.dateUtils
-            .convertDateTimeFromServer(purchase.date);
-        return copy;
+        return Object.assign({}, purchase);
     }
 
     /**
      * Convert a Purchase to a JSON which can be sent to the server.
      */
     private convert(purchase: Purchase): Purchase {
-        const copy: Purchase = Object.assign({}, purchase);
-
-        copy.date = this.dateUtils.toDate(purchase.date);
-        return copy;
+        return Object.assign({}, purchase);
     }
 }
