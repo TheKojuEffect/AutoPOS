@@ -19,7 +19,6 @@ class VendorApi(private val repo: VendorRepo, private val vendorService: VendorS
 
 
   @GetMapping("{id}")
-
   fun get(@PathVariable("id") id: Long): ResponseEntity<Vendor> {
     val vendor = vendorService.getVendor(id)
     return if (vendor != null) {
@@ -30,7 +29,6 @@ class VendorApi(private val repo: VendorRepo, private val vendorService: VendorS
   }
 
   @GetMapping
-
   fun getAll(pageable: Pageable): ResponseEntity<List<Vendor>> {
     val page = repo.findAll(pageable)
     val headers = PaginationUtil.generatePaginationHttpHeaders(page, baseUrl)
@@ -38,7 +36,6 @@ class VendorApi(private val repo: VendorRepo, private val vendorService: VendorS
   }
 
   @PostMapping
-
   fun save(@RequestBody @Valid vendor: Vendor): ResponseEntity<Vendor> {
 
     if (vendor.getId() != null) {
@@ -56,7 +53,6 @@ class VendorApi(private val repo: VendorRepo, private val vendorService: VendorS
 
 
   @PutMapping("/{id}")
-
   fun update(@PathVariable("id") id: Long, @RequestBody @Valid vendor: Vendor): ResponseEntity<Vendor> {
 
     Assert.isTrue(vendor.getId() == id, "id of vendor to be updated should not be null")
@@ -69,7 +65,6 @@ class VendorApi(private val repo: VendorRepo, private val vendorService: VendorS
   }
 
   @PutMapping
-
   fun updateEntity(@RequestBody @Valid vendor: Vendor): ResponseEntity<Vendor> {
     Assert.isTrue(vendor.getId() != null, "id of vendor to be updated should not be null")
     return update(vendor.getId()!!, vendor)
@@ -77,7 +72,6 @@ class VendorApi(private val repo: VendorRepo, private val vendorService: VendorS
 
 
   @DeleteMapping("/{id}")
-
   fun delete(@PathVariable("id") id: Long): ResponseEntity<Void> {
     repo.delete(id)
     return ResponseEntity
