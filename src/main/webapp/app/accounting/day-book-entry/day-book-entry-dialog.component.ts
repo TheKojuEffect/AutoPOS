@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -46,9 +46,9 @@ export class DayBookEntryDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<DayBookEntry>) {
-        result.subscribe((res: DayBookEntry) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<DayBookEntry>>) {
+        result.subscribe((res: HttpResponse<DayBookEntry>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: DayBookEntry) {

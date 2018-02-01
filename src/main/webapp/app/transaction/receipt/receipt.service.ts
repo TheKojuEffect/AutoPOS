@@ -1,70 +1,70 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
-
 
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption } from '../../shared';
+
+export type EntityResponseType = HttpResponse<Receipt>;
 
 @Injectable()
 export class ReceiptService {
 
-    private resourceUrl = 'api/receipts';
+    private resourceUrl =  'api/receipts';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
 
-    create(receipt: Receipt): Observable<Receipt> {
+    create(receipt: Receipt): Observable<EntityResponseType> {
         const copy = this.convert(receipt);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.post<Receipt>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(receipt: Receipt): Observable<Receipt> {
+    update(receipt: Receipt): Observable<EntityResponseType> {
         const copy = this.convert(receipt);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.put<Receipt>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    find(id: number): Observable<Receipt> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+    find(id: number): Observable<EntityResponseType> {
+        return this.http.get<Receipt>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    query(req?: any): Observable<ResponseWrapper> {
+    query(req?: any): Observable<HttpResponse<Receipt[]>> {
         const options = createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            .map((res: Response) => this.convertResponse(res));
+        return this.http.get<Receipt[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<Receipt[]>) => this.convertArrayResponse(res));
     }
 
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+    delete(id: number): Observable<HttpResponse<any>> {
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
     }
 
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        const result = [];
+    private convertResponse(res: EntityResponseType): EntityResponseType {
+        const body: Receipt = this.convertItemFromServer(res.body);
+        return res.clone({body});
+    }
+
+    private convertArrayResponse(res: HttpResponse<Receipt[]>): HttpResponse<Receipt[]> {
+        const jsonResponse: Receipt[] = res.body;
+        const body: Receipt[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            result.push(this.convertItemFromServer(jsonResponse[i]));
+            body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, result, res.status);
+        return res.clone({body});
     }
 
     /**
      * Convert a returned JSON object to Receipt.
      */
-    private convertItemFromServer(json: any): Receipt {
-        const entity: Receipt = Object.assign(new Receipt(), json);
-        entity.date = this.dateUtils
-            .convertLocalDateFromServer(json.date);
-        return entity;
+    private convertItemFromServer(receipt: Receipt): Receipt {
+        const copy: Receipt = Object.assign({}, receipt);
+        copy.date = this.dateUtils
+            .convertLocalDateFromServer(receipt.date);
+        return copy;
     }
 
     /**

@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { Vendor } from './vendor.model';
 import { VendorPopupService } from './vendor-popup.service';
@@ -21,7 +21,6 @@ export class VendorDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private jhiAlertService: JhiAlertService,
         private vendorService: VendorService,
         private eventManager: JhiEventManager
     ) {
@@ -46,9 +45,9 @@ export class VendorDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Vendor>) {
-        result.subscribe((res: Vendor) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Vendor>>) {
+        result.subscribe((res: HttpResponse<Vendor>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Vendor) {
@@ -59,10 +58,6 @@ export class VendorDialogComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(error: any) {
-        this.jhiAlertService.error(error.message, null, null);
     }
 }
 

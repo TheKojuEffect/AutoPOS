@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { Vendor } from './vendor.model';
 import { VendorService } from './vendor.service';
 
@@ -25,7 +26,9 @@ export class VendorPopupService {
             }
 
             if (id) {
-                this.vendorService.find(id).subscribe((vendor) => {
+                this.vendorService.find(id)
+                    .subscribe((vendorResponse: HttpResponse<Vendor>) => {
+                        const vendor: Vendor = vendorResponse.body;
                     this.ngbModalRef = this.vendorModalRef(component, vendor);
                     resolve(this.ngbModalRef);
                 });
@@ -43,10 +46,10 @@ export class VendorPopupService {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.vendor = vendor;
         modalRef.result.then((result) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;
         }, (reason) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;
         });
         return modalRef;

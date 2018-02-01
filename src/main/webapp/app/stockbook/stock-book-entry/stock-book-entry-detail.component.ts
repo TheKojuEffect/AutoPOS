@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { StockBookEntry } from './stock-book-entry.model';
@@ -31,8 +32,9 @@ export class StockBookEntryDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.stockBookEntryService.find(id).subscribe((stockBookEntry) => {
-            this.stockBookEntry = stockBookEntry;
+        this.stockBookEntryService.find(id)
+            .subscribe((stockBookEntryResponse: HttpResponse<StockBookEntry>) => {
+                this.stockBookEntry = stockBookEntryResponse.body;
         });
     }
 

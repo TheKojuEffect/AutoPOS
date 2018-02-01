@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { Payment } from './payment.model';
 import { PaymentService } from './payment.service';
 
@@ -25,7 +26,9 @@ export class PaymentPopupService {
             }
 
             if (id) {
-                this.paymentService.find(id).subscribe((payment) => {
+                this.paymentService.find(id)
+                    .subscribe((paymentResponse: HttpResponse<Payment>) => {
+                        const payment: Payment = paymentResponse.body;
                     if (payment.date) {
                         payment.date = {
                             year: payment.date.getFullYear(),
@@ -50,10 +53,10 @@ export class PaymentPopupService {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.payment = payment;
         modalRef.result.then((result) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;
         }, (reason) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;
         });
         return modalRef;

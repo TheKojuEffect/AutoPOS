@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -10,7 +10,6 @@ import { Vehicle } from './vehicle.model';
 import { VehiclePopupService } from './vehicle-popup.service';
 import { VehicleService } from './vehicle.service';
 import { Customer, CustomerService } from '../customer';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'apos-vehicle-dialog',
@@ -35,7 +34,7 @@ export class VehicleDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.customerService.query()
-            .subscribe((res: ResponseWrapper) => { this.customers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Customer[]>) => { this.customers = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -53,9 +52,9 @@ export class VehicleDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Vehicle>) {
-        result.subscribe((res: Vehicle) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Vehicle>>) {
+        result.subscribe((res: HttpResponse<Vehicle>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Vehicle) {

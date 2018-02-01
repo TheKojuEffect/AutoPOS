@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Payment } from './payment.model';
@@ -31,8 +32,9 @@ export class PaymentDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.paymentService.find(id).subscribe((payment) => {
-            this.payment = payment;
+        this.paymentService.find(id)
+            .subscribe((paymentResponse: HttpResponse<Payment>) => {
+                this.payment = paymentResponse.body;
         });
     }
     previousState() {

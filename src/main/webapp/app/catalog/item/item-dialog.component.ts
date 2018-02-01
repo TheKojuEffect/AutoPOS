@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,7 +12,6 @@ import { ItemService } from './item.service';
 import { Category, CategoryService } from '../category';
 import { Brand, BrandService } from '../brand';
 import { Tag, TagService } from '../tag';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'apos-item-dialog',
@@ -43,11 +42,11 @@ export class ItemDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.categoryService.query()
-            .subscribe((res: ResponseWrapper) => { this.categories = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Category[]>) => { this.categories = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.brandService.query()
-            .subscribe((res: ResponseWrapper) => { this.brands = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Brand[]>) => { this.brands = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.tagService.query()
-            .subscribe((res: ResponseWrapper) => { this.tags = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Tag[]>) => { this.tags = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -65,9 +64,9 @@ export class ItemDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Item>) {
-        result.subscribe((res: Item) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Item>>) {
+        result.subscribe((res: HttpResponse<Item>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Item) {

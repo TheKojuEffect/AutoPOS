@@ -1,70 +1,71 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
-
 
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { DayBookEntry } from './day-book-entry.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption } from '../../shared';
+
+export type EntityResponseType = HttpResponse<DayBookEntry>;
 
 @Injectable()
 export class DayBookEntryService {
 
     private resourceUrl = 'api/day-book-entries';
 
-    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
+    constructor(private http: HttpClient, private dateUtils: JhiDateUtils) {
+    }
 
-    create(dayBookEntry: DayBookEntry): Observable<DayBookEntry> {
+    create(dayBookEntry: DayBookEntry): Observable<EntityResponseType> {
         const copy = this.convert(dayBookEntry);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.post<DayBookEntry>(this.resourceUrl, copy, {observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(dayBookEntry: DayBookEntry): Observable<DayBookEntry> {
+    update(dayBookEntry: DayBookEntry): Observable<EntityResponseType> {
         const copy = this.convert(dayBookEntry);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.put<DayBookEntry>(this.resourceUrl, copy, {observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    find(id: number): Observable<DayBookEntry> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+    find(id: number): Observable<EntityResponseType> {
+        return this.http.get<DayBookEntry>(`${this.resourceUrl}/${id}`, {observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    query(req?: any): Observable<ResponseWrapper> {
+    query(req?: any): Observable<HttpResponse<DayBookEntry[]>> {
         const options = createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            .map((res: Response) => this.convertResponse(res));
+        return this.http.get<DayBookEntry[]>(this.resourceUrl, {params: options, observe: 'response'})
+            .map((res: HttpResponse<DayBookEntry[]>) => this.convertArrayResponse(res));
     }
 
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+    delete(id: number): Observable<HttpResponse<any>> {
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, {observe: 'response'});
     }
 
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        const result = [];
+    private convertResponse(res: EntityResponseType): EntityResponseType {
+        const body: DayBookEntry = this.convertItemFromServer(res.body);
+        return res.clone({body});
+    }
+
+    private convertArrayResponse(res: HttpResponse<DayBookEntry[]>): HttpResponse<DayBookEntry[]> {
+        const jsonResponse: DayBookEntry[] = res.body;
+        const body: DayBookEntry[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            result.push(this.convertItemFromServer(jsonResponse[i]));
+            body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, result, res.status);
+        return res.clone({body});
     }
 
     /**
      * Convert a returned JSON object to DayBookEntry.
      */
-    private convertItemFromServer(json: any): DayBookEntry {
-        const entity: DayBookEntry = Object.assign(new DayBookEntry(), json);
-        entity.date = this.dateUtils
-            .convertLocalDateFromServer(json.date);
-        return entity;
+    private convertItemFromServer(dayBookEntry: DayBookEntry): DayBookEntry {
+        const copy: DayBookEntry = Object.assign({}, dayBookEntry);
+        copy.date = this.dateUtils
+            .convertLocalDateFromServer(dayBookEntry.date);
+        return copy;
     }
 
     /**

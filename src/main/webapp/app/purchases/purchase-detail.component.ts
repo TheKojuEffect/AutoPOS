@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 import { Purchase } from './purchase.model';
 import { PurchaseService } from './purchase.service';
 import { ItemService } from '../catalog/item/item.service';
 import { Item } from '../catalog/item/item.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { PurchaseLine } from './purchase-line.model';
+import { HttpResponse } from '@angular/common/http';
 import { PurchaseLineService } from './purchase-line.service';
 
 import * as _ from 'lodash';
@@ -50,9 +51,10 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.purchaseService.find(id).subscribe(purchase => {
-            this.purchase = purchase;
-        });
+        this.purchaseService.find(id)
+            .subscribe((purchaseResponse: HttpResponse<Purchase>) => {
+                this.purchase = purchaseResponse.body;
+            });
     }
 
     gotoPurchaseList() {
@@ -119,24 +121,24 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
                 this.purchase.id,
                 this.line.id,
                 this.line
-            ).subscribe((line) => this.purchase.lines.splice(lineIndex, 1, line));
+            ).subscribe((line) => this.purchase.lines.splice(lineIndex, 1, line.body));
 
         } else {
             this.purchaseLineService.create(
                 this.purchase.id,
                 this.line
-            ).subscribe((line) => this.purchase.lines.push(line));
+            ).subscribe((line) => this.purchase.lines.push(line.body));
         }
         this.resetLineItem();
-    };
+    }
 
     resetLineItem() {
         this.line = new PurchaseLine();
-    };
+    }
 
     editPurchaseLine(line: PurchaseLine) {
         this.line = Object.assign({}, line);
-    };
+    }
 
     get subTotal(): number {
         return _.sumBy(this.purchase.lines, 'amount');

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Vendor } from './vendor.model';
@@ -31,8 +32,9 @@ export class VendorDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.vendorService.find(id).subscribe((vendor) => {
-            this.vendor = vendor;
+        this.vendorService.find(id)
+            .subscribe((vendorResponse: HttpResponse<Vendor>) => {
+                this.vendor = vendorResponse.body;
         });
     }
     previousState() {

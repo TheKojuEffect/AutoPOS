@@ -1,55 +1,60 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 
 import { SaleLine } from './sale-line.model';
-import { createRequestOption, ResponseWrapper } from '../shared';
+
+type EntityResponseType = HttpResponse<SaleLine>;
 
 @Injectable()
 export class SaleLineService {
 
     private resourceUrl = 'api/sales/:saleId/lines/:saleLineId';
 
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
     }
 
-    create(saleId: number, saleLine: SaleLine): Observable<SaleLine> {
+    create(saleId: number, saleLine: SaleLine): Observable<EntityResponseType> {
         const copy = this.convert(saleLine);
-        return this.http.post(this.getResourceUrl(saleId), copy)
-            .map((res: Response) => {
-                return res.json();
-            });
+        return this.http.post<SaleLine>(this.getResourceUrl(saleId), copy, {observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(saleId: number, saleLineId: number, saleLine: SaleLine): Observable<SaleLine> {
+    update(saleId: number, saleLineId: number, saleLine: SaleLine): Observable<EntityResponseType> {
         const copy = this.convert(saleLine);
-        return this.http.put(this.getResourceUrl(saleId, saleLineId), copy)
-            .map((res: Response) => {
-                return res.json();
-            });
+        return this.http.put<SaleLine>(this.getResourceUrl(saleId, saleLineId), copy, {observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    find(id: number): Observable<SaleLine> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            return res.json();
-        });
+    delete(saleId: number, id: number): Observable<HttpResponse<any>> {
+        return this.http.delete<any>(this.getResourceUrl(saleId, id), {observe: 'response'});
     }
 
-    query(req?: any): Observable<ResponseWrapper> {
-        const options = createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            .map((res: Response) => this.convertResponse(res));
+    private convertResponse(res: EntityResponseType): EntityResponseType {
+        const body: SaleLine = this.convertItemFromServer(res.body);
+        return res.clone({body});
     }
 
-    delete(saleId: number, id: number): Observable<Response> {
-        return this.http.delete(this.getResourceUrl(saleId, id));
+    private convertArrayResponse(res: HttpResponse<SaleLine[]>): HttpResponse<SaleLine[]> {
+        const jsonResponse: SaleLine[] = res.body;
+        const body: SaleLine[] = [];
+        for (let i = 0; i < jsonResponse.length; i++) {
+            body.push(this.convertItemFromServer(jsonResponse[i]));
+        }
+        return res.clone({body});
     }
 
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        return new ResponseWrapper(res.headers, jsonResponse, res.status);
+    /**
+     * Convert a returned JSON object to SaleLine.
+     */
+    private convertItemFromServer(saleLine: SaleLine): SaleLine {
+        const copy: SaleLine = Object.assign({}, saleLine);
+        return copy;
     }
 
+    /**
+     * Convert a SaleLine to a JSON which can be sent to the server.
+     */
     private convert(saleLine: SaleLine): SaleLine {
         const copy: SaleLine = Object.assign({}, saleLine);
         return copy;
@@ -61,5 +66,5 @@ export class SaleLineService {
             return `${lines}/${saleLineId}`;
         }
         return lines;
-    };
+    }
 }

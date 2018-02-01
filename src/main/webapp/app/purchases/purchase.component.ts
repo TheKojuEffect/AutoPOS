@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
 import { Purchase } from './purchase.model';
 import { PurchaseService } from './purchase.service';
-import { Principal } from '../shared/index';
-import { ITEMS_PER_PAGE } from '../shared/constants/pagination.constants';
-import { ResponseWrapper } from '../shared/model/response-wrapper.model';
+import { ITEMS_PER_PAGE, Principal } from '../shared';
 
 @Component({
     selector: 'apos-purchase',
@@ -37,13 +36,13 @@ export class PurchaseComponent implements OnInit, OnDestroy {
                 private principal: Principal,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private eventManager: JhiEventManager,) {
+                private eventManager: JhiEventManager) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data['pagingParams'].page;
-            this.previousPage = data['pagingParams'].page;
-            this.reverse = data['pagingParams'].ascending;
-            this.predicate = data['pagingParams'].predicate;
+            this.page = data.pagingParams.page;
+            this.previousPage = data.pagingParams.page;
+            this.reverse = data.pagingParams.ascending;
+            this.predicate = data.pagingParams.predicate;
             this.vat = data['vat'];
         });
     }
@@ -55,8 +54,8 @@ export class PurchaseComponent implements OnInit, OnDestroy {
             sort: this.sort(),
             vat: this.vat,
         }).subscribe(
-            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: HttpResponse<Purchase[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
 
@@ -116,8 +115,12 @@ export class PurchaseComponent implements OnInit, OnDestroy {
     }
 
     createNewPurchase(vat: boolean) {
+
+        // .subscribe((itemResponse: HttpResponse<Item>) => {
+        //         this.item = itemResponse.body;
         this.purchaseService.create(vat)
-            .subscribe((purchase) => this.router.navigate(['/purchase', purchase.id]));
+            .subscribe((purchaseResponse: HttpResponse<Purchase>) =>
+                this.router.navigate(['/purchase', purchaseResponse.body.id]));
     }
 
     private onSuccess(data, headers) {

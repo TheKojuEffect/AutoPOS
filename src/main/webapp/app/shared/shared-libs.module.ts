@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgJhipsterModule } from 'ng-jhipster';
+import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CookieModule } from 'ngx-cookie';
 
@@ -20,6 +21,7 @@ import { CookieModule } from 'ngx-cookie';
     ],
     exports: [
         FormsModule,
+        HttpClientModule,
         CommonModule,
         NgbModule,
         NgJhipsterModule,

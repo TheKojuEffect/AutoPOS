@@ -1,72 +1,71 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 
-
 import { Vehicle } from './vehicle.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption } from '../../shared';
+
+export type EntityResponseType = HttpResponse<Vehicle>;
 
 @Injectable()
 export class VehicleService {
 
     private resourceUrl = 'api/vehicles';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) {
+    }
 
-    create(vehicle: Vehicle): Observable<Vehicle> {
+    create(vehicle: Vehicle): Observable<EntityResponseType> {
         const copy = this.convert(vehicle);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.post<Vehicle>(this.resourceUrl, copy, {observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(vehicle: Vehicle): Observable<Vehicle> {
+    update(vehicle: Vehicle): Observable<EntityResponseType> {
         const copy = this.convert(vehicle);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.put<Vehicle>(this.resourceUrl, copy, {observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    find(id: number): Observable<Vehicle> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+    find(id: number): Observable<EntityResponseType> {
+        return this.http.get<Vehicle>(`${this.resourceUrl}/${id}`, {observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    query(req?: any): Observable<ResponseWrapper> {
+    query(req?: any): Observable<HttpResponse<Vehicle[]>> {
         const options = createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            .map((res: Response) => this.convertResponse(res));
+        return this.http.get<Vehicle[]>(this.resourceUrl, {params: options, observe: 'response'})
+            .map((res: HttpResponse<Vehicle[]>) => this.convertArrayResponse(res));
+    }
+
+    delete(id: number): Observable<HttpResponse<any>> {
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, {observe: 'response'});
     }
 
     search(term: string): Observable<Vehicle[]> {
-        return this.http
-            .get(`${this.resourceUrl}?q=${term}`)
-            .map(res => res.json() as Vehicle[]);
+        return this.http.get<Vehicle[]>(`${this.resourceUrl}?q=${term}`);
     }
 
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+    private convertResponse(res: EntityResponseType): EntityResponseType {
+        const body: Vehicle = this.convertItemFromServer(res.body);
+        return res.clone({body});
     }
 
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        const result = [];
+    private convertArrayResponse(res: HttpResponse<Vehicle[]>): HttpResponse<Vehicle[]> {
+        const jsonResponse: Vehicle[] = res.body;
+        const body: Vehicle[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            result.push(this.convertItemFromServer(jsonResponse[i]));
+            body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, result, res.status);
+        return res.clone({body});
     }
 
     /**
      * Convert a returned JSON object to Vehicle.
      */
-    private convertItemFromServer(json: any): Vehicle {
-        const entity: Vehicle = Object.assign(new Vehicle(), json);
-        return entity;
+    private convertItemFromServer(vehicle: Vehicle): Vehicle {
+        const copy: Vehicle = Object.assign({}, vehicle);
+        return copy;
     }
 
     /**

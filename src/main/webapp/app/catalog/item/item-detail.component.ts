@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Item } from './item.model';
@@ -31,8 +32,9 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.itemService.find(id, true).subscribe((item) => {
-            this.item = item;
+        this.itemService.find(id)
+            .subscribe((itemResponse: HttpResponse<Item>) => {
+                this.item = itemResponse.body;
         });
     }
     previousState() {

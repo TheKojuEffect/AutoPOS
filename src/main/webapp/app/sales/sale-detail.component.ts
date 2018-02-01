@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 import { Sale } from './sale.model';
 import { SaleService } from './sale.service';
+import { HttpResponse } from '@angular/common/http';
+
 import { ItemService } from '../catalog/item/item.service';
 import { Item } from '../catalog/item/item.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { SaleLine } from './sale-line.model';
 import { SaleLineService } from './sale-line.service';
 
@@ -50,9 +52,10 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.saleService.find(id).subscribe(sale => {
-            this.sale = sale;
-        });
+        this.saleService.find(id)
+            .subscribe((saleResponse: HttpResponse<Sale>) => {
+                this.sale = saleResponse.body;
+            });
     }
 
     gotoSaleList() {
@@ -123,13 +126,13 @@ export class SaleDetailComponent implements OnInit, OnDestroy {
                 this.sale.id,
                 this.line.id,
                 this.line
-            ).subscribe((line) => this.sale.lines.splice(lineIndex, 1, line));
+            ).subscribe((line) => this.sale.lines.splice(lineIndex, 1, line.body));
 
         } else {
             this.saleLineService.create(
                 this.sale.id,
                 this.line
-            ).subscribe((line) => this.sale.lines.push(line));
+            ).subscribe((line) => this.sale.lines.push(line.body));
         }
         this.resetLineItem();
     };

@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { Item } from './item.model';
 import { ItemService } from './item.service';
 
@@ -25,7 +26,9 @@ export class ItemPopupService {
             }
 
             if (id) {
-                this.itemService.find(id).subscribe((item) => {
+                this.itemService.find(id)
+                    .subscribe((itemResponse: HttpResponse<Item>) => {
+                        const item: Item = itemResponse.body;
                     this.ngbModalRef = this.itemModalRef(component, item);
                     resolve(this.ngbModalRef);
                 });

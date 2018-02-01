@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
@@ -31,8 +32,9 @@ export class ReceiptDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.receiptService.find(id).subscribe((receipt) => {
-            this.receipt = receipt;
+        this.receiptService.find(id)
+            .subscribe((receiptResponse: HttpResponse<Receipt>) => {
+                this.receipt = receiptResponse.body;
         });
     }
     previousState() {

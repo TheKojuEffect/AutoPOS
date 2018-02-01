@@ -1,16 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Receipt } from './receipt.model';
 import { ReceiptPopupService } from './receipt-popup.service';
 import { ReceiptService } from './receipt.service';
 import { Customer, CustomerService } from '../../party/customer';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'apos-receipt-dialog',
@@ -36,7 +35,7 @@ export class ReceiptDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.customerService.query()
-            .subscribe((res: ResponseWrapper) => { this.customers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Customer[]>) => { this.customers = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -54,9 +53,9 @@ export class ReceiptDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Receipt>) {
-        result.subscribe((res: Receipt) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Receipt>>) {
+        result.subscribe((res: HttpResponse<Receipt>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Receipt) {

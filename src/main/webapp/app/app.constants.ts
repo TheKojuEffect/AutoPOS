@@ -3,5 +3,5 @@
 // If you change the values in the webpack config files, you need to re run webpack to update the application
 
 export const VERSION = process.env.VERSION;
-export const DEBUG_INFO_ENABLED = process.env.DEBUG_INFO_ENABLED;
+export const DEBUG_INFO_ENABLED: boolean = !!process.env.DEBUG_INFO_ENABLED;
 export const BUILD_TIMESTAMP = process.env.BUILD_TIMESTAMP;

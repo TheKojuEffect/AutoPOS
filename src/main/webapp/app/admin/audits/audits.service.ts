@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
-
+import { Audit } from './audit.model';
+import { createRequestOption} from '../../shared';
 
 @Injectable()
 export class AuditsService  {
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
-    query(req: any): Observable<Response> {
-        const params: URLSearchParams = new URLSearchParams();
-        params.set('fromDate', req.fromDate);
-        params.set('toDate', req.toDate);
-        params.set('page', req.page);
-        params.set('size', req.size);
-        params.set('sort', req.sort);
+    query(req: any): Observable<HttpResponse<Audit[]>> {
+        const params: HttpParams = createRequestOption(req);
 
-        const options = {
-            search: params
-        };
+        const requestURL = 'management/audits';
 
-        return this.http.get('management/audits', options);
+        return this.http.get<Audit[]>(requestURL, {
+            params,
+            observe: 'response'
+        });
     }
 }

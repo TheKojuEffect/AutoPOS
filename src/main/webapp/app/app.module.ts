@@ -1,8 +1,15 @@
 import './vendor.ts';
 
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Ng2Webstorage } from 'ngx-webstorage';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Ng2Webstorage, LocalStorageService, SessionStorageService  } from 'ngx-webstorage';
+import { JhiEventManager } from 'ng-jhipster';
+
+import { AuthInterceptor } from './blocks/interceptor/auth.interceptor';
+import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
+import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
+import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
 
 import { SharedModule, UserRouteAccessService } from './shared';
 import { HomeModule } from './home/home.module';
@@ -10,7 +17,6 @@ import { AdminModule } from './admin/admin.module';
 import { AccountModule } from './account/account.module';
 
 import { ActiveMenuDirective, AposMainComponent, ErrorComponent, FooterComponent, LayoutRoutingModule, NavbarComponent, PageRibbonComponent, ProfileService } from './layouts';
-import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { CatalogModule } from './catalog/catalog.module';
 import { AccountingModule } from './accounting/accounting.module';
@@ -24,7 +30,7 @@ import { StockBookModule } from './stockbook';
     imports: [
         BrowserModule,
         LayoutRoutingModule,
-        Ng2Webstorage.forRoot({prefix: 'jhi', separator: '-'}),
+        Ng2Webstorage.forRoot({prefix: 'apos', separator: '-'}),
         SharedModule,
         HomeModule,
         AdminModule,
@@ -47,9 +53,41 @@ import { StockBookModule } from './stockbook';
     ],
     providers: [
         ProfileService,
-        customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService
+        UserRouteAccessService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+            deps: [
+                LocalStorageService,
+                SessionStorageService
+            ]
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthExpiredInterceptor,
+            multi: true,
+            deps: [
+                Injector
+            ]
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorHandlerInterceptor,
+            multi: true,
+            deps: [
+                JhiEventManager
+            ]
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: NotificationInterceptor,
+            multi: true,
+            deps: [
+                Injector
+            ]
+        }
     ],
     bootstrap: [AposMainComponent]
 })

@@ -1,13 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { JhiAlertService, JhiEventManager, JhiPaginationUtil, JhiParseLinks } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { Sale, SaleStatus } from './sale.model';
 import { SaleService } from './sale.service';
 import { ITEMS_PER_PAGE, Principal } from '../shared';
-import { ResponseWrapper } from '../shared/model/response-wrapper.model';
-import { PaginationConfig } from '../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'apos-sale',
@@ -41,10 +40,10 @@ export class SaleComponent implements OnInit, OnDestroy {
                 private eventManager: JhiEventManager) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data['pagingParams'].page;
-            this.previousPage = data['pagingParams'].page;
-            this.reverse = data['pagingParams'].ascending;
-            this.predicate = data['pagingParams'].predicate;
+            this.page = data.pagingParams.page;
+            this.previousPage = data.pagingParams.page;
+            this.reverse = data.pagingParams.ascending;
+            this.predicate = data.pagingParams.predicate;
             this.saleStatus = data['status'];
             this.vat = data['vat'] || false;
         });
@@ -58,8 +57,8 @@ export class SaleComponent implements OnInit, OnDestroy {
             status: this.saleStatus,
             vat: this.vat
         }).subscribe(
-            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: HttpResponse<Sale[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
 
@@ -72,7 +71,7 @@ export class SaleComponent implements OnInit, OnDestroy {
 
     createNewSale(vat) {
         this.saleService.create(vat)
-            .subscribe((sale) => this.router.navigate(['/sale', sale.id]));
+            .subscribe((saleResponse) => this.router.navigate(['/sale', saleResponse.body.id]));
     }
 
     transition() {

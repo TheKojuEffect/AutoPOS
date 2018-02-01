@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { StockBookEntry } from './stock-book-entry.model';
 import { StockBookEntryService } from './stock-book-entry.service';
 
@@ -25,8 +26,9 @@ export class StockBookEntryPopupService {
             }
 
             if (id) {
-                this.stockBookEntryService.find(id).subscribe((stockBookEntry) => {
-                    this.ngbModalRef = this.stockBookEntryModalRef(component, stockBookEntry);
+                this.stockBookEntryService.find(id)
+                    .subscribe((stockBookEntryResponse: HttpResponse<StockBookEntry>) => {
+                    this.ngbModalRef = this.stockBookEntryModalRef(component, stockBookEntryResponse.body);
                     resolve(this.ngbModalRef);
                 });
             } else {

@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { StockBookEntry } from './stock-book-entry.model';
 import { StockBookEntryPopupService } from './stock-book-entry-popup.service';
@@ -25,7 +25,6 @@ export class StockBookEntryDialogComponent implements OnInit {
     noItems = false;
 
     constructor(public activeModal: NgbActiveModal,
-                private jhiAlertService: JhiAlertService,
                 private stockBookEntryService: StockBookEntryService,
                 private itemService: ItemService,
                 private eventManager: JhiEventManager) {
@@ -79,9 +78,9 @@ export class StockBookEntryDialogComponent implements OnInit {
     //     this.stockBookEntry.rate = item.markedPrice;
     // };
 
-    private subscribeToSaveResponse(result: Observable<StockBookEntry>) {
-        result.subscribe((res: StockBookEntry) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<StockBookEntry>>) {
+        result.subscribe((res: HttpResponse<StockBookEntry>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: StockBookEntry) {
@@ -92,10 +91,6 @@ export class StockBookEntryDialogComponent implements OnInit {
 
     private onSaveError() {
         this.isSaving = false;
-    }
-
-    private onError(error: any) {
-        this.jhiAlertService.error(error.message, null, null);
     }
 }
 

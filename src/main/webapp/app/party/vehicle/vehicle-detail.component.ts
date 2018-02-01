@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Vehicle } from './vehicle.model';
@@ -31,8 +32,9 @@ export class VehicleDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.vehicleService.find(id).subscribe((vehicle) => {
-            this.vehicle = vehicle;
+        this.vehicleService.find(id)
+            .subscribe((vehicleResponse: HttpResponse<Vehicle>) => {
+                this.vehicle = vehicleResponse.body;
         });
     }
     previousState() {

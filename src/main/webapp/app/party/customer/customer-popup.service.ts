@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { Customer } from './customer.model';
 import { CustomerService } from './customer.service';
 
@@ -25,7 +26,9 @@ export class CustomerPopupService {
             }
 
             if (id) {
-                this.customerService.find(id).subscribe((customer) => {
+                this.customerService.find(id)
+                    .subscribe((customerResponse: HttpResponse<Customer>) => {
+                        const customer: Customer = customerResponse.body;
                     this.ngbModalRef = this.customerModalRef(component, customer);
                     resolve(this.ngbModalRef);
                 });

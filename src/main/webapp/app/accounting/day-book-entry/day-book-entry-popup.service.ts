@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { DayBookEntry } from './day-book-entry.model';
 import { DayBookEntryService } from './day-book-entry.service';
 
@@ -25,7 +26,9 @@ export class DayBookEntryPopupService {
             }
 
             if (id) {
-                this.dayBookEntryService.find(id).subscribe((dayBookEntry) => {
+                this.dayBookEntryService.find(id)
+                    .subscribe((dayBookEntryResponse: HttpResponse<DayBookEntry>) => {
+                        const dayBookEntry: DayBookEntry = dayBookEntryResponse.body;
                     if (dayBookEntry.date) {
                         dayBookEntry.date = {
                             year: dayBookEntry.date.getFullYear(),

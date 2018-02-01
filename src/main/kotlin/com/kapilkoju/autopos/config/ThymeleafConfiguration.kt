@@ -1,10 +1,10 @@
 package com.kapilkoju.autopos.config
 
-import org.apache.commons.lang3.CharEncoding
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Description
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
+import java.nio.charset.StandardCharsets
 
 @Configuration
 class ThymeleafConfiguration {
@@ -16,7 +16,7 @@ class ThymeleafConfiguration {
         emailTemplateResolver.prefix = "mails/"
         emailTemplateResolver.suffix = ".html"
         emailTemplateResolver.templateMode = "HTML5"
-        emailTemplateResolver.characterEncoding = CharEncoding.UTF_8
+        emailTemplateResolver.characterEncoding = StandardCharsets.UTF_8.name()
         emailTemplateResolver.order = 1
         return emailTemplateResolver
     }

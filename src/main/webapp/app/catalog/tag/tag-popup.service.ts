@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { Tag } from './tag.model';
 import { TagService } from './tag.service';
 
@@ -25,7 +26,9 @@ export class TagPopupService {
             }
 
             if (id) {
-                this.tagService.find(id).subscribe((tag) => {
+                this.tagService.find(id)
+                    .subscribe((tagResponse: HttpResponse<Tag>) => {
+                        const tag: Tag = tagResponse.body;
                     this.ngbModalRef = this.tagModalRef(component, tag);
                     resolve(this.ngbModalRef);
                 });

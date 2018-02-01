@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { Receipt } from './receipt.model';
 import { ReceiptService } from './receipt.service';
 
@@ -25,7 +26,9 @@ export class ReceiptPopupService {
             }
 
             if (id) {
-                this.receiptService.find(id).subscribe((receipt) => {
+                this.receiptService.find(id)
+                    .subscribe((receiptResponse: HttpResponse<Receipt>) => {
+                        const receipt: Receipt = receiptResponse.body;
                     if (receipt.date) {
                         receipt.date = {
                             year: receipt.date.getFullYear(),
@@ -50,10 +53,10 @@ export class ReceiptPopupService {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.receipt = receipt;
         modalRef.result.then((result) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge'});
             this.ngbModalRef = null;
         }, (reason) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;
         });
         return modalRef;

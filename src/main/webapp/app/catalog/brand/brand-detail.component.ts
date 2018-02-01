@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Brand } from './brand.model';
@@ -31,8 +32,9 @@ export class BrandDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.brandService.find(id).subscribe((brand) => {
-            this.brand = brand;
+        this.brandService.find(id)
+            .subscribe((brandResponse: HttpResponse<Brand>) => {
+                this.brand = brandResponse.body;
         });
     }
     previousState() {
