@@ -42,7 +42,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 group = 'com.kapilkoju.autopos'
-version = '18.01.16'
+version = '18.02.03'
 
 description = 'Auto Point of Sale'
 
