@@ -135,4 +135,14 @@
         </sql>
     </changeSet>
 
+    <changeSet id="POS-233" author="kplx2.0@gmail.com" dbms="postgresql">
+        <sql>
+            ALTER TABLE item
+            DROP CONSTRAINT item_marked_price_check;
+
+            ALTER TABLE item
+            ALTER COLUMN marked_price SET DEFAULT 0;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
